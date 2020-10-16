@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PowerBehaviour : MonoBehaviour
+public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
     public int difficultyLevel = 0;
     public Power[] powerHandler = new Power[20];
@@ -55,37 +55,50 @@ public class PowerBehaviour : MonoBehaviour
         }
     }
     //====================================This section is the difficulty controller. This is executed when the player presses what difficulty they wish to run. ==================================
-    void StartGameEasy()
+    //Still requires a trigger to change the scene. Needs to keep this object persistent in the next scene as well.
+    //No scene has been added yet.
+    //These methods are currently public as the UI will need to be able to send these triggers.
+    public void StartGameEasy()
     {
         difficultyLevel = 1;
         StartPower(19); //Start with all available powers.
     }
-    void StartGameNormal()
+    public void StartGameNormal()
     {
         difficultyLevel = 2;
         StartPower(19); //Start with all available powers.
     }
-    void StartGameHard()
+    public void StartGameHard()
     {
         difficultyLevel = 3;
         StartPower(19); //Start with all available powers.
     }
-    void StartGameExpert()
+    public void StartGameExpert()
     {
         difficultyLevel = 4;
         StartPower(14); //Start with 5 less powers.
     }
-    void StartGameSatanic()
+    public void StartGameSatanic()
     {
         difficultyLevel = 5;
         StartPower(14); //Start with 5 less powers.
     }
-    void StartGameTutorial()
+    public void StartGameTutorial()
     {
         difficultyLevel = 6;
+        powerHandler[0].PowerAvailable = true;
         StartPower(20); //Start with all powers. 
     }
-    Power RandomPower()
+    public void EndGameTutorial() //Public to allow UI to trigger this
+    {
+        powerHandler[0].PowerAvailable = false;
+        resetPowers();
+    }
+    public void EndGame() //Public to allow UI to trigger this
+    {
+        resetPowers();
+    }
+    Power RandomPower() //Used for initialising the game, as well as when the game takes powers away from the player.
     {
             System.Random r = new System.Random();
             int powerNumber = r.Next(0, 19); //Within the 20 values.
@@ -93,6 +106,19 @@ public class PowerBehaviour : MonoBehaviour
             return currentPower;
 
     }
+    void resetPowers() //Code to reset powers when the game ends
+    {
+        //Failsafe incase a player somehow manages to trigger EndGame instead of EndGameTutorial within the tutorial.
+        if (powerHandler[0].PowerAvailable == true)
+        {
+            powerHandler[0].PowerAvailable = false;
+        }
+        for (int i = 0; i < powerHandler.Length; i++)
+        {
+            powerHandler[i].PowerActive = false;
+        }
+    }
+
     //=======================================================================Initialise each power====================================================================
     void InitialisePowers() //Fill each value of the powers in code here manually.
     {
@@ -282,6 +308,8 @@ public class PowerBehaviour : MonoBehaviour
         powerHandler[19] = slot20;
 
     }
+
+
 
     public class Power
     {
