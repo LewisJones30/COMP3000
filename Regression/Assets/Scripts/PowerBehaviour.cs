@@ -7,11 +7,13 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
 {
     public int difficultyLevel = 0;
     public Power[] powerHandler = new Power[20];
+    UIController redrawCurrentPowers;
     // Start is called before the first frame update
     void Start()
     {
         InitialisePowers();
-        StartPower(12); 
+        StartPower(12);
+        redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
     }
 
     // Update is called once per frame
@@ -117,6 +119,31 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             powerHandler[i].PowerActive = false;
         }
     }
+
+    void losePowerEasyNormal() //The player is able to choose which power they want to lose.
+    {
+     
+    }
+    //In hard and higher, the game will choose a power to disable immediately for you.
+    int losePowerHard() //Returns which power was drained for use in UI.
+    {
+        bool powerDrained = false;
+        int drainedPowerID = 255; 
+        System.Random r = new System.Random();
+        while (powerDrained == false)
+        {
+            int powerNumber = r.Next(0, 19);
+            if (powerHandler[powerNumber].PowerActive == true)
+            {
+                powerHandler[powerNumber].PowerActive = false; //Disable the power
+                powerDrained = true;
+                drainedPowerID = powerNumber;
+            }
+        }
+        return drainedPowerID;
+        
+    }
+
 
     //=======================================================================Initialise each power====================================================================
     void InitialisePowers() //Fill each value of the powers in code here manually.

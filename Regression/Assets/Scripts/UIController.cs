@@ -67,6 +67,12 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         powerController.StartGameTutorial();
     }
+    //Methods called by PowerBehaviour to draw certain UI elements and redraw others
+
+    public void LostPowerMessage(int PowerDrainedID)
+    {
+
+    }
     //=============================================Methods to control the menus================================================
     void loadSettings() //Triggered when the player clicks settings on the home page
     {
