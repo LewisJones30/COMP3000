@@ -7,14 +7,11 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
 {
     public int difficultyLevel = 0;
     public Power[] powerHandler = new Power[20];
-    public Text modifiersList;
     // Start is called before the first frame update
     void Start()
     {
         InitialisePowers();
-        StartPower(12);
-        ModifierText();
-
+        StartPower(12); 
     }
 
     // Update is called once per frame
@@ -44,15 +41,17 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             }
         }
     }
-    void ModifierText()
+    public string ModifierText()
     {
+        string ModifierText = "";
         for (int i = 0; i < powerHandler.Length; i++)
         {
             if (powerHandler[i].PowerActive == true)
             {
-                modifiersList.text = modifiersList.text + "• " + powerHandler[i].PowerName + "\n";
+                ModifierText = ModifierText + "• " + powerHandler[i].PowerName + "\n";
             }
         }
+        return ModifierText;
     }
     //====================================This section is the difficulty controller. This is executed when the player presses what difficulty they wish to run. ==================================
     //Still requires a trigger to change the scene. Needs to keep this object persistent in the next scene as well.

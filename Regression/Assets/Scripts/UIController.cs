@@ -1,19 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
     public bool isPaused;
     PowerBehaviour powerController;
+    GameObject healthText, powersText;
+    Text health, activepowers;
+    Player player;
     // Start is called before the first frame update
     void Start()
     {
-        powerController = GameObject.Find("PowerController").GetComponent<PowerBehaviour>(); //First, obtain the powerController.
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            //Set GameObjects from game scene.
+            powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+            player = GameObject.Find("Player").GetComponent<Player>();
+            GameObject healthText = GameObject.Find("PlayerHealth");
+            health = healthText.GetComponent<Text>();
+            GameObject powersText = GameObject.Find("ModifiersText");
+            activepowers = powersText.GetComponent<Text>();
+
+            //Modify where needed.
+            activepowers.text = powerController.ModifierText();
+            health.text = getUpdatePlayerHP();
+        }
     }
 
-
+    string getUpdatePlayerHP()
+    {
+        double health = player.health;
+        health = Math.Round(health);
+        string returnValue = "HP: " + Convert.ToString(health);
+        return returnValue;
+    }
 
 
     //Methods to trigger start of the game
@@ -74,13 +98,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     }
 
+    //Methods to get information and update UI
 
 
 
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "MainGame") //Ensure player is in main game when checking for pause
+        if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
@@ -100,6 +125,16 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
 
             }
+            else
+            {
+                health.text = getUpdatePlayerHP(); //Update health every frame.
+            }
+
+
+        }
+        else 
+        { 
+          
         }
     }
 }
