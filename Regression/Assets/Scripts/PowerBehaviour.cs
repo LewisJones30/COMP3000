@@ -125,13 +125,19 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
      
     }
     //In hard and higher, the game will choose a power to disable immediately for you.
-    int losePowerHard() //Returns which power was drained for use in UI.
+    public void losePowerHard() //Returns which power was drained for use in UI.
     {
         bool powerDrained = false;
-        int drainedPowerID = 255; 
+        int drainedPowerID = 255;
+        int cycledAttempts = 0;
         System.Random r = new System.Random();
         while (powerDrained == false)
         {
+            if (cycledAttempts > 1000)
+            {
+                Debug.Log("ERROR: NO POWERS LEFT TO DRAIN.");
+                break;
+            }
             int powerNumber = r.Next(0, 19);
             if (powerHandler[powerNumber].PowerActive == true)
             {
@@ -139,8 +145,9 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
                 powerDrained = true;
                 drainedPowerID = powerNumber;
             }
+            cycledAttempts = cycledAttempts + 1;
         }
-        return drainedPowerID;
+        redrawCurrentPowers.LostPowerMessage(drainedPowerID);
         
     }
 

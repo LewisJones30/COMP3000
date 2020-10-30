@@ -30,11 +30,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPausedCheck == true)
+        if (isPausedCheck.isPaused == true)
         {
             //Code to pause the entire game.
         }    
-        if (powerController.powerHandler[3].PowerActive == true) //Starts time from when the player recieves the power.
+        else if (powerController.powerHandler[3].PowerActive == true) //Starts time from when the player recieves the power.
         {
             time = time + Time.deltaTime;
             if (time >= 1)

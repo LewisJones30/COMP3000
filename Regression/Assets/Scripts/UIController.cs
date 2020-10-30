@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,9 +10,10 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
     public bool isPaused;
+    bool buttonpressed = false;
     PowerBehaviour powerController;
-    GameObject healthText, powersText;
-    Text health, activepowers;
+    GameObject healthText, powersText, PowerDrainedMessage, UIPause;
+    Text health, activepowers, powerdrainedtext, UIPauseText;
     Player player;
     // Start is called before the first frame update
     void Start()
@@ -24,10 +27,16 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             health = healthText.GetComponent<Text>();
             GameObject powersText = GameObject.Find("ModifiersText");
             activepowers = powersText.GetComponent<Text>();
-
+            GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
+            powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
+            powerdrainedtext.enabled = false;
             //Modify where needed.
             activepowers.text = powerController.ModifierText();
             health.text = getUpdatePlayerHP();
+            UIPause = GameObject.Find("UIPauseText");
+            UIPauseText = UIPause.GetComponent<Text>();
+            UIPauseText.enabled = false;
+
         }
     }
 
@@ -71,7 +80,16 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     public void LostPowerMessage(int PowerDrainedID)
     {
+        StartCoroutine("ShowMessage", PowerDrainedID);
 
+    }
+    IEnumerator ShowMessage(int PowerDrainedID)
+    {
+        powerdrainedtext.enabled = true;
+        powerdrainedtext.text = "As the wave ends, you feel " + powerController.powerHandler[PowerDrainedID].PowerName + " fade away...";
+        activepowers.text = powerController.ModifierText();
+        yield return new WaitForSeconds(4);
+        powerdrainedtext.enabled = false;
     }
     //=============================================Methods to control the menus================================================
     void loadSettings() //Triggered when the player clicks settings on the home page
@@ -113,34 +131,45 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
+            //Check if game is paused.
+
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
                 if (isPaused == false)
                 {
                     Debug.Log("Escape pressed, game paused!");
                     //Code here to trigger UI
+                    UIPauseText.enabled = true;
                     isPaused = true;
                     return;
                 }
-                else if (isPaused == true)
+                else
                 {
-                    Debug.Log("Escape pressed, game resumed!");
-                    //Code here to hide UI again
-                    isPaused = false;
-                    return;
+                    Debug.Log("Player quit game!"); 
+                    Application.Quit();
                 }
-
+            }
+            if (isPaused == true && Input.anyKeyDown == true)
+            {
+                isPaused = false;
+                UIPauseText.enabled = false;
             }
             else
             {
-                health.text = getUpdatePlayerHP(); //Update health every frame.
+                
+                if (Input.GetKeyDown(KeyCode.R) == true && buttonpressed == false)
+                {
+                    powerController.losePowerHard(); //Testing.
+                    buttonpressed = true;
+                }
+                else
+                {
+                    buttonpressed = false;
+                }
             }
+            health.text = getUpdatePlayerHP(); //Update health every frame.
+        }
 
 
-        }
-        else 
-        { 
-          
-        }
     }
 }

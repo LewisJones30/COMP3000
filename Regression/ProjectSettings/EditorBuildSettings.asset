@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UI Scale Testing.unity
     guid: f89624d7c63449741a6c1cf85ac72818
   - enabled: 1
