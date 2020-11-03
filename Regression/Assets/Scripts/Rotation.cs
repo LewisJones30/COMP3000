@@ -19,9 +19,9 @@ public class Rotation : MonoBehaviour
         //transform.Rotate(Vector3.right * Time.deltaTime * Input.GetAxis("Mouse Y") * speed);
         //transform.Rotate(Vector3.up * Time.deltaTime * Input.GetAxis("Mouse X") * speed);
         if (Input.GetAxis("Mouse X") < 0)
-            transform.Rotate((Vector3.up) * speed);
-        if (Input.GetAxis("Mouse X") > 0)
             transform.Rotate((Vector3.up) * -speed);
+        if (Input.GetAxis("Mouse X") > 0)
+            transform.Rotate((Vector3.up) * speed);
         //if (Input.GetAxis("Mouse Y") < 0)
         //    transform.Rotate((Vector3.right) * speed);
         //if (Input.GetAxis("Mouse Y") > 0)

@@ -2,8 +2,10 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - DontDestroyOnLoad
+    - MovementScript
     - Player
     - PowerBehaviour
+    - Rotation
     - UIController
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -78,25 +80,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12810}
     - Class: 114
-      Script: {instanceID: 13112}
+      Script: {instanceID: 12850}
     - Class: 114
-      Script: {instanceID: 13786}
+      Script: {instanceID: 12874}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 13116}
     - Class: 114
-      Script: {instanceID: 14056}
+      Script: {instanceID: 13790}
     - Class: 114
-      Script: {instanceID: 14086}
+      Script: {instanceID: 13926}
     - Class: 114
-      Script: {instanceID: 14098}
+      Script: {instanceID: 14060}
     - Class: 114
-      Script: {instanceID: 14238}
+      Script: {instanceID: 14090}
     - Class: 114
-      Script: {instanceID: 14268}
+      Script: {instanceID: 14102}
     - Class: 114
-      Script: {instanceID: 14328}
+      Script: {instanceID: 14242}
     - Class: 114
-      Script: {instanceID: 14570}
+      Script: {instanceID: 14272}
+    - Class: 114
+      Script: {instanceID: 14332}
+    - Class: 114
+      Script: {instanceID: 14574}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -384,6 +390,18 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DontDestroyOnLoad
+  - hash:
+      serializedVersion: 2
+      Hash: fcb971cf59f60d39a7bb71c1eec1b7d0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MovementScript
+  - hash:
+      serializedVersion: 2
+      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Rotation
   - hash:
       serializedVersion: 2
       Hash: 922b5b69af5d49efaf83b8e48f46df13
@@ -795,4 +813,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/Game.unity
-  playerPath: S:/University/Test Builds/Pause Test Build/Regression.exe
+  playerPath: S:/University/Test Builds/Movement Build/Regression.exe

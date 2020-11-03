@@ -132,14 +132,20 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     //Methods to get information and update UI
 
+    private void FixedUpdate()
+    {
+        if (isPaused == false)
+        {
+            UIPauseText.enabled = false;
+        }
 
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
-            //Check if game is paused.
 
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
@@ -153,11 +159,12 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
                 else
                 {
+#if UNITY_EDITOR
                     if (EditorApplication.isPlaying) //Stop the game running in the Unity Editor, testing purposes.
                     {
                         //SceneManager.LoadScene("TestScene"); This will be main menu once it has been coded.
                         Debug.Log("Player quit game!");
-                        UnityEditor.EditorApplication.isPlaying = false;
+                        EditorApplication.isPlaying = false;
                     }
                     else
                     {
@@ -165,7 +172,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                         Debug.Log("Player quit game!");
                         Application.Quit();
                     }
-
+#endif
                     //Application.Quit();
                 }
             }

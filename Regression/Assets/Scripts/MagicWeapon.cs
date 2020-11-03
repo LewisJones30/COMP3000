@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject.Asteroids;
 
 public class MagicWeapon : MonoBehaviour
 {
     double shootingCooldown = 1.5f;
     UIController isPauseCheck; //Check if paused.
+    [SerializeField]
+    GameObject projectile;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,9 @@ public class MagicWeapon : MonoBehaviour
                     }
                     else
                     {
+                        GameObject projectileShot;
+                        projectileShot = Instantiate(projectile, transform.position, transform.rotation);
+                        projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
                         //Shoot magic blast projectile.
                     }
                 }
