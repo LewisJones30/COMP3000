@@ -78,23 +78,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12810}
     - Class: 114
-      Script: {instanceID: 13110}
+      Script: {instanceID: 13112}
     - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13786}
     - Class: 114
-      Script: {instanceID: 13920}
+      Script: {instanceID: 13922}
     - Class: 114
-      Script: {instanceID: 14054}
+      Script: {instanceID: 14056}
     - Class: 114
-      Script: {instanceID: 14084}
+      Script: {instanceID: 14086}
     - Class: 114
-      Script: {instanceID: 14096}
+      Script: {instanceID: 14098}
     - Class: 114
-      Script: {instanceID: 14236}
+      Script: {instanceID: 14238}
     - Class: 114
-      Script: {instanceID: 14266}
+      Script: {instanceID: 14268}
     - Class: 114
-      Script: {instanceID: 14326}
+      Script: {instanceID: 14328}
     - Class: 114
       Script: {instanceID: 14570}
     - Class: 115
@@ -384,6 +384,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DontDestroyOnLoad
+  - hash:
+      serializedVersion: 2
+      Hash: 922b5b69af5d49efaf83b8e48f46df13
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Movement
   - hash:
       serializedVersion: 2
       Hash: 040dd48e3a027d5424519a5fa2009df4
@@ -786,12 +792,6 @@ ScriptsOnlyBuild:
     assemblyName: Zenject.dll
     namespaceName: Zenject
     className: ZenjectBinding
-  - hash:
-      serializedVersion: 2
-      Hash: 922b5b69af5d49efaf83b8e48f46df13
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Movement
   platform: 5
   scenePathNames:
   - Assets/Scenes/Game.unity

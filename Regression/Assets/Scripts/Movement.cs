@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-
+            
         }
         if (Input.GetKey(KeyCode.A))
         {

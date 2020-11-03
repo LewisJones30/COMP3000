@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
-    public bool isPaused;
+    public bool isPaused = false;
     bool buttonpressed = false;
     PowerBehaviour powerController;
     GameObject healthText, powersText, PowerDrainedMessage, UIPause;
@@ -86,6 +86,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     IEnumerator ShowMessage(int PowerDrainedID)
     {
         powerdrainedtext.enabled = true;
+        if (PowerDrainedID == 3)
+        {
+            powerdrainedtext.fontSize = 55;
+        }
+        else
+        {
+            powerdrainedtext.fontSize = 70;
+        }
         powerdrainedtext.text = "As the wave ends, you feel " + powerController.powerHandler[PowerDrainedID].PowerName + " fade away...";
         activepowers.text = powerController.ModifierText();
         yield return new WaitForSeconds(4);
@@ -145,8 +153,20 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
                 else
                 {
-                    Debug.Log("Player quit game!"); 
-                    Application.Quit();
+                    if (EditorApplication.isPlaying) //Stop the game running in the Unity Editor, testing purposes.
+                    {
+                        //SceneManager.LoadScene("TestScene"); This will be main menu once it has been coded.
+                        Debug.Log("Player quit game!");
+                        UnityEditor.EditorApplication.isPlaying = false;
+                    }
+                    else
+                    {
+                        //SceneManager.LoadScene("TestScene"); //This will be main menu once it has been coded.
+                        Debug.Log("Player quit game!");
+                        Application.Quit();
+                    }
+
+                    //Application.Quit();
                 }
             }
             if (isPaused == true && Input.anyKeyDown == true)
