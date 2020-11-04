@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     double maximumHealth = 100; //Base maximum hp.
     bool isDead = false; //Player starts alive.
-    double weaponPower = 1.0f; //Base weapon power, modified by difficulty.
+    public double weaponPower = 1.0f; //Base weapon power, modified by difficulty.
     double baseWeaponPower = 1.0f; //Used for power 5.
     bool tutorialActive = false; //Means player cannot die.
     float damageTaken = 1.0f; //Player takes 1x damage. Modified by difficulty.

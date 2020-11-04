@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Handlers
+  - ProjectileEnemy
+  - SwordEnemy
+  - Weapon
   layers:
   - Default
   - TransparentFX
