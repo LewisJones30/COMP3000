@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
     //Damage/healing effects
 
-    void takeDamage(double damageDealt)
+    public void takeDamage(double damageDealt)
     {
         health = health - (damageTaken * damageDealt); //Take away health based on the damage dealt. Iron maiden ability reduces this by 50%. Difficulties may also change this.
         if (health < 1)

@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     GameObject player;
     [SerializeField]
     double damagePower = 5f;
+    [SerializeField]
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy")
-            {
+            { 
                 double damageCalc;
                 Player player = GameObject.Find("Player").GetComponent<Player>();
                 Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
@@ -35,6 +36,11 @@ public class Projectile : MonoBehaviour
                 hit.collider.gameObject.GetComponent<Enemy>().takeDamage(damageCalc);
                 Destroy(this.gameObject);
                 
+            }
+            else if (hit.collider.gameObject.name == "Player")
+            {
+                Player player = hit.collider.gameObject.GetComponent<Player>();
+                player.takeDamage(damagePower);
             }
         }
     }
