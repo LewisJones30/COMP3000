@@ -12,14 +12,16 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public bool isPaused = false;
     bool buttonpressed = false;
     PowerBehaviour powerController;
-    GameObject healthText, powersText, PowerDrainedMessage, UIPause;
+    public GameObject powerdrainedMessage, activePowers, healthObj, UIPause;
     Text health, activepowers, powerdrainedtext, UIPauseText;
     Player player;
     // Start is called before the first frame update
     void Start()
     {
+        powerController = GameObject.FindGameObjectWithTag("PowerHandler").GetComponent<PowerBehaviour>();
         if (SceneManager.GetActiveScene().name == "Game")
         {
+
             //Set GameObjects from game scene.
             powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
             player = GameObject.Find("Player").GetComponent<Player>();
@@ -37,6 +39,25 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             UIPauseText = UIPause.GetComponent<Text>();
             UIPauseText.enabled = false;
 
+            //UIPauseText = UIPause.GetComponent<Text>();
+            //UIPauseText.text = "This is the game scene!";
+            //activepowers = activePowers.GetComponent<Text>();
+            //activepowers.text = powerController.ModifierText();
+
+            ////UIPauseText.enabled = false;
+
+            ////Set GameObjects from game scene.
+
+            //player = GameObject.Find("Player").GetComponent<Player>();
+            //health = healthObj.GetComponent<Text>();
+
+            //powerdrainedtext = powerdrainedMessage.GetComponent<Text>();
+            //powerdrainedtext.enabled = false;
+            ////Modify where needed.
+            ////activepowers.text = powerController.ModifierText();
+            //health.text = getUpdatePlayerHP();
+
+
         }
     }
 
@@ -50,25 +71,25 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
     //Methods to trigger start of the game
-    void startGameEasy()
+    public void startGameEasy()
     {
         powerController.StartGameEasy();
         
     }
-    void startGameMedium()
+    public void startGameMedium()
     {
         powerController.StartGameNormal();
     }
-    void startGameHard()
+    public void startGameHard()
     {
         powerController.StartGameHard();
     }
-    void startGameExpert()
+    public void startGameExpert()
     {
         powerController.StartGameExpert();
     }
     //Satanic difficulty is currently planned as an MAP and may not be added. The trigger will be added, however.
-    void startGameSatanic()
+    public void startGameSatanic()
     {
         powerController.StartGameSatanic();
     }
@@ -173,7 +194,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                         Application.Quit();
                     }
 #endif
-                    //Application.Quit();
+                    Application.Quit();
                 }
             }
             if (isPaused == true && Input.anyKeyDown == true)

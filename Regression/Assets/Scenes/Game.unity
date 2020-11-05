@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 213253552}
   m_Layer: 0
   m_Name: WaveHandler
-  m_TagString: Untagged
+  m_TagString: WaveHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -581,6 +581,30 @@ PrefabInstance:
     - target: {fileID: 7075135362352907688, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888746551809037512, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
+      propertyPath: powerdrainedMessage
+      value: 
+      objectReference: {fileID: 1676803438}
+    - target: {fileID: 7888746551809037512, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
+      propertyPath: activePowers
+      value: 
+      objectReference: {fileID: 593730163}
+    - target: {fileID: 7888746551809037512, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
+      propertyPath: healthObj
+      value: 
+      objectReference: {fileID: 423908500}
+    - target: {fileID: 7888746551809037512, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
+      propertyPath: UIPause
+      value: 
+      objectReference: {fileID: 1882630421}
+    - target: {fileID: 7888746551809037514, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
+      propertyPath: m_TagString
+      value: UIHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888746551985291571, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
+      propertyPath: m_TagString
+      value: PowerHandler
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}

@@ -20,6 +20,10 @@ public class SceneMove : MonoBehaviour
     //For testing purposes, load the game scene, powermodifiers NOT updated.
     public void startGameTest()
     {
+
+        SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
+        Scene game = SceneManager.GetSceneByName("Game");
+        SceneManager.MoveGameObjectToScene(GameObject.FindGameObjectWithTag("Handlers"), game);
         SceneManager.LoadScene("Game");
     }
 }

@@ -6,8 +6,8 @@ public class Progression : MonoBehaviour
 {
     // Start is called before the first frame update
     float currentWave, maximumWave; //Know the current wave and the maximum wave.
-
-    public GameObject enemySpawner;
+    public float points; //This is an important modifier
+    public GameObject enemySpawner; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.
@@ -24,7 +24,7 @@ public class Progression : MonoBehaviour
     public GameObject[] wave4Enemies = new GameObject[5];
     public GameObject[] wave5Enemies = new GameObject[5];
 
-    //Measuring progression of the wave. Callable by enemy before the enemy is destroyed.
+    //Measuring progression of the wave. Callable by enemy before the enemy is destroyed, as well as UI.
     public float currentProgressionPercentage()
     {
         float progress = 100f;
@@ -130,14 +130,25 @@ public class Progression : MonoBehaviour
         switch (currentWave)
         {
             case 1:
+                GameObject spawn = wave1Enemies[EnemyArraySlotID];
+                Instantiate(spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
                 break;
-            case 2: 
+
+            case 2:
+                GameObject spawn2 = wave1Enemies[EnemyArraySlotID];
+                Instantiate(spawn2, enemySpawner.transform.position, enemySpawner.transform.rotation);
                 break;
-            case 3: 
+            case 3:
+                GameObject spawn3 = wave1Enemies[EnemyArraySlotID];
+                Instantiate(spawn3, enemySpawner.transform.position, enemySpawner.transform.rotation);
                 break;
-            case 4: 
+            case 4:
+                GameObject spawn4 = wave1Enemies[EnemyArraySlotID];
+                Instantiate(spawn4, enemySpawner.transform.position, enemySpawner.transform.rotation);
                 break;
             case 5:
+                GameObject spawn5 = wave1Enemies[EnemyArraySlotID];
+                Instantiate(spawn5, enemySpawner.transform.position, enemySpawner.transform.rotation);
                 break;
         }
     }

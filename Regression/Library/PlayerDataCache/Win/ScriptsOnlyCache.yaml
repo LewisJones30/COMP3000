@@ -2,10 +2,15 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - DontDestroyOnLoad
+    - Enemy
+    - MagicWeapon
     - MovementScript
     - Player
     - PowerBehaviour
+    - Projectile
+    - ProjectileMoveScript
     - Rotation
+    - SceneMove
     - UIController
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -20,8 +25,12 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Image
     - UnityEngine.UI.Text
     Zenject.dll:
     - Zenject.Asteroids.Asteroid
@@ -59,50 +68,141 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 83
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 96
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11718}
+      Script: {instanceID: 11742}
     - Class: 114
-      Script: {instanceID: 11750}
+      Script: {instanceID: 11776}
     - Class: 114
-      Script: {instanceID: 11880}
+      Script: {instanceID: 11810}
     - Class: 114
-      Script: {instanceID: 12008}
+      Script: {instanceID: 12114}
     - Class: 114
-      Script: {instanceID: 12082}
+      Script: {instanceID: 12480}
     - Class: 114
-      Script: {instanceID: 12810}
+      Script: {instanceID: 12844}
     - Class: 114
-      Script: {instanceID: 12850}
+      Script: {instanceID: 12884}
     - Class: 114
-      Script: {instanceID: 12874}
+      Script: {instanceID: 12908}
     - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 13964}
     - Class: 114
-      Script: {instanceID: 13790}
-    - Class: 114
-      Script: {instanceID: 13926}
-    - Class: 114
-      Script: {instanceID: 14060}
-    - Class: 114
-      Script: {instanceID: 14090}
+      Script: {instanceID: 14018}
     - Class: 114
       Script: {instanceID: 14102}
     - Class: 114
-      Script: {instanceID: 14242}
+      Script: {instanceID: 14314}
     - Class: 114
-      Script: {instanceID: 14272}
+      Script: {instanceID: 14550}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/UI Scale Testing.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 45
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 14332}
+      Script: {instanceID: 11742}
     - Class: 114
-      Script: {instanceID: 14574}
+      Script: {instanceID: 11776}
+    - Class: 114
+      Script: {instanceID: 11910}
+    - Class: 114
+      Script: {instanceID: 12038}
+    - Class: 114
+      Script: {instanceID: 12080}
+    - Class: 114
+      Script: {instanceID: 12114}
+    - Class: 114
+      Script: {instanceID: 12642}
+    - Class: 114
+      Script: {instanceID: 13152}
+    - Class: 114
+      Script: {instanceID: 13284}
+    - Class: 114
+      Script: {instanceID: 13418}
+    - Class: 114
+      Script: {instanceID: 13828}
+    - Class: 114
+      Script: {instanceID: 13964}
+    - Class: 114
+      Script: {instanceID: 14132}
+    - Class: 114
+      Script: {instanceID: 14144}
+    - Class: 114
+      Script: {instanceID: 14284}
+    - Class: 114
+      Script: {instanceID: 14314}
+    - Class: 114
+      Script: {instanceID: 14376}
+    - Class: 114
+      Script: {instanceID: 14504}
+    - Class: 114
+      Script: {instanceID: 14620}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -118,6 +218,8 @@ ScriptsOnlyBuild:
     - Class: 198
       Script: {instanceID: 0}
     - Class: 199
+      Script: {instanceID: 0}
+    - Class: 213
       Script: {instanceID: 0}
     - Class: 222
       Script: {instanceID: 0}
@@ -150,6 +252,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SelectionCaret
+  - hash:
+      serializedVersion: 2
+      Hash: 2b9b1fa7929ba0ef879ad135a3d42255
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Enemy
+  - hash:
+      serializedVersion: 2
+      Hash: bc7a58a7d81d491f0416242f118c2371
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Progression
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -254,7 +368,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: a9cec5743ae0885b5f1073d528a7e589
+      Hash: be8c1902cbd2a43f919ddca2deb6d714
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -332,6 +446,12 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: f47b09081b6bca81c8608bafaf07958d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Projectile
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -386,7 +506,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: dd0536763d2a3ef6b0cd47d16796668a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DontDestroyOnLoad
@@ -420,6 +540,12 @@ ScriptsOnlyBuild:
     assemblyName: Zenject.dll
     namespaceName: Zenject.Asteroids
     className: GuiHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 2b126c63d5afeb8b54e3075c01483de1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: GAP_ParticleSystemController
+    className: ParticleSystemController
   - hash:
       serializedVersion: 2
       Hash: bdcadd17a444a5a9b63a624792e3b779
@@ -530,6 +656,12 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: GAP_ParticleSystemController
+    className: ParticleSystemControllerEditor
+  - hash:
+      serializedVersion: 2
       Hash: f7bb6096199e0cf058d5d69878184cf4
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -632,13 +764,25 @@ ScriptsOnlyBuild:
     className: GuiRenderer
   - hash:
       serializedVersion: 2
+      Hash: 3e6eff012fa625851cc22f6df12b2a70
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ProjectileMoveScript
+  - hash:
+      serializedVersion: 2
+      Hash: ef56dc95eefdc7211d23decc4debb782
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SpawnProjectilesScript
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Zenject.dll
     namespaceName: Zenject.SpaceFighter
     className: PlayerFacade
   - hash:
       serializedVersion: 2
-      Hash: 386cfdfc6842b8eabf21c55d5e202c59
+      Hash: 09aa0814c62a763c5648cc1a9d9266c3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -684,6 +828,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PowerBehaviour
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraShakeSimpleScript
   - hash:
       serializedVersion: 2
       Hash: a2612813f45d0ced02c3e4bc9dbea8b4
@@ -788,7 +938,7 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 152538b8026845c9c446c16cecdde311
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MagicWeapon
@@ -798,6 +948,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ToggleGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 48da2a531bca506cca056c15c56bbe7a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RotateToMouseScript
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -812,5 +968,6 @@ ScriptsOnlyBuild:
     className: ZenjectBinding
   platform: 5
   scenePathNames:
+  - Assets/Scenes/UI Scale Testing.unity
   - Assets/Scenes/Game.unity
-  playerPath: S:/University/Test Builds/Movement Build/Regression.exe
+  playerPath: S:/University/Test Builds/Bug Fix Build/Regression.exe

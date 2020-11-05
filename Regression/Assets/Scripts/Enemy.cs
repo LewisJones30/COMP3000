@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             //Grant points
+
             Destroy(this.gameObject); //Kill enemy
         }
     }

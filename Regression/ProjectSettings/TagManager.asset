@@ -8,6 +8,9 @@ TagManager:
   - ProjectileEnemy
   - SwordEnemy
   - Weapon
+  - UIHandler
+  - PowerHandler
+  - WaveHandler
   layers:
   - Default
   - TransparentFX
