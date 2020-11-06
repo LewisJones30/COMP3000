@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 678, y: 492}
   m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 110
+  controlID: 115
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 21
+  controlID: 88
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 22
+  controlID: 89
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -402,7 +402,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 4efbffff60fbffff703a0000
+      m_ExpandedIDs: 2af3ffff06faffff08faffff60fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -462,9 +462,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.9431579, y: 1.7596815, z: 2.246894}
+    m_Target: {x: 533.2734, y: 289.03668, z: 745.51294}
     speed: 2
-    m_Value: {x: -1.9431579, y: 1.7596815, z: 2.246894}
+    m_Value: {x: 533.2734, y: 289.03668, z: 745.51294}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -511,13 +511,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.06663423, y: 0.9297808, z: -0.21018681, w: -0.29497653}
+    m_Target: {x: -0.012309864, y: 0.00059584895, z: -0.00004449269, w: -0.9999859}
     speed: 2
-    m_Value: {x: -0.06663016, y: 0.92972404, z: -0.21017398, w: -0.29495853}
+    m_Value: {x: -0.012309104, y: 0.00059581216, z: -0.000044489945, w: -0.9999241}
   m_Size:
-    m_Target: 3.7246268
+    m_Target: 691.4591
     speed: 2
-    m_Value: 3.7246268
+    m_Value: 691.4591
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -692,20 +692,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs
     m_Globs: []
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: S:\Final Year Project\COMP3000\Regression
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 327}
-    m_SelectedIDs: 703c0000
-    m_LastClickedID: 15472
+    m_SelectedIDs: 643c0000
+    m_LastClickedID: 15460
     m_ExpandedIDs: 000000002a3c00002c3c00002e3c0000303c0000323c0000343c0000363c0000383c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0

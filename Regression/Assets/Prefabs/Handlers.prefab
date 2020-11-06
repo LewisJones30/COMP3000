@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b554f9d5117eba745a2d80e63bd26daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allObjs: []
 --- !u!1 &7888746551809037514
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPaused: 0
+  powerdrainedMessage: {fileID: 0}
+  activePowers: {fileID: 0}
+  healthObj: {fileID: 0}
+  UIPause: {fileID: 0}
 --- !u!1 &7888746551985291571
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,4 +143,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyLevel: 0
-  modifiersList: {fileID: 0}

@@ -1,30 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Progression : MonoBehaviour
 {
-    // Start is called before the first frame update
-    float currentWave, maximumWave; //Know the current wave and the maximum wave.
+    //Public variables
     public float points; //This is an important modifier
-    public GameObject enemySpawner; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
+    public GameObject[] enemySpawners; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
+    public float[] EnemySpawnTime;
+
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.
      * Wave breakdowns:
-     * Wave 1 - 
-     * Wave 2 - 
+     * Wave 1 (Prototype) - 5 punishing enemies. The player will have all their powers at this point.
+     * Wave 2 (Prototype) - 3 punishing enemies. The player will have no powers at this point. 
      * Wave 3 - 
      * Wave 4 - 
      * Wave 5 - 
      */
+
+    //Arrays for Wave 1 to 5.
     public GameObject[] wave1Enemies = new GameObject[5];
     public GameObject[] wave2Enemies = new GameObject[5];
     public GameObject[] wave3Enemies = new GameObject[5];
     public GameObject[] wave4Enemies = new GameObject[5];
     public GameObject[] wave5Enemies = new GameObject[5];
 
+
+    private float currentWave, maximumWave; //Know the current wave and the maximum wave.
     //Measuring progression of the wave. Callable by enemy before the enemy is destroyed, as well as UI.
+
     public float currentProgressionPercentage()
     {
         float progress = 100f;
@@ -96,6 +103,9 @@ public class Progression : MonoBehaviour
     void Spawn()
     {
         System.Random r = new System.Random();
+        GameObject enemySpawner;
+        System.Random ra = new System.Random();
+        enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)];
         int waveLength = 0;
         switch (currentWave) 
         {
@@ -127,6 +137,10 @@ public class Progression : MonoBehaviour
     }
     void ForceSpawn(int EnemyArraySlotID) //If a certain enemy must be spawned. For example, the 5th enemy could be 100% chance of being a powerful enemy.
     {
+        //Choose a random spawner.
+        GameObject enemySpawner;
+        System.Random ra = new System.Random();
+        enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)];
         switch (currentWave)
         {
             case 1:
@@ -164,8 +178,21 @@ public class Progression : MonoBehaviour
         }
 
     }
-
-    // Update is called once per frame
+    
+    private void spawnController()
+    {
+        switch (currentWave)
+        {
+            case 1:
+                EnemySpawnTime[0] = EnemySpawnTime[0] - Time.deltaTime;
+                if (EnemySpawnTime[0] <= 0)
+                {
+                    Spawn();
+                    break;
+                }
+                break;
+        }
+    }
     void Update()
     {
         
