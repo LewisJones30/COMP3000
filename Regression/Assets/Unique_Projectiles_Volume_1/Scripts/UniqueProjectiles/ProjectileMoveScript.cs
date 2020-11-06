@@ -6,6 +6,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 	public float speed;
 	[Tooltip("From 0% to 100%")]
+
 	public float accuracy;
 	public float fireRate;
 	public GameObject muzzlePrefab;
@@ -14,12 +15,15 @@ public class ProjectileMoveScript : MonoBehaviour {
 	public AudioClip hitSFX;
 	public List<GameObject> trails;
 
+	private float speedDup;
 	private float speedRandomness;
 	private Vector3 offset;
 	private bool collided;
 	private Rigidbody rb;
-
-	void Start () {	
+	private UIController isPauseCheck;
+	void Start () {
+		speedDup = speed;
+		isPauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
 		rb = GetComponent <Rigidbody> ();
 
 		//used to create a radius for the accuracy and have a very unique randomness
@@ -61,8 +65,18 @@ public class ProjectileMoveScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {	
-		if (speed != 0 && rb != null)
-			rb.position += (transform.forward + offset)  * (speed * Time.deltaTime);
+
+		if (isPauseCheck.isPaused == true)
+        {
+			speed = 0;
+        }
+		if (isPauseCheck.isPaused == false)
+        {
+			speed = speedDup;
+			if (speed != 0 && rb != null)
+				rb.position += (transform.forward + offset) * (speed * Time.deltaTime);
+		}
+
 	}
 
 	void OnCollisionEnter (Collision co) {

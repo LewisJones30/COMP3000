@@ -5,13 +5,16 @@ using Zenject.Asteroids;
 
 public class MagicWeapon : MonoBehaviour
 {
+    [SerializeField]
     double shootingCooldown = 1.5f;
     UIController isPauseCheck; //Check if paused.
     [SerializeField]
     GameObject projectile;
+    private double dupeCD; //Original cooldown, so shooting cooldown can return to that value.
     // Start is called before the first frame update
     void Start()
     {
+        dupeCD = shootingCooldown;
         isPauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         //Obtain any powers that modify.
 
@@ -38,6 +41,7 @@ public class MagicWeapon : MonoBehaviour
                         GameObject projectileShot;
                         projectileShot = Instantiate(projectile, transform.position, transform.rotation);
                         projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
+                        shootingCooldown = dupeCD;
                         //Shoot magic blast projectile.
                     }
                 }
@@ -45,7 +49,7 @@ public class MagicWeapon : MonoBehaviour
         }
         else //Game paused.
         {
-
+            
         }
     }
 }

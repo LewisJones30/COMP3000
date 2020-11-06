@@ -11,8 +11,10 @@ public class EnemyAttack : MonoBehaviour
     double attackSpeed = 5f;
     double storedAS;
     GameObject enemyParent;
+    UIController ispauseCheck;
     void Start()
     {
+        ispauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         storedAS = attackSpeed;
         enemyParent = this.transform.parent.gameObject;
     }
@@ -21,23 +23,27 @@ public class EnemyAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        attackSpeed = attackSpeed - Time.deltaTime;
-        if (attackSpeed <= 0)
+        if (ispauseCheck.isPaused == false)
         {
-            //Attack player
-            if (this.tag == "ProjectileEnemy")
+            attackSpeed = attackSpeed - Time.deltaTime;
+            if (attackSpeed <= 0)
             {
-                GameObject projectileShot;
-                projectileShot = Instantiate(projectile, transform.position, transform.rotation);
-                projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
-                projectileShot.transform.rotation = enemyParent.transform.rotation;
-                attackSpeed = storedAS;
-            }
-            else if (this.tag == "SwordEnemy")
-            {
+                //Attack player
+                if (this.tag == "ProjectileEnemy")
+                {
+                    GameObject projectileShot;
+                    projectileShot = Instantiate(projectile, transform.position, transform.rotation);
+                    projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
+                    projectileShot.transform.rotation = enemyParent.transform.rotation;
+                    attackSpeed = storedAS;
+                }
+                else if (this.tag == "SwordEnemy")
+                {
 
-                attackSpeed = storedAS;
+                    attackSpeed = storedAS;
+                }
             }
         }
+        
     }
 }
