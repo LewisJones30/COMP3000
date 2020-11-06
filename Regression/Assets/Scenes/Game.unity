@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 1336672295}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: SwordEnemy
+  m_TagString: ProjectileEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -854,7 +854,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.13, y: 1.28, z: 16.02}
   m_LocalScale: {x: 3.9948, y: 2.4196, z: 4.1086}
-  m_Children: []
+  m_Children:
+  - {fileID: 1559806078}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -891,7 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   ExpertOnlyDamageReduction: 1
-  enemyProjectile: {fileID: 0}
+  enemyProjectile: {fileID: 1707102027251842, guid: dfb85277a4a133d45bc2d5f31d82309c, type: 3}
   attackSpeed: 5
   pointsWhenKilled: 100
   aggressionRange: 0
@@ -1034,6 +1035,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
+--- !u!1 &1559806077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559806078}
+  - component: {fileID: 1559806079}
+  m_Layer: 0
+  m_Name: Shoot
+  m_TagString: ProjectileEnemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1559806078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559806077}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1336672294}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1559806079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559806077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb538632fd2ead4693247757490397a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
+  attackSpeed: 5
 --- !u!4 &1572590371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 460360, guid: cbea85a4a35c4054289154c8f244a8b8, type: 3}

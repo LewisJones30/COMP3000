@@ -33,21 +33,7 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        attackSpeed = attackSpeed - Time.deltaTime;
-        if (attackSpeed <= 0)
-        {
-            //Attack player
-            if (this.tag == "ProjectileEnemy")
-            {
-
-                attackSpeed = storedAS;
-            }
-            else if (this.tag == "SwordEnemy")
-            {
-
-                attackSpeed = storedAS;
-            }
-        }
+        
     }
     public void takeDamage(double damageToTake)
     {
