@@ -1,0 +1,19 @@
+Generic_____________________
+00) frame 000-005:	BindPose
+01) frame 010-070:	IdleCombat
+02) frame 080-104:	Block
+03) frame 110-130:	GetHitFront 
+04) frame 140-160:	GetHitLeft 
+05) frame 170-190:	GetHitRight
+06) frame 200-230:	Attack 
+07) frame 240-288:	Panic 
+08) frame 290-338:	Die
+09) frame 340-376:	Talk 
+10) frame 380-410: 	Laugh
+11) frame 572-596:	Walk
+
+Custom_____________________
+01) frame 410-440:	AttackSlashL
+02) frame 450-480:	AttackSlashR
+03) frame 490-538:	AttackSpin
+05) frame 540-570:	SwordCheer

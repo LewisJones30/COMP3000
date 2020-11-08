@@ -1,0 +1,19 @@
+Generic_____________________
+00) frame 000-005:	BindPose
+01) frame 010-070:	IdleCombat
+02) frame 080-104:	Block
+03) frame 110-130:	GetHitFront 
+04) frame 140-160:	GetHitLeft 
+05) frame 170-190:	GetHitRight
+06) frame 200-230:	Attack 
+07) frame 240-288:	Panic 
+08) frame 290-338:	Die
+09) frame 340-376:	Talk 
+10) frame 380-405: 	Laugh
+11) frame 680-704:	Walk
+
+Custom_____________________
+01) frame 410-494:	PotionSpell
+02) frame 500-560:	PotionSniff
+03) frame 570-618:	PotionDrink
+04) frame 630-678:	StrokeBeard

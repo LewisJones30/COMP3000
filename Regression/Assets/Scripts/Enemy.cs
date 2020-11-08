@@ -18,11 +18,13 @@ public class Enemy : MonoBehaviour
     int pointsWhenKilled = 100;
     [SerializeField]
     double aggressionRange; //Used for finding a range to attack the player.
+    Animator enemyAnimations;
 
     // Start is called before the first frame update
     void Start()
     {
         storedAS = attackSpeed;
+        enemyAnimations = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame

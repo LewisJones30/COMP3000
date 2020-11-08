@@ -12,11 +12,14 @@ public class Projectile : MonoBehaviour
     GameObject player;
     [SerializeField]
     double damagePower = 5f;
-    [SerializeField]
+    Animator ifEnemy;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (this.gameObject.tag == "ProjectileEnemy" || this.gameObject.tag == "SwordEnemy")
+        {
+
+        }
     }
 
     // Update is called once per frame
