@@ -9,7 +9,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     GameObject projectile;
     [SerializeField]
-    double attackSpeed = 5f;
+    public double attackSpeed = 5f;
     double storedAS;
     GameObject enemyParent;
     UIController ispauseCheck;
