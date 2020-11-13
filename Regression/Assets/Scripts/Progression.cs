@@ -231,6 +231,7 @@ public class Progression : MonoBehaviour
                 case 1:
                     if (numberEnemiesSpawned == wave1Enemies.Length) //Ignore timers once all enemies have been spawned.
                     {
+                        EnemySpawnTime[0] = 256;
                         break;
                     }
                     EnemySpawnTime[0] = EnemySpawnTime[0] - Time.deltaTime;

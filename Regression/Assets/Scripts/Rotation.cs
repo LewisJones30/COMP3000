@@ -5,8 +5,13 @@ using UnityEngine.Experimental.AI;
 
 public class Rotation : MonoBehaviour
 {
+    //Public variables
     public float speed;
-    // Start is called before the first frame update
+    public float sensitivityX = 1f;
+    public float sensitivityY = 1f;
+    //Private variables
+    float rotationx = 0f;
+    float rotationy = 0f;
     UIController isPauseCheck;
     void Start()
     {
@@ -18,19 +23,12 @@ public class Rotation : MonoBehaviour
     {
         if (isPauseCheck.isPaused == false)
         {
-            //transform.Rotate(Vector3.right * Time.deltaTime * Input.GetAxis("Mouse Y") * speed);
-            //transform.Rotate(Vector3.up * Time.deltaTime * Input.GetAxis("Mouse X") * speed);
-            if (Input.GetAxis("Mouse X") < 0)
-                transform.Rotate((Vector3.up) * -speed);
-            if (Input.GetAxis("Mouse X") > 0)
-                transform.Rotate((Vector3.up) * speed);
-            //if (Input.GetAxis("Mouse Y") < 0)
-            //    transform.Rotate((Vector3.right) * speed);
-            //if (Input.GetAxis("Mouse Y") > 0)
-            //    transform.Rotate((Vector3.right) * -speed);
-
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+            rotationx += Input.GetAxis("Mouse X") * sensitivityX;
+            rotationy += Input.GetAxis("Mouse Y") * sensitivityY;
+            rotationy = Mathf.Clamp(rotationy, -90, 90);
+            transform.eulerAngles = new Vector3(-rotationy, rotationx, 0);
         }
+
 
     }
 }

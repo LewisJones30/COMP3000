@@ -163,13 +163,17 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
-
+            if (isPaused == false)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
                 if (isPaused == false)
                 {
                     Debug.Log("Escape pressed, game paused!");
                     //Code here to trigger UI
+                    Cursor.lockState = CursorLockMode.None;
                     UIPauseText.enabled = true;
                     isPaused = true;
                     return;
