@@ -18,6 +18,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         powerController = GameObject.FindGameObjectWithTag("PowerHandler").GetComponent<PowerBehaviour>();
         if (SceneManager.GetActiveScene().name == "Game")
         {
@@ -138,6 +140,22 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             activepowers.text = powerController.ModifierText();
         }
 
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        GameObject powersText = GameObject.Find("ModifiersText");
+        activepowers = powersText.GetComponent<Text>();
+        GameObject healthText = GameObject.Find("PlayerHealth");
+        health = healthText.GetComponent<Text>();
+        GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
+        powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
+        powerdrainedtext.enabled = false;
+        UIPause = GameObject.Find("UIPauseText");
+        UIPauseText = UIPause.GetComponent<Text>();
+        UIPauseText.enabled = false;
     }
 
     // Update is called once per frame

@@ -11,6 +11,7 @@ TagManager:
   - UIHandler
   - PowerHandler
   - WaveHandler
+  - ProgressionHandler
   layers:
   - Default
   - TransparentFX

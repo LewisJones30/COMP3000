@@ -986,4 +986,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/UI Scale Testing.unity
   - Assets/Scenes/Game.unity
-  playerPath: S:/University/Test Builds/Enemy Spawning Build/Regression.exe
+  playerPath: S:/University/Test Builds/Bug Fix Build/Regression.exe
