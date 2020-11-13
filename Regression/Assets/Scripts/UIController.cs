@@ -25,39 +25,16 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             //Set GameObjects from game scene.
             powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
             player = GameObject.Find("Player").GetComponent<Player>();
-            GameObject healthText = GameObject.Find("PlayerHealth");
-            health = healthText.GetComponent<Text>();
             GameObject powersText = GameObject.Find("ModifiersText");
             activepowers = powersText.GetComponent<Text>();
+            GameObject healthText = GameObject.Find("PlayerHealth");
+            health = healthText.GetComponent<Text>();
             GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
             powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
             powerdrainedtext.enabled = false;
-            //Modify where needed.
-            activepowers.text = powerController.ModifierText();
-            health.text = getUpdatePlayerHP();
             UIPause = GameObject.Find("UIPauseText");
             UIPauseText = UIPause.GetComponent<Text>();
             UIPauseText.enabled = false;
-
-            //UIPauseText = UIPause.GetComponent<Text>();
-            //UIPauseText.text = "This is the game scene!";
-            //activepowers = activePowers.GetComponent<Text>();
-            //activepowers.text = powerController.ModifierText();
-
-            ////UIPauseText.enabled = false;
-
-            ////Set GameObjects from game scene.
-
-            //player = GameObject.Find("Player").GetComponent<Player>();
-            //health = healthObj.GetComponent<Text>();
-
-            //powerdrainedtext = powerdrainedMessage.GetComponent<Text>();
-            //powerdrainedtext.enabled = false;
-            ////Modify where needed.
-            ////activepowers.text = powerController.ModifierText();
-            //health.text = getUpdatePlayerHP();
-
-
         }
     }
 
@@ -158,6 +135,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (isPaused == false)
         {
             UIPauseText.enabled = false;
+            activepowers.text = powerController.ModifierText();
         }
 
     }

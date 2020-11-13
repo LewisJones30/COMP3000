@@ -22,13 +22,14 @@ public class Enemy : MonoBehaviour
     double attackTime;
     bool stopMoving = false;
     Animator enemyAnimations;
-
+    UIController pauseCheck;
     // Start is called before the first frame update
     void Start()
     {
         enemyAnimations = this.GetComponent<Animator>();
         attackTime = this.gameObject.GetComponentInChildren<EnemyAttack>().attackSpeed;
         attackSpeed = attackTime;
+        pauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
     }
 
     // Update is called once per frame
@@ -36,10 +37,19 @@ public class Enemy : MonoBehaviour
     {
         //Face player if in a specific aggression range.
         transform.LookAt(GameObject.Find("Player").transform); //This code needs to be changed to use the aggression range.
+        
 
     }
     private void FixedUpdate()
     {
+        if (pauseCheck.isPaused == true)
+        {
+            stopMoving = true;
+        }
+        else
+        {
+            stopMoving = false;
+        }
         if (stopMoving == false)
         {
             transform.position = (transform.forward / 60 + transform.position);
