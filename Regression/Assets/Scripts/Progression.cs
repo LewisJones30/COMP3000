@@ -8,14 +8,14 @@ public class Progression : MonoBehaviour
     //Public variables
     public float points; //This is an important modifier
     public GameObject[] enemySpawners; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
-    public float[] EnemySpawnTime;
-
+    public float[] EnemySpawnTime; //Control the time it takes to defeat each enemy here.
+    public int numberEnemiesKilled = 0; //Used to track how many enemies have been killed per wave.
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.
      * Wave breakdowns:
      * Wave 1 (Prototype) - 5 punishing enemies. The player will have all their powers at this point.
-     * Wave 2 (Prototype) - 3 punishing enemies. The player will have no powers at this point. 
+     * Wave 2 (Prototype) - 5 punishing enemies. The player will have no powers at this point. 
      * Wave 3 - 
      * Wave 4 - 
      * Wave 5 - 
@@ -28,8 +28,11 @@ public class Progression : MonoBehaviour
     public GameObject[] wave4Enemies = new GameObject[5];
     public GameObject[] wave5Enemies = new GameObject[5];
 
-
+    //Private variables
     private float currentWave, maximumWave; //Know the current wave and the maximum wave.
+    private UIController ui; //Used for checking if the game is running.
+    private int numberEnemiesSpawned = 0;
+    private float[] EnemySpawnTimeDupe; //Used for storing an exact duplicate of the original timers, for resetting once an enemy has spawned.
     //Measuring progression of the wave. Callable by enemy before the enemy is destroyed, as well as UI.
 
     public float currentProgressionPercentage()
@@ -102,10 +105,10 @@ public class Progression : MonoBehaviour
     }
     void Spawn()
     {
-        System.Random r = new System.Random();
-        GameObject enemySpawner;
-        System.Random ra = new System.Random();
-        enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)];
+        System.Random r = new System.Random(); //Used for spawning an enemy. 
+        GameObject enemySpawner; 
+        System.Random ra = new System.Random(); //Used for choosing a spawner
+        enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)]; //Choose a random spawner.
         int waveLength = 0;
         switch (currentWave) 
         {
@@ -179,25 +182,105 @@ public class Progression : MonoBehaviour
 
     }
     
-    private void spawnController()
+
+    public void enemyKilled()
     {
+        numberEnemiesKilled = numberEnemiesKilled + 1;
         switch (currentWave)
         {
             case 1:
-                EnemySpawnTime[0] = EnemySpawnTime[0] - Time.deltaTime;
-                if (EnemySpawnTime[0] <= 0)
+                if (numberEnemiesKilled == wave1Enemies.Length)
                 {
-                    Spawn();
-                    break;
+                    //Wave complete!
+                    //Pause game, call UIController to show the wave complete screen.
+                    //Call PowerController to disable all powers.
+                }
+                break;
+            case 2:
+                if (numberEnemiesKilled == wave2Enemies.Length)
+                {
+                    //Wave complete!
+                }
+                break;
+            case 3:
+                if (numberEnemiesKilled == wave3Enemies.Length)
+                {
+                    //Wave complete!
+                }
+                break;
+            case 4:
+                if (numberEnemiesKilled == wave4Enemies.Length)
+                {
+                    //Wave complete!
+                }
+                break;
+            case 5:
+                if (numberEnemiesKilled == wave5Enemies.Length)
+                {
+                    //Wave complete!
                 }
                 break;
         }
     }
-    void Update()
+
+    void FixedUpdate() //Control the enemy spawns here!
     {
-        
+        if (ui.isPaused != true) //Only run timers if the game is not paused. Paused state will also be used for round transitions.
+            switch (currentWave)
+            {
+                case 1:
+                    if (numberEnemiesSpawned == wave1Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        break;
+                    }
+                    EnemySpawnTime[0] = EnemySpawnTime[0] - Time.deltaTime;
+                    if (EnemySpawnTime[0] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 2:
+                    EnemySpawnTime[1] = EnemySpawnTime[1] - Time.deltaTime;
+                    if (EnemySpawnTime[1] <= 0)
+                    {
+                        Spawn();
+                        break;
+                    }
+                    break;
+                case 3:
+                    EnemySpawnTime[2] = EnemySpawnTime[2] - Time.deltaTime;
+                    if (EnemySpawnTime[2] <= 0)
+                    {
+                        Spawn();
+                        break;
+                    }
+                    break;
+                case 4:
+                    EnemySpawnTime[3] = EnemySpawnTime[3] - Time.deltaTime;
+                    if (EnemySpawnTime[3] <= 0)
+                    {
+                        Spawn();
+                        break;
+                    }
+                    break;
+                case 5:
+                    EnemySpawnTime[4] = EnemySpawnTime[4] - Time.deltaTime;
+                    if (EnemySpawnTime[4] <= 0)
+                    {
+                        Spawn();
+                        break;
+                    }
+                    break;
+            }
     }
     void Start()
     {
+        ui = GameObject.Find("UIHandler").GetComponent<UIController>(); //Get the UI controller ready for pause/resume states.
+
+        currentWave = 1;
+        EnemySpawnTimeDupe = (float[])EnemySpawnTime.Clone(); //Create a clone.
     }
 }
