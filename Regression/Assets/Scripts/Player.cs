@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     {
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>(); //Get the PowerBehaviour script.
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ModifyPlayer();
     }
 
     // Update is called once per frame
@@ -43,13 +42,9 @@ public class Player : MonoBehaviour
                 time = 0;
             }
         }
-
-        
-
     }
 
     //Damage/healing effects
-
     public void takeDamage(double damageDealt)
     {
         health = health - (damageTaken * damageDealt); //Take away health based on the damage dealt. Iron maiden ability reduces this by 50%. Difficulties may also change this.
@@ -92,12 +87,13 @@ public class Player : MonoBehaviour
 
 
 //========================================================Power control
-    void ModifyPlayer() //This script will check all current modifiers, and update the player's abilities accordingly.
+    public void ModifyPlayer() //This script will check all current modifiers, and update the player's abilities accordingly.
     {
+        Debug.Log("ModifyPlayer triggered.");
         //Check difficulty - Easy will boost player's HP by 100.
         if (powerController.difficultyLevel == 1) //Easy
         {
-            health = health * 1.5f;
+            maximumHealth = maximumHealth * 1.5f;
             damageTaken = 0.5f;
             pointsModifier = 0.25f; 
         }
@@ -121,13 +117,21 @@ public class Player : MonoBehaviour
         //Increase player's HP by 2x.
         if (powerController.powerHandler[1].PowerActive == true)
         {
+            Debug.Log("Power 1 in effect!");
             weaponPower = weaponPower * 2f; //Weapons are twice as effective in terms of damage dealt.
+            if (weaponPower > 2)
+            {
+                weaponPower = 2; 
+            }    
         }
+        //Power 3 check. Double maximum HP.
         else if (powerController.powerHandler[2].PowerActive == true)
         {
+            Debug.Log("Power 2 in effect!");
             maximumHealth = maximumHealth * 2f; //Health is doubled with this modifier
             health = maximumHealth;
         }
+        //Power 10 check
         else if (powerController.powerHandler[9].PowerActive == true)
         {
             damageTaken = 0.5f; //Damage taken is 50% lower.

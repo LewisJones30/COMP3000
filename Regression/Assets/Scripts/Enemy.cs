@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     bool stopMoving = false;
     Animator enemyAnimations;
     UIController pauseCheck;
+    Progression progressionController;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
         attackTime = this.gameObject.GetComponentInChildren<EnemyAttack>().attackSpeed;
         attackSpeed = attackTime;
         pauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
+        progressionController = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
     }
 
     // Update is called once per frame
@@ -70,7 +72,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             //Grant points
-
+            progressionController.enemyKilled();
             Destroy(this.gameObject); //Kill enemy
         }
     }

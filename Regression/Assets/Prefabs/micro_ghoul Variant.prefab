@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991359406b94f7041b84dfa6587e0bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10
   ExpertOnlyDamageReduction: 0.1
   enemyProjectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
   attackSpeed: 5
@@ -85,7 +85,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100088, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
       propertyPath: m_Name
-      value: micro_ghoul
+      value: micro_ghoul Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100088, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
       propertyPath: m_TagString

@@ -9,18 +9,27 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     public int difficultyLevel = 0;
     public Power[] powerHandler = new Power[20];
     UIController redrawCurrentPowers;
+    Player player;
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         InitialisePowers();
         StartPower(12);
         redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+        player = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        int i = 1;
+
+    }
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player.ModifyPlayer();
     }
     void StartPower(int numbPowers) //Pass in from difficulty how many to enable
     {
@@ -152,7 +161,16 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         
     }
 
-
+    public void loseAllPowers() //Temporary method. Used for first build.
+    {
+        for (int i = 0; i < powerHandler.Length; i++)
+        {
+            powerHandler[i].PowerActive = false;
+        }
+        player = GameObject.Find("Player").GetComponent<Player>();
+        player.health = 10;
+        
+    }
     //=======================================================================Initialise each power====================================================================
     void InitialisePowers() //Fill each value of the powers in code here manually.
     {

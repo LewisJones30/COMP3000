@@ -192,6 +192,11 @@ public class Progression : MonoBehaviour
                 if (numberEnemiesKilled == wave1Enemies.Length)
                 {
                     //Wave complete!
+                    ui.WaveCompleteText();
+                    currentWave = currentWave + 1;
+                    //Reset enemies killed/spawned.
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
                     //Pause game, call UIController to show the wave complete screen.
                     //Call PowerController to disable all powers.
                 }
@@ -245,9 +250,16 @@ public class Progression : MonoBehaviour
                     break;
                 case 2:
                     EnemySpawnTime[1] = EnemySpawnTime[1] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave1Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
                     if (EnemySpawnTime[1] <= 0)
                     {
                         Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[1] = EnemySpawnTimeDupe[1]; //Reset timer.
                         break;
                     }
                     break;
@@ -256,6 +268,8 @@ public class Progression : MonoBehaviour
                     if (EnemySpawnTime[2] <= 0)
                     {
                         Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
                         break;
                     }
                     break;
@@ -264,6 +278,8 @@ public class Progression : MonoBehaviour
                     if (EnemySpawnTime[3] <= 0)
                     {
                         Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
                         break;
                     }
                     break;
@@ -272,6 +288,8 @@ public class Progression : MonoBehaviour
                     if (EnemySpawnTime[4] <= 0)
                     {
                         Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
                         break;
                     }
                     break;

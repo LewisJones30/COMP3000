@@ -12,8 +12,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public bool isPaused = false;
     bool buttonpressed = false;
     PowerBehaviour powerController;
-    public GameObject powerdrainedMessage, activePowers, healthObj, UIPause;
-    Text health, activepowers, powerdrainedtext, UIPauseText;
+    public GameObject activePowers, healthObj, UIPause, UIWaveComplete;
+    Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText;
     Player player;
     // Start is called before the first frame update
     void Start()
@@ -23,23 +23,38 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         powerController = GameObject.FindGameObjectWithTag("PowerHandler").GetComponent<PowerBehaviour>();
         if (SceneManager.GetActiveScene().name == "Game")
         {
+            GetGameObjectsGame(); //Call method to get gameobject.
 
-            //Set GameObjects from game scene.
-            powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-            player = GameObject.Find("Player").GetComponent<Player>();
-            GameObject powersText = GameObject.Find("ModifiersText");
-            activepowers = powersText.GetComponent<Text>();
-            GameObject healthText = GameObject.Find("PlayerHealth");
-            health = healthText.GetComponent<Text>();
-            GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
-            powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
-            powerdrainedtext.enabled = false;
-            UIPause = GameObject.Find("UIPauseText");
-            UIPauseText = UIPause.GetComponent<Text>();
-            UIPauseText.enabled = false;
         }
     }
+    void GetGameObjectsGame()
+    {
+        //Firstly, get the gameobjects.
+        GameObject powersText = GameObject.Find("ModifiersText");
+        GameObject healthText = GameObject.Find("PlayerHealth");
+        GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
 
+        //Find GameObject section.
+
+        powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        UIPause = GameObject.Find("UIPauseText");
+        UIWaveComplete = GameObject.Find("WaveCompleteText");
+
+        //Get component section
+
+        activepowers = powersText.GetComponent<Text>();
+        health = healthText.GetComponent<Text>();
+        powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
+        UIPauseText = UIPause.GetComponent<Text>();
+        UIWaveCompText = UIWaveComplete.GetComponent<Text>();
+
+        //Enable/Disable section
+
+        UIPauseText.enabled = false;
+        powerdrainedtext.enabled = false;
+        UIWaveCompText.enabled = false;
+    }
     string getUpdatePlayerHP()
     {
         double health = player.health;
@@ -129,7 +144,20 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
 
     }
-
+    public void WaveCompleteText()
+    {
+        StartCoroutine("WaveCompleteMethod");
+    }
+    IEnumerator WaveCompleteMethod()
+    {
+        UIWaveCompText.enabled = true;
+        isPaused = true;
+        yield return new WaitForSeconds(7.5f);
+        UIWaveCompText.enabled = false;
+        powerController.loseAllPowers(); //Drain all of the player's powers.
+        isPaused = false;
+        
+    }
     //Methods to get information and update UI
 
     private void FixedUpdate()
@@ -144,18 +172,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-        player = GameObject.Find("Player").GetComponent<Player>();
-        GameObject powersText = GameObject.Find("ModifiersText");
-        activepowers = powersText.GetComponent<Text>();
-        GameObject healthText = GameObject.Find("PlayerHealth");
-        health = healthText.GetComponent<Text>();
-        GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
-        powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
-        powerdrainedtext.enabled = false;
-        UIPause = GameObject.Find("UIPauseText");
-        UIPauseText = UIPause.GetComponent<Text>();
-        UIPauseText.enabled = false;
+        GetGameObjectsGame();
     }
 
     // Update is called once per frame

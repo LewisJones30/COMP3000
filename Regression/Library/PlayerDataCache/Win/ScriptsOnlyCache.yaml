@@ -534,7 +534,7 @@ ScriptsOnlyBuild:
     className: MovementScript
   - hash:
       serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+      Hash: 8aadff409771c13a5493e445a0b9e049
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Rotation
