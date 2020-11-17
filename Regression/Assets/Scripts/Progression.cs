@@ -204,25 +204,29 @@ public class Progression : MonoBehaviour
             case 2:
                 if (numberEnemiesKilled == wave2Enemies.Length)
                 {
-                    //Wave complete!
+                    currentWave = currentWave + 1;
+                    ui.GameCompleteText();
                 }
                 break;
             case 3:
                 if (numberEnemiesKilled == wave3Enemies.Length)
                 {
-                    //Wave complete!
+                    currentWave = currentWave + 1;
+                    ui.GameCompleteText();
                 }
                 break;
             case 4:
                 if (numberEnemiesKilled == wave4Enemies.Length)
                 {
-                    //Wave complete!
+                    currentWave = currentWave + 1;
+                    ui.GameCompleteText();
                 }
                 break;
             case 5:
                 if (numberEnemiesKilled == wave5Enemies.Length)
                 {
-                    //Wave complete!
+                    currentWave = currentWave + 1;
+                    ui.GameCompleteText();
                 }
                 break;
         }

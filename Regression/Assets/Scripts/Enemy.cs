@@ -48,6 +48,14 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (stopMoving == false)
+        {
+            enemyAnimations.SetBool("isWalking", true);
+        }
+        else
+        {
+            enemyAnimations.SetBool("isWalking", false);
+        }
         if (pauseCheck.isPaused == true)
         {
             stopMoving = true;

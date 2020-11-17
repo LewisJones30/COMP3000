@@ -258,7 +258,7 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: a1db4ba4e42ee7ad2f6e8b89030981b1
+      Hash: ba68732454867591f436caf65db998f6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy
@@ -378,7 +378,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: be8c1902cbd2a43f919ddca2deb6d714
+      Hash: e48d0a0a9aef1e8a29a1556f8e3f2558
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -986,4 +986,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/UI Scale Testing.unity
   - Assets/Scenes/Game.unity
-  playerPath: S:/University/Test Builds/Bug Fix Build/Regression.exe
+  playerPath: S:/University/Test Builds/Alpha 1.0 Build/Regression.exe

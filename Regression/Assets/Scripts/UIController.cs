@@ -158,6 +158,23 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         isPaused = false;
         
     }
+    public void GameCompleteText()
+    {
+        StartCoroutine("GameCompleteRoutine");
+    }
+    IEnumerator GameCompleteRoutine()
+    {
+        UIWaveCompText.enabled = true;
+        UIWaveCompText.text = "Congratulations! You have completed the prototype.";
+        isPaused = true;
+        yield return new WaitForSeconds(7.5f);
+        UIWaveCompText.enabled = false;
+        SceneManager.LoadScene("UI Scale Testing");
+        isPaused = false;
+    }
+
+
+
     //Methods to get information and update UI
 
     private void FixedUpdate()
@@ -178,6 +195,19 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "UI Scale Testing")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) == true)
+            {
+#if UNITY_EDITOR
+                if (EditorApplication.isPlaying)
+                {
+                    EditorApplication.isPlaying = false;
+                }
+#endif
+                Application.Quit();
+            }
+        }
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
             if (isPaused == false)
