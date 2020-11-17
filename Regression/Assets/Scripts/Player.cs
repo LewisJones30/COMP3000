@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     UIController isPausedCheck;
     double time = 0;
     PowerBehaviour powerController;
+    bool[] powersLost = new bool[20];
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +90,7 @@ public class Player : MonoBehaviour
 //========================================================Power control
     public void ModifyPlayer() //This script will check all current modifiers, and update the player's abilities accordingly.
     {
+        powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>(); //Get the PowerBehaviour script.
         Debug.Log("ModifyPlayer triggered.");
         //Check difficulty - Easy will boost player's HP by 100.
         if (powerController.difficultyLevel == 1) //Easy
@@ -125,20 +127,71 @@ public class Player : MonoBehaviour
             }    
         }
         //Power 3 check. Double maximum HP.
-        else if (powerController.powerHandler[2].PowerActive == true)
+        if (powerController.powerHandler[2].PowerActive == true)
         {
             Debug.Log("Power 2 in effect!");
             maximumHealth = maximumHealth * 2f; //Health is doubled with this modifier
             health = maximumHealth;
         }
         //Power 10 check
-        else if (powerController.powerHandler[9].PowerActive == true)
+        if (powerController.powerHandler[9].PowerActive == true)
         {
             damageTaken = 0.5f; //Damage taken is 50% lower.
 
         }
         baseWeaponPower = weaponPower; //Used for power 5 method.
     }
+    public void PowerLost() //Called when the power has been lost.
+    {
+        /*
+         * This method checks whether a power was active, is now not active and the power effect has not been removed.
+         * powersLost[1] is a boolean array equivalent to the length of the powers array.
+         * When a power effect has been drained, this is set to true. This means that the power effect is not taken multiple times.
+         */
+        if (powerController.powerHandler[1].PowerActive == false && powerController.powerHandler[1].PowerStartedActive == true)
+        {
+            if (powersLost[1] == false)
+            {
+                weaponPower = baseWeaponPower / 2;
+                powersLost[1] = true;
+            }
+        }
+        if (powerController.powerHandler[2].PowerActive == false && powerController.powerHandler[2].PowerStartedActive == true)
+        {
+            if (powersLost[2] == false)
+            {
+                maximumHealth = maximumHealth / 2;
+                powersLost[2] = true;
+            }
+        }
+        //Power slot 3 does not need checking here.
+        if (powerController.powerHandler[4].PowerActive == false && powerController.powerHandler[4].PowerStartedActive == true)
+        {
+            if (powersLost[4] == false)
+            {
+                weaponPower = baseWeaponPower; //Remove the dharoks effect.
+                powersLost[4] = true;
+            }
+        }
+        //Power slot 5,6,7,8,9 do not need checking here.
+        if (powerController.powerHandler[10].PowerActive == false && powerController.powerHandler[10].PowerStartedActive == true)
+        {
+            if (powersLost[10] == false)
+            {
+                damageTaken = damageTaken * 2f;
+                powersLost[10] = true;
+            }
+        }
+        //The rest of power slots do not require checking here!
+    }
+
+
+
+
+
+
+
+
     //Power 4 method
     void regenHp()
     {
