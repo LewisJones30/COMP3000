@@ -28,6 +28,10 @@ public class Rotation : MonoBehaviour
             rotationy = Mathf.Clamp(rotationy, -90, 90);
             transform.eulerAngles = new Vector3(-rotationy, rotationx, 0);
         }
+        else
+        {
+            
+        }
 
 
     }

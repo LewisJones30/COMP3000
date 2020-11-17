@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
             time = time + Time.deltaTime;
             if (time >= 1)
             {
-                heal(maximumHealth / 40);
+                heal(maximumHealth / 100);
                 time = 0;
             }
         }
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
         //Power 10 check
         if (powerController.powerHandler[9].PowerActive == true)
         {
-            damageTaken = 0.5f; //Damage taken is 50% lower.
+            damageTaken = damageTaken * 0.5f; //Damage taken is 50% lower.
 
         }
         baseWeaponPower = weaponPower; //Used for power 5 method.
@@ -161,6 +161,7 @@ public class Player : MonoBehaviour
             if (powersLost[2] == false)
             {
                 maximumHealth = maximumHealth / 2;
+                health = maximumHealth;
                 powersLost[2] = true;
             }
         }
@@ -193,13 +194,6 @@ public class Player : MonoBehaviour
 
 
     //Power 4 method
-    void regenHp()
-    {
-        if (powerController.powerHandler[3].PowerActive == true)
-        {
-            heal(maximumHealth / 40); //Run heal script for 2.5% of health.
-        }
-    }
     //Power 5 method
     void DharoksEffect() //Lose health -> gain more power
     {

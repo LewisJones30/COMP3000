@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour
     int pointsWhenKilled = 100;
     [SerializeField]
     double aggressionRange; //Used for finding a range to attack the player.
+    [SerializeField]
+    float raycastLength = 10f;
+    RaycastHit hit;
     double attackTime;
     bool stopMoving = false;
     Animator enemyAnimations;
@@ -39,7 +42,8 @@ public class Enemy : MonoBehaviour
     {
         //Face player if in a specific aggression range.
         transform.LookAt(GameObject.Find("Player").transform); //This code needs to be changed to use the aggression range.
-        
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Debug.DrawRay(transform.position, forward * 10, Color.green);
 
     }
     private void FixedUpdate()
@@ -47,14 +51,28 @@ public class Enemy : MonoBehaviour
         if (pauseCheck.isPaused == true)
         {
             stopMoving = true;
+            return;
+        }
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(transform.position, forward, out hit, raycastLength))
+        {
+            Debug.Log("Enemy collider: " + hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.name == "Player")
+            {
+                stopMoving = true;
+                return;
+            }
+
         }
         else
         {
             stopMoving = false;
         }
+
         if (stopMoving == false)
         {
-            transform.position = (transform.forward / 60 + transform.position);
+            transform.position = (transform.forward / 25 + transform.position);
         }
         attackTime = this.gameObject.GetComponentInChildren<EnemyAttack>().attackSpeed;
         if (attackTime <= 0 || attackTime > attackSpeed)

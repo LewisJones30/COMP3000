@@ -19764,7 +19764,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!136 &136757934063241816
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19792,7 +19792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastLength: 1
-  damagePower: 5
+  damagePower: 20
 --- !u!1 &1891841400127197418
 GameObject:
   m_ObjectHideFlags: 0
