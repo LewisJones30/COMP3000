@@ -56,8 +56,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4387255, y: 1.9718077, z: 2.3054376}
-  m_Center: {x: -0.05247976, y: 0.4859042, z: 0.15750608}
+  m_Size: {x: 2.4387255, y: 1.9718077, z: 2.7909634}
+  m_Center: {x: -0.052479763, y: 0.4859042, z: 0.40026826}
 --- !u!114 &1405459767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +76,7 @@ MonoBehaviour:
   attackSpeed: 5
   pointsWhenKilled: 100
   aggressionRange: 0
+  raycastLength: 10
 --- !u!1001 &3887765649138286511
 PrefabInstance:
   m_ObjectHideFlags: 0
