@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,12 +21,15 @@ public class Player : MonoBehaviour
     double time = 0;
     PowerBehaviour powerController;
     bool[] powersLost = new bool[20];
-
+    public GameObject deadtextObj;
+    Text deadtext;
     // Start is called before the first frame update
     void Start()
     {
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>(); //Get the PowerBehaviour script.
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
+        deadtext = deadtextObj.GetComponent<Text>();
+        deadtext.enabled = false;
     }
 
     // Update is called once per frame
@@ -43,6 +48,10 @@ public class Player : MonoBehaviour
                 time = 0;
             }
         }
+        if (isDead == true)
+        {
+
+        }
     }
 
     //Damage/healing effects
@@ -58,6 +67,8 @@ public class Player : MonoBehaviour
             else
             {
                 isDead = true; //Set player as dead.
+                health = 0;
+                playerdiedScript(); //Invoke the player died script.
             }
 
         }
@@ -82,8 +93,16 @@ public class Player : MonoBehaviour
             health = health + healAmount;
         }
     }
-
-
+    void playerdiedScript()
+    {
+        StartCoroutine("routineDead");
+    }
+    IEnumerator routineDead()
+    {
+        deadtext.enabled = true;
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("UI Scale Testing");
+    }
 
 
 

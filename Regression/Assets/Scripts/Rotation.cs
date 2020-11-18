@@ -21,18 +21,14 @@ public class Rotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isPauseCheck.isPaused == false)
         {
             rotationx += Input.GetAxis("Mouse X") * sensitivityX;
             rotationy += Input.GetAxis("Mouse Y") * sensitivityY;
-            rotationy = Mathf.Clamp(rotationy, -90, 90);
-            transform.eulerAngles = new Vector3(-rotationy, rotationx, 0);
+           
         }
-        else
-        {
-            
-        }
-
-
+        rotationy = Mathf.Clamp(rotationy, -90, 90);
+        transform.eulerAngles = new Vector3(-rotationy, rotationx, 0);
     }
 }

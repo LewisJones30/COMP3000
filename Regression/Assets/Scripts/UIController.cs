@@ -13,7 +13,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     bool buttonpressed = false;
     PowerBehaviour powerController;
     public GameObject activePowers, healthObj, UIPause, UIWaveComplete;
-    Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText;
+    Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
     Player player;
     // Start is called before the first frame update
     void Start()
@@ -40,6 +40,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         player = GameObject.Find("Player").GetComponent<Player>();
         UIPause = GameObject.Find("UIPauseText");
         UIWaveComplete = GameObject.Find("WaveCompleteText");
+        
 
         //Get component section
 
@@ -54,6 +55,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         UIPauseText.enabled = false;
         powerdrainedtext.enabled = false;
         UIWaveCompText.enabled = false;
+
+        //Modify values section
+        UITempWaveText.text = "Wave 1/2";
     }
     string getUpdatePlayerHP()
     {
@@ -165,7 +169,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     IEnumerator GameCompleteRoutine()
     {
         UIWaveCompText.enabled = true;
-        UIWaveCompText.text = "Congratulations! You have completed the prototype.";
+        UIWaveCompText.text = "Congratulations! You have completed the prototype. Press escape to exit. \n You will otherwise be returned to the home page shortly.";
         isPaused = true;
         yield return new WaitForSeconds(7.5f);
         UIWaveCompText.enabled = false;
@@ -179,6 +183,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     private void FixedUpdate()
     {
+        if (SceneManager.GetActiveScene().name != "Game")
+        {
+            return;
+        }
         if (isPaused == false)
         {
             UIPauseText.enabled = false;

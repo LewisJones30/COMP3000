@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Progression : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class Progression : MonoBehaviour
     public GameObject[] enemySpawners; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
     public float[] EnemySpawnTime; //Control the time it takes to defeat each enemy here.
     public int numberEnemiesKilled = 0; //Used to track how many enemies have been killed per wave.
+    public GameObject TempText; //Temporary wave text control.
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.
@@ -33,9 +36,11 @@ public class Progression : MonoBehaviour
     private UIController ui; //Used for checking if the game is running.
     private int numberEnemiesSpawned = 0;
     private float[] EnemySpawnTimeDupe; //Used for storing an exact duplicate of the original timers, for resetting once an enemy has spawned.
+    private Text temptext;
+
     //Measuring progression of the wave. Callable by enemy before the enemy is destroyed, as well as UI.
 
-    public float currentProgressionPercentage()
+    public float currentProgressionPercentage() //Currently unused in UI.
     {
         float progress = 100f;
         float enemiesAlive = 0;
@@ -197,6 +202,7 @@ public class Progression : MonoBehaviour
                     //Reset enemies killed/spawned.
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
+                    temptext.text = "Wave 2/2";
                     //Pause game, call UIController to show the wave complete screen.
                     //Call PowerController to disable all powers.
                 }
@@ -234,6 +240,10 @@ public class Progression : MonoBehaviour
 
     void FixedUpdate() //Control the enemy spawns here!
     {
+        if (SceneManager.GetActiveScene().name != "game")
+        {
+            return;
+        }
         if (ui.isPaused != true) //Only run timers if the game is not paused. Paused state will also be used for round transitions.
             switch (currentWave)
             {
@@ -305,5 +315,7 @@ public class Progression : MonoBehaviour
 
         currentWave = 1;
         EnemySpawnTimeDupe = (float[])EnemySpawnTime.Clone(); //Create a clone.
+        temptext = TempText.GetComponent<Text>();
+        temptext.text = "Wave 1/2";
     }
 }

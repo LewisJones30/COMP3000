@@ -25,6 +25,10 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name != "Game")
+        {
+            return;
+        }
         if (player == null)
         {
             player = GameObject.Find("Player").GetComponent<Player>();
