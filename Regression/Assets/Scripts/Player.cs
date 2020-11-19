@@ -7,21 +7,110 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
+    //Easy difficulty controls
+    [HideInInspector]
     public double health = 100; //current health is controlled here. Public to allow UI access.
     [SerializeField]
     double maximumHealth = 100; //Base maximum hp.
-    bool isDead = false; //Player starts alive.
-    public double weaponPower = 1.0f; //Base weapon power, modified by difficulty.
-    double baseWeaponPower = 1.0f; //Used for power 5.
-    bool tutorialActive = false; //Means player cannot die.
-    float damageTaken = 1.0f; //Player takes 1x damage. Modified by difficulty.
-    float pointsModifier = 1.0f; //Points gained.
-    UIController isPausedCheck;
-    double time = 0;
-    PowerBehaviour powerController;
-    bool[] powersLost = new bool[20];
+    [Header("Easy")]
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double EasyMaxHealthModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double EasyWeaponPowerModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double EasyDamageTakenModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 5f)]
+    double EasyPointsModifier = 0.25f;
+    [SerializeField]
+    [Tooltip("Should the player choose between two powers to lose? \n" +
+        "True = Yes. \n" +
+        "False = Game chooses for the player.")]
+    bool EasyPlayerChoosesPowerDrain = true;
+
+    //Normal difficulty controls
+    [Header("Normal")]
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double NormalMaxHealthModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double NormalWeaponPowerModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double NormalDamageTakenModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 5f)]
+    double NormalPointsModifier = 1f;
+    [SerializeField]
+    [Tooltip("Should the player choose between two powers to lose? \n" +
+        "True = Yes. \n" +
+        "False = Game chooses for the player.")]
+    bool NormalPlayerChoosesPowerDrain = true;
+
+    //Hard difficulty controls
+    [Header("Hard")]
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double HardMaxHealthModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double HardWeaponPowerModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double HardDamageTakenModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 5f)]
+    double HardPointsModifier = 1f;
+    [SerializeField]
+    [Tooltip("Should the player choose between two powers to lose? \n" +
+        "True = Yes. \n" +
+        "False = Game chooses for the player.")]
+    bool HardPlayerChoosesDrain = false;
+
+    //Expert difficulty controls
+    [Header("Expert")]
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double ExpertMaxHealthModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double ExpertWeaponPowerModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 2f)]
+    double ExpertDamageTakenModifier = 1f;
+    [SerializeField]
+    [Range(0.1f, 5f)]
+    double ExpertPointsModifier = 1f;
+    [SerializeField]
+    [Tooltip("Should the player choose between two powers to lose? \n" +
+        "True = Yes. \n" +
+        "False = Game chooses for the player.")]
+    bool ExpertPlayerChoosesDrain = false;
+    [Space(10)]
+
+    //Public variables
     public GameObject deadtextObj;
+    [HideInInspector]
+    public double weaponPower = 1.0f; //Base weapon power, modified by difficulty.
+    [HideInInspector]
+    public double baseWeaponPower = 1.0f; //Used for power 5.
+    [HideInInspector]
+    public double damageTaken = 1.0f; //Player takes 1x damage. Modified by difficulty.
+    [HideInInspector]
+    public double pointsModifier = 1.0f; //Points gained.
+    [HideInInspector]
+    public double time = 0;
+
+    bool tutorialActive = false; //Means player cannot die.
+    bool isDead = false; //Player starts alive.
+    bool[] powersLost = new bool[20];
+
+    UIController isPausedCheck;
+    PowerBehaviour powerController;
     Text deadtext;
     // Start is called before the first frame update
     void Start()
@@ -114,25 +203,37 @@ public class Player : MonoBehaviour
         //Check difficulty - Easy will boost player's HP by 100.
         if (powerController.difficultyLevel == 1) //Easy
         {
-            maximumHealth = maximumHealth * 1.5f;
-            damageTaken = 0.5f;
-            pointsModifier = 0.25f; 
+            maximumHealth = maximumHealth * EasyMaxHealthModifier;
+            weaponPower = weaponPower * EasyWeaponPowerModifier;
+            damageTaken = damageTaken * EasyDamageTakenModifier;
+            pointsModifier = pointsModifier * EasyPointsModifier; 
         }
-        else if (powerController.difficultyLevel == 3) //Hard
+        else if (powerController.difficultyLevel == 2) //Normal
         {
-            weaponPower = 0.9f; //Weapons are 90% effective
-            pointsModifier = 1.5f;//+50% points.
+            maximumHealth = maximumHealth * NormalMaxHealthModifier;
+            weaponPower = weaponPower * NormalWeaponPowerModifier;
+            damageTaken = damageTaken * NormalDamageTakenModifier;
+            pointsModifier = pointsModifier * NormalPointsModifier;
+        }
+        else if (powerController.difficultyLevel == 3)
+        {
+            maximumHealth = maximumHealth * HardMaxHealthModifier;
+            weaponPower = weaponPower * HardWeaponPowerModifier;
+            damageTaken = damageTaken * HardDamageTakenModifier;
+            pointsModifier = pointsModifier * HardPointsModifier;
         }
         else if (powerController.difficultyLevel == 4) //Expert
         {
-            weaponPower = 0.75f; //Weapons are 75% effective
-            pointsModifier = 2f; //+100% points.
+            maximumHealth = maximumHealth * ExpertMaxHealthModifier;
+            weaponPower = weaponPower * ExpertWeaponPowerModifier;
+            damageTaken = damageTaken * ExpertDamageTakenModifier;
+            pointsModifier = pointsModifier * ExpertPointsModifier;
         }
-        else if (powerController.difficultyLevel == 5) //Satanic
-        {
-            weaponPower = 0.5f; //Weapons are 50% effective.
-            pointsModifier = 3.5f; //+250% points.
-        }
+        //else if (powerController.difficultyLevel == 5) //Satanic
+        //{
+        //    weaponPower = 0.5f; //Weapons are 50% effective.
+        //    pointsModifier = 3.5f; //+250% points.
+        //}
         //Check powers.
         //Slot 2 & 3 effect the player immediately.
         //Increase player's HP by 2x.

@@ -8,11 +8,21 @@ using UnityEngine.UI;
 public class Progression : MonoBehaviour
 {
     //Public variables
+    [HideInInspector]
     public float points; //This is an important modifier
+    [Tooltip("Change the array size to the number of spawn points you want.")]
     public GameObject[] enemySpawners; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
+    [Tooltip("Time in seconds between an enemy's spawn. \n" +
+        "Each element controls each wave. \n" +
+        "Ensure the size of this array is equal to the number of waves.")]
+    [Range(1.0f, 5f)]
     public float[] EnemySpawnTime; //Control the time it takes to defeat each enemy here.
+    [HideInInspector]
     public int numberEnemiesKilled = 0; //Used to track how many enemies have been killed per wave.
     public GameObject TempText; //Temporary wave text control.
+    [Space(10)]
+    [Tooltip("For each wave, choose how many enemies you want, and ensure all gameobjects are filled with enemies.")]
+    [Header("Enemy control")]
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.

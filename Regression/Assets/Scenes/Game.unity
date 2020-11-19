@@ -2102,8 +2102,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   maximumHealth: 100
-  weaponPower: 1
+  EasyMaxHealthModifier: 2
+  EasyWeaponPowerModifier: 1
+  EasyDamageTakenModifier: 1
+  EasyPointsModifier: 0.25
+  EasyPlayerChoosesPowerDrain: 1
+  NormalMaxHealthModifier: 1
+  NormalWeaponPowerModifier: 1
+  NormalDamageTakenModifier: 1
+  NormalPointsModifier: 1
+  NormalPlayerChoosesPowerDrain: 1
+  HardMaxHealthModifier: 0.75
+  HardWeaponPowerModifier: 0.75
+  HardDamageTakenModifier: 1.25
+  HardPointsModifier: 1.5
+  HardPlayerChoosesDrain: 0
+  ExpertMaxHealthModifier: 0.5
+  ExpertWeaponPowerModifier: 0.75
+  ExpertDamageTakenModifier: 1.5
+  ExpertPointsModifier: 2.5
+  ExpertPlayerChoosesDrain: 0
   deadtextObj: {fileID: 1067277645}
+  weaponPower: 1
+  baseWeaponPower: 1
+  damageTaken: 1
+  pointsModifier: 1
+  time: 0
 --- !u!1 &1937958631
 GameObject:
   m_ObjectHideFlags: 0
