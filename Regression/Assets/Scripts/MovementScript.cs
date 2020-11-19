@@ -9,13 +9,19 @@ public class MovementScript : MonoBehaviour
     public float movementSpeed = 15; //Multiplier for movement speed
     public float rotationSpeed = 10; //Multiplier for rotation speed
     public Rigidbody rb;
+    UIController ui;
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        ui = GameObject.Find("UIHandler").GetComponent<UIController>();
     }
 
     void FixedUpdate()
     {
+        if (ui.isPaused == true)
+        {
+            return;
+        }
         //transform.position = new Vector3(transform.position.x, 5, transform.position.z);
         //Movement using WASD
         if (Input.GetKey(KeyCode.W))

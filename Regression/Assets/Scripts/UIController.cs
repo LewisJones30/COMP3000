@@ -15,6 +15,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public GameObject activePowers, healthObj, UIPause, UIWaveComplete;
     Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
     Player player;
+    bool waveCompletePause = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -156,8 +157,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         UIWaveCompText.enabled = true;
         isPaused = true;
+        waveCompletePause = true;
         yield return new WaitForSeconds(7.5f);
         UIWaveCompText.enabled = false;
+        waveCompletePause = false;
         powerController.loseAllPowers(); //Drain all of the player's powers.
         isPaused = false;
         
@@ -174,6 +177,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         yield return new WaitForSeconds(7.5f);
         UIWaveCompText.enabled = false;
         SceneManager.LoadScene("UI Scale Testing");
+        Cursor.lockState = CursorLockMode.None;
         isPaused = false;
     }
 
@@ -238,12 +242,20 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 #if UNITY_EDITOR
                     if (EditorApplication.isPlaying) //Stop the game running in the Unity Editor, testing purposes.
                     {
+                        if (waveCompletePause == true)
+                        {
+                            return;
+                        }
                         //SceneManager.LoadScene("TestScene"); This will be main menu once it has been coded.
                         Debug.Log("Player quit game!");
                         EditorApplication.isPlaying = false;
                     }
                     else
                     {
+                        if (waveCompletePause == true)
+                        {
+                            return;
+                        }
                         //SceneManager.LoadScene("TestScene"); //This will be main menu once it has been coded.
                         Debug.Log("Player quit game!");
                         Application.Quit();
@@ -252,7 +264,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     Application.Quit();
                 }
             }
-            if (isPaused == true && Input.anyKeyDown == true)
+            if (isPaused == true && Input.anyKeyDown == true && waveCompletePause == false)
             {
                 isPaused = false;
                 UIPauseText.enabled = false;

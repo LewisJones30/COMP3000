@@ -66,6 +66,7 @@ public class MagicWeapon : MonoBehaviour
             else
             {
                 text.enabled = true;
+                text.text = "Weapon recharging.... \n " + shootingCooldown;
             }
         }
         else //Game paused.

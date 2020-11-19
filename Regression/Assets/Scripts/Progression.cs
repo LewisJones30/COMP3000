@@ -10,12 +10,14 @@ public class Progression : MonoBehaviour
     //Public variables
     [HideInInspector]
     public float points; //This is an important modifier
+    [Tooltip("Change the size to specify how many waves you want!")]
+    public WaveArray[] waveArrays = new WaveArray[5];
     [Tooltip("Change the array size to the number of spawn points you want.")]
     public GameObject[] enemySpawners; //Enemies will spawn from a central portal or location. Could be modified to have more than one enemy spawner and randomly choose one.
     [Tooltip("Time in seconds between an enemy's spawn. \n" +
         "Each element controls each wave. \n" +
         "Ensure the size of this array is equal to the number of waves.")]
-    [Range(1.0f, 5f)]
+    [Range(0.1f, 5f)]
     public float[] EnemySpawnTime; //Control the time it takes to defeat each enemy here.
     [HideInInspector]
     public int numberEnemiesKilled = 0; //Used to track how many enemies have been killed per wave.
@@ -34,15 +36,9 @@ public class Progression : MonoBehaviour
      * Wave 5 - 
      */
 
-    //Arrays for Wave 1 to 5.
-    public GameObject[] wave1Enemies = new GameObject[5];
-    public GameObject[] wave2Enemies = new GameObject[5];
-    public GameObject[] wave3Enemies = new GameObject[5];
-    public GameObject[] wave4Enemies = new GameObject[5];
-    public GameObject[] wave5Enemies = new GameObject[5];
 
     //Private variables
-    private float currentWave, maximumWave; //Know the current wave and the maximum wave.
+    private int currentWave, maximumWave; //Know the current wave and the maximum wave.
     private UIController ui; //Used for checking if the game is running.
     private int numberEnemiesSpawned = 0;
     private float[] EnemySpawnTimeDupe; //Used for storing an exact duplicate of the original timers, for resetting once an enemy has spawned.
@@ -50,74 +46,74 @@ public class Progression : MonoBehaviour
 
     //Measuring progression of the wave. Callable by enemy before the enemy is destroyed, as well as UI.
 
-    public float currentProgressionPercentage() //Currently unused in UI.
-    {
-        float progress = 100f;
-        float enemiesAlive = 0;
-        switch (currentWave)
-        {
-            case 1:
-                //Enemies in Wave 1: 16.
-                foreach(GameObject obj in wave1Enemies)
-                {
-                    if (obj != null)
-                    {
-                        enemiesAlive = enemiesAlive + 1;
-                    }
-                }
-                progress = progress / enemiesAlive;
-                break;
-            case 2:
-                //Enemies in Wave 2:
-                foreach (GameObject obj in wave2Enemies)
-                {
-                    if (obj != null)
-                    {
-                        enemiesAlive = enemiesAlive + 1;
-                    }
-                }
-                progress = progress / enemiesAlive;
-                break;
-            case 3:
-                //Enemies in Wave 3:
-                foreach (GameObject obj in wave3Enemies)
-                {
-                    if (obj != null)
-                    {
-                        enemiesAlive = enemiesAlive + 1;
-                    }
-                }
-                progress = progress / enemiesAlive;
-                break;
-            case 4:
-                //Enemies in Wave 4:
-                foreach (GameObject obj in wave4Enemies)
-                {
-                    if (obj != null)
-                    {
-                        enemiesAlive = enemiesAlive + 1;
-                    }
-                }
-                progress = progress / enemiesAlive;
-                break;
-            case 5:
-                //Enemies in Wave 5:
-                foreach (GameObject obj in wave5Enemies)
-                {
-                    if (obj != null)
-                    {
-                        enemiesAlive = enemiesAlive + 1;
-                    }
-                }
-                progress = progress / enemiesAlive;
-                break;
-            default: //Error out if not a wave that has been programmed.
-                Debug.Log("ERROR: Current wave in progress is UNKNOWN.");
-                progress = -1f; 
-                break;
-        }
-        return progress;
-    }
+    //public float currentProgressionPercentage() //Currently unused in UI.
+    //{
+    //    float progress = 100f;
+    //    float enemiesAlive = 0;
+    //    //switch (currentWave)
+    //    //{
+    //    //    case 1:
+    //    //        //Enemies in Wave 1: 16.
+    //    //        foreach(GameObject obj in waveArrays[0])
+    //    //        {
+    //    //            if (obj != null)
+    //    //            {
+    //    //                enemiesAlive = enemiesAlive + 1;
+    //    //            }
+    //    //        }
+    //    //        progress = progress / enemiesAlive;
+    //    //        break;
+    //    //    case 2:
+    //    //        //Enemies in Wave 2:
+    //    //        foreach (GameObject obj in wave2Enemies)
+    //    //        {
+    //    //            if (obj != null)
+    //    //            {
+    //    //                enemiesAlive = enemiesAlive + 1;
+    //    //            }
+    //    //        }
+    //    //        progress = progress / enemiesAlive;
+    //    //        break;
+    //    //    case 3:
+    //    //        //Enemies in Wave 3:
+    //    //        foreach (GameObject obj in wave3Enemies)
+    //    //        {
+    //    //            if (obj != null)
+    //    //            {
+    //    //                enemiesAlive = enemiesAlive + 1;
+    //    //            }
+    //    //        }
+    //    //        progress = progress / enemiesAlive;
+    //    //        break;
+    //    //    case 4:
+    //    //        //Enemies in Wave 4:
+    //    //        foreach (GameObject obj in wave4Enemies)
+    //    //        {
+    //    //            if (obj != null)
+    //    //            {
+    //    //                enemiesAlive = enemiesAlive + 1;
+    //    //            }
+    //    //        }
+    //    //        progress = progress / enemiesAlive;
+    //    //        break;
+    //    //    case 5:
+    //    //        //Enemies in Wave 5:
+    //    //        foreach (GameObject obj in wave5Enemies)
+    //    //        {
+    //    //            if (obj != null)
+    //    //            {
+    //    //                enemiesAlive = enemiesAlive + 1;
+    //    //            }
+    //    //        }
+    //    //        progress = progress / enemiesAlive;
+    //    //        break;
+    //    //    default: //Error out if not a wave that has been programmed.
+    //    //        Debug.Log("ERROR: Current wave in progress is UNKNOWN.");
+    //    //        progress = -1f; 
+    //    //        break;
+    //    //}
+    //    //return progress;
+    //}
     void Spawn()
     {
         System.Random r = new System.Random(); //Used for spawning an enemy. 
@@ -125,65 +121,72 @@ public class Progression : MonoBehaviour
         System.Random ra = new System.Random(); //Used for choosing a spawner
         enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)]; //Choose a random spawner.
         int waveLength = 0;
-        switch (currentWave) 
-        {
-            case 1:
-                waveLength = wave1Enemies.Length;
-                GameObject W1Spawn = wave1Enemies[r.Next(0, waveLength)];
-                Instantiate(W1Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-            case 2:
-                waveLength = wave1Enemies.Length;
-                GameObject W2Spawn = wave1Enemies[r.Next(0, waveLength)];
-                Instantiate(W2Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-            case 3:
-                waveLength = wave1Enemies.Length;
-                GameObject W3Spawn = wave1Enemies[r.Next(0, waveLength)];
-                break;
-            case 4:
-                waveLength = wave1Enemies.Length;
-                GameObject W4Spawn = wave1Enemies[r.Next(0, waveLength)];
-                Instantiate(W4Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-            case 5:
-                waveLength = wave1Enemies.Length;
-                GameObject W5Spawn = wave1Enemies[r.Next(0, waveLength)];
-                Instantiate(W5Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-        }
+        GameObject[] waveEnemies = waveArrays[currentWave - 1].wave;
+        waveLength = waveEnemies.Length;
+        GameObject W1Spawn = waveEnemies[r.Next(0, waveLength)];
+        Instantiate(W1Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
+        //switch (currentWave) 
+        //{
+        //    case 1:
+        //        GameObject[] wave1Enemies = waveArrays[0].wave;
+        //        waveLength = wave1Enemies.Length;
+        //        GameObject W1Spawn = wave1Enemies[r.Next(0, waveLength)];
+        //        Instantiate(W1Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
+        //        break;
+        //    case 2:
+        //        GameObject[] wave2Enemies = waveArrays[1].wave;
+        //        waveLength = wave2Enemies.Length;
+        //        GameObject W2Spawn = wave2Enemies[r.Next(0, waveLength)];
+        //        Instantiate(W2Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
+        //        break;
+        //    case 3:
+        //        GameObject[] wave3Enemies = waveArrays[2].wave;
+        //        waveLength = wave1Enemies.Length;
+        //        GameObject W3Spawn = wave1Enemies[r.Next(0, waveLength)];
+        //        break;
+        //    case 4:
+        //        waveLength = wave1Enemies.Length;
+        //        GameObject W4Spawn = wave1Enemies[r.Next(0, waveLength)];
+        //        Instantiate(W4Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
+        //        break;
+        //    case 5:
+        //        waveLength = wave1Enemies.Length;
+        //        GameObject W5Spawn = wave1Enemies[r.Next(0, waveLength)];
+        //        Instantiate(W5Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
+        //        break;
+        //}
     }
-    void ForceSpawn(int EnemyArraySlotID) //If a certain enemy must be spawned. For example, the 5th enemy could be 100% chance of being a powerful enemy.
-    {
-        //Choose a random spawner.
-        GameObject enemySpawner;
-        System.Random ra = new System.Random();
-        enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)];
-        switch (currentWave)
-        {
-            case 1:
-                GameObject spawn = wave1Enemies[EnemyArraySlotID];
-                Instantiate(spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
+    //void ForceSpawn(int EnemyArraySlotID) //If a certain enemy must be spawned. For example, the 5th enemy could be 100% chance of being a powerful enemy.
+    //{
+    //    //Choose a random spawner.
+    //    GameObject enemySpawner;
+    //    System.Random ra = new System.Random();
+    //    enemySpawner = enemySpawners[ra.Next(0, enemySpawners.Length)];
+    //    switch (currentWave)
+    //    {
+    //        case 1:
+    //            GameObject spawn = wave1Enemies[EnemyArraySlotID];
+    //            Instantiate(spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
+    //            break;
 
-            case 2:
-                GameObject spawn2 = wave1Enemies[EnemyArraySlotID];
-                Instantiate(spawn2, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-            case 3:
-                GameObject spawn3 = wave1Enemies[EnemyArraySlotID];
-                Instantiate(spawn3, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-            case 4:
-                GameObject spawn4 = wave1Enemies[EnemyArraySlotID];
-                Instantiate(spawn4, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-            case 5:
-                GameObject spawn5 = wave1Enemies[EnemyArraySlotID];
-                Instantiate(spawn5, enemySpawner.transform.position, enemySpawner.transform.rotation);
-                break;
-        }
-    }
+    //        case 2:
+    //            GameObject spawn2 = wave1Enemies[EnemyArraySlotID];
+    //            Instantiate(spawn2, enemySpawner.transform.position, enemySpawner.transform.rotation);
+    //            break;
+    //        case 3:
+    //            GameObject spawn3 = wave1Enemies[EnemyArraySlotID];
+    //            Instantiate(spawn3, enemySpawner.transform.position, enemySpawner.transform.rotation);
+    //            break;
+    //        case 4:
+    //            GameObject spawn4 = wave1Enemies[EnemyArraySlotID];
+    //            Instantiate(spawn4, enemySpawner.transform.position, enemySpawner.transform.rotation);
+    //            break;
+    //        case 5:
+    //            GameObject spawn5 = wave1Enemies[EnemyArraySlotID];
+    //            Instantiate(spawn5, enemySpawner.transform.position, enemySpawner.transform.rotation);
+    //            break;
+    //    }
+    //}
     void nextWave()
     {
         if (currentWave < maximumWave)
@@ -200,10 +203,12 @@ public class Progression : MonoBehaviour
 
     public void enemyKilled()
     {
+        //This section will need reprogramming with the wave system.
         numberEnemiesKilled = numberEnemiesKilled + 1;
         switch (currentWave)
         {
             case 1:
+                GameObject[] wave1Enemies = waveArrays[0].wave;
                 if (numberEnemiesKilled == wave1Enemies.Length)
                 {
                     //Wave complete!
@@ -218,6 +223,7 @@ public class Progression : MonoBehaviour
                 }
                 break;
             case 2:
+                GameObject[] wave2Enemies = waveArrays[1].wave;
                 if (numberEnemiesKilled == wave2Enemies.Length)
                 {
                     currentWave = currentWave + 1;
@@ -225,6 +231,7 @@ public class Progression : MonoBehaviour
                 }
                 break;
             case 3:
+                GameObject[] wave3Enemies = waveArrays[2].wave;
                 if (numberEnemiesKilled == wave3Enemies.Length)
                 {
                     currentWave = currentWave + 1;
@@ -232,6 +239,7 @@ public class Progression : MonoBehaviour
                 }
                 break;
             case 4:
+                GameObject[] wave4Enemies = waveArrays[3].wave;
                 if (numberEnemiesKilled == wave4Enemies.Length)
                 {
                     currentWave = currentWave + 1;
@@ -239,6 +247,7 @@ public class Progression : MonoBehaviour
                 }
                 break;
             case 5:
+                GameObject[] wave5Enemies = waveArrays[4].wave;
                 if (numberEnemiesKilled == wave5Enemies.Length)
                 {
                     currentWave = currentWave + 1;
@@ -250,7 +259,7 @@ public class Progression : MonoBehaviour
 
     void FixedUpdate() //Control the enemy spawns here!
     {
-        if (SceneManager.GetActiveScene().name != "game")
+        if (SceneManager.GetActiveScene().name != "Game")
         {
             return;
         }
@@ -258,6 +267,7 @@ public class Progression : MonoBehaviour
             switch (currentWave)
             {
                 case 1:
+                    GameObject[] wave1Enemies = waveArrays[0].wave;
                     if (numberEnemiesSpawned == wave1Enemies.Length) //Ignore timers once all enemies have been spawned.
                     {
                         EnemySpawnTime[0] = 256;
@@ -273,8 +283,9 @@ public class Progression : MonoBehaviour
                     }
                     break;
                 case 2:
+                    GameObject[] wave2Enemies = waveArrays[1].wave;
                     EnemySpawnTime[1] = EnemySpawnTime[1] - Time.deltaTime;
-                    if (numberEnemiesSpawned == wave1Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    if (numberEnemiesSpawned == wave2Enemies.Length) //Ignore timers once all enemies have been spawned.
                     {
                         EnemySpawnTime[1] = 256;
                         break;
@@ -288,6 +299,7 @@ public class Progression : MonoBehaviour
                     }
                     break;
                 case 3:
+                    GameObject[] wave3Enemies = waveArrays[2].wave;
                     EnemySpawnTime[2] = EnemySpawnTime[2] - Time.deltaTime;
                     if (EnemySpawnTime[2] <= 0)
                     {
@@ -328,4 +340,9 @@ public class Progression : MonoBehaviour
         temptext = TempText.GetComponent<Text>();
         temptext.text = "Wave 1/2";
     }
+}
+[System.Serializable]
+public class WaveArray
+{
+    public GameObject[] wave;
 }

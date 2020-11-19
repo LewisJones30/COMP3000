@@ -74,6 +74,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
     - Class: 90
       Script: {instanceID: 0}
     - Class: 91
@@ -137,6 +139,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 258
       Script: {instanceID: 0}
     Assets/Scenes/UI Scale Testing.unity:
     - Class: 1
@@ -264,7 +268,7 @@ ScriptsOnlyBuild:
     className: Enemy
   - hash:
       serializedVersion: 2
-      Hash: e6539581bce20a471442df0644effb38
+      Hash: f6f8ce5957318b034f3600d1f10f96e8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Progression
@@ -798,7 +802,7 @@ ScriptsOnlyBuild:
     className: PlayerFacade
   - hash:
       serializedVersion: 2
-      Hash: 09aa0814c62a763c5648cc1a9d9266c3
+      Hash: cf5e08edf977d462b6312367301c4545
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -954,7 +958,7 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
-      Hash: d9fc182833b940bb5a47c28d888434de
+      Hash: 68ed651d471114c24f85d13f111f645e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MagicWeapon
