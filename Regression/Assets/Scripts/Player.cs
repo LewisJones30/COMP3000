@@ -189,6 +189,7 @@ public class Player : MonoBehaviour
     IEnumerator routineDead()
     {
         deadtext.enabled = true;
+        isPausedCheck.isPaused = true;
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("UI Scale Testing");
     }

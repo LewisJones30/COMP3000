@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
+    [HideInInspector]
     public int difficultyLevel = 0;
     public Power[] powerHandler = new Power[20];
     UIController redrawCurrentPowers;

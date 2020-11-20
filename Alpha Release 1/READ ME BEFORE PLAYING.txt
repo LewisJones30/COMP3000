@@ -1,0 +1,21 @@
+Hi there, and thanks for checking out my first prototype of Regression!
+
+This game is designed to have negative player progression - hence the name - so instead of enemies getting tougher, you instead will become weaker.
+I am aware that there are still many bugs.
+
+Controls:
+WASD - Move your character
+Left click - shoot
+Press the escape key to pause the game at any time!
+
+Once you have finished playing around, please complete the google form linked in the other text document.
+
+Known issues:
+If you die in wave 2, you may be able to still move around.
+If you pause the game mid-way through a wave transition, you may immediately exit the game.
+Movement is only in one direction, even if multiple buttons are pressed.
+Enemy hitboxes are slightly buggy, and some projectiles may go through.
+Enemy animations are buggy, and may randomly freeze.
+The enemies can damage each other.
+
+Thank you for playing! :)

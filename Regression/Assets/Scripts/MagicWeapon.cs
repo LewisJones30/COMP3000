@@ -7,6 +7,7 @@ using Zenject.Asteroids;
 public class MagicWeapon : MonoBehaviour
 {
     [SerializeField]
+    [Tooltip("Default time between shots.\nNote that some difficulties and powers will change this.")]
     double shootingCooldown = 3f;
     UIController isPauseCheck; //Check if paused.
     [SerializeField]
@@ -26,8 +27,8 @@ public class MagicWeapon : MonoBehaviour
         isPauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         //Obtain any powers that modify.
         text = UITempWeaponText.GetComponent<Text>();
-        PowerBehaviour = Powerhandler.GetComponent<PowerBehaviour>();
-        if (PowerBehaviour.powerHandler[6].PowerAvailable == true)
+        PowerBehaviour = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+        if (PowerBehaviour.powerHandler[6].PowerActive == true)
         {
             //Reduce the cooldown of shooting by 50% with power 6.
             shootingCooldown = shootingCooldown / 1.5f;
@@ -66,7 +67,7 @@ public class MagicWeapon : MonoBehaviour
             else
             {
                 text.enabled = true;
-                text.text = "Weapon recharging.... \n " + shootingCooldown;
+                text.text = "Weapon recharging...";
             }
         }
         else //Game paused.
