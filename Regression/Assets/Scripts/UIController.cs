@@ -48,17 +48,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         activepowers = powersText.GetComponent<Text>();
         health = healthText.GetComponent<Text>();
         powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
-        UIPauseText = UIPause.GetComponent<Text>();
         UIWaveCompText = UIWaveComplete.GetComponent<Text>();
 
         //Enable/Disable section
 
-        UIPauseText.enabled = false;
         powerdrainedtext.enabled = false;
         UIWaveCompText.enabled = false;
 
         //Modify values section
-        UITempWaveText.text = "Wave 1/2";
+        //UITempWaveText.text = "Wave 1/2";
     }
     string getUpdatePlayerHP()
     {
@@ -181,11 +179,78 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         isPaused = false;
     }
 
+    //=========================================================Pause functionality=========================================================
+    void GamePausedFunction() //This function will control the UI when the game is paused.
+    {
+        GameObject[] objsToHide = GameObject.FindGameObjectsWithTag("RemoveWhenPaused");
+        foreach (GameObject obj in objsToHide)
+        {
+            obj.SetActive(false);
+        }
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            //if (obj.name == "Pause UI")
+            {
+            //    obj.SetActive(true);
+            //    break; //Stop needless searching.
+            }
+        }
+        
+    }
+
+    private void GameUnpausedFunction() //This function will control the UI when the game is resumed by the player.
+    {
+        GameObject pauseObj = GameObject.FindGameObjectWithTag("PauseObj");
+        pauseObj.SetActive(false);
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.tag == "RemoveWhenPaused")
+            {
+                obj.SetActive(true);
+            }
+
+
+        }
+    }
+
+    public void ResumeButton()
+    {
+        Debug.Log("Game resumed!");
+        GameUnpausedFunction();
+        Cursor.lockState = CursorLockMode.Locked;
+        isPaused = false;
+    }
+    public void ExitGameConfirmScreen()
+    {
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "Pause UI")
+            {
+                obj.SetActive(false);
+            }
+            if (obj.name == "Exit Confirmation UI")
+            {
+                obj.SetActive(true);
+            }
+
+        }
+    }
+    public void ExitGame()
+    {
+#if UNITY_EDITOR //Close game within Unity editor. Ignored once in standalone executable!
+        {
+            EditorApplication.isPlaying = false;
+        }
+#endif
+        //Close game.
+        Application.Quit();
+    }
+
 
 
     //Methods to get information and update UI
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (SceneManager.GetActiveScene().name != "Game")
         {
@@ -193,7 +258,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         if (isPaused == false)
         {
-            UIPauseText.enabled = false;
             activepowers.text = powerController.ModifierText();
         }
 
@@ -231,43 +295,18 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 if (isPaused == false)
                 {
                     Debug.Log("Escape pressed, game paused!");
-                    //Code here to trigger UI
+                    GamePausedFunction();
                     Cursor.lockState = CursorLockMode.None;
-                    UIPauseText.enabled = true;
                     isPaused = true;
                     return;
                 }
                 else
                 {
-#if UNITY_EDITOR
-                    if (EditorApplication.isPlaying) //Stop the game running in the Unity Editor, testing purposes.
-                    {
-                        if (waveCompletePause == true)
-                        {
-                            return;
-                        }
-                        //SceneManager.LoadScene("TestScene"); This will be main menu once it has been coded.
-                        Debug.Log("Player quit game!");
-                        EditorApplication.isPlaying = false;
-                    }
-                    else
-                    {
-                        if (waveCompletePause == true)
-                        {
-                            return;
-                        }
-                        //SceneManager.LoadScene("TestScene"); //This will be main menu once it has been coded.
-                        Debug.Log("Player quit game!");
-                        Application.Quit();
-                    }
-#endif
-                    Application.Quit();
+                    Debug.Log("Game resumed!");
+                    GameUnpausedFunction();
+                    Cursor.lockState = CursorLockMode.Locked;
+                    isPaused = false;
                 }
-            }
-            if (isPaused == true && Input.anyKeyDown == true && waveCompletePause == false)
-            {
-                isPaused = false;
-                UIPauseText.enabled = false;
             }
             else
             {

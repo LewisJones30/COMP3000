@@ -12,6 +12,8 @@ TagManager:
   - PowerHandler
   - WaveHandler
   - ProgressionHandler
+  - RemoveWhenPaused
+  - PauseObj
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - UIButtons
   - 
   - 
   - 
