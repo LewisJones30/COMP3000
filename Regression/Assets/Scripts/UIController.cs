@@ -189,10 +189,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
-            //if (obj.name == "Pause UI")
+            if (obj.tag == "RemoveWhenResumed")
             {
-            //    obj.SetActive(true);
-            //    break; //Stop needless searching.
+               obj.SetActive(true);
             }
         }
         
@@ -208,7 +207,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 obj.SetActive(true);
             }
-
+            if (obj.tag == "RemoveWhenResumed")
+            {
+                obj.SetActive(false);
+            }
 
         }
     }
