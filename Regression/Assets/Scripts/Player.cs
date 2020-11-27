@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         deadtext = deadtextObj.GetComponent<Text>();
         deadtext.enabled = false;
-        SpawnSpecificWeapon(0);
+        SpawnRandomWeapon();
     }
 
     // Update is called once per frame
@@ -202,15 +202,27 @@ public class Player : MonoBehaviour
     {
         switch (weaponID)
         {
-            case 0:
-                GameObject weapon;
-                weapon = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 150f, 97.661f), this.gameObject.transform);
-                weapon.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
+            case 0: //Melee Sword
+                GameObject weaponSword;
+                weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 150f, 97.661f), this.gameObject.transform);
+                weaponSword.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
+                break;
+            case 1: //Magic Staff
+                GameObject weaponStaff;
+                weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, Quaternion.Euler(-34, -80, 49.454f), this.gameObject.transform);
+                weaponStaff.transform.localPosition = (new Vector3(-0.69f, -0.796f, 0.248f));
+                GameObject.Find("ProjectileSpawner").SetActive(true);
                 break;
         }
+        
     }
 
+    public void SpawnRandomWeapon()
+    {
 
+        int weaponID = UnityEngine.Random.Range(0, 100) % 2;
+        SpawnSpecificWeapon(weaponID);
+    }
 
 
 //========================================================Power control
