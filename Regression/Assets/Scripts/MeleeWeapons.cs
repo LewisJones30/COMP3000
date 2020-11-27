@@ -23,7 +23,6 @@ public class MeleeWeapons : MonoBehaviour
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>(); //Get component for checking for pausing
         anim = this.gameObject.GetComponent<Animator>();
         duplicateCD = cooldown;
-        forward = collisionDetection.transform.TransformDirection(Vector3.forward);
         playerScript = GameObject.Find("Player").GetComponent<Player>();
     }
 

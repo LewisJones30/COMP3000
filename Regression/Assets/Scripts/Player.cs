@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public double time = 0;
 
+
     bool tutorialActive = false; //Means player cannot die.
     bool isDead = false; //Player starts alive.
     bool[] powersLost = new bool[20];
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         deadtext = deadtextObj.GetComponent<Text>();
         deadtext.enabled = false;
+        SpawnSpecificWeapon(0);
     }
 
     // Update is called once per frame
@@ -193,6 +195,21 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("UI Scale Testing");
     }
+
+
+    //Weapon instantiation
+    public void SpawnSpecificWeapon(int weaponID)
+    {
+        switch (weaponID)
+        {
+            case 0:
+                GameObject weapon;
+                weapon = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 150f, 97.661f), this.gameObject.transform);
+                weapon.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
+                break;
+        }
+    }
+
 
 
 
