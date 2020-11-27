@@ -192,15 +192,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             if (obj.tag == "RemoveWhenResumed")
             {
                obj.SetActive(true);
-            }
+            } 
         }
+
         
     }
 
     private void GameUnpausedFunction() //This function will control the UI when the game is resumed by the player.
     {
-        GameObject pauseObj = GameObject.FindGameObjectWithTag("PauseObj");
-        pauseObj.SetActive(false);
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -208,6 +207,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 obj.SetActive(true);
             }
             if (obj.tag == "RemoveWhenResumed")
+            {
+                obj.SetActive(false);
+            }
+            if (obj.name == "Exit Confirmation")
             {
                 obj.SetActive(false);
             }
@@ -222,15 +225,29 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
     }
+    public void ReturnToPauseScreen()
+    {
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "Exit Confirmation")
+            {
+                obj.SetActive(false);
+            }
+          if (obj.name == "Pause Menu")
+            {
+                obj.SetActive(true);
+            }
+        }
+    }    
     public void ExitGameConfirmScreen()
     {
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
-            if (obj.name == "Pause UI")
+            if (obj.tag == "RemoveWhenResumed")
             {
                 obj.SetActive(false);
             }
-            if (obj.name == "Exit Confirmation UI")
+            if (obj.name == "Exit Confirmation")
             {
                 obj.SetActive(true);
             }

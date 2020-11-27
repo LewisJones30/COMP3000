@@ -11,15 +11,16 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float ExpertOnlyDamageReduction = 0.1f;//(Set between 0 for 0% and 1 for 100%). As part of expert & satanic, this will reduce incoming damage by a certain amount.
     [SerializeField]
+    [Tooltip("Assign a projectile prefab here.")]
     GameObject enemyProjectile; //If not a melee enemy, projectile can be set here.
     [SerializeField]
+    [Tooltip("This is the amount of time between this enemy's attacks.")]
     double attackSpeed = 5f; //Set the enemy's attack speed.
     float storedAS; //Used for resetting the attack speed timer.
     [SerializeField]
     int pointsWhenKilled = 100;
     [SerializeField]
-    double aggressionRange; //Used for finding a range to attack the player.
-    [SerializeField]
+    [Tooltip("This shows the distance from the player this enemy will stop moving at.")]
     float raycastLength = 10f;
     RaycastHit hit;
     double attackTime;
@@ -69,7 +70,6 @@ public class Enemy : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(transform.position, forward, out hit, raycastLength))
         {
-            Debug.Log("Enemy collider: " + hit.collider.gameObject.name);
 
             if (hit.collider.gameObject.name == "Player")
             {

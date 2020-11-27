@@ -29,4 +29,9 @@ public class ButtonCaller : MonoBehaviour
     {
         Debug.Log("CLick!");
     }
+    public void ReturnToPauseMenu()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        ui.ReturnToPauseScreen();
+    }
 }
