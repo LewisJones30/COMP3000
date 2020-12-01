@@ -35,6 +35,7 @@ public class MagicWeapon : MonoBehaviour
             dupeCD = shootingCooldown;
             powerModified = true;
         }
+
     }
 
     // Update is called once per frame
@@ -66,8 +67,16 @@ public class MagicWeapon : MonoBehaviour
             }
             else
             {
-                text.enabled = true;
-                text.text = "Weapon recharging...";
+                if (GameObject.Find("Mace1Clone"))
+                {
+                    text.gameObject.SetActive(false);
+                }
+                else
+                {
+                    text.enabled = true;
+                    text.text = "Weapon recharging...";
+                }
+
             }
         }
         else //Game paused.

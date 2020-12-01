@@ -206,12 +206,14 @@ public class Player : MonoBehaviour
                 GameObject weaponSword;
                 weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 150f, 97.661f), this.gameObject.transform);
                 weaponSword.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
+                GameObject.Find("ProjectileSpawner").SetActive(false);
+                GameObject.Find("TempWeaponText").SetActive(false);
                 break;
             case 1: //Magic Staff
                 GameObject weaponStaff;
                 weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, Quaternion.Euler(-34, -80, 49.454f), this.gameObject.transform);
                 weaponStaff.transform.localPosition = (new Vector3(-0.69f, -0.796f, 0.248f));
-                GameObject.Find("ProjectileSpawner").SetActive(true);
+
                 break;
         }
         
