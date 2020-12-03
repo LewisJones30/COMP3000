@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (SceneManager.GetActiveScene().name == "Game")
         {
             GetGameObjectsGame(); //Call method to get gameobject.
-
+            WeaponSelection();
         }
     }
     void GetGameObjectsGame()
@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         player = GameObject.Find("Player").GetComponent<Player>();
         UIPause = GameObject.Find("UIPauseText");
         UIWaveComplete = GameObject.Find("WaveCompleteText");
-        
+
 
         //Get component section
 
@@ -57,6 +57,29 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         //Modify values section
         //UITempWaveText.text = "Wave 1/2";
+    }
+
+    void WeaponSelection()
+    {
+        //This script initialises weapon selection for the player.
+        //If the difficulty is hard, or expert, then the game will automatically skip this check and spawn a random weapon for the player.
+        isPaused = true;
+        //Game is paused here.
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.tag == "RemoveWhenPaused")
+            {
+                obj.SetActive(false);
+            }
+            if (obj.name == "Choose a Weapon")
+            {
+                obj.SetActive(true);
+            }
+        }
+
+
+
+
     }
     string getUpdatePlayerHP()
     {
@@ -214,6 +237,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 obj.SetActive(false);
             }
+            if (obj.name == "Choose a Weapon")
+            {
+                obj.SetActive(false);
+            }
 
         }
     }
@@ -267,8 +294,26 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
 
-    //Methods to get information and update UI
+    //======================================Methods to get information and update UI
 
+
+    public void EnableFireWarning() //Called by Player when the player is on fire
+    {
+            foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+            {
+                if (obj.tag == "FireWarning")
+                {
+                    obj.SetActive(true);
+                    return;
+                }
+            }
+        return;
+        
+    }
+    public void DisableFireWarning()
+    {
+        GameObject.FindGameObjectWithTag("FireWarning").SetActive(false);
+    }
     void FixedUpdate()
     {
         if (SceneManager.GetActiveScene().name != "Game")
@@ -281,7 +326,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
 
     }
-
+    //Used when the game moves to another scene.
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GetGameObjectsGame();

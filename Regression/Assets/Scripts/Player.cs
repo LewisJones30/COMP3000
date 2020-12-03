@@ -104,11 +104,16 @@ public class Player : MonoBehaviour
     public double pointsModifier = 1.0f; //Points gained.
     [HideInInspector]
     public double time = 0;
-
+    [HideInInspector]
+    public int playerOnFire = 0; //Boolean accessed by firecollision to damage the player. 0 = not on fire, 1 = on fire, 2 = exited fire, disable fire effect.
 
     bool tutorialActive = false; //Means player cannot die.
     bool isDead = false; //Player starts alive.
     bool[] powersLost = new bool[20];
+    float FireDamageTime = 0f;
+
+
+
 
     UIController isPausedCheck;
     PowerBehaviour powerController;
@@ -120,7 +125,6 @@ public class Player : MonoBehaviour
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         deadtext = deadtextObj.GetComponent<Text>();
         deadtext.enabled = false;
-        SpawnRandomWeapon();
     }
 
     // Update is called once per frame
@@ -139,9 +143,24 @@ public class Player : MonoBehaviour
                 time = 0;
             }
         }
-        if (isDead == true)
+        if (playerOnFire == 1)
         {
-
+            isPausedCheck.EnableFireWarning();
+           if (powerController.powerHandler[5].PowerActive == true)
+            {
+                //Change UI to warn player in fire, but imbued with fire means they take no damage.
+                return; //Player does NOT take damage. 
+            }
+            time = time + Time.deltaTime;
+            if (time >= 0.5)
+            {
+                takeDamage(15);
+            }
+        }
+        else if (playerOnFire == 2)
+        {
+            isPausedCheck.DisableFireWarning();
+            playerOnFire = 0;
         }
     }
 
@@ -170,8 +189,14 @@ public class Player : MonoBehaviour
                 DharoksEffect(); //Recalculate the player's damage.
             }
         }
+        StartCoroutine("DamagePlayerFlash");
     }
-
+    IEnumerator DamagePlayerFlash()
+    {
+        GameObject.Find("In Game UI").transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        yield return new WaitForSeconds(0.15f);
+        GameObject.Find("In Game UI").transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+    }
     void heal(double healAmount)
     {
         if ((health + healAmount) > maximumHealth)
@@ -204,15 +229,15 @@ public class Player : MonoBehaviour
         {
             case 0: //Melee Sword
                 GameObject weaponSword;
-                weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 150f, 97.661f), this.gameObject.transform);
+                weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 10.25f, 97.661f), this.gameObject.transform);
                 weaponSword.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
                 GameObject.Find("ProjectileSpawner").SetActive(false);
-                GameObject.Find("TempWeaponText").SetActive(false);
+                //GameObject.Find("TempWeaponText").SetActive(false);
                 break;
             case 1: //Magic Staff
                 GameObject weaponStaff;
-                weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, Quaternion.Euler(-34, -80, 49.454f), this.gameObject.transform);
-                weaponStaff.transform.localPosition = (new Vector3(-0.69f, -0.796f, 0.248f));
+                weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, Quaternion.Euler(-34, 150f, 49.454f), this.gameObject.transform);
+                weaponStaff.transform.localPosition = (new Vector3(-0.892f, -0.91f, 0.135f));
 
                 break;
         }

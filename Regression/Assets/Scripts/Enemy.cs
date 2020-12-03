@@ -100,11 +100,21 @@ public class Enemy : MonoBehaviour
     public void takeDamage(double damageToTake)
     {
         health = health - damageToTake;
+        StartCoroutine("flashDamaged");
         if (health <= 0)
         {
             //Grant points
             progressionController.enemyKilled();
             Destroy(this.gameObject); //Kill enemy
         }
+    }
+    IEnumerator flashDamaged()
+    {
+
+        transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.white;
+
+
     }
 }

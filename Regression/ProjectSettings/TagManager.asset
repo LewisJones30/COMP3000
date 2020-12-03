@@ -15,6 +15,7 @@ TagManager:
   - RemoveWhenPaused
   - PauseObj
   - RemoveWhenResumed
+  - FireWarning
   layers:
   - Default
   - TransparentFX
