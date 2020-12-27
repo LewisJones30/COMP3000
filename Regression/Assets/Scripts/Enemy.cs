@@ -57,16 +57,20 @@ public class Enemy : MonoBehaviour
         {
             enemyAnimations.SetBool("isWalking", false);
         }
-        if (pauseCheck.isPaused == true)
+        if (pauseCheck != null)
         {
-            stopMoving = true;
-            enemyAnimations.enabled = false;
-            return;
+            if (pauseCheck.isPaused == true)
+            {
+                stopMoving = true;
+                enemyAnimations.enabled = false;
+                return;
+            }
+            else
+            {
+                enemyAnimations.enabled = true;
+            }
         }
-        else
-        {
-            enemyAnimations.enabled = true;
-        }
+
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(transform.position, forward, out hit, raycastLength))
         {
@@ -110,10 +114,10 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator flashDamaged()
     {
-
-        transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.red;
+        
+        //transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(0.5f);
-        transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.white;
+        //transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.white;
 
 
     }

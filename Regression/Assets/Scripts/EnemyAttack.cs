@@ -14,6 +14,10 @@ public class EnemyAttack : MonoBehaviour
     GameObject enemyParent;
     UIController ispauseCheck;
     Animator isEnemy;
+    [SerializeField]
+   int MeleeRaycastLength = 2;
+    [SerializeField]
+    RaycastHit hit;
     void Start()
     {
         ispauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
@@ -46,8 +50,10 @@ public class EnemyAttack : MonoBehaviour
                 }
                 else if (this.tag == "SwordEnemy")
                 {
-
+                    
                     attackSpeed = storedAS;
+                    meleeSwipe();
+
                 }
             }
         }
@@ -61,6 +67,24 @@ public class EnemyAttack : MonoBehaviour
         attackSpeed = storedAS;
         Debug.Log("Anim triggered!");
         isEnemy.SetTrigger("StopAttack");
+    }
+    void meleeSwipe()
+    {
+
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(transform.position, forward, out hit, MeleeRaycastLength))
+        {
+            if (hit.transform.gameObject.name == "Player")
+            {
+
+                //isEnemy.Rebind();
+                isEnemy.SetTrigger("Attack");
+                hit.transform.gameObject.GetComponent<Player>().takeDamage(25);
+                Debug.Log("Player damaged by melee attack!");
+            }
+        }
+        isEnemy.SetTrigger("StopAttack");
+
     }
     IEnumerator attackAnim()
     {
