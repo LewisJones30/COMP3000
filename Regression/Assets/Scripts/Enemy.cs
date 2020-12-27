@@ -56,11 +56,13 @@ public class Enemy : MonoBehaviour
             Vector3 newVelocity = i.velocity.normalized;
             newVelocity *= 1.5f;
             i.velocity = newVelocity;
+            transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
         }
         else
         {
             i.velocity = Vector3.zero;
             i.angularVelocity = Vector3.zero;
+            transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
         }
 
 
