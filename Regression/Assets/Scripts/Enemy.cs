@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     Animator enemyAnimations;
     UIController pauseCheck;
     Progression progressionController;
+    Rigidbody i;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class Enemy : MonoBehaviour
         attackSpeed = attackTime;
         pauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         progressionController = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+        i = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -43,8 +46,23 @@ public class Enemy : MonoBehaviour
     {
         //Face player if in a specific aggression range.
         transform.LookAt(GameObject.Find("Player").transform); //This code needs to be changed to use the aggression range.
+        
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position, forward * 10, Color.green);
+        var hits = Physics.OverlapSphere(transform.position, 0.5f);
+        if (stopMoving == false)
+        {
+            i.AddRelativeForce(0.2f * new Vector3(0f, 0f, 1f), ForceMode.Force);
+            Vector3 newVelocity = i.velocity.normalized;
+            newVelocity *= 1.5f;
+            i.velocity = newVelocity;
+        }
+        else
+        {
+            i.velocity = Vector3.zero;
+            i.angularVelocity = Vector3.zero;
+        }
+
 
     }
     private void FixedUpdate()
@@ -76,6 +94,11 @@ public class Enemy : MonoBehaviour
         {
 
             if (hit.collider.gameObject.name == "Player")
+            {
+                stopMoving = true;
+                return;
+            }
+            else if (hit.collider.gameObject.GetComponent<Enemy>() != null)
             {
                 stopMoving = true;
                 return;
