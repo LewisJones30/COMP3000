@@ -51,24 +51,10 @@ public class Enemy : MonoBehaviour
     {
         //Face player if in a specific aggression range.
         transform.LookAt(GameObject.Find("Player").transform); //This code needs to be changed to use the aggression range.
-        
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(transform.position, forward * 10, Color.green);
-        var hits = Physics.OverlapSphere(transform.position, 0.5f);
-        if (stopMoving == false)
+        if (stopMoving == true)
         {
-            //i.AddRelativeForce(new Vector3(0f, 0f, 5f), ForceMode.VelocityChange);
-
-            transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+            i.Sleep();
         }
-        else
-        {
-            i.velocity = Vector3.zero;
-            i.angularVelocity = Vector3.zero;
-            transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
-        }
-
-
     }
     private void FixedUpdate()
     {
@@ -97,7 +83,7 @@ public class Enemy : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(transform.position, forward, out hit, raycastLength))
         {
-
+            Debug.Log("Enemy raycast player check: " + hit.transform.gameObject.name);
             if (hit.collider.gameObject.name == "Player")
             {
                 stopMoving = true;
@@ -110,14 +96,26 @@ public class Enemy : MonoBehaviour
             }
 
         }
+
         else
         {
             stopMoving = false;
         }
 
-        if (stopMoving == false)
+        if (stopMoving == true)
         {
-            transform.position = ((transform.forward / 25) * enemyMovementSpeed + transform.position);
+            i.velocity = Vector3.zero;
+            i.angularVelocity = Vector3.zero;
+            transform.position = new Vector3(transform.position.x, 2.5f, transform.position.z);
+
+        }
+        else
+        {
+            i.AddRelativeForce(new Vector3(0f, 0f, 1f), ForceMode.VelocityChange);
+            Vector3 newVelocity = i.velocity.normalized;
+            newVelocity *= 1.5f;
+            i.velocity = newVelocity;
+            transform.position = new Vector3(transform.position.x, 1.4f, transform.position.z);
         }
         attackTime = this.gameObject.GetComponentInChildren<EnemyAttack>().attackSpeed;
         if (attackTime <= 0 || attackTime > attackSpeed)
