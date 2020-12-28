@@ -16,6 +16,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
     Player player;
     bool waveCompletePause = false;
+    double pointsGained;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,7 +89,25 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         string returnValue = "HP: " + Convert.ToString(health);
         return returnValue;
     }
-
+    //Points modifier methods
+    public void AddPoints(double pointsToAdd)
+    {
+        pointsToAdd = pointsToAdd * player.pointsModifier;
+        pointsGained = pointsGained + pointsToAdd;
+        
+    }
+    public void ResetPoints()
+    {
+        pointsGained = 0; 
+    }
+    public void removePoints(double pointsToRemove)
+    {
+        pointsGained = pointsGained - pointsToRemove;
+        if (pointsGained < 0)
+        {
+            pointsGained = 0;
+        }
+    }
 
     //Methods to trigger start of the game
     public void startGameEasy()

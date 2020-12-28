@@ -133,7 +133,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine("flashDamaged");
         if (health <= 0)
         {
-            //Grant points
+            pauseCheck.AddPoints(pointsWhenKilled);
             progressionController.enemyKilled();
             Destroy(this.gameObject); //Kill enemy
         }
