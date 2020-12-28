@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
         if (Physics.Raycast(transform.position, forward, out hit, raycastLength))
         {
             Debug.Log("Enemy raycast player check: " + hit.transform.gameObject.name);
-            if (hit.collider.gameObject.name == "Player")
+            if (hit.collider.gameObject.name == "Player" || hit.collider.gameObject.tag == "SwordEnemy")
             {
                 stopMoving = true;
                 return;
@@ -140,9 +140,10 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator flashDamaged()
     {
-        
+        this.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
         //transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.red;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
+        this.gameObject.GetComponentInChildren<Renderer>().material.color = Color.white;
         //transform.Find("ghoul").gameObject.GetComponent<Renderer>().material.color = Color.white;
 
 

@@ -28,9 +28,9 @@ public class MovementScript : MonoBehaviour
 
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        if (Physics.Raycast(transform.position, forward, out hit, 2))
+        if (Physics.Raycast(transform.position, forward, out hit, 3))
         {
-            Debug.Log("Player Forward hit: " + hit.transform.gameObject.layer);
+            Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
             if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy")
             {
                 rb.angularVelocity = Vector3.zero;
