@@ -22,6 +22,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     [Tooltip("This shows the distance from the player this enemy will stop moving at.")]
     float raycastLength = 10f;
+    [SerializeField]
+    [Tooltip("Choose the movement speed of the enemy here. 1 is the default speed.")]
+    [Range(0.1f, 5.0f)]
+    float enemyMovementSpeed = 1f;
+
     RaycastHit hit;
     double attackTime;
     bool stopMoving = false;
@@ -52,10 +57,8 @@ public class Enemy : MonoBehaviour
         var hits = Physics.OverlapSphere(transform.position, 0.5f);
         if (stopMoving == false)
         {
-            i.AddRelativeForce(0.2f * new Vector3(0f, 0f, 1f), ForceMode.Force);
-            Vector3 newVelocity = i.velocity.normalized;
-            newVelocity *= 1.5f;
-            i.velocity = newVelocity;
+            //i.AddRelativeForce(new Vector3(0f, 0f, 5f), ForceMode.VelocityChange);
+
             transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
         }
         else
@@ -114,7 +117,7 @@ public class Enemy : MonoBehaviour
 
         if (stopMoving == false)
         {
-            transform.position = (transform.forward / 25 + transform.position);
+            transform.position = ((transform.forward / 25) * enemyMovementSpeed + transform.position);
         }
         attackTime = this.gameObject.GetComponentInChildren<EnemyAttack>().attackSpeed;
         if (attackTime <= 0 || attackTime > attackSpeed)

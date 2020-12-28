@@ -47,6 +47,7 @@ MonoBehaviour:
   attackSpeed: 3.5
   pointsWhenKilled: 100
   raycastLength: 2.5
+  enemyMovementSpeed: 2
 --- !u!1 &8686653994155996691
 GameObject:
   m_ObjectHideFlags: 0

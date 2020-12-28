@@ -49,4 +49,8 @@ public class Projectile : MonoBehaviour
             }
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Projectile collision: " + collision.gameObject.name);
+    }
 }
