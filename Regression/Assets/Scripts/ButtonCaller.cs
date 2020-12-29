@@ -40,7 +40,6 @@ public class ButtonCaller : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         player.SpawnSpecificWeapon(0); //Mace is ID 0.
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ui.isPaused = false;
         ui.ResumeButton();
     }
     public void StartStaff()
@@ -48,7 +47,6 @@ public class ButtonCaller : MonoBehaviour
         Player player = GameObject.Find("Player").GetComponent<Player>();
         player.SpawnSpecificWeapon(1); //Staff is ID 1.
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ui.isPaused = false;
         ui.ResumeButton();
     }
 }

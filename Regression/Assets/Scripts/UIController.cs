@@ -11,30 +11,56 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 {
     public bool isPaused = false;
     bool buttonpressed = false;
-    PowerBehaviour powerController;
+    public PowerBehaviour powerController;
     public GameObject activePowers, healthObj, UIPause, UIWaveComplete;
     Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
     Player player;
     bool waveCompletePause = false;
-    double pointsGained;
+    float pointsGained;
+    [SerializeField]
+    Text easyScore, normalScore, hardScore, expertScore, satanicScore, currentScore;
+    float escapePushCooldown = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        powerController = GameObject.FindGameObjectWithTag("PowerHandler").GetComponent<PowerBehaviour>();
+
         if (SceneManager.GetActiveScene().name == "Game")
         {
-            GetGameObjectsGame(); //Call method to get gameobject.
             WeaponSelection();
+
+        }
+        else
+        {
+            LoadHighscores();
         }
     }
     void GetGameObjectsGame()
     {
         //Firstly, get the gameobjects.
-        GameObject powersText = GameObject.Find("ModifiersText");
-        GameObject healthText = GameObject.Find("PlayerHealth");
-        GameObject PowerDrainedMessage = GameObject.Find("PowerDrainedMessage");
+        foreach(GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "ModifiersText")
+            {
+                GameObject powersText = obj;
+                activepowers = powersText.GetComponent<Text>();
+            }
+            else if (obj.name == "PlayerHealth")
+            {
+                GameObject healthText = obj;
+                health = healthText.GetComponent<Text>();
+            }
+            else if (obj.name == "PowerDrainedMessage")
+            {
+                GameObject PowerDrainedMessage = obj;
+                powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
+            }
+            else if (obj.name == "PointsText")
+            {
+                currentScore = obj.GetComponent<Text>();
+            }
+        }
 
         //Find GameObject section.
 
@@ -46,9 +72,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         //Get component section
 
-        activepowers = powersText.GetComponent<Text>();
-        health = healthText.GetComponent<Text>();
-        powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
+
+
+
         UIWaveCompText = UIWaveComplete.GetComponent<Text>();
 
         //Enable/Disable section
@@ -84,30 +110,17 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     string getUpdatePlayerHP()
     {
-        double health = player.health;
-        health = Math.Round(health);
-        string returnValue = "HP: " + Convert.ToString(health);
-        return returnValue;
-    }
-    //Points modifier methods
-    public void AddPoints(double pointsToAdd)
-    {
-        pointsToAdd = pointsToAdd * player.pointsModifier;
-        pointsGained = pointsGained + pointsToAdd;
-        
-    }
-    public void ResetPoints()
-    {
-        pointsGained = 0; 
-    }
-    public void removePoints(double pointsToRemove)
-    {
-        pointsGained = pointsGained - pointsToRemove;
-        if (pointsGained < 0)
+        if (health != null)
         {
-            pointsGained = 0;
+            double health = player.health;
+            health = Math.Round(health);
+            string returnValue = "HP: " + Convert.ToString(health);
+            return returnValue;
         }
+        return "HP: ";
+
     }
+
 
     //Methods to trigger start of the game
     public void startGameEasy()
@@ -216,6 +229,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         isPaused = true;
         yield return new WaitForSeconds(7.5f);
         UIWaveCompText.enabled = false;
+        storeHighscores(powerController.difficultyLevel);
         SceneManager.LoadScene("UI Scale Testing");
         Cursor.lockState = CursorLockMode.None;
         isPaused = false;
@@ -266,10 +280,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     public void ResumeButton()
     {
+        isPaused = false;
+        GetGameObjectsGame();
         Debug.Log("Game resumed!");
         GameUnpausedFunction();
         Cursor.lockState = CursorLockMode.Locked;
-        isPaused = false;
+        currentScore.text = "Points: " + pointsGained;
+
     }
     public void ReturnToPauseScreen()
     {
@@ -339,16 +356,125 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             return;
         }
-        if (isPaused == false)
+        if (Input.GetKeyDown(KeyCode.Escape) == true)
         {
-            activepowers.text = powerController.ModifierText();
+            if (isPaused == false)
+            {
+                isPaused = true;
+                Debug.Log("Escape pressed, game paused!");
+                GamePausedFunction();
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                isPaused = false;
+                Debug.Log("Game resumed!");
+                GameUnpausedFunction();
+                Cursor.lockState = CursorLockMode.Locked;
+
+            }
         }
 
     }
     //Used when the game moves to another scene.
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GetGameObjectsGame();
+        if (scene.name == "UI Scale Testing")
+        {
+            LoadHighscores();
+        }
+        else
+        {
+            GetGameObjectsGame();
+            powerController.gameStarted = false;
+        }
+
+    }
+
+    //Points modifiers======================================
+    public void AddPoints(float pointsToAdd)
+    {
+        pointsToAdd = pointsToAdd * player.pointsModifier;
+        pointsGained = pointsGained + pointsToAdd;
+        if (currentScore != null)
+        {
+            currentScore.text = "Points: " + pointsGained;
+        }
+
+    }
+    public void ResetPoints()
+    {
+        pointsGained = 0;
+    }
+    public void removePoints(float pointsToRemove)
+    {
+        pointsGained = pointsGained - pointsToRemove;
+        if (pointsGained < 0)
+        {
+            pointsGained = 0;
+        }
+    }
+    void LoadHighscores()
+    {
+        int highScore = PlayerPrefs.GetInt("HighScoreEasy");
+        easyScore.text = "Highscore: " + highScore;
+
+    }
+    public void storeHighscores(int difficulty) //Pass in difficulty, find relevant highscore and complete the check.
+    {
+        switch (difficulty)
+        {
+            case 1:
+            {
+                    int playerHighScore1 = PlayerPrefs.GetInt("HighScoreEasy");
+                    if (playerHighScore1 > pointsGained)
+                    {
+                        int roundedScore = Mathf.FloorToInt(pointsGained);
+                        PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+                        
+                    }
+                    return;
+            }
+            case 2:
+                {
+                    int playerHighScore2 = PlayerPrefs.GetInt("HighScoreNormal");
+                    if (playerHighScore2 > pointsGained)
+                    {
+                        int roundedScore = Mathf.FloorToInt(pointsGained);
+                        PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+
+                    }
+                    return;
+                }
+            case 3:
+                int playerHighScore3 = PlayerPrefs.GetInt("HighScoreHard");
+                if (playerHighScore3 > pointsGained)
+                {
+                    int roundedScore = Mathf.FloorToInt(pointsGained);
+                    PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+
+                }
+                return;
+            case 4:
+                int playerHighScore4 = PlayerPrefs.GetInt("HighScoreExpert");
+                if (playerHighScore4 > pointsGained)
+                {
+                    int roundedScore = Mathf.FloorToInt(pointsGained);
+                    PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+
+                }
+                return;
+            case 5:
+                int playerHighScore5 = PlayerPrefs.GetInt("HighScoreSatanic");
+                if (playerHighScore5 > pointsGained)
+                {
+                    int roundedScore = Mathf.FloorToInt(pointsGained);
+                    PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+
+                }
+                return;
+
+        }
     }
 
     // Update is called once per frame
@@ -369,27 +495,24 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
-            if (isPaused == false)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
-                if (isPaused == false)
-                {
-                    Debug.Log("Escape pressed, game paused!");
-                    GamePausedFunction();
-                    Cursor.lockState = CursorLockMode.None;
-                    isPaused = true;
-                    return;
-                }
-                else
-                {
+               if (isPaused == false)
+               {
+                   escapePushCooldown = 0;
+                   isPaused = true;
+                   Debug.Log("Escape pressed, game paused!");
+                   GamePausedFunction();
+                   Cursor.lockState = CursorLockMode.None;
+               }
+               else if (escapePushCooldown > 0.5f)
+               {
                     Debug.Log("Game resumed!");
                     GameUnpausedFunction();
                     Cursor.lockState = CursorLockMode.Locked;
                     isPaused = false;
-                }
+
+               }
             }
             else
             {
@@ -404,8 +527,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     buttonpressed = false;
                 }
             }
-            health.text = getUpdatePlayerHP(); //Update health every frame.
+            if (health != null)
+            {
+                health.text = getUpdatePlayerHP(); //Update health every frame.
+            }
+
         }
+
+
+
 
 
     }

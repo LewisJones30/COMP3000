@@ -337,8 +337,6 @@ public class Progression : MonoBehaviour
 
         currentWave = 1;
         EnemySpawnTimeDupe = (float[])EnemySpawnTime.Clone(); //Create a clone.
-        temptext = TempText.GetComponent<Text>();
-        temptext.text = "Wave 1/2";
     }
 }
 [System.Serializable]

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneMove : MonoBehaviour
 {
+    public PowerBehaviour power;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +19,11 @@ public class SceneMove : MonoBehaviour
     }
 
     //For testing purposes, load the game scene, powermodifiers NOT updated.
-    public void startGameTest()
+    public void startGameEasy()
     {
-
-        SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
-        Scene game = SceneManager.GetSceneByName("Game");
-        SceneManager.MoveGameObjectToScene(GameObject.FindGameObjectWithTag("Handlers"), game);
+        PlayerPrefs.SetInt("DifficultyChosen", 1);
         SceneManager.LoadScene("Game");
+
     }
+
 }

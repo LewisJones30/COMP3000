@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     double EasyDamageTakenModifier = 1f;
     [SerializeField]
     [Range(0.1f, 5f)]
-    double EasyPointsModifier = 0.25f;
+    float EasyPointsModifier = 0.25f;
     [SerializeField]
     [Tooltip("Should the player choose between two powers to lose? \n" +
         "True = Yes. \n" +
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     double NormalDamageTakenModifier = 1f;
     [SerializeField]
     [Range(0.1f, 5f)]
-    double NormalPointsModifier = 1f;
+    float NormalPointsModifier = 1f;
     [SerializeField]
     [Tooltip("Should the player choose between two powers to lose? \n" +
         "True = Yes. \n" +
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     double HardDamageTakenModifier = 1f;
     [SerializeField]
     [Range(0.1f, 5f)]
-    double HardPointsModifier = 1f;
+    float HardPointsModifier = 1f;
     [SerializeField]
     [Tooltip("Should the player choose between two powers to lose? \n" +
         "True = Yes. \n" +
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     double ExpertDamageTakenModifier = 1f;
     [SerializeField]
     [Range(0.1f, 5f)]
-    double ExpertPointsModifier = 1f;
+    float ExpertPointsModifier = 1f;
     [SerializeField]
     [Tooltip("Should the player choose between two powers to lose? \n" +
         "True = Yes. \n" +
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public double damageTaken = 1.0f; //Player takes 1x damage. Modified by difficulty.
     [HideInInspector]
-    public double pointsModifier = 1.0f; //Points gained.
+    public float pointsModifier = 1.0f; //Points gained.
     [HideInInspector]
     public double time = 0;
     [HideInInspector]
@@ -218,6 +218,7 @@ public class Player : MonoBehaviour
         deadtext.enabled = true;
         isPausedCheck.isPaused = true;
         yield return new WaitForSeconds(5f);
+        isPausedCheck.storeHighscores(powerController.difficultyLevel); //Obtain the difficulty level from the powers controller.
         SceneManager.LoadScene("UI Scale Testing");
     }
 

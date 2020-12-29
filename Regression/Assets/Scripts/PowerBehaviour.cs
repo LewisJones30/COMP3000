@@ -6,23 +6,60 @@ using UnityEngine.UI;
 
 public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
-    [HideInInspector]
-    public int difficultyLevel = 0;
+
+    public int difficultyLevel;
     public Power[] powerHandler = new Power[20];
     UIController redrawCurrentPowers;
     Player player;
+    public bool gameStarted = false;
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         InitialisePowers();
-        player = GameObject.Find("Player").GetComponent<Player>();
-        StartPower(12);
-        redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
+            LoadDifficulty();
+            player = GameObject.Find("Player").GetComponent<Player>();
+
+            redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+
+            
+
+        }
+
 
 
     }
+    void LoadDifficulty()
+    {
+        if (difficultyLevel == 1)
+        {
+            StartGameEasy();
+        }
+        else if (difficultyLevel == 2)
+        {
+            StartGameNormal();
+        }
+        else if (difficultyLevel == 3)
+        {
+            StartGameHard();
+        }
+        else if (difficultyLevel == 4)
+        {
+            StartGameExpert();
+        }
+        else if (difficultyLevel == 5)
+        {
+            StartGameExpert();
+        }
+        else
+        {
+            Debug.Log("Error: DifficultyLevel is not defined correctly!");
 
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -36,17 +73,23 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
 
     }
+    public void FindObjects()
+    {
+        redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+        player = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Player>();
+    }
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Player>();
+       
     }
     void StartPower(int numbPowers) //Pass in from difficulty how many to enable
     {
         //As not all slots are filled, this reduces to make sure.
-        if (numbPowers > 11)
+        if (numbPowers > 10)
         {
-            numbPowers = 11;
+            numbPowers = 10;
         }
         for (int i = 0; i < numbPowers; i++)
         {
@@ -63,7 +106,16 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
                 }
             }
         }
-        player.ModifyPlayer();
+        if (player != null)
+        {
+            player.ModifyPlayer();
+        }
+        else
+        {
+            player = GameObject.Find("Player").GetComponent<Player>();
+            player.ModifyPlayer();
+        }
+
     }
     public string ModifierText()
     {
@@ -84,7 +136,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     public void StartGameEasy()
     {
         difficultyLevel = 1;
-        StartPower(19); //Start with all available powers.
+        StartPower(5); //Start with all available powers.
     }
     public void StartGameNormal()
     {
@@ -108,6 +160,10 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     }
     public void StartGameTutorial()
     {
+        if (gameStarted == true)
+        {
+            return;
+        }
         difficultyLevel = 6;
         powerHandler[0].PowerAvailable = true;
         StartPower(20); //Start with all powers. 
