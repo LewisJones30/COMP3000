@@ -13,8 +13,9 @@ public class FireCollision : MonoBehaviour
         player = GameObject.Find("Player");
         if (player == null)
         {
-            Debug.Log("ERROR (Player cannot be found by fire OBJ).");
+            Debug.LogError("ERROR (Player cannot be found by fire OBJ).");
         }
+        playerScript = player.GetComponent<Player>();
     }
 
     // Update is called once per frame

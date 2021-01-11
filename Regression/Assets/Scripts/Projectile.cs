@@ -28,10 +28,8 @@ public class Projectile : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.SphereCast(transform.position, 0.25f, forward, out hit, 1))
         {
-            Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy")
             {
-                Destroy(this.gameObject);
                 var rand = new System.Random();
                 int RNGRoll = rand.Next(0, 999); //Roll a number between 0 and 999.
                 if (RNGRoll < 25) //0 to 24 gives a 2.5% chance when damaging.
@@ -54,8 +52,9 @@ public class Projectile : MonoBehaviour
                 damageCalc = player.weaponPower * damagePower; //Needs modification to check difficulty.
                 Debug.Log("Enemy Damaged!");
                 hit.collider.gameObject.GetComponent<Enemy>().takeDamage(damageCalc);
+                Destroy(this.gameObject);
 
-                
+
             }
             else if (hit.collider.gameObject.name == "Player")
             {

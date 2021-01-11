@@ -141,7 +141,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     }
     IEnumerator disableAllFiresTemporarily()
     {
-        GameObject[] allFireobjs = GameObject.FindGameObjectsWithTag("FireWarning");
+        GameObject[] allFireobjs = GameObject.FindGameObjectsWithTag("FireDamager");
         foreach (GameObject obj in allFireobjs)
         {
             //Cycle through all of the objects, disable all of the fire effects.
