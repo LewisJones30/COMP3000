@@ -6,6 +6,7 @@ public class FireCollision : MonoBehaviour
 {
     GameObject player;
     Player playerScript;
+    bool AllFiresActive = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,6 @@ public class FireCollision : MonoBehaviour
         {
             Debug.Log("ERROR (Player cannot be found by fire OBJ).");
         }
-        playerScript = player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -56,5 +56,6 @@ public class FireCollision : MonoBehaviour
         this.gameObject.GetComponent<BoxCollider>().enabled = true;
         emission.enabled = true;
     }
+
 
 }

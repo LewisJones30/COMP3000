@@ -12,6 +12,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     UIController redrawCurrentPowers;
     Player player;
     public bool gameStarted = false;
+    bool AllFiresActive = true; //Used to ensure allfiresactive is not triggered multiple times.
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +130,36 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         return ModifierText;
     }
+    //Code to extinguish all fires immediately. Triggered by the player with a percentile chance.
+    public void DisableAllFires()
+    {
+        if (AllFiresActive == true)
+        {
+            StartCoroutine("disableAllFiresTemporarily");
+            AllFiresActive = false;
+        }
+    }
+    IEnumerator disableAllFiresTemporarily()
+    {
+        GameObject[] allFireobjs = GameObject.FindGameObjectsWithTag("FireWarning");
+        foreach (GameObject obj in allFireobjs)
+        {
+            //Cycle through all of the objects, disable all of the fire effects.
+            var emission = obj.gameObject.GetComponent<ParticleSystem>().emission;
+            emission.enabled = false;
+            obj.gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+        Debug.Log("All fires disabled!");
+        yield return new WaitForSeconds(45);
+        foreach (GameObject obj in allFireobjs)
+        {
+            var emission = obj.gameObject.GetComponent<ParticleSystem>().emission;
+            emission.enabled = true;
+            obj.gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
+        AllFiresActive = true;
+        Debug.Log("All fires enabled!");
+    }
     //====================================This section is the difficulty controller. This is executed when the player presses what difficulty they wish to run. ==================================
     //Still requires a trigger to change the scene. Needs to keep this object persistent in the next scene as well.
     //No scene has been added yet.
@@ -136,7 +167,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     public void StartGameEasy()
     {
         difficultyLevel = 1;
-        StartPower(5); //Start with all available powers.
+        StartPower(19); //Start with all available powers.
     }
     public void StartGameNormal()
     {
@@ -352,9 +383,9 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         //Power slot 13
         Power slot13 = new Power();
         slot13.ID = 12;
-        slot13.PowerName = "null";
-        slot13.PowerDescription = "null";
-        slot13.PowerAvailable = false;
+        slot13.PowerName = "Rain Dance";
+        slot13.PowerDescription = "You have a small chance of all fires being temporarily extinguished for 45 seconds.";
+        slot13.PowerAvailable = true;
         slot13.PowerActive = false;
         slot13.PowerStartedActive = false;
 

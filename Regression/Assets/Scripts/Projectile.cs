@@ -32,6 +32,22 @@ public class Projectile : MonoBehaviour
             if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy")
             {
                 Destroy(this.gameObject);
+                var rand = new System.Random();
+                int RNGRoll = rand.Next(0, 999); //Roll a number between 0 and 999.
+                if (RNGRoll < 25) //0 to 24 gives a 2.5% chance when damaging.
+                {
+                    //The player has a 2.5% chance of extinguishing all fires temporarily, if the power is available.
+                    PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                    if (powers.powerHandler[12].PowerActive == true)
+                    {
+                        powers.DisableAllFires();
+                    }
+                }
+                RNGRoll = rand.Next(0, 999); //Roll another number between 0 and 999.
+                if (RNGRoll < 10)
+                {
+                    //All powers are temporarily re-enabled!
+                }
                 double damageCalc;
                 Player player = GameObject.Find("Player").GetComponent<Player>();
                 Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
