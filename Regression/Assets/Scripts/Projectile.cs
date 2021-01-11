@@ -47,6 +47,24 @@ public class Projectile : MonoBehaviour
                 Player player = hit.collider.gameObject.GetComponent<Player>();
                 player.takeDamage(damagePower);
             }
+            else if (hit.collider.gameObject.tag == "FireWarning")
+            {
+                Destroy(this.gameObject);
+                if (this.gameObject.gameObject.tag == "ProjectileEnemy")
+                {
+                    return;
+                }
+                else
+                {
+                    PowerBehaviour power = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                    //When the trident model is integrated, check if the weapon is the trident, and NOT the other staff.
+                    if (power.powerHandler[10].PowerActive == true) //Check if the power is active
+                    {
+                        hit.collider.gameObject.GetComponent<FireCollision>().temporarilyDisableFire();
+                    }
+                }
+
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)

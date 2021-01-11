@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5238199816834170056}
   - component: {fileID: 1248934055696292407}
   m_Layer: 0
-  m_Name: Particle System
-  m_TagString: Untagged
+  m_Name: Fire Object
+  m_TagString: FireWarning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

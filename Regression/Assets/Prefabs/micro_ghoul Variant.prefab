@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb538632fd2ead4693247757490397a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
+  projectile: {fileID: 1746672929845058, guid: cb199e25a6e987f4e8043fa01f4c20c8, type: 3}
   attackSpeed: 5
+  MeleeRaycastLength: 2
 --- !u!65 &1405459766
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75,8 +76,8 @@ MonoBehaviour:
   enemyProjectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
   attackSpeed: 5
   pointsWhenKilled: 100
-  aggressionRange: 0
   raycastLength: 10
+  enemyMovementSpeed: 1
 --- !u!1001 &3887765649138286511
 PrefabInstance:
   m_ObjectHideFlags: 0

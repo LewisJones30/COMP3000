@@ -41,4 +41,20 @@ public class FireCollision : MonoBehaviour
         }
 
     }
+    public void temporarilyDisableFire()
+    {
+        Debug.Log("Fire temporarily extinguished!");
+        StartCoroutine("WaterExinguish");
+    }
+    IEnumerator WaterExinguish()
+    {
+        var emission = this.gameObject.GetComponent<ParticleSystem>().emission;
+        emission.enabled = false;
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(20);
+        Debug.Log("Fire re-enabled!");
+        this.gameObject.GetComponent<BoxCollider>().enabled = true;
+        emission.enabled = true;
+    }
+
 }
