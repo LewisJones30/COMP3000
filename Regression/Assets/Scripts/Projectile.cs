@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
                 Player player = hit.collider.gameObject.GetComponent<Player>();
                 player.takeDamage(damagePower);
             }
-            else if (hit.collider.gameObject.tag == "FireWarning")
+            else if (hit.collider.gameObject.tag == "FireDamager")
             {
                 Destroy(this.gameObject);
                 if (this.gameObject.gameObject.tag == "ProjectileEnemy")

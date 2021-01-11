@@ -531,6 +531,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 health.text = getUpdatePlayerHP(); //Update health every frame.
             }
+            if (activepowers != null)
+            {
+                activepowers.text = powerController.ModifierText();
+            }
 
         }
 
