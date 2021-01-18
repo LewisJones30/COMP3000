@@ -498,26 +498,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             if (Input.GetKeyDown(KeyCode.F10) == true)
             {
                 //DEBUG.
-                GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
-                GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
-                foreach (GameObject obj in projectileEnemies)
-                {
-                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                    if (projectiles != null)
-                    {
-                        projectiles.FirePowerEffect();
-                    }
-
-                }
-                foreach (GameObject obj in swordEnemies)
-                {
-                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                    if (projectiles != null)
-                    {
-                        projectiles.FirePowerEffect();
-                    }
-
-                }
+                powerController.DisableAllFires();
             }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {

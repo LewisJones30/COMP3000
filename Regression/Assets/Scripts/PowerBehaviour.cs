@@ -149,8 +149,23 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             emission.enabled = false;
             obj.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
+        GameObject rainEffect;
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "RainEffect")
+            {
+                obj.SetActive(true);
+            }
+        }
         Debug.Log("All fires disabled!");
         yield return new WaitForSeconds(45);
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "RainEffect")
+            {
+                obj.SetActive(false);
+            }
+        }
         foreach (GameObject obj in allFireobjs)
         {
             var emission = obj.gameObject.GetComponent<ParticleSystem>().emission;

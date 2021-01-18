@@ -17,6 +17,7 @@ TagManager:
   - RemoveWhenResumed
   - FireWarning
   - FireDamager
+  - RainEffect
   layers:
   - Default
   - TransparentFX

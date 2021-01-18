@@ -34,7 +34,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1319187081024672816, guid: f860181798ce4284d885f53c32fd2589, type: 3}
       propertyPath: m_Name
-      value: Fire Object (2)
+      value: Fire Object (2) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2353199918557297992, guid: f860181798ce4284d885f53c32fd2589, type: 3}
       propertyPath: m_LocalPosition.x
