@@ -155,6 +155,7 @@ public class Player : MonoBehaviour
             if (time >= 0.5)
             {
                 takeDamage(15);
+                time = 0;
             }
         }
         else if (playerOnFire == 2)

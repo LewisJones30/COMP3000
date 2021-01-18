@@ -47,6 +47,49 @@ public class MeleeWeapons : MonoBehaviour
                             GameObject obj = hit.collider.gameObject;
                             Enemy enemyScript = hit.collider.gameObject.GetComponent<Enemy>();
                             PowerBehaviour power = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                            var rand = new System.Random();
+                            int RNGRoll = rand.Next(0, 999);
+                            if (RNGRoll < 25)
+                            {
+                                PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                                if (powers.powerHandler[12].PowerActive == true)
+                                {
+                                    powers.DisableAllFires();
+                                }
+                            }
+                            RNGRoll = rand.Next(0, 999); //Roll another number between 0 and 999.
+                            if (RNGRoll < 25)
+                            {
+                                //Justice rains from above. 2.5% chance of occuring when damage is dealt.
+                                PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                                if (powers.powerHandler[13].PowerActive == true)
+                                {
+                                    GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
+                                    GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                                    foreach (GameObject obj1 in projectileEnemies)
+                                    {
+                                        JusticeSpawn projectiles = obj1.GetComponentInChildren<JusticeSpawn>();
+                                        if (projectiles != null)
+                                        {
+                                            projectiles.FirePowerEffect();
+                                        }
+
+                                    }
+                                    foreach (GameObject obj1 in swordEnemies)
+                                    {
+                                        JusticeSpawn projectiles = obj1.GetComponentInChildren<JusticeSpawn>();
+                                        if (projectiles != null)
+                                        {
+                                            projectiles.FirePowerEffect();
+                                        }
+                                    }
+                                }
+                            }
+                            RNGRoll = rand.Next(0, 999);
+                            if (RNGRoll < 10)
+                            {
+                                //All powers are temporarily re-enabled!
+                            }
                             double damageCalc;
                             double bonusDamagePower;
                             if (power.powerHandler[8].PowerAvailable == true)
