@@ -392,9 +392,9 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         //Power slot 14
         Power slot14 = new Power();
         slot14.ID = 13;
-        slot14.PowerName = "null";
-        slot14.PowerDescription = "null";
-        slot14.PowerAvailable = false;
+        slot14.PowerName = "Justice rains from above";
+        slot14.PowerDescription = "Occasionally, projectiles will fall from the sky and damage all of your enemies a medium amount of damage.";
+        slot14.PowerAvailable = true;
         slot14.PowerActive = false;
         slot14.PowerStartedActive = false;
 

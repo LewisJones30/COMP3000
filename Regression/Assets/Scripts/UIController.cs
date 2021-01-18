@@ -495,6 +495,30 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
+            if (Input.GetKeyDown(KeyCode.F10) == true)
+            {
+                //DEBUG.
+                GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
+                GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                foreach (GameObject obj in projectileEnemies)
+                {
+                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                    if (projectiles != null)
+                    {
+                        projectiles.FirePowerEffect();
+                    }
+
+                }
+                foreach (GameObject obj in swordEnemies)
+                {
+                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                    if (projectiles != null)
+                    {
+                        projectiles.FirePowerEffect();
+                    }
+
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
                if (isPaused == false)

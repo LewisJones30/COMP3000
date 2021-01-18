@@ -42,6 +42,26 @@ public class Projectile : MonoBehaviour
                     }
                 }
                 RNGRoll = rand.Next(0, 999); //Roll another number between 0 and 999.
+                if (RNGRoll < 25)
+                {
+                    //Justice rains from above. 2.5% chance of occuring when damage is dealt.
+                    PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                    if (powers.powerHandler[13].PowerActive == true)
+                    {
+                        GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
+                        GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                        foreach (GameObject obj in projectileEnemies)
+                        {
+                            JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                            projectiles.FirePowerEffect();
+                        }
+                        foreach (GameObject obj in swordEnemies)
+                        {
+                            JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                            projectiles.FirePowerEffect();
+                        }
+                    }
+                }
                 if (RNGRoll < 10)
                 {
                     //All powers are temporarily re-enabled!

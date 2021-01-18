@@ -217,7 +217,7 @@ public class Progression : MonoBehaviour
                     //Reset enemies killed/spawned.
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
-                    temptext.text = "Wave 2/2";
+                    //temptext.text = "Wave 2/2";
                     //Pause game, call UIController to show the wave complete screen.
                     //Call PowerController to disable all powers.
                 }
