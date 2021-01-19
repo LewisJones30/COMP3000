@@ -118,18 +118,6 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
 
     }
-    public string ModifierText()
-    {
-        string ModifierText = "";
-        for (int i = 0; i < powerHandler.Length; i++)
-        {
-            if (powerHandler[i].PowerActive == true)
-            {
-                ModifierText = ModifierText + "• " + powerHandler[i].PowerName + "\n";
-            }
-        }
-        return ModifierText;
-    }
     //Code to extinguish all fires immediately. Triggered by the player with a percentile chance.
     public void DisableAllFires()
     {
@@ -283,6 +271,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         player = GameObject.Find("Player").GetComponent<Player>();
         player.PowerLost();
+        redrawCurrentPowers.ShowAllPowersInGame();
         
     }
     //=======================================================================Initialise each power====================================================================

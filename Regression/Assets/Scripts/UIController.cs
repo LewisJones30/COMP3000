@@ -13,6 +13,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     bool buttonpressed = false;
     public PowerBehaviour powerController;
     public GameObject activePowers, healthObj, UIPause, UIWaveComplete;
+    [Tooltip("This array should be the same length as the number of powers.")]
+    [SerializeField]
+    Sprite[] sprites;
+    [SerializeField]
+    GameObject[] spriteUIElements;
     Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
     Player player;
     bool waveCompletePause = false;
@@ -41,12 +46,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //Firstly, get the gameobjects.
         foreach(GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
-            if (obj.name == "ModifiersText")
-            {
-                GameObject powersText = obj;
-                activepowers = powersText.GetComponent<Text>();
-            }
-            else if (obj.name == "PlayerHealth")
+            if (obj.name == "PlayerHealth")
             {
                 GameObject healthText = obj;
                 health = healthText.GetComponent<Text>();
@@ -84,6 +84,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         //Modify values section
         //UITempWaveText.text = "Wave 1/2";
+        ShowAllPowersInGame();
     }
 
     void WeaponSelection()
@@ -168,7 +169,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             powerdrainedtext.fontSize = 70;
         }
         powerdrainedtext.text = "As the wave ends, you feel " + powerController.powerHandler[PowerDrainedID].PowerName + " fade away...";
-        activepowers.text = powerController.ModifierText();
+        ShowAllPowersInGame();
         yield return new WaitForSeconds(4);
         powerdrainedtext.enabled = false;
     }
@@ -250,8 +251,159 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                obj.SetActive(true);
             } 
         }
+        PausedUIPowersOpacity();
 
         
+    }
+
+    private void PausedUIPowersOpacity() //Set the opacity of the Powers 1-15 images. If they are disabled, set a lower opacity.
+    //The HoverOverScript.cs controls the information on the UI screen.
+    {
+        //Check through all powers 1-14 and update the opacity if they are FALSE.
+        Image j;
+        for (int i = 0; i < 14; i++)
+        {
+            if (powerController.powerHandler[i].PowerActive == false)
+            {
+                switch (i)
+                {
+                    case 0:
+                        {
+                            Image j0 = GameObject.Find("Power1").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j0.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j0.color = ColorChange; //Apply the color change.
+                            break;
+
+                        }
+                    case 1:
+                        {
+                            Image j1 = GameObject.Find("Power2").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j1.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j1.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 2:
+                        {
+                            Image j2 = GameObject.Find("Power3").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j2.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j2.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 3:
+                        {
+                            Image j3 = GameObject.Find("Power4").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j3.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j3.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 4:
+                        {
+                            Image j4 = GameObject.Find("Power5").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j4.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j4.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 5:
+                        {
+                            Image j5 = GameObject.Find("Power6").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j5.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j5.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 6:
+                        {
+                            Image j6 = GameObject.Find("Power7").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j6.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j6.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 7:
+                        {
+                            Image j7 = GameObject.Find("Power8").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j7.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j7.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 8:
+                        {
+                            Image j8 = GameObject.Find("Power9").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j8.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j8.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 9:
+                        {
+                            Image j9 = GameObject.Find("Power10").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j9.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j9.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 10:
+                        {
+                            Image j10 = GameObject.Find("Power11").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j10.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j10.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 11:
+                        {
+                            Image j11 = GameObject.Find("Power12").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j11.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j11.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 12:
+                        {
+                            Image j12 = GameObject.Find("Power13").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j12.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j12.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 13:
+                        {
+                            Image j13 = GameObject.Find("Power14").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j13.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j13.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    case 14:
+                        {
+                            //Currently unused.
+                            Image j14 = GameObject.Find("Power15").GetComponent<Image>(); //First, get the image of the power.
+                            var ColorChange = j14.color; //Store the current colour info in a temporary variable.
+                            ColorChange.a = 0.5f; //Update the alpha of the temp variable to be 0.5.
+                            j14.color = ColorChange; //Apply the color change.
+                            break;
+                        }
+                    default: //This should never be hit!
+                        {
+                            Debug.Log("ERROR. Default triggered in PausedUIOpacity script!");
+                            break;
+                        }
+
+
+                }
+
+
+               
+            }
+        }
+
+
     }
 
     private void GameUnpausedFunction() //This function will control the UI when the game is resumed by the player.
@@ -286,6 +438,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         GameUnpausedFunction();
         Cursor.lockState = CursorLockMode.Locked;
         currentScore.text = "Points: " + pointsGained;
+        //ShowAllPowersInGame();
 
     }
     public void ReturnToPauseScreen()
@@ -331,6 +484,26 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
     //======================================Methods to get information and update UI
+
+    public void ShowAllPowersInGame()
+    {
+        int ObjsFilled = 0;
+        for (int i = 0; i < powerController.powerHandler.Length; i++)
+        {
+            if (powerController.powerHandler[i].PowerActive == true)
+            {
+                spriteUIElements[ObjsFilled].GetComponent<Image>().sprite = sprites[i];
+                spriteUIElements[ObjsFilled].GetComponent<Image>().enabled = true;
+                ObjsFilled = ObjsFilled + 1;
+            }
+        }
+    }
+
+
+
+
+
+
 
 
     public void EnableFireWarning() //Called by Player when the player is on fire
@@ -535,10 +708,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             if (health != null)
             {
                 health.text = getUpdatePlayerHP(); //Update health every frame.
-            }
-            if (activepowers != null)
-            {
-                activepowers.text = powerController.ModifierText();
             }
 
         }
