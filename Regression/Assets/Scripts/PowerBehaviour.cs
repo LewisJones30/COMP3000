@@ -211,12 +211,40 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     {
         resetPowers();
     }
-    Power RandomPower() //Used for initialising the game, as well as when the game takes powers away from the player.
+    public Power RandomAvailablePower() //Used for initialising the game, as well as when the game takes powers away from the player.
     {
-            System.Random r = new System.Random();
-            int powerNumber = r.Next(0, 19); //Within the 20 values.
-            var currentPower = powerHandler[powerNumber];
-            return currentPower;
+        System.Random r = new System.Random();  
+        bool returned = false;
+        Power returnValue;
+        returnValue = powerHandler[19];
+        while (returned == false)
+        {
+            int powerNumber = r.Next(0, 20); //Within the 20 values.
+            if (powerHandler[powerNumber].PowerActive == true)
+            {
+                returnValue = powerHandler[powerNumber];
+                returned = true;
+            }
+        }
+        return returnValue;
+
+    }
+    public Power RandomPower()
+    {
+        System.Random r = new System.Random();
+        bool returned = false;
+        Power returnValue;
+        returnValue = powerHandler[19];
+        while (returned == false)
+        {
+            int powerNumber = r.Next(0, 20); //Within the 20 values.
+            if (powerHandler[powerNumber].PowerAvailable == true)
+            {
+                returnValue = powerHandler[powerNumber];
+                returned = true;
+            }
+        }
+        return returnValue;
 
     }
     void resetPowers() //Code to reset powers when the game ends
@@ -232,10 +260,14 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
     }
 
-    void losePowerEasyNormal() //The player is able to choose which power they want to lose.
+    //Called by Buttons
+    public void loseSpecificPower(int powerID)
     {
-     
+        //Set powerActive to false.
+        powerHandler[powerID].PowerActive = false;
     }
+
+
     //In hard and higher, the game will choose a power to disable immediately for you.
     public void losePowerHard() //Returns which power was drained for use in UI.
     {

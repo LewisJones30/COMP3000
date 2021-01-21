@@ -49,4 +49,18 @@ public class ButtonCaller : MonoBehaviour
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         ui.ResumeButton();
     }
+    public void LosePower1()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+        powers.loseSpecificPower(ui.losePower1);
+        ui.returnToMainGame();
+    }
+    public void LosePower2()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+        powers.loseSpecificPower(ui.losePower2);
+        ui.returnToMainGame();
+    }
 }

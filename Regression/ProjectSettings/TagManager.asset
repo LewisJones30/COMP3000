@@ -18,6 +18,7 @@ TagManager:
   - FireWarning
   - FireDamager
   - RainEffect
+  - LosePowerScreen
   layers:
   - Default
   - TransparentFX
