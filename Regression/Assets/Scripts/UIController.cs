@@ -12,14 +12,16 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public bool isPaused = false;
     bool buttonpressed = false;
     public PowerBehaviour powerController;
-    public GameObject activePowers, healthObj, UIPause, UIWaveComplete;
+    public GameObject activePowers, healthObj, UIWaveComplete;
     [Tooltip("This array should be the same length as the number of powers.")]
     [SerializeField]
     Sprite[] sprites;
     [SerializeField]
     GameObject[] spriteUIElements;
     [SerializeField]
-    GameObject PowerDrain1, PowerDrain2, powerName1, powerName2;
+    GameObject PowerDrain1, PowerDrain2, powerName1, powerName2, powerDesc1, powerDesc2;
+    [SerializeField]
+    GameObject summaryDifficulty, summaryPoints, summaryWave;
     Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
     Player player;
     bool waveCompletePause = false;
@@ -69,7 +71,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         player = GameObject.Find("Player").GetComponent<Player>();
-        UIPause = GameObject.Find("UIPauseText");
         UIWaveComplete = GameObject.Find("WaveCompleteText");
 
 
@@ -78,16 +79,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
 
-        UIWaveCompText = UIWaveComplete.GetComponent<Text>();
 
         //Enable/Disable section
 
         powerdrainedtext.enabled = false;
-        UIWaveCompText.enabled = false;
 
         //Modify values section
-        //UITempWaveText.text = "Wave 1/2";
-        ShowAllPowersInGame();
+        //ShowAllPowersInGame();
     }
 
     void WeaponSelection()
@@ -212,14 +210,24 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     IEnumerator WaveCompleteMethod()
     {
-        UIWaveCompText.enabled = true;
+
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "BackgroundPowerDrain")
+            {
+                obj.SetActive(true);
+                break;
+            }
+        }
         isPaused = true;
         waveCompletePause = true;
         yield return new WaitForSeconds(7.5f);
-        UIWaveCompText.enabled = false;
-        waveCompletePause = false;
-        powerController.loseAllPowers(); //Drain all of the player's powers.
-        isPaused = false;
+        GameObject.Find("BackgroundPowerDrain").SetActive(false);
+        if (PlayerPrefs.GetInt("DifficultyChosen") <= 3) //Player can drain powers on Easy, Normal & Hard.
+        {
+            PowerDrainScreen();
+        }
+
         
     }
     public void GameCompleteText()
@@ -255,7 +263,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             } 
         }
         PausedUIPowersOpacity();
-
+        PausedSummaryScreen();
         
     }
 
@@ -410,6 +418,58 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     }
 
+    private void PausedSummaryScreen()
+    {
+        //Get current points
+        summaryPoints.GetComponent<Text>().text = "Current Points: " + pointsGained;
+
+        //Get current wave
+        GameObject progression = GameObject.Find("ProgressionHandler");
+        Progression progObj = progression.GetComponent<Progression>();
+        summaryWave.GetComponent<Text>().text = "Current Wave: " + progObj.GetCurrentWave();
+        //Get current difficulty
+        int difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
+        switch (difficultyLevel)
+        {
+            case 1:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "Current Difficulty: Easy"; 
+                    return;
+                }
+            case 2:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "Current Difficulty: Normal";
+                    return;
+                }
+            case 3:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "Current Difficulty: Hard";
+                    return;
+                }
+            case 4:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "Current Difficulty: Expert";
+                    return;
+                }
+            case 5:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "Current Difficulty: Satanic";
+                    return;
+                }
+            case 6:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "You are currently in the tutorial.";
+                    return;
+                }
+            default:
+                {
+                    summaryDifficulty.GetComponent<Text>().text = "An error has occurred.";
+                    return;
+                }
+        }
+
+
+    }
     private void GameUnpausedFunction() //This function will control the UI when the game is resumed by the player.
     {
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -433,7 +493,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         }
     }
-    private void PowerDrainScreen()
+
+    public void PowerDrainScreen() //Will be called by the Progression handler when the player completes a wave.
     {
         Cursor.lockState = CursorLockMode.None;
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -452,6 +513,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         losePower1 = p.ID;
         PowerDrain1.GetComponent<Image>().sprite = sprites[losePower1];
         powerName1.GetComponent<Text>().text = p.PowerName;
+        powerDesc1.GetComponent<Text>().text = p.PowerDescription;
         p = powerController.RandomPower();
         losePower2 = p.ID;
         while (losePower1 ==losePower2)
@@ -460,6 +522,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             losePower2 = p.ID;
         }
         PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
+        powerDesc2.GetComponent<Text>().text = p.PowerDescription;
         powerName2.GetComponent<Text>().text = p.PowerName;
 
     }
@@ -478,7 +541,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 obj.SetActive(false);
             }
         }
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         ShowAllPowersInGame();
 
     }
@@ -491,6 +554,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         GameUnpausedFunction();
         Cursor.lockState = CursorLockMode.Locked;
         currentScore.text = "Points: " + pointsGained;
+        ShowAllPowersInGame();
         //ShowAllPowersInGame();
 
     }
@@ -647,7 +711,23 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     void LoadHighscores()
     {
         int highScore = PlayerPrefs.GetInt("HighScoreEasy");
-        easyScore.text = "Highscore: " + highScore;
+        if (highScore == 0)
+        {
+            easyScore.text = "No highscore!";
+        }
+        else
+        {
+            easyScore.text = "Highscore: " + highScore;
+        }
+        highScore = PlayerPrefs.GetInt("HighScoreHard");
+        if (highScore == 0)
+        {
+            hardScore.text = "No highscore!";
+        }
+        else
+        {
+            hardScore.text = "Highscore: " + highScore;
+        }
 
     }
     public void storeHighscores(int difficulty) //Pass in difficulty, find relevant highscore and complete the check.
@@ -727,8 +807,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             if (Input.GetKeyDown(KeyCode.F10) == true)
             {
-                //DEBUG.
-                PowerDrainScreen();
+                WaveCompleteText();
             }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {

@@ -39,7 +39,7 @@ public class HoverOverScript : MonoBehaviour
         {
             case "Power1":
                 var p1 = powers.powerHandler[0];
-                description.text = "You are unable to die \n with this power enabled!";
+                description.text = "Unavailable outside of the tutorial.";
                 powerTitle.text = p1.PowerName;
                 if (p1.PowerActive == true)
                 {
@@ -70,7 +70,7 @@ public class HoverOverScript : MonoBehaviour
             case "Power3":
                 var p3 = powers.powerHandler[2];
                 powerTitle.text = p3.PowerName;
-                description.text = "Your health is doubled.";
+                description.text = "Your health is doubled. \n Start with maximum health.";
                 if (p3.PowerActive == true)
                 {
                     powerState.text = "Active";

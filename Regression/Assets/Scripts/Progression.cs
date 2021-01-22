@@ -257,6 +257,18 @@ public class Progression : MonoBehaviour
         }
     }
 
+
+    //Getters for current wave and maximum waves
+    public int GetCurrentWave()
+    {
+        return currentWave;
+    }
+    public int GetMaximumWaves()
+    {
+        return maximumWave;
+    }
+
+
     void FixedUpdate() //Control the enemy spawns here!
     {
         if (SceneManager.GetActiveScene().name != "Game")

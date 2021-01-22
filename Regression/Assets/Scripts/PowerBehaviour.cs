@@ -313,7 +313,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         Power slot1 = new Power();
         slot1.ID = 0;
         slot1.PowerName = "Immune to death.";
-        slot1.PowerDescription = "You are unable to die with this power enabled!";
+        slot1.PowerDescription = "You are unable to die with this power enabled! Outside of the tutorial, this will never activate.";
         slot1.PowerAvailable = false; //ONLY ENABLED WITH THE TUTORIAL, OTHERWISE THIS MUST BE LEFT FALSE.
         slot1.PowerActive = false;
         slot1.PowerStartedActive = false;
