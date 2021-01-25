@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonCaller : MonoBehaviour
 {
@@ -62,5 +63,9 @@ public class ButtonCaller : MonoBehaviour
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         powers.loseSpecificPower(ui.losePower2);
         ui.returnToMainGame();
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("UI Scale Testing");
     }
 }

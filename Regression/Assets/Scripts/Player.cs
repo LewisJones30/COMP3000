@@ -111,7 +111,8 @@ public class Player : MonoBehaviour
     bool isDead = false; //Player starts alive.
     bool[] powersLost = new bool[20];
     float FireDamageTime = 0f;
-
+    [SerializeField]
+    GameObject blackout;
 
 
 
@@ -123,9 +124,13 @@ public class Player : MonoBehaviour
     {
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>(); //Get the PowerBehaviour script.
         isPausedCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
-        deadtext = deadtextObj.GetComponent<Text>();
+        deadtext = deadtextObj.GetComponentInChildren<Text>();
+        deadtextObj.SetActive(false);
         deadtext.enabled = false;
     }
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -133,7 +138,16 @@ public class Player : MonoBehaviour
         if (isPausedCheck.isPaused == true)
         {
             //Code to pause the entire game.
+            if (isDead == true)
+            {
+                Image image = blackout.GetComponent<Image>();
+                FadeBlackout(image);
+            }
         }    
+        else if (Input.GetKeyDown(KeyCode.F9))
+        {
+            playerdiedScript();
+        }
         else if (powerController.powerHandler[3].PowerActive == true) //Starts time from when the player recieves the power.
         {
             time = time + Time.deltaTime;
@@ -164,6 +178,9 @@ public class Player : MonoBehaviour
             playerOnFire = 0;
         }
     }
+
+
+
 
     //Damage/healing effects
     public void takeDamage(double damageDealt)
@@ -212,17 +229,31 @@ public class Player : MonoBehaviour
     }
     void playerdiedScript()
     {
+        isDead = true;
         StartCoroutine("routineDead");
     }
     IEnumerator routineDead()
     {
         deadtext.enabled = true;
         isPausedCheck.isPaused = true;
+        blackout.SetActive(true);
+        deadtextObj.SetActive(true);
         yield return new WaitForSeconds(5f);
         isPausedCheck.storeHighscores(powerController.difficultyLevel); //Obtain the difficulty level from the powers controller.
-        SceneManager.LoadScene("UI Scale Testing");
+        
+        isPausedCheck.GameSummaryScreen();
     }
+    void FadeBlackout(Image image)
+    {
+        if (image.color.a >= 1)
+        {
+            return;
+        }
+        float alphaValue = image.color.a;
+        alphaValue = alphaValue + Time.deltaTime;
+        image.color = new Color(1, 1, 1, alphaValue);
 
+    }
 
     //Weapon instantiation
     public void SpawnSpecificWeapon(int weaponID)

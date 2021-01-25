@@ -13,6 +13,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     Player player;
     public bool gameStarted = false;
     bool AllFiresActive = true; //Used to ensure allfiresactive is not triggered multiple times.
+    int powersDrainedCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -258,6 +259,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         {
             powerHandler[i].PowerActive = false;
         }
+        powersDrainedCount = 0; //Reset number of powers drained
     }
 
     //Called by Buttons
@@ -265,6 +267,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     {
         //Set powerActive to false.
         powerHandler[powerID].PowerActive = false;
+        powersDrainedCount = powersDrainedCount + 1;
     }
 
 
@@ -292,7 +295,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             cycledAttempts = cycledAttempts + 1;
         }
         redrawCurrentPowers.LostPowerMessage(drainedPowerID);
-        
+        powersDrainedCount = powersDrainedCount + 1;
     }
 
     public void loseAllPowers() //Temporary method. Used for first build.
@@ -305,6 +308,10 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         player.PowerLost();
         redrawCurrentPowers.ShowAllPowersInGame();
         
+    }
+    public int GetPowersDrainedCount()
+    {
+        return powersDrainedCount;
     }
     //=======================================================================Initialise each power====================================================================
     void InitialisePowers() //Fill each value of the powers in code here manually.

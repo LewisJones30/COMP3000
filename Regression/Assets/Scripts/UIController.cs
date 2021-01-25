@@ -30,6 +30,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     Text easyScore, normalScore, hardScore, expertScore, satanicScore, currentScore;
     float escapePushCooldown = 0.5f;
     public int losePower1, losePower2; //Storage for losing powers
+    [SerializeField]
+    GameObject postObj, postWave, postDifficulty, postFinal, postPowersRemaining, postPowersDrained;
     // Start is called before the first frame update
     void Start()
     {
@@ -470,6 +472,88 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
     }
+
+    public void GameSummaryScreen()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        postObj.SetActive(true);
+        currentScore.gameObject.SetActive(false); //Set the currentscore obj to false.
+        //Get current wave ID.
+        GameObject progression = GameObject.Find("ProgressionHandler");
+        Progression progObj = progression.GetComponent<Progression>();
+        postWave.GetComponent<Text>().text = "Died on wave: " + progObj.GetCurrentWave();
+        //Get the final score
+        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained;
+        //Get the number of powers drained
+        postPowersDrained.GetComponent<Text>().text = "Powers drained: " + powerController.GetPowersDrainedCount();
+        //Get the number of powers remaining
+        int powersRemaining = 13 - powerController.GetPowersDrainedCount();
+        postPowersRemaining.GetComponent<Text>().text = "Powers remaining: " + powersRemaining;
+
+        
+        //Get current difficulty
+        int difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
+        switch (difficultyLevel)
+        {
+            case 1:
+                {
+                    postDifficulty.GetComponent<Text>().text = "Current Difficulty: Easy";
+                    if (pointsGained > PlayerPrefs.GetInt("HighScoreEasy"))
+                    {
+                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                    }
+                    return;
+                }
+            case 2:
+                {
+                    postDifficulty.GetComponent<Text>().text = "Current Difficulty: Normal";
+                    if (pointsGained > PlayerPrefs.GetInt("HighScoreNormal"))
+                    {
+                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                    }
+                    return;
+                }
+            case 3:
+                {
+                    postDifficulty.GetComponent<Text>().text = "Current Difficulty: Hard";
+                    if (pointsGained > PlayerPrefs.GetInt("HighScoreHard"))
+                    {
+                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                    }
+                    return;
+                }
+            case 4:
+                {
+                    postDifficulty.GetComponent<Text>().text = "Current Difficulty: Expert";
+                    if (pointsGained > PlayerPrefs.GetInt("HighScoreExpert"))
+                    {
+                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                    }
+                    return;
+                }
+            case 5:
+                {
+                    postDifficulty.GetComponent<Text>().text = "Current Difficulty: Satanic";
+                    if (pointsGained > PlayerPrefs.GetInt("HighScoreSatanic"))
+                    {
+                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                    }
+                    return;
+                }
+            case 6:
+                {
+                    postDifficulty.GetComponent<Text>().text = "You are currently in the tutorial.";
+                    return;
+                }
+            default:
+                {
+                    postDifficulty.GetComponent<Text>().text = "An error has occurred.";
+                    return;
+                }
+        }
+
+
+        }
     private void GameUnpausedFunction() //This function will control the UI when the game is resumed by the player.
     {
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -526,6 +610,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         powerName2.GetComponent<Text>().text = p.PowerName;
 
     }
+
+
     //Called by ButtonCaller
     public void returnToMainGame()
     {
@@ -713,19 +799,35 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         int highScore = PlayerPrefs.GetInt("HighScoreEasy");
         if (highScore == 0)
         {
+            if (easyScore == null)
+            {
+                easyScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
+            }
             easyScore.text = "No highscore!";
         }
         else
         {
+            if (easyScore == null)
+            {
+                easyScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
+            }
             easyScore.text = "Highscore: " + highScore;
         }
         highScore = PlayerPrefs.GetInt("HighScoreHard");
         if (highScore == 0)
         {
+            if (hardScore == null)
+            {
+                hardScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
+            }
             hardScore.text = "No highscore!";
         }
         else
         {
+            if (hardScore == null)
+            {
+                hardScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
+            }
             hardScore.text = "Highscore: " + highScore;
         }
 
