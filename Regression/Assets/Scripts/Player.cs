@@ -180,7 +180,10 @@ public class Player : MonoBehaviour
     }
 
 
-
+    public double getMaxHP()
+    {
+        return maximumHealth;
+    }
 
     //Damage/healing effects
     public void takeDamage(double damageDealt)
@@ -350,6 +353,7 @@ public class Player : MonoBehaviour
 
         }
         baseWeaponPower = weaponPower; //Used for power 5 method.
+        health = maximumHealth;
     }
     public void PowerLost() //Called when the power has been lost.
     {

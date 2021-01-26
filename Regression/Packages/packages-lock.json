@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.coffee.ui-effect": {
+      "version": "file:C:/Users/Lewis/Downloads/com.coffee.ui-effect-4.0.0-preview.9/package",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "1.3.9",
       "depth": 0,

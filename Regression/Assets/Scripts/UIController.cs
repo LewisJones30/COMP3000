@@ -31,7 +31,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     float escapePushCooldown = 0.5f;
     public int losePower1, losePower2; //Storage for losing powers
     [SerializeField]
-    GameObject postObj, postWave, postDifficulty, postFinal, postPowersRemaining, postPowersDrained;
+    GameObject postObj, postWave, postDifficulty, postFinal, postPowersRemaining, postPowersDrained, HPBar;
+    double currentHPercentage;
     // Start is called before the first frame update
     void Start()
     {
@@ -118,13 +119,26 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             double health = player.health;
             health = Math.Round(health);
+            HPBarMethod(health, player.getMaxHP());
             string returnValue = "HP: " + Convert.ToString(health);
             return returnValue;
         }
         return "HP: ";
 
     }
+    void HPBarMethod(double health, double maxHealth)
+    {
+        double HealthPercentage = health / maxHealth;
+        if (HealthPercentage == currentHPercentage)
+        {
+            return;
+        }
+        else
+        {
+            HPBar.GetComponent<Image>().fillAmount = (float)HealthPercentage;
+        }
 
+    }
 
     //Methods to trigger start of the game
     public void startGameEasy()
