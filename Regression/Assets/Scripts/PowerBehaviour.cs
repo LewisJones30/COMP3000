@@ -201,7 +201,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         difficultyLevel = 6;
         powerHandler[0].PowerAvailable = true;
-        StartPower(20); //Start with all powers. 
+        StartPower(19); //Start with all powers. 
     }
     public void EndGameTutorial() //Public to allow UI to trigger this
     {
