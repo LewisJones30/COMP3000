@@ -25,6 +25,12 @@ public class Progression : MonoBehaviour
     [Space(10)]
     [Tooltip("For each wave, choose how many enemies you want, and ensure all gameobjects are filled with enemies.")]
     [Header("Enemy control")]
+    [Space(10)]
+    //Tutorial waves. Only 1 wave will be part of the tutorial.
+    public WaveArray[] TutorialWaves = new WaveArray[1];
+    [Range(0.1f, 5f)]
+    public float[] TutorialEnemySpawnTime;
+
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.
@@ -271,6 +277,10 @@ public class Progression : MonoBehaviour
 
     void FixedUpdate() //Control the enemy spawns here!
     {
+        if (ui.getTutorialStage() > 0)
+        {
+            return;
+        }
         if (SceneManager.GetActiveScene().name != "Game")
         {
             return;

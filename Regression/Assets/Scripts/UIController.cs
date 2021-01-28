@@ -36,7 +36,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     [Space(10)]
     //UI Controller tracking stages.
     [SerializeField]
-    GameObject WelcomeImage, WelcomeText, JumpingArrow;//Part 1 of tutorial.
+    GameObject WelcomeImage, WelcomeText, JumpingArrow, Enemy1, Enemy2;//Part 1 of tutorial.
     int TutorialStage = 1; //Track state of the tutorial
     // Start is called before the first frame update
     void Start()
@@ -512,8 +512,19 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     /// 8 - Awaiting user to press left click to continue.
     /// 9 - Points information.
     /// 10 - Awaiting user to press left click to continue.
+    /// 11 - Unlock movement, show the controls in the top left.
+    /// 12 - Await user killing enemy.
+    /// 13 - Enemy killed, showing the drain power screen.
+    /// 14 - Awaiting user draining power.
+    /// 15 - Enemy(s) spawned. Final part of tutorial.
+    /// 16 - Tutorial complete message, teleport user to front screen after 10 seconds.
     /// </summary>
 
+
+    public int getTutorialStage() //Get the current tutorial stage.
+    {
+        return TutorialStage;
+    }
     private void DisableUIForTutorial()
     {
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -540,6 +551,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (TutorialStage == 1)
         {
+            powerController.powerHandler[0].PowerAvailable = true;
+            powerController.powerHandler[0].PowerActive = true;
             isPaused = true;
             TutorialStage = 2;
             WelcomeImage.SetActive(true);
@@ -561,7 +574,19 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             StartCoroutine("TutState7");
         }
-
+        if (TutorialStage == 9)
+        {
+            StartCoroutine("TutState9");
+        }
+        if (TutorialStage == 11)
+        {
+            StartCoroutine("TutState11");
+            ResumeButton();
+        }
+        if (TutorialStage == 13)
+        {
+            StartCoroutine("TutState13");
+        }
     }
     IEnumerator TutState2()
     {
@@ -620,6 +645,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         JumpingArrow.transform.localPosition = new Vector3(-481, -8, 0);
         JumpingArrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -90));
         WelcomeText.transform.localPosition = new Vector3(-318, 42, 0);
+        animText.GetComponent<Text>().text = "These are your powers. You can see more in the pause menu ingame!";
         animText.Play("TextAppear");
         animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
         animArrow.Play("jumping arrow appear");
@@ -628,8 +654,76 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         TutorialStage = 8;
 
     }
+    IEnumerator TutState9()
+    {
+        Animation anim = WelcomeImage.GetComponent<Animation>();
+        Animation animText = WelcomeText.GetComponent<Animation>();
+        Animation animArrow = JumpingArrow.GetComponent<Animation>();
+        animText.Play("TextDisappear");
+        animArrow.Stop();
+        animArrow.Play("jumping arrow disappear");
+        yield return new WaitForSeconds(0.5f);
+        JumpingArrow.transform.localPosition = new Vector3(267, 531, 0);
+        WelcomeText.transform.localPosition = new Vector3(488, 604, 0);
+        WelcomeText.GetComponent<Text>().text = "This is your pointers counter.\nThe higher the difficulty,\n the more points you'll get!";
+        animText.Play("TextAppear");
+        animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
+        animArrow.Play("jumping arrow appear");
+        yield return new WaitForSeconds(0.5f);
+        animArrow.Play("jumping arrow left points");
+        TutorialStage = 10;
+    }
+    IEnumerator TutState11()
+    {
+        Animation anim = WelcomeImage.GetComponent<Animation>();
+        Animation animText = WelcomeText.GetComponent<Animation>();
+        Animation animArrow = JumpingArrow.GetComponent<Animation>();
+        animText.Play("TextDisappear");
+        animArrow.Stop();
+        animArrow.Play("jumping arrow disappear");
+        yield return new WaitForSeconds(0.5f);
+        Enemy1.transform.position = new Vector3(19.90631f, 1.021423f, -7.240521f);
+        WelcomeText.GetComponent<Text>().text = "To attack, press left click. You will fire a magical bullet at the enemy.\nKill this enemy to continue.";
+        WelcomeText.transform.localPosition = new Vector3(-547, 445, 0);
+        Enemy1.SetActive(true);
+        animText.Play("TextAppear");
+        Cursor.lockState = CursorLockMode.Locked;
+        TutorialStage = 12;
+    }
+    IEnumerator TutState13()
+    {
+        Animation anim = WelcomeImage.GetComponent<Animation>();
+        Animation animText = WelcomeText.GetComponent<Animation>();
+        Animation animArrow = JumpingArrow.GetComponent<Animation>();
+        animText.Play("TextDisappear");
+        yield return new WaitForSeconds(0.5f);
+        WelcomeText.GetComponent<Text>().text = "Well done! Wave complete!";
+        animText.Play("TextAppear");
+        yield return new WaitForSeconds(2f);
+        animText.Play("TextDisappear");
+        yield return new WaitForSeconds(2f);
+        animText.Play("TextAppear");
+        WelcomeText.transform.localPosition = new Vector3(-233,278, 0);
+        WelcomeText.GetComponent<Text>().fontSize = 45;
+        animText.GetComponent<Text>().text = "As the game progresses, you must\nchannel corruption to your powers.\n\nThis means you will lose them.\nYou usually have a choice between two.\nTo continue, please drain the \nImmune to Death power.";
+        isPaused = true;
+        PowerDrainScreen(0, 0);
+        TutorialStage = 14;
 
-
+    }
+    public void TutorialEnemyKilled()
+    {
+        if (TutorialStage == 12)
+        {
+            TutorialStage = 13;
+            Tutorial();
+        }
+        if (TutorialStage == 14)
+        {
+            TutorialStage = 15;
+            Tutorial();
+        }
+    }
 
 
 
@@ -813,7 +907,32 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     }
 
+    public void PowerDrainScreen(int power1ToDrain, int power2ToDrain) //Will be called by the Progression handler when the player completes a wave.
+    {
+        Cursor.lockState = CursorLockMode.None;
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.tag == "RemoveWhenPaused")
+            {
+                obj.SetActive(false);
+            }
+            if (obj.tag == "LosePowerScreen")
+            {
+                obj.SetActive(true);
+            }
+        }
+        isPaused = true;
+        PowerBehaviour.Power p = powerController.getSpecificPower(power1ToDrain);
+        PowerDrain1.GetComponent<Image>().sprite = sprites[power1ToDrain];
+        powerName1.GetComponent<Text>().text = p.PowerName;
+        powerDesc1.GetComponent<Text>().text = p.PowerDescription;
+        p = powerController.getSpecificPower(power2ToDrain);
+        losePower2 = p.ID;
+        PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
+        powerDesc2.GetComponent<Text>().text = p.PowerDescription;
+        powerName2.GetComponent<Text>().text = p.PowerName;
 
+    }
     //Called by ButtonCaller
     public void returnToMainGame()
     {
@@ -1139,7 +1258,22 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     TutorialStage = 7;
                     Tutorial();
                 }
-                return;
+                if (TutorialStage == 8 && Input.GetMouseButton(0))
+                {
+                    TutorialStage = 9;
+                    Tutorial();
+                }
+                if (TutorialStage == 10 && Input.GetMouseButton(0))
+                {
+                    TutorialStage = 11;
+                    Tutorial();
+                    isPaused = false;
+                }
+                if (TutorialStage < 11)
+                {
+                    return;
+                }
+
             }
             if (Input.GetKeyDown(KeyCode.F10) == true)
             {
