@@ -66,6 +66,10 @@ public class ButtonCaller : MonoBehaviour
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         powers.loseSpecificPower(ui.losePower2);
+        if (ui.getTutorialStage() > 0)
+        {
+            ui.TutorialEnemyKilled();
+        }
         ui.returnToMainGame();
     }
     public void MainMenu()

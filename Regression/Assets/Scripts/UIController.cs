@@ -517,7 +517,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     /// 13 - Enemy killed, showing the drain power screen.
     /// 14 - Awaiting user draining power.
     /// 15 - Enemy(s) spawned. Final part of tutorial.
-    /// 16 - Tutorial complete message, teleport user to front screen after 10 seconds.
+    /// 16 - Enemy killed. Show final message, and then the tutorial is completed. Pause game, transfer user to main menu in 5-10 seconds.
     /// </summary>
 
 
@@ -586,6 +586,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (TutorialStage == 13)
         {
             StartCoroutine("TutState13");
+        }
+        if (TutorialStage == 15)
+        {
+            StartCoroutine("TutState15");
+        }
+        if (TutorialStage == 17)
+        {
+            StartCoroutine("TutState17");
         }
     }
     IEnumerator TutState2()
@@ -711,6 +719,38 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         TutorialStage = 14;
 
     }
+    IEnumerator TutState15()
+    {
+        Animation anim = WelcomeImage.GetComponent<Animation>();
+        Animation animText = WelcomeText.GetComponent<Animation>();
+        Animation animArrow = JumpingArrow.GetComponent<Animation>();
+        animText.Play("TextDisappear");
+        yield return new WaitForSeconds(0.5f);
+        WelcomeText.GetComponent<Text>().text = "Kill the final enemy to finish the tutorial.";
+        WelcomeText.transform.localPosition = new Vector3(-547, 445, 0);
+        WelcomeText.GetComponent<Text>().fontSize = 60;
+        animText.Play("TextAppear");
+        Enemy2.SetActive(true);
+        TutorialStage = 16;
+
+    }
+    IEnumerator TutState17()
+    {
+        Animation anim = WelcomeImage.GetComponent<Animation>();
+        Animation animText = WelcomeText.GetComponent<Animation>();
+        Animation animArrow = JumpingArrow.GetComponent<Animation>();
+        animText.Play("TextDisappear");
+        yield return new WaitForSeconds(0.5f);
+        WelcomeText.GetComponent<Text>().text = "Congratulations! Tutorial complete.\nReturning to the main menu in 10 seconds.";
+        WelcomeText.transform.localPosition = new Vector3(-547, 445, 0);
+        WelcomeText.GetComponent<Text>().fontSize = 60;
+        animText.Play("TextAppear");
+        isPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        yield return new WaitForSeconds(10f);
+        SceneManager.LoadScene("UI Scale Testing");
+        PlayerPrefs.SetInt("TutorialCompleteStatus", 1);
+    }
     public void TutorialEnemyKilled()
     {
         if (TutorialStage == 12)
@@ -721,6 +761,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (TutorialStage == 14)
         {
             TutorialStage = 15;
+            Tutorial();
+        }
+        if (TutorialStage == 16)
+        {
+            TutorialStage = 17;
             Tutorial();
         }
     }
@@ -1223,6 +1268,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (SceneManager.GetActiveScene().name == "UI Scale Testing")
         {
+            if (PlayerPrefs.GetInt("TutorialCompleteStatus") != 1)
+            {
+                SceneManager.LoadScene("Game");
+                TutorialStage = 1;
+            }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
 #if UNITY_EDITOR
