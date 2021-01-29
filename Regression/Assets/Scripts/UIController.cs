@@ -38,6 +38,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     [SerializeField]
     GameObject WelcomeImage, WelcomeText, JumpingArrow, Enemy1, Enemy2;//Part 1 of tutorial.
     int TutorialStage = 1; //Track state of the tutorial
+    bool inPauseMenu = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -610,9 +611,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             "As you progress, Hell's influence over you will increase, and you will\n" +
             "be forced to channel this into your powers, losing their effect.\n" +
             "In this tutorial, you will be able to understand the basic premise\n" +
-            "of this game.\n\n" +
+            "of this game.\n" +
             "Please press left click to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-566, 311, 0);
+        WelcomeText.transform.localPosition = new Vector3(-566, 333, 0);
         animText["TextAppear"].wrapMode = WrapMode.Once;
         animText.Play("TextAppear");
         TutorialStage = 4;
@@ -1006,8 +1007,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             GameUnpausedFunction();
             currentScore.text = "Points: " + pointsGained;
             ShowAllPowersInGame();
+            inPauseMenu = false;
+            if (TutorialStage > 11)
+            {
+                isPaused = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
             return;
         }
+        inPauseMenu = false;
         isPaused = false;
         GetGameObjectsGame();
         Debug.Log("Game resumed!");
@@ -1110,24 +1118,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Escape) == true)
-        {
-            if (isPaused == false)
-            {
-                isPaused = true;
-                Debug.Log("Escape pressed, game paused!");
-                GamePausedFunction();
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                isPaused = false;
-                Debug.Log("Game resumed!");
-                GameUnpausedFunction();
-                Cursor.lockState = CursorLockMode.Locked;
 
-            }
-        }
 
     }
     //Used when the game moves to another scene.
@@ -1286,6 +1277,27 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
+            if (Input.GetKeyDown(KeyCode.Escape) == true)
+            {
+                if (isPaused == false || inPauseMenu == false)
+                {
+                    inPauseMenu = true;
+                    isPaused = true;
+                    Debug.Log("Escape pressed, game paused!");
+                    GamePausedFunction();
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else
+                {
+                    inPauseMenu = false;
+                    isPaused = false;
+                    Debug.Log("Game resumed!");
+                    GameUnpausedFunction();
+                    Cursor.lockState = CursorLockMode.Locked;
+                    return;
+
+                }
+            }
             if (TutorialStage > 0)
             {
                 if (TutorialStage == 1)
@@ -1293,38 +1305,34 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     DisableUIForTutorial();
                     Tutorial();
                 }
-                if (TutorialStage == 2 && Input.GetMouseButton(0))
+                if (TutorialStage == 2 && Input.GetMouseButton(0) && inPauseMenu == false)
                 {
                     TutorialStage = 3;
                     Tutorial();
                 }
-                if (TutorialStage == 4 && Input.GetMouseButton(0))
+                if (TutorialStage == 4 && Input.GetMouseButton(0) && inPauseMenu == false)
                 {
                     TutorialStage = 5;
                     Tutorial();
                 }
-                if (TutorialStage == 6 && Input.GetMouseButton(0))
+                if (TutorialStage == 6 && Input.GetMouseButton(0) && inPauseMenu == false)
                 {
                     TutorialStage = 7;
                     Tutorial();
                 }
-                if (TutorialStage == 8 && Input.GetMouseButton(0))
+                if (TutorialStage == 8 && Input.GetMouseButton(0) && inPauseMenu == false)
                 {
                     TutorialStage = 9;
                     Tutorial();
                 }
-                if (TutorialStage == 10 && Input.GetMouseButton(0))
+                if (TutorialStage == 10 && Input.GetMouseButton(0) && inPauseMenu == false)
                 {
                     TutorialStage = 11;
                     Tutorial();
                     isPaused = false;
                 }
-                if (TutorialStage < 11)
-                {
-                    return;
-                }
-
             }
+
             if (Input.GetKeyDown(KeyCode.F10) == true)
             {
                 WaveCompleteText();
