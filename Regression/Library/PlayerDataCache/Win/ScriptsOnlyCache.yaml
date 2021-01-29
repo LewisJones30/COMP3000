@@ -5,7 +5,11 @@ ScriptsOnlyBuild:
     - DontDestroyOnLoad
     - Enemy
     - EnemyAttack
+    - FireCollision
+    - HoverOverScript
+    - JusticeSpawn
     - MagicWeapon
+    - MeleeWeapons
     - MovementScript
     - Player
     - PowerBehaviour
@@ -15,20 +19,17 @@ ScriptsOnlyBuild:
     - Rotation
     - SceneMove
     - UIController
+    UIEffect.dll:
+    - Coffee.UIEffects.UIShiny
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
@@ -89,45 +90,61 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
+    - Class: 111
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11774}
-    - Class: 114
-      Script: {instanceID: 11808}
+      Script: {instanceID: 11786}
     - Class: 114
       Script: {instanceID: 11822}
     - Class: 114
-      Script: {instanceID: 12030}
+      Script: {instanceID: 11836}
     - Class: 114
-      Script: {instanceID: 12080}
+      Script: {instanceID: 12046}
     - Class: 114
-      Script: {instanceID: 12114}
+      Script: {instanceID: 12098}
     - Class: 114
-      Script: {instanceID: 12362}
+      Script: {instanceID: 12134}
     - Class: 114
-      Script: {instanceID: 12482}
+      Script: {instanceID: 12160}
     - Class: 114
-      Script: {instanceID: 12846}
+      Script: {instanceID: 12390}
     - Class: 114
-      Script: {instanceID: 12886}
+      Script: {instanceID: 12510}
     - Class: 114
-      Script: {instanceID: 12910}
+      Script: {instanceID: 12684}
     - Class: 114
-      Script: {instanceID: 13284}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13964}
+      Script: {instanceID: 12932}
     - Class: 114
-      Script: {instanceID: 14018}
+      Script: {instanceID: 12956}
     - Class: 114
-      Script: {instanceID: 14102}
+      Script: {instanceID: 13338}
     - Class: 114
-      Script: {instanceID: 14314}
+      Script: {instanceID: 13382}
     - Class: 114
-      Script: {instanceID: 14550}
+      Script: {instanceID: 13656}
     - Class: 114
-      Script: {instanceID: 24206}
+      Script: {instanceID: 14040}
+    - Class: 114
+      Script: {instanceID: 14094}
+    - Class: 114
+      Script: {instanceID: 14180}
+    - Class: 114
+      Script: {instanceID: 14182}
+    - Class: 114
+      Script: {instanceID: 14396}
+    - Class: 114
+      Script: {instanceID: 14530}
+    - Class: 114
+      Script: {instanceID: 14586}
+    - Class: 114
+      Script: {instanceID: 14632}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
       Script: {instanceID: 0}
     - Class: 136
       Script: {instanceID: 0}
@@ -178,54 +195,62 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11774}
+      Script: {instanceID: 11786}
     - Class: 114
-      Script: {instanceID: 11822}
+      Script: {instanceID: 11836}
     - Class: 114
-      Script: {instanceID: 11908}
+      Script: {instanceID: 11922}
     - Class: 114
-      Script: {instanceID: 12030}
+      Script: {instanceID: 11976}
     - Class: 114
-      Script: {instanceID: 12038}
+      Script: {instanceID: 12046}
     - Class: 114
-      Script: {instanceID: 12080}
+      Script: {instanceID: 12054}
     - Class: 114
-      Script: {instanceID: 12114}
+      Script: {instanceID: 12098}
     - Class: 114
-      Script: {instanceID: 12644}
+      Script: {instanceID: 12134}
     - Class: 114
-      Script: {instanceID: 13152}
+      Script: {instanceID: 12684}
     - Class: 114
-      Script: {instanceID: 13284}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13418}
+      Script: {instanceID: 13202}
     - Class: 114
-      Script: {instanceID: 13828}
+      Script: {instanceID: 13338}
     - Class: 114
-      Script: {instanceID: 13964}
+      Script: {instanceID: 13474}
     - Class: 114
-      Script: {instanceID: 14132}
+      Script: {instanceID: 13902}
     - Class: 114
-      Script: {instanceID: 14144}
+      Script: {instanceID: 14040}
     - Class: 114
-      Script: {instanceID: 14284}
+      Script: {instanceID: 14212}
     - Class: 114
-      Script: {instanceID: 14314}
+      Script: {instanceID: 14224}
     - Class: 114
-      Script: {instanceID: 14376}
+      Script: {instanceID: 14366}
     - Class: 114
-      Script: {instanceID: 14504}
+      Script: {instanceID: 14458}
     - Class: 114
-      Script: {instanceID: 14620}
+      Script: {instanceID: 14586}
+    - Class: 114
+      Script: {instanceID: 14704}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -271,13 +296,13 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: ba68732454867591f436caf65db998f6
+      Hash: f8c1c8b070623d270ebb91ac926620e4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy
   - hash:
       serializedVersion: 2
-      Hash: f6f8ce5957318b034f3600d1f10f96e8
+      Hash: e8e8f26bfe53785fe954b47237d63150
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Progression
@@ -319,7 +344,13 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 72627ac62eae234bbaadef6d020b9810
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIEffect
+  - hash:
+      serializedVersion: 2
+      Hash: 6a27e56ee4730e9d30bde57fc86f6e46
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MeleeWeapons
@@ -391,7 +422,13 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: e48d0a0a9aef1e8a29a1556f8e3f2558
+      Hash: 922aebcf8da1e96789c7de94e226f72c
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIShadow
+  - hash:
+      serializedVersion: 2
+      Hash: cd99ed5ad8566c095a0093d889026b3d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -403,10 +440,22 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
+      Hash: f58f75cc07d6c84e5a854a0c8b0b9ebc
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIShiny
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: b9b03beb7a2f49cf8ade5ddfd6d5a83c
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIGradient
   - hash:
       serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
@@ -445,7 +494,7 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
-      Hash: 164a604805132bbe68f359952bc56817
+      Hash: 62f2664e69380427c1e4b112c304cc04
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyAttack
@@ -499,6 +548,12 @@ ScriptsOnlyBuild:
     className: PlayerInstaller
   - hash:
       serializedVersion: 2
+      Hash: 9766b6e6be8f19bf416f399bcbf30de4
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIDissolve
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -533,6 +588,18 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Selectable
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonCaller
+  - hash:
+      serializedVersion: 2
+      Hash: c913c1a650d9fa5fb48d6e06dcf86e99
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIFlip
   - hash:
       serializedVersion: 2
       Hash: dd0536763d2a3ef6b0cd47d16796668a
@@ -649,6 +716,12 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
+      Hash: c3ebd153b5ef55e7f0535817b6bbeaef
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HoverOverScript
+  - hash:
+      serializedVersion: 2
       Hash: f9c05aa86e45cc76878136fb48a10c5d
     assemblyName: Zenject.dll
     namespaceName: Zenject
@@ -661,7 +734,7 @@ ScriptsOnlyBuild:
     className: AnimatorMoveHandlerManager
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 663cdeb214c784594a55831b054abea7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SceneMove
@@ -677,6 +750,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 2da6a03d96929d9e1a9e5fd235fb9cc5
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UISyncEffect
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -701,6 +780,12 @@ ScriptsOnlyBuild:
     assemblyName: Zenject.dll
     namespaceName: Zenject
     className: DefaultGameObjectKernel
+  - hash:
+      serializedVersion: 2
+      Hash: 54fbdf1b2df084785765021169c22327
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JusticeSpawn
   - hash:
       serializedVersion: 2
       Hash: 3164bc883ff663a5cdb32d1ef7e7c0c5
@@ -743,6 +828,12 @@ ScriptsOnlyBuild:
     assemblyName: Zenject.dll
     namespaceName: Zenject
     className: ScriptableObjectInstallerBase
+  - hash:
+      serializedVersion: 2
+      Hash: c0fe7475cb16e938be45952c1f758162
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UITransitionEffect
   - hash:
       serializedVersion: 2
       Hash: 3cf156985df62fac63708d6bed3583bf
@@ -805,7 +896,13 @@ ScriptsOnlyBuild:
     className: PlayerFacade
   - hash:
       serializedVersion: 2
-      Hash: cf5e08edf977d462b6312367301c4545
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FireCollision
+  - hash:
+      serializedVersion: 2
+      Hash: eff7ba4e82c903e918a22b209324a97d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -835,6 +932,12 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
+      Hash: b294dcafeb12f292f162d10fc5a9f6ca
+    assemblyName: UIEffect.dll
+    namespaceName: Coffee.UIEffects
+    className: UIHsvModifier
+  - hash:
+      serializedVersion: 2
       Hash: 60cd3889cd3e4eb6edcb3e79f707404c
     assemblyName: Zenject.dll
     namespaceName: Zenject.SpaceFighter
@@ -847,7 +950,7 @@ ScriptsOnlyBuild:
     className: GameInstaller
   - hash:
       serializedVersion: 2
-      Hash: dfc958f77653f186a4451b748f1ab927
+      Hash: 9e095cee6d342bb02919b7650afb2d69
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PowerBehaviour
@@ -989,14 +1092,8 @@ ScriptsOnlyBuild:
     assemblyName: Zenject.dll
     namespaceName: Zenject
     className: ZenjectBinding
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ButtonCaller
   platform: 5
   scenePathNames:
   - Assets/Scenes/UI Scale Testing.unity
   - Assets/Scenes/Game.unity
-  playerPath: S:/Final Year Project/COMP3000/Test Build 1/Regression.exe
+  playerPath: S:/Final Year Project/COMP3000/Tutorial Test Build/Regression.exe

@@ -37,8 +37,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     //UI Controller tracking stages.
     [SerializeField]
     GameObject WelcomeImage, WelcomeText, JumpingArrow, Enemy1, Enemy2;//Part 1 of tutorial.
-    int TutorialStage = 1; //Track state of the tutorial
+    int TutorialStage = 0; //Track state of the tutorial
     bool inPauseMenu = false;
+    bool lockPauseMenu = false; //Used while certain windows are open to ensure pause menu will NOT load.
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +76,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 currentScore = obj.GetComponent<Text>();
             }
         }
-
         //Find GameObject section.
 
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
@@ -145,7 +145,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
 
     }
-
+    public void setLockPauseMenu(bool setting)
+    {
+        lockPauseMenu = setting;
+    }
     //Methods to trigger start of the game
     public void startGameEasy()
     {
@@ -442,6 +445,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     private void PausedSummaryScreen()
     {
+        if (getTutorialStage() > 0)
+        {
+            summaryDifficulty.GetComponent<Text>().text = "You are currently in the tutorial.";
+            summaryWave.GetComponent<Text>().text = "";
+            summaryPoints.GetComponent<Text>().text = "";
+            return;
+        }
         //Get current points
         summaryPoints.GetComponent<Text>().text = "Current Points: " + pointsGained;
 
@@ -450,6 +460,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Progression progObj = progression.GetComponent<Progression>();
         summaryWave.GetComponent<Text>().text = "Current Wave: " + progObj.GetCurrentWave();
         //Get current difficulty
+
         int difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
         switch (difficultyLevel)
         {
@@ -672,8 +683,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         animArrow.Stop();
         animArrow.Play("jumping arrow disappear");
         yield return new WaitForSeconds(0.5f);
-        JumpingArrow.transform.localPosition = new Vector3(267, 531, 0);
-        WelcomeText.transform.localPosition = new Vector3(488, 604, 0);
+        JumpingArrow.transform.localPosition = new Vector3(267, 459, 0);
+        WelcomeText.transform.localPosition = new Vector3(460, 504, 0);
         WelcomeText.GetComponent<Text>().text = "This is your pointers counter.\nThe higher the difficulty,\n the more points you'll get!";
         animText.Play("TextAppear");
         animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
@@ -693,7 +704,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         yield return new WaitForSeconds(0.5f);
         Enemy1.transform.position = new Vector3(19.90631f, 1.021423f, -7.240521f);
         WelcomeText.GetComponent<Text>().text = "To attack, press left click. You will fire a magical bullet at the enemy.\nKill this enemy to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-547, 445, 0);
+        WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
         Enemy1.SetActive(true);
         animText.Play("TextAppear");
         Cursor.lockState = CursorLockMode.Locked;
@@ -704,6 +715,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Animation anim = WelcomeImage.GetComponent<Animation>();
         Animation animText = WelcomeText.GetComponent<Animation>();
         Animation animArrow = JumpingArrow.GetComponent<Animation>();
+        lockPauseMenu = true;
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
         WelcomeText.GetComponent<Text>().text = "Well done! Wave complete!";
@@ -712,11 +724,12 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(2f);
         animText.Play("TextAppear");
-        WelcomeText.transform.localPosition = new Vector3(-233,278, 0);
+        WelcomeText.transform.localPosition = new Vector3(-233,238, 0);
         WelcomeText.GetComponent<Text>().fontSize = 45;
         animText.GetComponent<Text>().text = "As the game progresses, you must\nchannel corruption to your powers.\n\nThis means you will lose them.\nYou usually have a choice between two.\nTo continue, please drain the \nImmune to Death power.";
         isPaused = true;
         PowerDrainScreen(0, 0);
+
         TutorialStage = 14;
 
     }
@@ -728,7 +741,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
         WelcomeText.GetComponent<Text>().text = "Kill the final enemy to finish the tutorial.";
-        WelcomeText.transform.localPosition = new Vector3(-547, 445, 0);
+        WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
         WelcomeText.GetComponent<Text>().fontSize = 60;
         animText.Play("TextAppear");
         Enemy2.SetActive(true);
@@ -741,9 +754,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Animation animText = WelcomeText.GetComponent<Animation>();
         Animation animArrow = JumpingArrow.GetComponent<Animation>();
         animText.Play("TextDisappear");
+        lockPauseMenu = true;
         yield return new WaitForSeconds(0.5f);
         WelcomeText.GetComponent<Text>().text = "Congratulations! Tutorial complete.\nReturning to the main menu in 10 seconds.";
-        WelcomeText.transform.localPosition = new Vector3(-547, 445, 0);
+        WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
         WelcomeText.GetComponent<Text>().fontSize = 60;
         animText.Play("TextAppear");
         isPaused = true;
@@ -923,6 +937,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public void PowerDrainScreen() //Will be called by the Progression handler when the player completes a wave.
     {
         Cursor.lockState = CursorLockMode.None;
+        lockPauseMenu = true;
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -956,6 +971,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public void PowerDrainScreen(int power1ToDrain, int power2ToDrain) //Will be called by the Progression handler when the player completes a wave.
     {
         Cursor.lockState = CursorLockMode.None;
+        lockPauseMenu = true;
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -1262,7 +1278,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             if (PlayerPrefs.GetInt("TutorialCompleteStatus") != 1)
             {
                 SceneManager.LoadScene("Game");
-                TutorialStage = 1;
             }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
@@ -1277,8 +1292,22 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
+            if (PlayerPrefs.GetInt("TutorialCompleteStatus") != 1 && TutorialStage == 0)
+            {
+                TutorialStage = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.F12))
+            {
+                PlayerPrefs.SetInt("TutorialCompleteStatus", 1);
+                SceneManager.LoadScene("UI Scale Testing");
+            }
+
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
+                if (lockPauseMenu == true)
+                {
+                    return;
+                }
                 if (isPaused == false || inPauseMenu == false)
                 {
                     inPauseMenu = true;
@@ -1356,6 +1385,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
                }
             }
+            if (isPaused == false)
+            {
+                ShowAllPowersInGame();
+            }
             else
             {
                 
@@ -1368,10 +1401,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 {
                     buttonpressed = false;
                 }
-            }
-            if (health != null)
-            {
-                health.text = getUpdatePlayerHP(); //Update health every frame.
             }
 
         }

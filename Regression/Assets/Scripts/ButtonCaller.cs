@@ -55,6 +55,7 @@ public class ButtonCaller : MonoBehaviour
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         powers.loseSpecificPower(ui.losePower1);
+        ui.setLockPauseMenu(false);
         if (ui.getTutorialStage() > 0)
         {
             ui.TutorialEnemyKilled();
@@ -66,6 +67,7 @@ public class ButtonCaller : MonoBehaviour
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         powers.loseSpecificPower(ui.losePower2);
+        ui.setLockPauseMenu(false);
         if (ui.getTutorialStage() > 0)
         {
             ui.TutorialEnemyKilled();
@@ -75,5 +77,9 @@ public class ButtonCaller : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("UI Scale Testing");
+    }
+    public void ResetTutorial()
+    {
+        PlayerPrefs.SetInt("TutorialCompleteStatus", 0);
     }
 }
