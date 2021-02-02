@@ -1,0 +1,17 @@
+Full control scheme is below:
+
+WASD - Move around the area.
+Move the mouse to look around.
+Left click - shoot.
+Escape - Pause/Unpause game. Only possible when you can control the camera.
+While in tutorial, press F12 if you want to skip it.
+You can reset the tutorial progress (it only runs every time before you complete it for the first time) on the main menu.
+
+KNOWN ISSUES:
+On main menu after completing tutorial, there is no way to leave using a button (press escape to leave!)
+On main menu after completing tutorial, the start for hard difficulty does not work.
+Projectiles may not hit the enemies correctly. This will be addressed soon.
+
+
+LINK TO GOOGLE FORM:
+https://forms.gle/eXcL5zfnGRk8bRTn8

@@ -91,7 +91,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         //Enable/Disable section
 
-        powerdrainedtext.enabled = false;
 
         //Modify values section
         //ShowAllPowersInGame();
@@ -617,13 +616,19 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         animText["TextDisappear"].wrapMode = WrapMode.Once;
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "In this game, you start with buffs known as powers.\n" +
+        WelcomeText.GetComponent<Text>().text = "In this game, instead of progressing, you will instead regress." +
+            "\nThis means that you start extremely powerful, and get weaker as the game progresses." +
+            "\nEnemies will not change, but you will find even the most basic enemy harder to kill!";
+        /*
+         * 
+         * "In this game, you start with buffs known as powers.\n" +
             "You will be fighting hordes of monsters from the depths of hell.\n" +
             "As you progress, Hell's influence over you will increase, and you will\n" +
             "be forced to channel this into your powers, losing their effect.\n" +
             "In this tutorial, you will be able to understand the basic premise\n" +
             "of this game.\n" +
             "Please press left click to continue.";
+         * */
         WelcomeText.transform.localPosition = new Vector3(-566, 333, 0);
         animText["TextAppear"].wrapMode = WrapMode.Once;
         animText.Play("TextAppear");
@@ -704,7 +709,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         yield return new WaitForSeconds(0.5f);
         Enemy1.transform.position = new Vector3(19.90631f, 1.021423f, -7.240521f);
         WelcomeText.GetComponent<Text>().text = "To attack, press left click. You will fire a magical bullet at the enemy.\nKill this enemy to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
+        WelcomeText.transform.localPosition = new Vector3(-483, 140, 0);
         Enemy1.SetActive(true);
         animText.Play("TextAppear");
         Cursor.lockState = CursorLockMode.Locked;

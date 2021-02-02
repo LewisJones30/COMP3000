@@ -106,8 +106,6 @@ public class Player : MonoBehaviour
     public double time = 0;
     [HideInInspector]
     public int playerOnFire = 0; //Boolean accessed by firecollision to damage the player. 0 = not on fire, 1 = on fire, 2 = exited fire, disable fire effect.
-
-    bool tutorialActive = false; //Means player cannot die.
     bool isDead = false; //Player starts alive.
     bool[] powersLost = new bool[20];
     float FireDamageTime = 0f;
@@ -191,7 +189,7 @@ public class Player : MonoBehaviour
         health = health - (damageTaken * damageDealt); //Take away health based on the damage dealt. Iron maiden ability reduces this by 50%. Difficulties may also change this.
         if (health < 1)
         {
-            if (tutorialActive == true) //Check if player is in tutorial
+            if (isPausedCheck.getTutorialStage() > 0) //Check if player is in tutorial
             {
                 health = 1; //Health cannot go below 1 in tutorial.
             }
