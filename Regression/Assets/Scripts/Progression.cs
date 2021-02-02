@@ -217,15 +217,18 @@ public class Progression : MonoBehaviour
                 GameObject[] wave1Enemies = waveArrays[0].wave;
                 if (numberEnemiesKilled == wave1Enemies.Length)
                 {
-                    //Wave complete!
-                    ui.WaveCompleteText();
                     currentWave = currentWave + 1;
                     //Reset enemies killed/spawned.
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
-                    //temptext.text = "Wave 2/2";
-                    //Pause game, call UIController to show the wave complete screen.
-                    //Call PowerController to disable all powers.
+                    if (currentWave > maximumWave)
+                        {
+                            ui.GameCompleteText();
+                            break;
+                        }
+                    //Wave complete!
+                    ui.WaveComplete();
+
                 }
                 break;
             case 2:
@@ -233,7 +236,14 @@ public class Progression : MonoBehaviour
                 if (numberEnemiesKilled == wave2Enemies.Length)
                 {
                     currentWave = currentWave + 1;
-                    ui.GameCompleteText();
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.WaveComplete();
                 }
                 break;
             case 3:
@@ -241,6 +251,13 @@ public class Progression : MonoBehaviour
                 if (numberEnemiesKilled == wave3Enemies.Length)
                 {
                     currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
                     ui.GameCompleteText();
                 }
                 break;
@@ -249,6 +266,13 @@ public class Progression : MonoBehaviour
                 if (numberEnemiesKilled == wave4Enemies.Length)
                 {
                     currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
                     ui.GameCompleteText();
                 }
                 break;
@@ -257,6 +281,13 @@ public class Progression : MonoBehaviour
                 if (numberEnemiesKilled == wave5Enemies.Length)
                 {
                     currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
                     ui.GameCompleteText();
                 }
                 break;
@@ -358,6 +389,7 @@ public class Progression : MonoBehaviour
         ui = GameObject.Find("UIHandler").GetComponent<UIController>(); //Get the UI controller ready for pause/resume states.
 
         currentWave = 1;
+        maximumWave = waveArrays.Length; //Dynamically find the maximum waves.
         EnemySpawnTimeDupe = (float[])EnemySpawnTime.Clone(); //Create a clone.
     }
 }

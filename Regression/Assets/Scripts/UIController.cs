@@ -40,6 +40,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     int TutorialStage = 0; //Track state of the tutorial
     bool inPauseMenu = false;
     bool lockPauseMenu = false; //Used while certain windows are open to ensure pause menu will NOT load.
+    [SerializeField]
+    GameObject fireWarning;
     // Start is called before the first frame update
     void Start()
     {
@@ -118,7 +120,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
     }
-    string getUpdatePlayerHP()
+    public string getUpdatePlayerHP()
     {
         if (health != null)
         {
@@ -141,6 +143,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         else
         {
             HPBar.GetComponent<Image>().fillAmount = (float)HealthPercentage;
+            healthObj.GetComponent<Text>().text = Convert.ToString(health);
         }
 
     }
@@ -228,7 +231,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
 
     }
-    public void WaveCompleteText()
+    public void WaveComplete()
     {
         StartCoroutine("WaveCompleteMethod");
     }
@@ -245,7 +248,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         isPaused = true;
         waveCompletePause = true;
-        yield return new WaitForSeconds(7.5f);
+        yield return new WaitForSeconds(5f);
         GameObject.Find("BackgroundPowerDrain").SetActive(false);
         if (PlayerPrefs.GetInt("DifficultyChosen") <= 3) //Player can drain powers on Easy, Normal & Hard.
         {
@@ -260,15 +263,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     IEnumerator GameCompleteRoutine()
     {
-        UIWaveCompText.enabled = true;
-        UIWaveCompText.text = "Congratulations! You have completed the prototype. Press escape to exit. \n You will otherwise be returned to the home page shortly.";
+
         isPaused = true;
-        yield return new WaitForSeconds(7.5f);
         UIWaveCompText.enabled = false;
         storeHighscores(powerController.difficultyLevel);
-        SceneManager.LoadScene("UI Scale Testing");
+        GameSummaryScreen();
         Cursor.lockState = CursorLockMode.None;
         isPaused = false;
+        yield return new WaitForEndOfFrame();
     }
 
     //=========================================================Pause functionality=========================================================
@@ -616,18 +618,19 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         animText["TextDisappear"].wrapMode = WrapMode.Once;
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "In this game, instead of progressing, you will instead regress." +
-            "\nThis means that you start extremely powerful, and get weaker as the game progresses." +
-            "\nEnemies will not change, but you will find even the most basic enemy harder to kill!";
-        /*
-         * 
-         * "In this game, you start with buffs known as powers.\n" +
+        WelcomeText.GetComponent<Text>().text = "In this game, you start with buffs known as powers.\n" +
             "You will be fighting hordes of monsters from the depths of hell.\n" +
             "As you progress, Hell's influence over you will increase, and you will\n" +
             "be forced to channel this into your powers, losing their effect.\n" +
             "In this tutorial, you will be able to understand the basic premise\n" +
             "of this game.\n" +
             "Please press left click to continue.";
+        /*
+         * 
+         *
+            "In this game, instead of progressing, you will instead regress." +
+            "\nThis means that you start extremely powerful, and get weaker as the game progresses." +
+            "\nEnemies will not change, but you will find even the most basic enemy harder to kill!";
          * */
         WelcomeText.transform.localPosition = new Vector3(-566, 333, 0);
         animText["TextAppear"].wrapMode = WrapMode.Once;
@@ -790,55 +793,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void GameSummaryScreen()
     {
         Cursor.lockState = CursorLockMode.None;
         postObj.SetActive(true);
-        currentScore.gameObject.SetActive(false); //Set the currentscore obj to false.
+        currentScore.gameObject.SetActive(false); //Set the currentscore obj to false
         //Get current wave ID.
         GameObject progression = GameObject.Find("ProgressionHandler");
         Progression progObj = progression.GetComponent<Progression>();
@@ -1118,20 +1077,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     public void EnableFireWarning() //Called by Player when the player is on fire
     {
-            foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-            {
-                if (obj.tag == "FireWarning")
-                {
-                    obj.SetActive(true);
-                    return;
-                }
-            }
+        fireWarning.SetActive(true);
         return;
         
     }
     public void DisableFireWarning()
     {
-        GameObject.FindGameObjectWithTag("FireWarning").SetActive(false);
+        fireWarning.SetActive(false);
     }
     void FixedUpdate()
     {
@@ -1369,7 +1321,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
             if (Input.GetKeyDown(KeyCode.F10) == true)
             {
-                WaveCompleteText();
+                WaveComplete();
             }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
@@ -1406,6 +1358,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 {
                     buttonpressed = false;
                 }
+            }
+            if (health != null)
+            {
+                getUpdatePlayerHP();
             }
 
         }

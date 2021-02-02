@@ -31,7 +31,7 @@ public class MagicWeapon : MonoBehaviour
         if (PowerBehaviour.powerHandler[6].PowerActive == true)
         {
             //Reduce the cooldown of shooting by 50% with power 6.
-            shootingCooldown = shootingCooldown / 1.5f;
+            shootingCooldown = shootingCooldown / 2f;
             dupeCD = shootingCooldown;
             powerModified = true;
         }

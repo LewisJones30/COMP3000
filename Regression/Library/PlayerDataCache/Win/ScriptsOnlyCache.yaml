@@ -428,7 +428,7 @@ ScriptsOnlyBuild:
     className: UIShadow
   - hash:
       serializedVersion: 2
-      Hash: cd99ed5ad8566c095a0093d889026b3d
+      Hash: b4a5e2f7efa767b677b20da8bc554788
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController

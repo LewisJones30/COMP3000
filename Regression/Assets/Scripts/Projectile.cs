@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour
                         foreach (GameObject obj in swordEnemies)
                         {
                             JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                            //projectiles.FirePowerEffect();
+                            projectiles.FirePowerEffect();
                         }
                     }
                 }

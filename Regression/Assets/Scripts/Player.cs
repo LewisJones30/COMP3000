@@ -187,6 +187,7 @@ public class Player : MonoBehaviour
     public void takeDamage(double damageDealt)
     {
         health = health - (damageTaken * damageDealt); //Take away health based on the damage dealt. Iron maiden ability reduces this by 50%. Difficulties may also change this.
+        isPausedCheck.getUpdatePlayerHP();
         if (health < 1)
         {
             if (isPausedCheck.getTutorialStage() > 0) //Check if player is in tutorial
@@ -235,11 +236,15 @@ public class Player : MonoBehaviour
     }
     IEnumerator routineDead()
     {
+        isPausedCheck.setLockPauseMenu(true);
         deadtext.enabled = true;
         isPausedCheck.isPaused = true;
         blackout.SetActive(true);
         deadtextObj.SetActive(true);
         yield return new WaitForSeconds(5f);
+        deadtextObj.SetActive(false);
+        GameObject.Find("PlayerHPBorder").SetActive(false);
+        GameObject.Find("PlayerHealth").SetActive(false);
         isPausedCheck.storeHighscores(powerController.difficultyLevel); //Obtain the difficulty level from the powers controller.
         
         isPausedCheck.GameSummaryScreen();
@@ -266,7 +271,6 @@ public class Player : MonoBehaviour
                 weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 10.25f, 97.661f), this.gameObject.transform);
                 weaponSword.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
                 GameObject.Find("ProjectileSpawner").SetActive(false);
-                //GameObject.Find("TempWeaponText").SetActive(false);
                 break;
             case 1: //Magic Staff
                 GameObject weaponStaff;

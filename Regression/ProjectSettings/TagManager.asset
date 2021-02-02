@@ -20,6 +20,7 @@ TagManager:
   - RainEffect
   - LosePowerScreen
   - In-GameUI
+  - Terrain
   layers:
   - Default
   - TransparentFX

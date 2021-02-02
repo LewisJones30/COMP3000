@@ -28,14 +28,56 @@ public class MovementScript : MonoBehaviour
 
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        if (Physics.Raycast(transform.position, forward, out hit, 3))
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 back = transform.TransformDirection(Vector3.back);
+        Vector3 left = transform.TransformDirection(Vector3.left);
+        if (Physics.Raycast(transform.position, forward, out hit, 5))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy")
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
                 if (Z > 0)
+                {
+                    Z = 0;
+                }
+            }
+        }
+        if (Physics.Raycast(transform.position, left, out hit, 5))
+        {
+            Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            {
+                rb.angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                if (X < 0)
+                {
+                    X = 0;
+                }
+            }
+        }
+        if (Physics.Raycast(transform.position, right, out hit, 5))
+        {
+            Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            {
+                rb.angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                if (X > 0)
+                {
+                    X = 0;
+                }
+            }
+        }
+        if (Physics.Raycast(transform.position, back, out hit, 5))
+        {
+            Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            {
+                rb.angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                if (Z < 0)
                 {
                     Z = 0;
                 }
