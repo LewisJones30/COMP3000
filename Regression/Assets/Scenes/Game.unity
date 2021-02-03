@@ -4841,12 +4841,12 @@ Animation:
   m_GameObject: {fileID: 865602131}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 704bfe744f22aba41a171527d625847a, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: ff3cebe16310b07448d0f0e271699d1a, type: 2}
-  - {fileID: 7400000, guid: ff3cebe16310b07448d0f0e271699d1a, type: 2}
+  - {fileID: 7400000, guid: 704bfe744f22aba41a171527d625847a, type: 2}
+  - {fileID: 7400000, guid: 0d813a5934ccb65489102fd50796bc1e, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &865602134
@@ -4862,7 +4862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4870,7 +4870,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: c27930fb82df1ed45905ede88dddbb2f, type: 3}
     m_FontSize: 75
     m_FontStyle: 0
     m_BestFit: 0
@@ -12795,12 +12795,12 @@ Animation:
   m_GameObject: {fileID: 1407918935}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 548145ed571f9fd47b2803cca86ab98e, type: 2}
   m_Animations:
-  - {fileID: 0}
-  - {fileID: 7400000, guid: 701c448fe084bd04ca425275b492a08d, type: 2}
+  - {fileID: 7400000, guid: 548145ed571f9fd47b2803cca86ab98e, type: 2}
+  - {fileID: 7400000, guid: 4278b25d7b8c6cd4ba98cd4113363252, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &1407918937
@@ -16548,10 +16548,10 @@ Animation:
   m_GameObject: {fileID: 2017379113}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 150670b022f8a3549b6c63843ab0f359, type: 2}
+  m_Animation: {fileID: 7400000, guid: d59255104dcd1fd4083c8088a7e84f51, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 150670b022f8a3549b6c63843ab0f359, type: 2}
-  - {fileID: 7400000, guid: 150670b022f8a3549b6c63843ab0f359, type: 2}
+  - {fileID: 7400000, guid: d59255104dcd1fd4083c8088a7e84f51, type: 2}
+  - {fileID: 7400000, guid: 49b1fd61d85d5464ca234c27d9c5a341, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

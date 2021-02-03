@@ -53,7 +53,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (SceneManager.GetActiveScene().name == "Game")
         {
             WeaponSelection();
-            expertDrainPowerImage.SetActive(false);
         }
         else
         {
@@ -190,18 +189,22 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     IEnumerator ShowMessage(int PowerDrainedID)
     {
 
-        expertDrainPowerImage.SetActive(true);
-        expertDrainPowerImage.GetComponent<Image>().sprite = spriteUIElements[PowerDrainedID].GetComponent<Image>().sprite;
+        expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
         expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].PowerName;
         Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
         Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
         Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
-        imageAnim.Play("ExpertPowerDrainImageAnim");
-        text1Anim.Play("ExpertPowerDrainTextAnim");
-        text2Anim.Play("ExpertPowerDrainText2Anim");
-        yield return new WaitForSeconds(4);
+        imageAnim.Play("ExpertImageAppear");
+        text1Anim.Play("ExpertText1Anim");
+        text2Anim.Play("ExpertTextAnim2");
         ShowAllPowersInGame();
-        powerdrainedtext.enabled = false;
+        yield return new WaitForSeconds(4);
+        imageAnim.Play("ExpertImageDisappear");
+        text1Anim.Play("ExpertText1Disappear");
+        text2Anim.Play("ExpertText2Anim");
+        yield return new WaitForSeconds(1f);
+        returnToMainGame();
+
     }
     //=============================================Methods to control the menus================================================
     void loadSettings() //Triggered when the player clicks settings on the home page
