@@ -19,11 +19,5 @@ public class SceneMove : MonoBehaviour
     }
 
     //For testing purposes, load the game scene, powermodifiers NOT updated.
-    public void startGameEasy()
-    {
-        PlayerPrefs.SetInt("DifficultyChosen", 1);
-        SceneManager.LoadScene("Game");
-
-    }
 
 }

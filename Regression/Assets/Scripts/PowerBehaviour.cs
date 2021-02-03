@@ -89,9 +89,9 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     void StartPower(int numbPowers) //Pass in from difficulty how many to enable
     {
         //As not all slots are filled, this reduces to make sure.
-        if (numbPowers > 10)
+        if (numbPowers > 13)
         {
-            numbPowers = 10;
+            numbPowers = 13;
         }
         for (int i = 0; i < numbPowers; i++)
         {
@@ -181,17 +181,17 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     public void StartGameHard()
     {
         difficultyLevel = 3;
-        StartPower(19); //Start with all available powers.
+        StartPower(11); //Start with all available powers.
     }
     public void StartGameExpert()
     {
         difficultyLevel = 4;
-        StartPower(14); //Start with 5 less powers.
+        StartPower(10); //Start with 5 less powers.
     }
     public void StartGameSatanic()
     {
         difficultyLevel = 5;
-        StartPower(14); //Start with 5 less powers.
+        StartPower(10); //Start with 5 less powers.
     }
     public void StartGameTutorial()
     {

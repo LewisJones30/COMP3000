@@ -82,4 +82,29 @@ public class ButtonCaller : MonoBehaviour
     {
         PlayerPrefs.SetInt("TutorialCompleteStatus", 0);
     }
+    public void startGameEasy()
+    {
+        PlayerPrefs.SetInt("DifficultyChosen", 1);
+        SceneManager.LoadScene("Game");
+    }
+    public void startGameNormal()
+    {
+        PlayerPrefs.SetInt("DifficultyChosen", 2);
+        SceneManager.LoadScene("Game");
+    }
+    public void startGameHard()
+    {
+        PlayerPrefs.SetInt("DifficultyChosen", 3);
+        SceneManager.LoadScene("Game");
+    }
+    public void startGameExpert()
+    {
+        PlayerPrefs.SetInt("DifficultyChosen", 4);
+        SceneManager.LoadScene("Game");
+    }
+    public void startGameSatanic()
+    {
+        PlayerPrefs.SetInt("DifficultyChosen", 5);
+        SceneManager.LoadScene("Game");
+    }
 }

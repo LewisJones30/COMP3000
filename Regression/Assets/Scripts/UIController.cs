@@ -42,6 +42,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     bool lockPauseMenu = false; //Used while certain windows are open to ensure pause menu will NOT load.
     [SerializeField]
     GameObject fireWarning;
+    [SerializeField]
+    GameObject expertDrainPowerImage, expertDrainPowerNameText, expertDrainPowerNameText2; //Expert difficulty drain
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +53,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (SceneManager.GetActiveScene().name == "Game")
         {
             WeaponSelection();
-
+            expertDrainPowerImage.SetActive(false);
         }
         else
         {
@@ -187,18 +189,18 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     IEnumerator ShowMessage(int PowerDrainedID)
     {
-        powerdrainedtext.enabled = true;
-        if (PowerDrainedID == 3)
-        {
-            powerdrainedtext.fontSize = 55;
-        }
-        else
-        {
-            powerdrainedtext.fontSize = 70;
-        }
-        powerdrainedtext.text = "As the wave ends, you feel " + powerController.powerHandler[PowerDrainedID].PowerName + " fade away...";
-        ShowAllPowersInGame();
+
+        expertDrainPowerImage.SetActive(true);
+        expertDrainPowerImage.GetComponent<Image>().sprite = spriteUIElements[PowerDrainedID].GetComponent<Image>().sprite;
+        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].PowerName;
+        Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
+        Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
+        Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
+        imageAnim.Play("ExpertPowerDrainImageAnim");
+        text1Anim.Play("ExpertPowerDrainTextAnim");
+        text2Anim.Play("ExpertPowerDrainText2Anim");
         yield return new WaitForSeconds(4);
+        ShowAllPowersInGame();
         powerdrainedtext.enabled = false;
     }
     //=============================================Methods to control the menus================================================
@@ -254,6 +256,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             PowerDrainScreen();
         }
+        else
+        {
+            //Drain powers automatically on expert.
+            powerController.losePowerHard();
+        }
 
         
     }
@@ -265,7 +272,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
 
         isPaused = true;
-        UIWaveCompText.enabled = false;
         storeHighscores(powerController.difficultyLevel);
         GameSummaryScreen();
         Cursor.lockState = CursorLockMode.None;
@@ -821,6 +827,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (pointsGained > PlayerPrefs.GetInt("HighScoreEasy"))
                     {
                         postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                        storeHighscores(difficultyLevel);
                     }
                     return;
                 }
@@ -830,6 +837,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (pointsGained > PlayerPrefs.GetInt("HighScoreNormal"))
                     {
                         postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                        storeHighscores(difficultyLevel);
                     }
                     return;
                 }
@@ -839,6 +847,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (pointsGained > PlayerPrefs.GetInt("HighScoreHard"))
                     {
                         postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                        storeHighscores(difficultyLevel);
                     }
                     return;
                 }
@@ -848,6 +857,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (pointsGained > PlayerPrefs.GetInt("HighScoreExpert"))
                     {
                         postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                        storeHighscores(difficultyLevel);
                     }
                     return;
                 }
@@ -857,6 +867,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (pointsGained > PlayerPrefs.GetInt("HighScoreSatanic"))
                     {
                         postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
+                        storeHighscores(difficultyLevel);
                     }
                     return;
                 }
@@ -1135,38 +1146,24 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     void LoadHighscores()
     {
         int highScore = PlayerPrefs.GetInt("HighScoreEasy");
-        if (highScore == 0)
+        if (highScore > 0)
         {
-            if (easyScore == null)
-            {
-                easyScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
-            }
-            easyScore.text = "No highscore!";
+            easyScore.text = "Score: " + highScore;
         }
-        else
+        highScore = PlayerPrefs.GetInt("HighScoreNormal");
+        if (highScore > 0)
         {
-            if (easyScore == null)
-            {
-                easyScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
-            }
-            easyScore.text = "Highscore: " + highScore;
+            normalScore.text = "Score: " + highScore;
         }
         highScore = PlayerPrefs.GetInt("HighScoreHard");
-        if (highScore == 0)
+        if (highScore > 0)
         {
-            if (hardScore == null)
-            {
-                hardScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
-            }
-            hardScore.text = "No highscore!";
+            hardScore.text = "Score: " + highScore;
         }
-        else
+        highScore = PlayerPrefs.GetInt("HighScoreExpert");
+        if (highScore > 0)
         {
-            if (hardScore == null)
-            {
-                hardScore = GameObject.Find("HighScoreTextEasy").GetComponent<Text>();
-            }
-            hardScore.text = "Highscore: " + highScore;
+            expertScore.text = "Score: " + highScore;
         }
 
     }
