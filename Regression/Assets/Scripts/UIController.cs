@@ -49,7 +49,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-
         if (SceneManager.GetActiveScene().name == "Game")
         {
             WeaponSelection();
@@ -1149,24 +1148,28 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     void LoadHighscores()
     {
         int highScore = PlayerPrefs.GetInt("HighScoreEasy");
+        Debug.Log("Easy highscore: " + highScore);
         if (highScore > 0)
         {
-            easyScore.text = "Score: " + highScore;
+            easyScore.text = "Highscore: " + highScore;
         }
         highScore = PlayerPrefs.GetInt("HighScoreNormal");
+        Debug.Log("Normal highscore: " + highScore);
         if (highScore > 0)
         {
-            normalScore.text = "Score: " + highScore;
+            normalScore.text = "Highscore: " + highScore;
         }
         highScore = PlayerPrefs.GetInt("HighScoreHard");
+        Debug.Log("Hard highscore: " + highScore);
         if (highScore > 0)
         {
-            hardScore.text = "Score: " + highScore;
+            hardScore.text = "Highscore: " + highScore;
         }
         highScore = PlayerPrefs.GetInt("HighScoreExpert");
+        Debug.Log("Expert highscore: " + highScore);
         if (highScore > 0)
         {
-            expertScore.text = "Score: " + highScore;
+            expertScore.text = "Highscore: " + highScore;
         }
 
     }
@@ -1177,7 +1180,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             case 1:
             {
                     int playerHighScore1 = PlayerPrefs.GetInt("HighScoreEasy");
-                    if (playerHighScore1 > pointsGained)
+                    if (playerHighScore1 < pointsGained)
                     {
                         int roundedScore = Mathf.FloorToInt(pointsGained);
                         PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
@@ -1188,38 +1191,38 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             case 2:
                 {
                     int playerHighScore2 = PlayerPrefs.GetInt("HighScoreNormal");
-                    if (playerHighScore2 > pointsGained)
+                    if (playerHighScore2 < pointsGained)
                     {
                         int roundedScore = Mathf.FloorToInt(pointsGained);
-                        PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+                        PlayerPrefs.SetInt("HighScoreNormal", roundedScore);
 
                     }
                     return;
                 }
             case 3:
                 int playerHighScore3 = PlayerPrefs.GetInt("HighScoreHard");
-                if (playerHighScore3 > pointsGained)
+                if (playerHighScore3 < pointsGained)
                 {
                     int roundedScore = Mathf.FloorToInt(pointsGained);
-                    PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+                    PlayerPrefs.SetInt("HighScoreHard", roundedScore);
 
                 }
                 return;
             case 4:
                 int playerHighScore4 = PlayerPrefs.GetInt("HighScoreExpert");
-                if (playerHighScore4 > pointsGained)
+                if (playerHighScore4 < pointsGained)
                 {
                     int roundedScore = Mathf.FloorToInt(pointsGained);
-                    PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+                    PlayerPrefs.SetInt("HighScoreExpert", roundedScore);
 
                 }
                 return;
             case 5:
                 int playerHighScore5 = PlayerPrefs.GetInt("HighScoreSatanic");
-                if (playerHighScore5 > pointsGained)
+                if (playerHighScore5 < pointsGained)
                 {
                     int roundedScore = Mathf.FloorToInt(pointsGained);
-                    PlayerPrefs.SetInt("HighScoreEasy", roundedScore);
+                    PlayerPrefs.SetInt("HighScoreSatanic", roundedScore);
 
                 }
                 return;
