@@ -61,6 +61,8 @@ public class ButtonCaller : MonoBehaviour
             ui.TutorialEnemyKilled();
         }
         ui.returnToMainGame();
+        Cursor.lockState = CursorLockMode.None;
+        ui.WeaponSelection();
     }
     public void LosePower2()
     {
@@ -73,6 +75,8 @@ public class ButtonCaller : MonoBehaviour
             ui.TutorialEnemyKilled();
         }
         ui.returnToMainGame();
+        Cursor.lockState = CursorLockMode.None;
+        ui.WeaponSelection();
     }
     public void MainMenu()
     {

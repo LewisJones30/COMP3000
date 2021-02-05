@@ -267,16 +267,36 @@ public class Player : MonoBehaviour
         switch (weaponID)
         {
             case 0: //Melee Sword
+                if (GameObject.Find("StaffWeapon") != null)
+                {
+                    Destroy(GameObject.Find("StaffWeapon"));
+                }
+                if (GameObject.Find("SwordWeapon") != null)
+                {
+                    return;
+                }
                 GameObject weaponSword;
-                weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, Quaternion.Euler(1.219f, 10.25f, 97.661f), this.gameObject.transform);
+                weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, transform.rotation, this.gameObject.transform);
                 weaponSword.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
+                weaponSword.transform.localRotation = Quaternion.Euler(new Vector3(-34f, 150f, 49.454f));
                 GameObject.Find("ProjectileSpawner").SetActive(false);
+
+                weaponSword.name = "SwordWeapon";
                 break;
             case 1: //Magic Staff
+                if (GameObject.Find("StaffWeapon") != null)
+                {
+                    Destroy(GameObject.Find("StaffWeapon"));
+                }
+                if (GameObject.Find("SwordWeapon") != null)
+                {
+                    Destroy(GameObject.Find("StaffWeapon"));
+                }
                 GameObject weaponStaff;
-                weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, Quaternion.Euler(-34, 150f, 49.454f), this.gameObject.transform);
+                weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, transform.rotation, this.gameObject.transform);
+                weaponStaff.transform.localRotation = Quaternion.Euler(new Vector3(-34f, 150f, 49.454f));
                 weaponStaff.transform.localPosition = (new Vector3(-0.892f, -0.91f, 0.135f));
-
+                weaponStaff.name = "StaffWeapon";
                 break;
         }
         

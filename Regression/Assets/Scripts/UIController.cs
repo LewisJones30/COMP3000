@@ -98,12 +98,18 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //ShowAllPowersInGame();
     }
 
-    void WeaponSelection()
+    public void WeaponSelection()
     {
         //This script initialises weapon selection for the player.
         //If the difficulty is hard, or expert, then the game will automatically skip this check and spawn a random weapon for the player.
         isPaused = true;
         //Game is paused here.
+        if (powerController.difficultyLevel > 2)
+        {
+            player.SpawnRandomWeapon();
+            ResumeButton();
+            return;
+        }
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -250,6 +256,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 break;
             }
         }
+        yield return new WaitForSeconds(2f);
         isPaused = true;
         waveCompletePause = true;
         yield return new WaitForSeconds(5f);
@@ -1324,7 +1331,27 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
             if (Input.GetKeyDown(KeyCode.F10) == true)
             {
-                WaveComplete();
+                if (powerController.powerHandler[13].PowerActive == true)
+                {
+                    GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
+                    GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                    foreach (GameObject obj in projectileEnemies)
+                    {
+                        JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                        if (projectiles != null)
+                        {
+                            projectiles.FirePowerEffect();
+                        }
+                    }
+                    foreach (GameObject obj in swordEnemies)
+                    {
+                        JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                        if (projectiles != null)
+                        {
+                            projectiles.FirePowerEffect();
+                        }
+                    }
+                }
             }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
