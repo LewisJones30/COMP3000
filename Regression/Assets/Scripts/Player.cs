@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
         "True = Yes. \n" +
         "False = Game chooses for the player.")]
     bool EasyPlayerChoosesPowerDrain = true;
+    [SerializeField]
+    bool EasyPlayerChoosesWeapon = true;
 
     //Normal difficulty controls
     [Header("Normal")]
@@ -50,6 +52,8 @@ public class Player : MonoBehaviour
         "True = Yes. \n" +
         "False = Game chooses for the player.")]
     bool NormalPlayerChoosesPowerDrain = true;
+    [SerializeField]
+    bool NormalPlayerChoosesWeapon = true;
 
     //Hard difficulty controls
     [Header("Hard")]
@@ -70,6 +74,8 @@ public class Player : MonoBehaviour
         "True = Yes. \n" +
         "False = Game chooses for the player.")]
     bool HardPlayerChoosesDrain = false;
+    [SerializeField]
+    bool HardPlayerChoosesWeapon = true;
 
     //Expert difficulty controls
     [Header("Expert")]
@@ -90,6 +96,8 @@ public class Player : MonoBehaviour
         "True = Yes. \n" +
         "False = Game chooses for the player.")]
     bool ExpertPlayerChoosesDrain = false;
+    [SerializeField]
+    bool ExpertPlayerChoosesWeapon = true;
     [Space(10)]
 
     //Public variables
@@ -198,7 +206,22 @@ public class Player : MonoBehaviour
         return ExpertPlayerChoosesDrain;
     }
 
-
+    public bool getEasyWeaponChoice()
+    {
+        return EasyPlayerChoosesWeapon;
+    }
+    public bool getNormalWeaponChoice()
+    {
+        return NormalPlayerChoosesWeapon;
+    }
+    public bool getHardWeaponChoice()
+    {
+        return HardPlayerChoosesWeapon;
+    }
+    public bool getExpertWeaponChoice()
+    {
+        return ExpertPlayerChoosesWeapon;
+    }
     public double getMaxHP()
     {
         return maximumHealth;

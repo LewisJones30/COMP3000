@@ -110,12 +110,63 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //If the difficulty is hard, or expert, then the game will automatically skip this check and spawn a random weapon for the player.
         isPaused = true;
         //Game is paused here.
-        if (powerController.difficultyLevel > 2)
+        switch (powerController.difficultyLevel)
         {
-            player.SpawnRandomWeapon();
-            ResumeButton();
-            return;
+            case 1:
+                {
+                    if (player.getEasyWeaponChoice() == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        player.SpawnRandomWeapon();
+                        ResumeButton();
+                        return;
+                    }
+                }
+            case 2:
+                {
+                    if (player.getNormalWeaponChoice() == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        player.SpawnRandomWeapon();
+                        ResumeButton();
+                        return;
+                    }
+                }
+            case 3:
+                {
+                    if (player.getHardWeaponChoice() == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        player.SpawnRandomWeapon();
+                        ResumeButton();
+                        return;
+                    }
+                }
+            case 4:
+                {
+                    if (player.getExpertWeaponChoice() == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        player.SpawnRandomWeapon();
+                        ResumeButton();
+                        return;
+                    }
+                }
         }
+        
+        
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
