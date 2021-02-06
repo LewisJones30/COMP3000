@@ -178,6 +178,27 @@ public class Player : MonoBehaviour
     }
 
 
+
+    //Setters & Getters go here...
+
+    public bool getEasyPowerDrain()
+    {
+        return EasyPlayerChoosesPowerDrain;
+    }
+    public bool getNormalPowerDrain()
+    {
+        return NormalPlayerChoosesPowerDrain;
+    }
+    public bool getHardPowerDrain()
+    {
+        return HardPlayerChoosesDrain;
+    }
+    public bool getExpertPowerDrain()
+    {
+        return ExpertPlayerChoosesDrain;
+    }
+
+
     public double getMaxHP()
     {
         return maximumHealth;
@@ -308,6 +329,7 @@ public class Player : MonoBehaviour
         int weaponID = UnityEngine.Random.Range(0, 100) % 2;
         SpawnSpecificWeapon(weaponID);
     }
+    
 
 
 //========================================================Power control

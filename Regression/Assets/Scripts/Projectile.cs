@@ -34,6 +34,8 @@ public class Projectile : MonoBehaviour
                 int RNGRoll = rand.Next(0, 999); //Roll a number between 0 and 999.
                 if (RNGRoll < 25) //0 to 24 gives a 2.5% chance when damaging.
                 {
+                    UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+                    ui.ShowPowerActivatedMessage(1);
                     //The player has a 2.5% chance of extinguishing all fires temporarily, if the power is available.
                     PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
                     if (powers.powerHandler[12].PowerActive == true)
@@ -48,6 +50,8 @@ public class Projectile : MonoBehaviour
                     PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
                     if (powers.powerHandler[13].PowerActive == true)
                     {
+                        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+                        ui.ShowPowerActivatedMessage(2);
                         GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
                         GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
                         foreach (GameObject obj in projectileEnemies)

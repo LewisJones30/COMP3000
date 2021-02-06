@@ -48,7 +48,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
+        expertDrainPowerImage.SetActive(false);
+        expertDrainPowerNameText.SetActive(false);
+        expertDrainPowerNameText2.SetActive(false);
         if (SceneManager.GetActiveScene().name == "Game")
         {
             WeaponSelection();
@@ -193,7 +195,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     IEnumerator ShowMessage(int PowerDrainedID)
     {
-
+        if (expertDrainPowerImage.activeInHierarchy == true || expertDrainPowerNameText.activeInHierarchy == true || expertDrainPowerNameText2.activeInHierarchy == true)
+        {
+            yield return new WaitForSeconds(5);
+        }
+        expertDrainPowerImage.SetActive(true);
+        expertDrainPowerNameText.SetActive(true);
+        expertDrainPowerNameText2.SetActive(true);
         expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
         expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].PowerName;
         Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
@@ -208,8 +216,40 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         text1Anim.Play("ExpertText1Disappear");
         text2Anim.Play("ExpertText2Anim");
         yield return new WaitForSeconds(1f);
+        Progression p = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p.GetCurrentWave();
+        text1Anim.Play("ExpertText1Anim");
+        yield return new WaitForSeconds(3f);
+        text1Anim.Play("ExpertText1Disappear");
         returnToMainGame();
 
+    }
+    public void ShowPowerActivatedMessage(int ID)
+    {
+        StartCoroutine("ShowMessage1", ID);
+    }
+    IEnumerator ShowMessage1(int ID)
+    {
+        if (expertDrainPowerImage.activeInHierarchy == true || expertDrainPowerNameText.activeInHierarchy == true || expertDrainPowerNameText2.activeInHierarchy == true)
+        {
+            yield return new WaitForSeconds(5);
+        }
+        expertDrainPowerImage.SetActive(true);
+        expertDrainPowerNameText.SetActive(true);
+        expertDrainPowerNameText2.SetActive(true);
+        Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
+        Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
+        Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
+        expertDrainPowerImage.GetComponent<Image>().sprite = sprites[ID + 11];
+        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[ID+11].PowerName;
+        expertDrainPowerNameText2.GetComponent<Text>().text = "Activated";
+        imageAnim.Play("ExpertImageAppear");
+        text1Anim.Play("ExpertText1Anim");
+        text2Anim.Play("ExpertTextAnim2");
+        yield return new WaitForSeconds(3f);
+        imageAnim.Play("ExpertImageDisappear");
+        text1Anim.Play("ExpertText1Disappear");
+        text2Anim.Play("ExpertText2Anim");
     }
     //=============================================Methods to control the menus================================================
     void loadSettings() //Triggered when the player clicks settings on the home page
@@ -261,17 +301,69 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         waveCompletePause = true;
         yield return new WaitForSeconds(5f);
         GameObject.Find("BackgroundPowerDrain").SetActive(false);
-        if (PlayerPrefs.GetInt("DifficultyChosen") <= 3) //Player can drain powers on Easy, Normal & Hard.
+        //Switch depending on which wave they are on.
+        switch (PlayerPrefs.GetInt("DifficultyChosen"))
         {
-            PowerDrainScreen();
+            case 1:
+                {
+                    if (player.getEasyPowerDrain() == true)
+                    {
+                        PowerDrainScreen();
+                        break;
+                    }
+                    else
+                    {
+                        powerController.losePowerHard();
+                        break;
+                    }
+                   
+                }
+            case 2:
+                {
+                    if (player.getNormalPowerDrain() == true)
+                    {
+                        PowerDrainScreen();
+                        break;
+                    }
+                    else
+                    {
+                        powerController.losePowerHard();
+                        break;
+                    }
+                }
+            case 3:
+                {
+                    if (player.getHardPowerDrain() == true)
+                    {
+                        PowerDrainScreen();
+                        break;
+                    }
+                    else
+                    {
+                        powerController.losePowerHard();
+                        break;
+                    }
+                }
+            case 4:
+                {
+                    if (player.getExpertPowerDrain() == true)
+                    {
+                        PowerDrainScreen();
+                        break;
+                    }
+                    else
+                    {
+                        powerController.losePowerHard();
+                        break;
+                    }
+                }
+            default:
+                {
+                    PowerDrainScreen();
+                    Debug.LogError("An error occurred: No difficulty level value defined in PlayerPrefs.");
+                    break;
+                }
         }
-        else
-        {
-            //Drain powers automatically on expert.
-            powerController.losePowerHard();
-        }
-
-        
     }
     public void GameCompleteText()
     {
@@ -1265,8 +1357,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             }
             if (Input.GetKeyDown(KeyCode.F12))
             {
-                PlayerPrefs.SetInt("TutorialCompleteStatus", 1);
-                SceneManager.LoadScene("UI Scale Testing");
+                ShowPowerActivatedMessage(2);
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) == true)

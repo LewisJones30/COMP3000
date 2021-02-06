@@ -15819,7 +15819,7 @@ MonoBehaviour:
   EasyWeaponPowerModifier: 1
   EasyDamageTakenModifier: 1
   EasyPointsModifier: 0.25
-  EasyPlayerChoosesPowerDrain: 1
+  EasyPlayerChoosesPowerDrain: 0
   NormalMaxHealthModifier: 1
   NormalWeaponPowerModifier: 1
   NormalDamageTakenModifier: 1
@@ -15829,9 +15829,9 @@ MonoBehaviour:
   HardWeaponPowerModifier: 0.75
   HardDamageTakenModifier: 1.25
   HardPointsModifier: 1.5
-  HardPlayerChoosesDrain: 0
+  HardPlayerChoosesDrain: 1
   ExpertMaxHealthModifier: 0.5
-  ExpertWeaponPowerModifier: 0.75
+  ExpertWeaponPowerModifier: 0.5
   ExpertDamageTakenModifier: 1.5
   ExpertPointsModifier: 2.5
   ExpertPlayerChoosesDrain: 0
