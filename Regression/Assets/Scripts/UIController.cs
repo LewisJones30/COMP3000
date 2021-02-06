@@ -48,9 +48,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        expertDrainPowerImage.SetActive(false);
-        expertDrainPowerNameText.SetActive(false);
-        expertDrainPowerNameText2.SetActive(false);
+        if (expertDrainPowerImage != null)
+        {
+            expertDrainPowerImage.SetActive(false);
+            expertDrainPowerNameText.SetActive(false);
+            expertDrainPowerNameText2.SetActive(false);
+        }
+
         if (SceneManager.GetActiveScene().name == "Game")
         {
             WeaponSelection();
