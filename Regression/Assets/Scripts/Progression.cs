@@ -291,6 +291,126 @@ public class Progression : MonoBehaviour
                     ui.GameCompleteText();
                 }
                 break;
+            case 6:
+                GameObject[] wave6Enemies = waveArrays[5].wave;
+                if (numberEnemiesKilled == wave6Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 7:
+                GameObject[] wave7Enemies = waveArrays[6].wave;
+                if (numberEnemiesKilled == wave7Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 8:
+                GameObject[] wave8Enemies = waveArrays[7].wave;
+                if (numberEnemiesKilled == wave8Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 9:
+                GameObject[] wave9Enemies = waveArrays[8].wave;
+                if (numberEnemiesKilled == wave9Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 10:
+                GameObject[] wave10Enemies = waveArrays[9].wave;
+                if (numberEnemiesKilled == wave10Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 11:
+                GameObject[] wave11Enemies = waveArrays[10].wave;
+                if (numberEnemiesKilled == wave11Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 12:
+                GameObject[] wave12Enemies = waveArrays[11].wave;
+                if (numberEnemiesKilled == wave12Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
+            case 13:
+                GameObject[] wave13Enemies = waveArrays[12].wave;
+                if (numberEnemiesKilled == wave13Enemies.Length)
+                {
+                    currentWave = currentWave + 1;
+                    numberEnemiesKilled = 0;
+                    numberEnemiesSpawned = 0;
+                    if (currentWave > maximumWave)
+                    {
+                        ui.GameCompleteText();
+                        break;
+                    }
+                    ui.GameCompleteText();
+                }
+                break;
         }
     }
 
@@ -354,6 +474,11 @@ public class Progression : MonoBehaviour
                 case 3:
                     GameObject[] wave3Enemies = waveArrays[2].wave;
                     EnemySpawnTime[2] = EnemySpawnTime[2] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave3Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
                     if (EnemySpawnTime[2] <= 0)
                     {
                         Spawn();
@@ -363,7 +488,13 @@ public class Progression : MonoBehaviour
                     }
                     break;
                 case 4:
+                    GameObject[] wave4Enemies = waveArrays[3].wave;
                     EnemySpawnTime[3] = EnemySpawnTime[3] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave4Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
                     if (EnemySpawnTime[3] <= 0)
                     {
                         Spawn();
@@ -373,7 +504,142 @@ public class Progression : MonoBehaviour
                     }
                     break;
                 case 5:
+                    GameObject[] wave5Enemies = waveArrays[4].wave;
                     EnemySpawnTime[4] = EnemySpawnTime[4] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave5Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[4] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 6:
+                    EnemySpawnTime[5] = EnemySpawnTime[5] - Time.deltaTime;
+
+                    GameObject[] wave6Enemies = waveArrays[5].wave;
+                    if (numberEnemiesSpawned == wave6Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[5] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 7:
+                    EnemySpawnTime[6] = EnemySpawnTime[6] - Time.deltaTime;
+                    GameObject[] wave7Enemies = waveArrays[6].wave;
+                    if (numberEnemiesSpawned == wave7Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[6] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[6] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 8:
+                    EnemySpawnTime[7] = EnemySpawnTime[7] - Time.deltaTime;
+                    GameObject[] wave8Enemies = waveArrays[7].wave;
+                    if (numberEnemiesSpawned == wave8Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[7] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[7] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 9:
+                    EnemySpawnTime[8] = EnemySpawnTime[8] - Time.deltaTime;
+                    GameObject[] wave9Enemies = waveArrays[8].wave;
+                    if (numberEnemiesSpawned == wave9Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[8] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 10:
+                    GameObject[] wave10Enemies = waveArrays[9].wave;
+                    EnemySpawnTime[9] = EnemySpawnTime[9] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave10Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[4] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 11:
+                    EnemySpawnTime[10] = EnemySpawnTime[10] - Time.deltaTime;
+                    GameObject[] wave11Enemies = waveArrays[10].wave;
+                    if (numberEnemiesSpawned == wave11Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[4] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 12:
+                    GameObject[] wave12Enemies = waveArrays[11].wave;
+                    EnemySpawnTime[11] = EnemySpawnTime[11] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave12Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
+                    if (EnemySpawnTime[4] <= 0)
+                    {
+                        Spawn();
+                        numberEnemiesSpawned = numberEnemiesSpawned + 1;
+                        EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
+                        break;
+                    }
+                    break;
+                case 13:
+                    GameObject[] wave13Enemies = waveArrays[12].wave;
+                    EnemySpawnTime[12] = EnemySpawnTime[12] - Time.deltaTime;
+                    if (numberEnemiesSpawned == wave13Enemies.Length) //Ignore timers once all enemies have been spawned.
+                    {
+                        EnemySpawnTime[1] = 256;
+                        break;
+                    }
                     if (EnemySpawnTime[4] <= 0)
                     {
                         Spawn();
