@@ -129,7 +129,7 @@ public class Progression : MonoBehaviour
         int waveLength = 0;
         GameObject[] waveEnemies = waveArrays[currentWave - 1].wave;
         waveLength = waveEnemies.Length;
-        GameObject W1Spawn = waveEnemies[r.Next(0, waveLength)];
+        GameObject W1Spawn = waveEnemies[numberEnemiesSpawned];
         Instantiate(W1Spawn, enemySpawner.transform.position, enemySpawner.transform.rotation);
         //switch (currentWave) 
         //{
