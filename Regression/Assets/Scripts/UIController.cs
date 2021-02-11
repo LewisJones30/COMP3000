@@ -110,61 +110,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //If the difficulty is hard, or expert, then the game will automatically skip this check and spawn a random weapon for the player.
         isPaused = true;
         //Game is paused here.
-        switch (powerController.difficultyLevel)
-        {
-            case 1:
-                {
-                    if (player.getEasyWeaponChoice() == true)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        player.SpawnRandomWeapon();
-                        ResumeButton();
-                        return;
-                    }
-                }
-            case 2:
-                {
-                    if (player.getNormalWeaponChoice() == true)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        player.SpawnRandomWeapon();
-                        ResumeButton();
-                        return;
-                    }
-                }
-            case 3:
-                {
-                    if (player.getHardWeaponChoice() == true)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        player.SpawnRandomWeapon();
-                        ResumeButton();
-                        return;
-                    }
-                }
-            case 4:
-                {
-                    if (player.getExpertWeaponChoice() == true)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        player.SpawnRandomWeapon();
-                        ResumeButton();
-                        return;
-                    }
-                }
-        }
         
         
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -271,6 +216,125 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         text1Anim.Play("ExpertText1Disappear");
         text2Anim.Play("ExpertText2Anim");
         yield return new WaitForSeconds(1f);
+        switch (PlayerPrefs.GetInt("DifficultyChosen"))
+        {
+            case 1:
+                {
+                    if (player.getEasyWeaponChoice() == false)
+                    {
+                        int i = player.SpawnRandomWeapon();
+                        if (i == 1)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                        if (i == 0)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    if (player.getNormalWeaponChoice() == false)
+                    {
+                        int i = player.SpawnRandomWeapon();
+                        if (i == 0)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                        if (i == 1)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                    }
+                    break;
+                }
+            case 3:
+                {
+                    if (player.getHardWeaponChoice() == false)
+                    {
+                        int i = player.SpawnRandomWeapon();
+                        if (i == 0)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                        if (i == 1)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    if (player.getExpertWeaponChoice() == false)
+                    {
+                        int i = player.SpawnRandomWeapon();
+                        if (i == 0)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                        if (i == 1)
+                        {
+                            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
+                            expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            imageAnim.Play("ExpertImageAppear");
+                            text1Anim.Play("ExpertText1Anim");
+                            yield return new WaitForSeconds(2f);
+                            imageAnim.Play("ExpertImageDisappear");
+                            text1Anim.Play("ExpertText1Disappear");
+                        }
+                    }
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
         Progression p = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p.GetCurrentWave();
         text1Anim.Play("ExpertText1Anim");
@@ -356,7 +420,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         waveCompletePause = true;
         yield return new WaitForSeconds(5f);
         GameObject.Find("BackgroundPowerDrain").SetActive(false);
-        //Switch depending on which wave they are on.
+        //Switch depending on which difficulty they are on.
         switch (PlayerPrefs.GetInt("DifficultyChosen"))
         {
             case 1:

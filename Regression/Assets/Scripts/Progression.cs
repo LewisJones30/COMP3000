@@ -258,7 +258,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 4:
@@ -273,7 +273,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 5:
@@ -288,7 +288,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 6:
@@ -303,7 +303,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 7:
@@ -318,7 +318,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 8:
@@ -333,7 +333,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 9:
@@ -348,7 +348,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 10:
@@ -363,7 +363,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 11:
@@ -378,7 +378,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 12:
@@ -393,7 +393,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
             case 13:
@@ -408,7 +408,7 @@ public class Progression : MonoBehaviour
                         ui.GameCompleteText();
                         break;
                     }
-                    ui.GameCompleteText();
+                    ui.WaveComplete();
                 }
                 break;
         }

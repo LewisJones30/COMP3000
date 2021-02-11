@@ -321,8 +321,10 @@ public class Player : MonoBehaviour
                 }
                 GameObject weaponSword;
                 weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, transform.rotation, this.gameObject.transform);
-                weaponSword.transform.localPosition = (new Vector3(-0.026f, -0.094f, 0.146f));
-                weaponSword.transform.localRotation = Quaternion.Euler(new Vector3(-34f, 150f, 49.454f));
+                weaponSword.transform.GetChild(0).transform.localRotation = Quaternion.Euler(new Vector3(-1.489f, 208.301f, -323.38f));
+                weaponSword.transform.GetChild(0).transform.localPosition = new Vector3(0.001f, 0.291f, 0.002f);
+                weaponSword.transform.localPosition = (new Vector3(0.017f, -0.456f, 0.221f));
+
                 GameObject.Find("ProjectileSpawner").SetActive(false);
 
                 weaponSword.name = "SwordWeapon";
@@ -346,11 +348,12 @@ public class Player : MonoBehaviour
         
     }
 
-    public void SpawnRandomWeapon()
+    public int SpawnRandomWeapon()
     {
 
         int weaponID = UnityEngine.Random.Range(0, 100) % 2;
         SpawnSpecificWeapon(weaponID);
+        return weaponID;
     }
     
 
