@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4259098551632134}
   - component: {fileID: 198356585039542182}
   - component: {fileID: 199203980908040676}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ParticlesStretched
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 4820415462209050}
   - component: {fileID: 198212399552883530}
   - component: {fileID: 199473979731318116}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9720,7 +9720,7 @@ GameObject:
   - component: {fileID: 4692949936899520}
   - component: {fileID: 199353397906228348}
   - component: {fileID: 198785995544001556}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InnerRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14598,7 +14598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4933927147147806}
   - component: {fileID: 96522219791848576}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14740,7 +14740,8 @@ GameObject:
   - component: {fileID: 198642742753815182}
   - component: {fileID: 54378844565543512}
   - component: {fileID: 136350987479803286}
-  m_Layer: 0
+  - component: {fileID: -3236890855339530670}
+  m_Layer: 12
   m_Name: Enemy Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19667,6 +19668,20 @@ CapsuleCollider:
   m_Height: 0.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0.1}
+--- !u!114 &-3236890855339530670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707102027251842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f0daf3b7df2cd40810d1eda0730f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastLength: 5
+  damagePower: 15
 --- !u!1 &1739691434595618
 GameObject:
   m_ObjectHideFlags: 0
@@ -19678,7 +19693,7 @@ GameObject:
   - component: {fileID: 4149467060764392}
   - component: {fileID: 198042002511200270}
   - component: {fileID: 199076298829110938}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24489,7 +24504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5955959705492412320}
   - component: {fileID: 8912229015866445487}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DamageDealer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

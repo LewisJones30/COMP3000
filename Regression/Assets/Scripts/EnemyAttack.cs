@@ -63,7 +63,6 @@ public class EnemyAttack : MonoBehaviour
         GameObject projectileShot;
         projectileShot = Instantiate(projectile, transform.position, transform.rotation);
         projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
-        projectileShot.transform.rotation = enemyParent.transform.rotation;
         attackSpeed = storedAS;
         Debug.Log("Anim triggered!");
         isEnemy.SetTrigger("StopAttack");
