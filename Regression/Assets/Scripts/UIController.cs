@@ -204,6 +204,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         expertDrainPowerNameText2.SetActive(true);
         expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
         expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].PowerName;
+        expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
         Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
         Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
         Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
