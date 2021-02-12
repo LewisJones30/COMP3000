@@ -39,7 +39,7 @@ public class MeleeWeapons : MonoBehaviour
                     //Melee Attack
                     StartCoroutine("animCode");
                     cooldown = duplicateCD;
-                    if (Physics.Raycast(transform.parent.position, transform.forward, out hit, 2.5f))
+                    if (Physics.Raycast(transform.parent.position, transform.forward, out hit, 4f))
                     {
                         Debug.Log("Sword hit " + hit.collider.gameObject.name);
                         if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy")

@@ -332,16 +332,17 @@ public class Player : MonoBehaviour
             case 1: //Magic Staff
                 if (GameObject.Find("StaffWeapon") != null)
                 {
-                    Destroy(GameObject.Find("StaffWeapon"));
+                    return;
                 }
                 if (GameObject.Find("SwordWeapon") != null)
                 {
-                    Destroy(GameObject.Find("StaffWeapon"));
+                    Destroy(GameObject.Find("SwordWeapon"));
                 }
                 GameObject weaponStaff;
                 weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, transform.rotation, this.gameObject.transform);
                 weaponStaff.transform.localRotation = Quaternion.Euler(new Vector3(-34f, 150f, 49.454f));
                 weaponStaff.transform.localPosition = (new Vector3(-0.892f, -0.91f, 0.135f));
+                GameObject.Find("ProjectileSpawner").SetActive(true);
                 weaponStaff.name = "StaffWeapon";
                 break;
         }

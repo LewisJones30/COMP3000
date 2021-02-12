@@ -59,10 +59,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             WeaponSelection();
         }
-        else
-        {
-            LoadHighscores();
-        }
     }
     void GetGameObjectsGame()
     {
@@ -245,6 +241,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             text1Anim.Play("ExpertText1Disappear");
                         }
                     }
+                    else
+                    {
+                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
+                        text1Anim.Play("ExpertText1Anim");
+                        yield return new WaitForSeconds(3f);
+                        text1Anim.Play("ExpertText1Disappear");
+                        WeaponSelection();
+                    }
                     break;
                 }
             case 2:
@@ -272,6 +277,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
                         }
+                    }
+                    else
+                    {
+                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
+                        text1Anim.Play("ExpertText1Anim");
+                        yield return new WaitForSeconds(3f);
+                        text1Anim.Play("ExpertText1Disappear");
+                        WeaponSelection();
                     }
                     break;
                 }
@@ -301,6 +315,17 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             text1Anim.Play("ExpertText1Disappear");
                         }
                     }
+                    else
+                    {
+                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
+                        text1Anim.Play("ExpertText1Anim");
+                        yield return new WaitForSeconds(3f);
+                        text1Anim.Play("ExpertText1Disappear");
+                        yield return new WaitForSeconds(1f);
+                        Cursor.lockState = CursorLockMode.None;
+                        WeaponSelection();
+                    }
                     break;
                 }
             case 4:
@@ -328,6 +353,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
                         }
+                    }
+                    else
+                    {
+                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
+                        text1Anim.Play("ExpertText1Anim");
+                        yield return new WaitForSeconds(3f);
+                        text1Anim.Play("ExpertText1Disappear");
+                        WeaponSelection();
                     }
                     break;
                 }
@@ -1370,25 +1404,40 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Debug.Log("Easy highscore: " + highScore);
         if (highScore > 0)
         {
-            easyScore.text = "Highscore: " + highScore;
+            if (easyScore != null)
+            {
+                easyScore.text = "Highscore: " + highScore;
+            }
+
         }
         highScore = PlayerPrefs.GetInt("HighScoreNormal");
         Debug.Log("Normal highscore: " + highScore);
         if (highScore > 0)
         {
-            normalScore.text = "Highscore: " + highScore;
+            if (normalScore != null)
+            {
+                normalScore.text = "Highscore: " + highScore;
+            }
+
         }
         highScore = PlayerPrefs.GetInt("HighScoreHard");
         Debug.Log("Hard highscore: " + highScore);
         if (highScore > 0)
         {
-            hardScore.text = "Highscore: " + highScore;
+            if (hardScore != null)
+            {
+                hardScore.text = "Highscore: " + highScore;
+            }
+
         }
         highScore = PlayerPrefs.GetInt("HighScoreExpert");
         Debug.Log("Expert highscore: " + highScore);
         if (highScore > 0)
         {
-            expertScore.text = "Highscore: " + highScore;
+            if (expertScore != null)
+            {
+                expertScore.text = "Highscore: " + highScore;
+            }
         }
 
     }
@@ -1468,6 +1517,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 #endif
                 Application.Quit();
             }
+            LoadHighscores();
         }
         if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
         {
