@@ -17,12 +17,17 @@ ScriptsOnlyBuild:
     - Projectile
     - ProjectileMoveScript
     - Rotation
-    - SceneMove
     - UIController
     UIEffect.dll:
     - Coffee.UIEffects.UIShiny
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -93,53 +98,53 @@ ScriptsOnlyBuild:
     - Class: 111
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11786}
+      Script: {instanceID: 11788}
     - Class: 114
-      Script: {instanceID: 11822}
+      Script: {instanceID: 11824}
     - Class: 114
-      Script: {instanceID: 11836}
+      Script: {instanceID: 11838}
     - Class: 114
-      Script: {instanceID: 12046}
+      Script: {instanceID: 12048}
     - Class: 114
-      Script: {instanceID: 12098}
+      Script: {instanceID: 12100}
     - Class: 114
-      Script: {instanceID: 12134}
+      Script: {instanceID: 12136}
     - Class: 114
-      Script: {instanceID: 12160}
+      Script: {instanceID: 12162}
     - Class: 114
-      Script: {instanceID: 12390}
+      Script: {instanceID: 12392}
     - Class: 114
-      Script: {instanceID: 12510}
+      Script: {instanceID: 12512}
     - Class: 114
-      Script: {instanceID: 12684}
+      Script: {instanceID: 12686}
     - Class: 114
-      Script: {instanceID: 12804}
+      Script: {instanceID: 12806}
     - Class: 114
-      Script: {instanceID: 12932}
+      Script: {instanceID: 12934}
     - Class: 114
-      Script: {instanceID: 12956}
+      Script: {instanceID: 12958}
     - Class: 114
-      Script: {instanceID: 13338}
+      Script: {instanceID: 13340}
     - Class: 114
-      Script: {instanceID: 13382}
+      Script: {instanceID: 13384}
     - Class: 114
-      Script: {instanceID: 13656}
+      Script: {instanceID: 13658}
     - Class: 114
-      Script: {instanceID: 14040}
+      Script: {instanceID: 14042}
     - Class: 114
-      Script: {instanceID: 14094}
-    - Class: 114
-      Script: {instanceID: 14180}
+      Script: {instanceID: 14096}
     - Class: 114
       Script: {instanceID: 14182}
     - Class: 114
-      Script: {instanceID: 14396}
+      Script: {instanceID: 14184}
     - Class: 114
-      Script: {instanceID: 14530}
+      Script: {instanceID: 14398}
     - Class: 114
-      Script: {instanceID: 14586}
+      Script: {instanceID: 14532}
     - Class: 114
-      Script: {instanceID: 14632}
+      Script: {instanceID: 14588}
+    - Class: 114
+      Script: {instanceID: 14634}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -210,47 +215,45 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11786}
+      Script: {instanceID: 11788}
     - Class: 114
-      Script: {instanceID: 11836}
+      Script: {instanceID: 11838}
     - Class: 114
-      Script: {instanceID: 11922}
+      Script: {instanceID: 11924}
     - Class: 114
-      Script: {instanceID: 11976}
+      Script: {instanceID: 11978}
     - Class: 114
-      Script: {instanceID: 12046}
+      Script: {instanceID: 12048}
     - Class: 114
-      Script: {instanceID: 12054}
+      Script: {instanceID: 12056}
     - Class: 114
-      Script: {instanceID: 12098}
+      Script: {instanceID: 12100}
     - Class: 114
-      Script: {instanceID: 12134}
+      Script: {instanceID: 12136}
     - Class: 114
-      Script: {instanceID: 12684}
+      Script: {instanceID: 12686}
     - Class: 114
-      Script: {instanceID: 12804}
+      Script: {instanceID: 12806}
     - Class: 114
-      Script: {instanceID: 13202}
+      Script: {instanceID: 13204}
     - Class: 114
-      Script: {instanceID: 13338}
+      Script: {instanceID: 13340}
     - Class: 114
-      Script: {instanceID: 13474}
+      Script: {instanceID: 13904}
     - Class: 114
-      Script: {instanceID: 13902}
+      Script: {instanceID: 14042}
     - Class: 114
-      Script: {instanceID: 14040}
+      Script: {instanceID: 14214}
     - Class: 114
-      Script: {instanceID: 14212}
+      Script: {instanceID: 14226}
     - Class: 114
-      Script: {instanceID: 14224}
+      Script: {instanceID: 14368}
     - Class: 114
-      Script: {instanceID: 14366}
+      Script: {instanceID: 14460}
     - Class: 114
-      Script: {instanceID: 14458}
+      Script: {instanceID: 14588}
     - Class: 114
-      Script: {instanceID: 14586}
-    - Class: 114
-      Script: {instanceID: 14704}
+      Script: {instanceID: 14706}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -428,7 +431,7 @@ ScriptsOnlyBuild:
     className: UIShadow
   - hash:
       serializedVersion: 2
-      Hash: b4a5e2f7efa767b677b20da8bc554788
+      Hash: 37812e930fb004b0dbe1f94403aebdf8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -902,7 +905,7 @@ ScriptsOnlyBuild:
     className: FireCollision
   - hash:
       serializedVersion: 2
-      Hash: eff7ba4e82c903e918a22b209324a97d
+      Hash: bd17db588fa4ac01673c6c85c97fdee4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1096,4 +1099,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/UI Scale Testing.unity
   - Assets/Scenes/Game.unity
-  playerPath: S:/Final Year Project/COMP3000/Tutorial Test Build/Regression.exe
+  playerPath: S:/Final Year Project/COMP3000/Build 3/Regression.exe

@@ -82,7 +82,11 @@ public class Projectile : MonoBehaviour
                 Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
                 damageCalc = player.weaponPower * damagePower; //Needs modification to check difficulty.
                 Debug.Log("Enemy Damaged!");
-                hit.collider.gameObject.GetComponent<Enemy>().takeDamage(damageCalc);
+                if (hit.collider.gameObject.GetComponent<Enemy>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<Enemy>().takeDamage(damageCalc);
+                }
+
                 Destroy(this.gameObject);
 
 

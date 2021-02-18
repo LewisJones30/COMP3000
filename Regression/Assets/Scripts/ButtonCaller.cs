@@ -111,4 +111,51 @@ public class ButtonCaller : MonoBehaviour
         PlayerPrefs.SetInt("DifficultyChosen", 5);
         SceneManager.LoadScene("Game");
     }
+    public void callLeaderboardEasy()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        ui.callLeaderboards(1);
+    }
+    public void callLeaderboardNormal()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        ui.callLeaderboards(2);
+    }
+    public void callLeaderboardHard()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        ui.callLeaderboards(3);
+    }
+    public void callLeaderboardExpert()
+    {
+        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+        ui.callLeaderboards(4);
+    }
+    public void goToLeaderboards()
+    {
+        SceneManager.LoadScene("Leaderboards");
+    }
+    public void ResetLeaderboards()
+    {
+        PlayerPrefs.SetInt("EasyFirstPlaceScore", 0);
+        PlayerPrefs.SetInt("EasySecondPlaceScore", 0);
+        PlayerPrefs.SetInt("EasyThirdPlaceScore", 0);
+        PlayerPrefs.SetInt("EasyFourthPlaceScore", 0);
+        PlayerPrefs.SetInt("EasyFifthPlaceScore", 0);
+        PlayerPrefs.SetInt("NormalFirstPlaceScore", 0);
+        PlayerPrefs.SetInt("NormalSecondPlaceScore", 0);
+        PlayerPrefs.SetInt("NormalThirdPlaceScore", 0);
+        PlayerPrefs.SetInt("NormalFourthPlaceScore", 0);
+        PlayerPrefs.SetInt("NormalFifthPlaceScore", 0);
+        PlayerPrefs.SetInt("HardFirstPlaceScore", 0);
+        PlayerPrefs.SetInt("HardSecondPlaceScore", 0);
+        PlayerPrefs.SetInt("HardThirdPlaceScore", 0);
+        PlayerPrefs.SetInt("HardFourthPlaceScore", 0);
+        PlayerPrefs.SetInt("HardFifthPlaceScore", 0);
+        PlayerPrefs.SetInt("ExpertFirstPlaceScore", 0);
+        PlayerPrefs.SetInt("ExpertSecondPlaceScore", 0);
+        PlayerPrefs.SetInt("ExpertThirdPlaceScore", 0);
+        PlayerPrefs.SetInt("ExpertFourthPlaceScore", 0);
+        PlayerPrefs.SetInt("ExpertFifthPlaceScore", 0);
+    }
 }

@@ -287,9 +287,16 @@ public class Player : MonoBehaviour
         deadtextObj.SetActive(true);
         yield return new WaitForSeconds(5f);
         deadtextObj.SetActive(false);
-        GameObject.Find("PlayerHPBorder").SetActive(false);
-        GameObject.Find("PlayerHealth").SetActive(false);
-        isPausedCheck.storeHighscores(powerController.difficultyLevel); //Obtain the difficulty level from the powers controller.
+
+        if (GameObject.Find("PlayerHPBorder") != null)
+        {
+            GameObject.Find("PlayerHPBorder").SetActive(false);
+        }
+        if (GameObject.Find("PlayerHealth") != null)
+        {
+            GameObject.Find("PlayerHealth").SetActive(false);
+        }
+        PlayerPrefs.SetInt("LastLeaderboardPosition", isPausedCheck.storeHighscores(powerController.difficultyLevel)); //Obtain the difficulty level from the powers controller.
         
         isPausedCheck.GameSummaryScreen();
     }
