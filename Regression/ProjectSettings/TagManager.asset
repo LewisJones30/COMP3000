@@ -21,6 +21,7 @@ TagManager:
   - LosePowerScreen
   - In-GameUI
   - Terrain
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

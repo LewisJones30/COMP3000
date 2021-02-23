@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         //Face player if in a specific aggression range.
-        transform.LookAt(GameObject.Find("Player").transform); //This code needs to be changed to use the aggression range.
+        transform.LookAt(GameObject.Find("playerLook").transform); //This code needs to be changed to use the aggression range.
         if (stopMoving == true)
         {
             i.Sleep();

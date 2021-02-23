@@ -55,11 +55,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100002, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
+      propertyPath: m_TagString
+      value: ProjectileEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100050, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
+      propertyPath: m_TagString
+      value: ProjectileEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100052, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
+      propertyPath: m_TagString
+      value: ProjectileEnemy
+      objectReference: {fileID: 0}
     - target: {fileID: 100088, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
       propertyPath: m_Name
       value: micro_ghoul Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100088, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
+      propertyPath: m_TagString
+      value: ProjectileEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100100, guid: a6c94c82e6fd64b97a02f7a2f5af70c1, type: 3}
       propertyPath: m_TagString
       value: ProjectileEnemy
       objectReference: {fileID: 0}

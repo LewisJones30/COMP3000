@@ -298,7 +298,7 @@ public class Player : MonoBehaviour
         }
         PlayerPrefs.SetInt("LastLeaderboardPosition", isPausedCheck.storeHighscores(powerController.difficultyLevel)); //Obtain the difficulty level from the powers controller.
         
-        isPausedCheck.GameSummaryScreen();
+        isPausedCheck.GameSummaryScreen(true);
     }
     void FadeBlackout(Image image)
     {

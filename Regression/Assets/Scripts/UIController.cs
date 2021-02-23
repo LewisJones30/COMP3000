@@ -829,7 +829,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         isPaused = true;
         storeHighscores(powerController.difficultyLevel);
-        GameSummaryScreen();
+        GameSummaryScreen(false);
         Cursor.lockState = CursorLockMode.None;
         isPaused = false;
         yield return new WaitForEndOfFrame();
@@ -1348,7 +1348,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
     }
 
-    public void GameSummaryScreen()
+    public void GameSummaryScreen(bool playerDied)
     {
         Cursor.lockState = CursorLockMode.None;
         postObj.SetActive(true);
@@ -1356,9 +1356,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //Get current wave ID.
         GameObject progression = GameObject.Find("ProgressionHandler");
         Progression progObj = progression.GetComponent<Progression>();
-        postWave.GetComponent<Text>().text = "Died on wave: " + progObj.GetCurrentWave();
-        //Get the final score
-        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained;
+        if (playerDied)
+        {
+            postWave.GetComponent<Text>().text = "Died on wave: " + progObj.GetCurrentWave();
+        }
+        else
+        {
+            postWave.GetComponent<Text>().text = "All waves successfully completed!";
+        }
         //Get the number of powers drained
         postPowersDrained.GetComponent<Text>().text = "Powers drained: " + powerController.GetPowersDrainedCount();
         //Get the number of powers remaining

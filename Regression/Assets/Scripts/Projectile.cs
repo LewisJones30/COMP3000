@@ -16,10 +16,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (this.gameObject.tag == "ProjectileEnemy" || this.gameObject.tag == "SwordEnemy")
-        {
 
-        }
     }
 
     // Update is called once per frame
@@ -30,6 +27,10 @@ public class Projectile : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy")
             {
+                if (gameObject.tag == "EnemyProjectile")
+                {
+                    return;
+                }
                 var rand = new System.Random();
                 int RNGRoll = rand.Next(0, 999); //Roll a number between 0 and 999.
                 if (RNGRoll < 25) //0 to 24 gives a 2.5% chance when damaging.
@@ -73,10 +74,6 @@ public class Projectile : MonoBehaviour
                         }
                     }
                 }
-                if (RNGRoll < 10)
-                {
-                    //All powers are temporarily re-enabled!
-                }
                 double damageCalc;
                 Player player = GameObject.Find("Player").GetComponent<Player>();
                 Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
@@ -99,13 +96,13 @@ public class Projectile : MonoBehaviour
             }
             else if (hit.collider.gameObject.tag == "FireDamager")
             {
-                Destroy(this.gameObject);
-                if (this.gameObject.gameObject.tag == "ProjectileEnemy")
+                if (gameObject.gameObject.tag == "EnemyProjectile")
                 {
                     return;
                 }
                 else
                 {
+                    Destroy(this.gameObject);
                     PowerBehaviour power = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
                     //When the trident model is integrated, check if the weapon is the trident, and NOT the other staff.
                     if (power.powerHandler[10].PowerActive == true) //Check if the power is active

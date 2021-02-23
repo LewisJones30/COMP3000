@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 199203980908040676}
   m_Layer: 12
   m_Name: ParticlesStretched
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 199473979731318116}
   m_Layer: 12
   m_Name: Beam
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9722,7 +9722,7 @@ GameObject:
   - component: {fileID: 198785995544001556}
   m_Layer: 12
   m_Name: InnerRing
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14600,7 +14600,7 @@ GameObject:
   - component: {fileID: 96522219791848576}
   m_Layer: 12
   m_Name: Trail
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14743,7 +14743,7 @@ GameObject:
   - component: {fileID: -3236890855339530670}
   m_Layer: 12
   m_Name: Enemy Fireball
-  m_TagString: ProjectileEnemy
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19695,7 +19695,7 @@ GameObject:
   - component: {fileID: 199076298829110938}
   m_Layer: 12
   m_Name: Particles
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24506,7 +24506,7 @@ GameObject:
   - component: {fileID: 8912229015866445487}
   m_Layer: 12
   m_Name: DamageDealer
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -25,6 +25,14 @@ public class MovementScript : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             return;
         }
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            movementSpeed = 600;
+        }
+        else
+        {
+            movementSpeed = 400;
+        }
         float X = Input.GetAxisRaw("Horizontal");
         float Z = Input.GetAxisRaw("Vertical");
 

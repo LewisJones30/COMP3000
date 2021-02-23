@@ -36,6 +36,10 @@ public class MeleeWeapons : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                    {
+                        return;
+                    }
                     //Melee Attack
                     StartCoroutine("animCode");
                     cooldown = duplicateCD;

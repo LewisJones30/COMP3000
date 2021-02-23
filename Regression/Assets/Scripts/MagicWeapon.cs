@@ -44,8 +44,13 @@ public class MagicWeapon : MonoBehaviour
         if (isPauseCheck.isPaused == false) //Game is active.
         {
             shootingCooldown = shootingCooldown - Time.deltaTime;
+
             if (shootingCooldown <= 0)
             {
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    return;
+                }
                 text.enabled = false;
                 if (Input.GetMouseButtonDown(0))
                 {
