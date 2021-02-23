@@ -47,6 +47,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     [Space(5)]
     [SerializeField]
     Text firstPlace, secondPlace, thirdPlace, fourthPlace, fifthPlace, titleText;
+    [SerializeField]
+    GameObject leaderboardObj, leaderboardTextObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +68,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             loadLeaderboardEasy();
         }
+
     }
     void GetGameObjectsGame()
     {
@@ -100,7 +103,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         //Get component section
 
-
+        if (leaderboardObj != null)
+        {
+            leaderboardObj.SetActive(false);
+        }
 
 
 
@@ -1359,226 +1365,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         int powersRemaining = 13 - powerController.GetPowersDrainedCount();
         postPowersRemaining.GetComponent<Text>().text = "Powers remaining: " + powersRemaining;
 
-        
-        //Get current difficulty
-        //int difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
-        //switch (difficultyLevel)
-        //{
-        //    case 1:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "Current Difficulty: Easy";
-        //            if (pointsGained > PlayerPrefs.GetInt("EasyFifthPlaceScore"))
-        //            {
-        //                if (pointsGained > PlayerPrefs.GetInt("EasyFourthPlaceScore"))
-        //                {
-        //                    if (pointsGained > PlayerPrefs.GetInt("EasyThirdPlaceScore"))
-        //                    {
-        //                        if (pointsGained > PlayerPrefs.GetInt("EasySecondPlaceScore"))
-        //                        {
-        //                            if (pointsGained > PlayerPrefs.GetInt("EasyFirstPlaceScore"))
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (First place!)";
-        //                                return;
-        //                            }
-        //                            else
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Second place!)";
-        //                                return;
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Third place!)";
-        //                            return;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fourth place!)";
-        //                        return;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fifth place!)";
-        //                    return;
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained;
-
-
-        //            }
-        //            return;
-        //        }
-        //    case 2:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "Current Difficulty: Normal";
-        //            if (pointsGained > PlayerPrefs.GetInt("NormalFifthPlaceScore"))
-        //            {
-        //                if (pointsGained > PlayerPrefs.GetInt("NormalFourthPlaceScore"))
-        //                {
-        //                    if (pointsGained > PlayerPrefs.GetInt("NormalThirdPlaceScore"))
-        //                    {
-        //                        if (pointsGained > PlayerPrefs.GetInt("NormalSecondPlaceScore"))
-        //                        {
-        //                            if (pointsGained > PlayerPrefs.GetInt("NormalFirstPlaceScore"))
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (First place!)";
-        //                                return;
-        //                            }
-        //                            else
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Second place!)";
-        //                                return;
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Third place!)";
-        //                            return;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fourth place!)";
-        //                        return;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fifth place!)";
-        //                    return;
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained;
-
-        //            }
-        //            return;
-        //        }
-        //    case 3:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "Current Difficulty: Hard";
-        //            if (pointsGained > PlayerPrefs.GetInt("HardFifthPlaceScore"))
-        //            {
-        //                if (pointsGained > PlayerPrefs.GetInt("HardFourthPlaceScore"))
-        //                {
-        //                    if (pointsGained > PlayerPrefs.GetInt("HardThirdPlaceScore"))
-        //                    {
-        //                        if (pointsGained > PlayerPrefs.GetInt("HardSecondPlaceScore"))
-        //                        {
-        //                            if (pointsGained > PlayerPrefs.GetInt("HardFirstPlaceScore"))
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (First place!)";
-        //                                return;
-        //                            }
-        //                            else
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Second place!)";
-        //                                return;
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Third place!)";
-        //                            return;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fourth place!)";
-        //                        return;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fifth place!)";
-        //                    return;
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained;
-
-        //            }
-        //            return;
-        //        }
-        //    case 4:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "Current Difficulty: Expert";
-        //            if (pointsGained > PlayerPrefs.GetInt("ExpertFifthPlaceScore"))
-        //            {
-        //                if (pointsGained > PlayerPrefs.GetInt("ExpertFourthPlaceScore"))
-        //                {
-        //                    if (pointsGained > PlayerPrefs.GetInt("ExpertThirdPlaceScore"))
-        //                    {
-        //                        if (pointsGained > PlayerPrefs.GetInt("ExpertSecondPlaceScore"))
-        //                        {
-        //                            if (pointsGained > PlayerPrefs.GetInt("ExpertFirstPlaceScore"))
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (First place!)";
-        //                                return;
-        //                            }
-        //                            else
-        //                            {
-        //                                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Second place!)";
-        //                                return;
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Third place!)";
-        //                            return;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fourth place!)";
-        //                        return;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fifth place!)";
-        //                    return;
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained;
-
-        //            }
-        //            return;
-        //        }
-        //    case 5:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "Current Difficulty: Satanic";
-        //            if (pointsGained > PlayerPrefs.GetInt("HighScoreSatanic"))
-        //            {
-        //                postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (NEW HIGHSCORE!)";
-
-        //            }
-        //            return;
-        //        }
-        //    case 6:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "You are currently in the tutorial.";
-        //            return;
-        //        }
-        //    default:
-        //        {
-        //            postDifficulty.GetComponent<Text>().text = "An error has occurred.";
-        //            return;
-        //        }
-        //}
-
         switch (PlayerPrefs.GetInt("LastLeaderboardPosition"))
         {
             case 0:
@@ -1589,26 +1375,46 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             case 1:
                 {
                     postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (First place!)";
+                    leaderboardObj.SetActive(true);
+                    leaderboardTextObj.SetActive(true);
+                    leaderboardTextObj.GetComponent<Text>().text = "Congratulations! You are rank 1 on the leaderboard!\n" +
+    "Please enter your name below to have your name added.";
                     return;
                 }
             case 2:
                 {
                     postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Second place!)";
+                    leaderboardObj.SetActive(true);
+                    leaderboardTextObj.SetActive(true);
+                    leaderboardTextObj.GetComponent<Text>().text = "Congratulations! You are rank 2 on the leaderboard!\n" +
+    "Please enter your name below to have your name added.";
                     return;
                 }
             case 3:
                 {
                     postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Third place!)";
+                    leaderboardObj.SetActive(true);
+                    leaderboardTextObj.SetActive(true);
+                    leaderboardTextObj.GetComponent<Text>().text = "Congratulations! You are rank 3 on the leaderboard!\n" +
+    "Please enter your name below to have your name added.";
                     return;
                 }
             case 4:
                 {
                     postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fourth place!)";
+                    leaderboardObj.SetActive(true);
+                    leaderboardTextObj.SetActive(true);
+                    leaderboardTextObj.GetComponent<Text>().text = "Congratulations! You are rank 4 on the leaderboard!\n" +
+    "Please enter your name below to have your name added.";
                     return;
                 }
             case 5:
                 {
                     postFinal.GetComponent<Text>().text = "Final score: " + pointsGained + " (Fifth place!)";
+                    leaderboardObj.SetActive(true);
+                    leaderboardTextObj.SetActive(true);
+                    leaderboardTextObj.GetComponent<Text>().text = "Congratulations! You are rank 5 on the leaderboard!\n" +
+                        "Please enter your name below to have your name added.";
                     return;
                 }
             case 6:

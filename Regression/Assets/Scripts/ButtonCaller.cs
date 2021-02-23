@@ -157,5 +157,26 @@ public class ButtonCaller : MonoBehaviour
         PlayerPrefs.SetInt("ExpertThirdPlaceScore", 0);
         PlayerPrefs.SetInt("ExpertFourthPlaceScore", 0);
         PlayerPrefs.SetInt("ExpertFifthPlaceScore", 0);
+
+        PlayerPrefs.SetString("EasyFirstPlaceScoreName", "");
+        PlayerPrefs.SetString("EasySecondPlaceScoreName", "");
+        PlayerPrefs.SetString("EasyThirdPlaceScoreName", "");
+        PlayerPrefs.SetString("EasyFourthPlaceScoreName", "");
+        PlayerPrefs.SetString("EasyFifthPlaceScoreName", "");
+        PlayerPrefs.SetString("NormalFirstPlaceScoreName", "");
+        PlayerPrefs.SetString("NormalSecondPlaceScoreName", "");
+        PlayerPrefs.SetString("NormalThirdPlaceScoreName", "");
+        PlayerPrefs.SetString("NormalFourthPlaceScoreName", "");
+        PlayerPrefs.SetString("NormalFifthPlaceScoreName", "");
+        PlayerPrefs.SetString("HardFirstPlaceScoreName", "");
+        PlayerPrefs.SetString("HardSecondPlaceScoreName", "");
+        PlayerPrefs.SetString("HardThirdPlaceScoreName", "");
+        PlayerPrefs.SetString("HardFourthPlaceScoreName", "");
+        PlayerPrefs.SetString("HardFifthPlaceScoreName", "");
+        PlayerPrefs.SetString("ExpertFirstPlaceScoreName", "");
+        PlayerPrefs.SetString("ExpertSecondPlaceScoreName", "");
+        PlayerPrefs.SetString("ExpertThirdPlaceScoreName", "");
+        PlayerPrefs.SetString("ExpertFourthPlaceScoreName", "");
+        PlayerPrefs.SetString("ExpertFifthPlaceScoreName", "");
     }
 }
