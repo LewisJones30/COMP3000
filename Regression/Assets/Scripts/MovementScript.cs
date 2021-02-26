@@ -51,7 +51,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, forward, out hit, 3))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
@@ -64,7 +64,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, left, out hit, 3))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
@@ -77,7 +77,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, right, out hit, 3))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
@@ -90,7 +90,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, back, out hit, 5))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain")
+            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
