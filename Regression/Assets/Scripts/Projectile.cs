@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.SphereCast(transform.position, 0.25f, forward, out hit, 1))
         {
-            if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy")
+            if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy" || hit.collider.gameObject.tag == "FinalBoss")
             {
                 if (gameObject.tag == "EnemyProjectile")
                 {
@@ -83,7 +83,10 @@ public class Projectile : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<Enemy>().takeDamage(damageCalc);
                 }
-
+                if (hit.collider.gameObject.tag == "FinalBoss")
+                {
+                    hit.collider.gameObject.GetComponent<FinalBoss>().DealDamage((float)damageCalc);
+                }
                 Destroy(this.gameObject);
 
 

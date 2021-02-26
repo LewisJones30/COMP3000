@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     Animator enemyAnimations;
     UIController pauseCheck;
     Progression progressionController;
+    [SerializeField]
     Rigidbody i;
 
     // Start is called before the first frame update

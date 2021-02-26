@@ -11,6 +11,7 @@ public class MovementScript : MonoBehaviour
     public Rigidbody rb;
     UIController ui;
     RaycastHit hit;
+    bool playerStunned = false;
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -19,7 +20,13 @@ public class MovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (ui.isPaused == true)
+        if (ui.isPaused == true) //Check if playerStunned is false.
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            return;
+        }
+        if (playerStunned == true) //Check if playerStunned is true.
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
@@ -104,6 +111,18 @@ public class MovementScript : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
     }
-
+    public void StunPlayer(float stunDuration)
+    {
+        playerStunned = true;
+        Invoke("EndStun", stunDuration);
+        
+    }
+    void EndStun()
+    {
+        if (playerStunned == true)
+        {
+            playerStunned = false;
+        }
+    }
 }
 
