@@ -92,6 +92,8 @@ MonoBehaviour:
   pointsWhenKilled: 100
   raycastLength: 2.5
   enemyMovementSpeed: 2
+  FinalBossMinion: 0
+  i: {fileID: 0}
 --- !u!1 &8686653994155996691
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +254,18 @@ PrefabInstance:
     - target: {fileID: 400018, guid: 7b2a1f11816f9b044886276b7ad948a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400018, guid: 7b2a1f11816f9b044886276b7ad948a5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.6767
+      objectReference: {fileID: 0}
+    - target: {fileID: 400018, guid: 7b2a1f11816f9b044886276b7ad948a5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6767
+      objectReference: {fileID: 0}
+    - target: {fileID: 400018, guid: 7b2a1f11816f9b044886276b7ad948a5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.6767
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 7b2a1f11816f9b044886276b7ad948a5, type: 3}
       propertyPath: m_Controller

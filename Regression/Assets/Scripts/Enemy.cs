@@ -26,7 +26,8 @@ public class Enemy : MonoBehaviour
     [Tooltip("Choose the movement speed of the enemy here. 1 is the default speed.")]
     [Range(0.1f, 5.0f)]
     float enemyMovementSpeed = 1f;
-
+    [SerializeField]
+    bool FinalBossMinion = false;
     RaycastHit hit;
     double attackTime;
     bool stopMoving = false;
@@ -139,7 +140,7 @@ public class Enemy : MonoBehaviour
                 pauseCheck.TutorialEnemyKilled();
             }
             pauseCheck.AddPoints(pointsWhenKilled);
-            progressionController.enemyKilled();
+            progressionController.enemyKilled(FinalBossMinion);
             Destroy(this.gameObject); //Kill enemy
         }
     }

@@ -147,6 +147,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             double health = player.health;
             health = Math.Round(health);
+            if (health < 0)
+            {
+                health = 0;
+            }
             HPBarMethod(health, player.getMaxHP());
             string returnValue = "HP: " + Convert.ToString(health);
             return returnValue;
@@ -1477,9 +1481,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         PowerDrain1.GetComponent<Image>().sprite = sprites[losePower1];
         powerName1.GetComponent<Text>().text = p.PowerName;
         powerDesc1.GetComponent<Text>().text = p.PowerDescription;
-        p = powerController.RandomPower();
+        p = powerController.RandomAvailablePower();
         losePower2 = p.ID;
-        while (losePower1 ==losePower2)
+        while (losePower1 == losePower2)
         {
             p = powerController.RandomAvailablePower();
             losePower2 = p.ID;
@@ -2027,7 +2031,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             }
             if (Input.GetKeyDown(KeyCode.F12))
             {
-                ShowPowerActivatedMessage(2);
+                PowerDrainScreen();//Testing.
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) == true)
@@ -2117,7 +2121,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 
                 if (Input.GetKeyDown(KeyCode.R) == true && buttonpressed == false)
                 {
-                    powerController.losePowerHard(); //Testing.
+                    
                     buttonpressed = true;
                 }
                 else

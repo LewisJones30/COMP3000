@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinalBoss : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class FinalBoss : MonoBehaviour
     [SerializeField]
     float currentHP;
     [SerializeField]
-    readonly float MAX_HP = 2000; //Maximum health of the golem
+    readonly float MAX_HP = 1500; //Maximum health of the golem
     [SerializeField]
     float DEFAULT_ATTACK_SPEED = 5f; //Frequency the boss uses an attack.
     [SerializeField]
@@ -34,9 +35,36 @@ public class FinalBoss : MonoBehaviour
     [SerializeField]
     GameObject normalMinion;
     RaycastHit hit;
+    [SerializeField]
+    GameObject BossHPBar, BossHPBorder, BossName, GolemChargeText; //Variables relating to 
+    GameObject UI;
+    bool enragedState = false;
     // Update is called once per frame
+
+
+
+
     void FixedUpdate()
     {
+        if (UI == null)
+        {
+            UI = GameObject.Find("UIHandler");
+        }
+        if (UI != null)
+        {
+            if (ui.isPaused)
+            {
+                BossHPBar.SetActive(false);
+                BossHPBorder.SetActive(false); 
+                BossName.SetActive(false);
+            }
+            else
+            {
+                BossHPBar.SetActive(true);
+                BossHPBorder.SetActive(true);
+                BossName.SetActive(true);
+            }
+        }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position + (Vector3.up * 3), forward * 5, Color.white);
         if (Physics.SphereCast(transform.position + (Vector3.up * 3), 1.5f, forward, out hit, 10))
@@ -72,13 +100,14 @@ public class FinalBoss : MonoBehaviour
         }
 
         attackSpeedTimer = attackSpeedTimer - Time.deltaTime;
+        healthRemainingPercentage();
         if (attackSpeedTimer <= 0)
         {
 
             CURRENT_ATTACK_CYCLE = CURRENT_ATTACK_CYCLE + 1; //Iterate the cycle
             //Planned attack cycle:
             //Projectile -> Projectile -> Projectile
-            //50/50 - Spawn a minion or charge at the player
+            //Spawn minions
             //Projectile -> Projectile -> Projectile
             //Charge at the player
             //Projectile x5
@@ -89,8 +118,7 @@ public class FinalBoss : MonoBehaviour
             {
                 case 1:
                     {
-                        //Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
-                        ChargeAtPlayer();
+                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
@@ -108,16 +136,14 @@ public class FinalBoss : MonoBehaviour
                     }
                 case 4:
                     {
-                        var rand = new System.Random();
-                        int i = rand.Next(0, 1);
-                        if (i == 0)
+                        if (enragedState)
                         {
-                            ChargeAtPlayer();
+                            Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
                         }
                         else
                         {
                             MinionSpawn();
-                        }
+                        }                        
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
@@ -198,6 +224,7 @@ public class FinalBoss : MonoBehaviour
                     {
                         Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
+                        CURRENT_ATTACK_CYCLE = 0; //Reset cycle
                         return;
                     }
             }
@@ -212,21 +239,69 @@ public class FinalBoss : MonoBehaviour
         var rand1 = new System.Random();
         GameObject spawner1 = GameObject.Find("FBSpawn1");
         GameObject spawner2 = GameObject.Find("FBSpawn2");
-        int j = rand1.Next(0, 1);
+        GolemChargeText.SetActive(true);
+        GolemChargeText.GetComponent<Text>().text = "The golem spawns some minions!";
+        int j = rand1.Next(0, 3);
         if (j == 0)
         {
 
             Instantiate(megaMinion, spawner2.transform.position, spawner2.transform.rotation);
             Instantiate(megaMinion, spawner1.transform.position, spawner2.transform.rotation);
+            Invoke("DisableGolemText", 3f);
         }
         else
         {
             Instantiate(megaMinion, spawner2.transform.position, spawner2.transform.rotation);
             Instantiate(normalMinion, spawner1.transform.position, spawner2.transform.rotation);
+            Invoke("DisableGolemText", 3f);
         }
+    }
+    void DisableGolemText()
+    {
+        if (GolemChargeText != null)
+        {
+            GolemChargeText.GetComponent<Text>().text = "The golem prepares to charge!";
+            GolemChargeText.SetActive(false);
+        }
+
     }
     void Start()
     {
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "BossHPBar")
+            {
+                BossHPBar = obj;
+            }
+            if (obj.name == "BossHPBorder")
+            {
+                BossHPBorder = obj;
+            }
+            if (obj.name == "BossName")
+            {
+                BossName = obj;
+            }
+            if (obj.name == "GolemCharge")
+            {
+                GolemChargeText = obj;
+            }
+        }
+        if (BossHPBar != null)
+        {
+            BossHPBar.SetActive(true);
+        }
+        if (BossHPBorder != null)
+        {
+            BossHPBorder.SetActive(true);
+        }
+        if (BossName != null)
+        {
+            BossName.SetActive(true);
+        }
+        if (GolemChargeText != null)
+        {
+            GolemChargeText.SetActive(false);
+        }
         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
         currentHP = MAX_HP;
         ui = GameObject.Find("UIHandler").GetComponent<UIController>();
@@ -248,10 +323,12 @@ public class FinalBoss : MonoBehaviour
         //THE GOLEM IS ABOUT TO CHARGE AT YOU!
         //looks for 3 seconds, then stops, charges after another 3.
         Debug.Log("The golem is preparing to charge!");
+        GolemChargeText.SetActive(true);
         attackTimerPause = true;
         yield return new WaitForSecondsRealtime(3);
         lookAtPlayer = false;
         yield return new WaitForSecondsRealtime(1);
+        GolemChargeText.SetActive(false);
         golemCharging = true;
         i.velocity = transform.forward * 50;
         yield return new WaitForSecondsRealtime(4.5f);
@@ -266,13 +343,22 @@ public class FinalBoss : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            GameObject.Find("Player").GetComponent<Player>().takeDamage(50f);
+            if (enragedState == true)
+            {
+                GameObject.Find("Player").GetComponent<Player>().takeDamage(100f);
+            }
+            else
+            {
+                GameObject.Find("Player").GetComponent<Player>().takeDamage(50f);
+            }
+
         }
     }
     float healthRemainingPercentage() //Used for the UI health bar, when the boss is active.
     {
         float returnValue;
         returnValue = currentHP / MAX_HP;
+        GameObject.FindGameObjectWithTag("BossHP").GetComponent<Image>().fillAmount = returnValue;
         return returnValue;
     }
     public float getHPRemaining() //Public call to the healthRemaining
@@ -283,13 +369,30 @@ public class FinalBoss : MonoBehaviour
     {
         currentHP = currentHP - damageDealt;
         StartCoroutine("DamageFlash");
+        GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints(damageDealt);
+        if (currentHP <= MAX_HP / 2 && enragedState == false)
+        {
+            enragedState = true;
+            BossName.GetComponent<Text>().text = "The golem is ENRAGED!";
+            DEFAULT_ATTACK_SPEED = DEFAULT_ATTACK_SPEED / 2f;
+            Invoke("GolemTextEnraged", 3f);
+        }
         if (currentHP <= 0)
         {
-            //death sequence
+            Progression i = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+            i.enemyKilled(false);
+            GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints(5000); //5000 point bonus for killing the final boss! (before multipliers, max of 10,000 in expert)
             Destroy(this.gameObject);
         }
     }
+    void GolemTextEnraged()
+    {
+        if (BossName != null)
+        {
+            BossName.GetComponent<Text>().text = "Volcanic Golem Protector (Enraged)";
+        }
 
+    }
     void DamagePlayerCharge()
    
     {

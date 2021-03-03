@@ -23,6 +23,7 @@ TagManager:
   - Terrain
   - EnemyProjectile
   - FinalBoss
+  - BossHP
   layers:
   - Default
   - TransparentFX

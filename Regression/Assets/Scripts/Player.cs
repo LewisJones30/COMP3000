@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
             time = time + Time.deltaTime;
             if (time >= 0.5)
             {
-                takeDamage(15);
+                takeDamage(5);
                 time = 0;
             }
         }
@@ -453,7 +453,14 @@ public class Player : MonoBehaviour
             if (powersLost[2] == false)
             {
                 maximumHealth = maximumHealth / 2;
-                health = maximumHealth;
+                if (health > maximumHealth)
+                {
+                    health = maximumHealth;
+                }
+                else
+                {
+                    health = health / 2;
+                }
                 powersLost[2] = true;
             }
         }

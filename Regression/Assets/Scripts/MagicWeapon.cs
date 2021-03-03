@@ -8,7 +8,7 @@ public class MagicWeapon : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("Default time between shots.\nNote that some difficulties and powers will change this.")]
-    double shootingCooldown = 3f;
+    double shootingCooldown = 2f;
     UIController isPauseCheck; //Check if paused.
     [SerializeField]
     GameObject projectile;

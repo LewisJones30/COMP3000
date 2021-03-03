@@ -73,6 +73,10 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         {
             player = GameObject.Find("Player").GetComponent<Player>();
         }
+        if (player != null)
+        {
+            player.PowerLost();
+        }
 
     }
     public void FindObjects()
