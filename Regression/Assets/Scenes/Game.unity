@@ -3066,7 +3066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5231071030576435001, guid: eb880fb3c5cc2bb4284aef2857c984b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.58
+      value: -0.86
       objectReference: {fileID: 0}
     - target: {fileID: 5231071030576435001, guid: eb880fb3c5cc2bb4284aef2857c984b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4524,7 +4524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f53e6e3df0516ef4db631b9e5af71ee0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ff4e76e0fdde4e4d88171efc163fde9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4865,7 +4865,7 @@ PrefabInstance:
     - target: {fileID: 7888746551809037512, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
       propertyPath: sprites.Array.data[7]
       value: 
-      objectReference: {fileID: 21300000, guid: f53e6e3df0516ef4db631b9e5af71ee0, type: 3}
+      objectReference: {fileID: 21300000, guid: 5ff4e76e0fdde4e4d88171efc163fde9, type: 3}
     - target: {fileID: 7888746551809037512, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
       propertyPath: sprites.Array.data[8]
       value: 
@@ -16687,15 +16687,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913567436}
-  m_LocalRotation: {x: -0, y: 0.9318792, z: -0, w: 0.36276874}
-  m_LocalPosition: {x: -22.31, y: 4.41, z: 5.45}
+  m_LocalRotation: {x: -0, y: 0.63987935, z: -0, w: 0.7684755}
+  m_LocalPosition: {x: -26.26, y: 4.41, z: -9.4}
   m_LocalScale: {x: 3.470264, y: 3.470264, z: 3.470264}
   m_Children:
   - {fileID: 1555179778}
   - {fileID: 2100058604}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 139.079, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 79.566, z: 0}
 --- !u!114 &1913567440
 MonoBehaviour:
   m_ObjectHideFlags: 0

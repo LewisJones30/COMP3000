@@ -145,7 +145,7 @@ public class HoverOverScript : MonoBehaviour
             case "Power8":
                 var p8 = powers.powerHandler[7];
                 powerTitle.text = p8.PowerName;
-                description.text = "Arrow based weapons \n reload faster.";
+                description.text = "Enemies are 50% larger.";
                 if (p8.PowerActive == true)
                 {
                     powerState.text = "Active";
