@@ -13,6 +13,8 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     double damagePower = 5f;
     Animator ifEnemy;
+    const int JUSTICE_INT_CHANCE = 125; //1.25% chance of triggering.
+    const int RAIN_INT_CHANCE = 100; //1% chance of triggering.
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +34,21 @@ public class Projectile : MonoBehaviour
                     return;
                 }
                 var rand = new System.Random();
-                int RNGRoll = rand.Next(0, 999); //Roll a number between 0 and 999.
-                if (RNGRoll < 25) //0 to 24 gives a 2.5% chance when damaging.
+                int RNGRoll = rand.Next(0, 9999); //Roll a number between 0 and 999.
+
+
+                if (RNGRoll > RAIN_INT_CHANCE && RNGRoll < RAIN_INT_CHANCE * 2) //Mysterious power doubles the chance of the environmental effects occuring.
+                {
+                    if (GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].PowerActive == true)
+                    {
+                        RNGRoll = 1; //change RNG to pass.
+                    }
+                }
+
+                if (RNGRoll < RAIN_INT_CHANCE) //0 to 24 gives a 2.5% chance when damaging.
                 {
                     UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
 
-                    //The player has a 2.5% chance of extinguishing all fires temporarily, if the power is available.
                     PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
                     if (powers.powerHandler[12].PowerActive == true)
                     {
@@ -45,8 +56,17 @@ public class Projectile : MonoBehaviour
                         powers.DisableAllFires();
                     }
                 }
-                RNGRoll = rand.Next(0, 999); //Roll another number between 0 and 999.
-                if (RNGRoll < 25)
+
+                RNGRoll = rand.Next(0, 9999); //Roll 10,000 numbers. Chance is a constant.
+
+                if (RNGRoll > JUSTICE_INT_CHANCE && RNGRoll < JUSTICE_INT_CHANCE * 2)
+                {
+                    if (GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].PowerActive == true)
+                    {
+                        RNGRoll = 1; //change RNG to pass.
+                    }
+                }
+                if (RNGRoll < JUSTICE_INT_CHANCE)
                 {
                     //Justice rains from above. 2.5% chance of occuring when damage is dealt.
                     PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();

@@ -36,7 +36,10 @@ public class Enemy : MonoBehaviour
     Progression progressionController;
     [SerializeField]
     Rigidbody i;
-
+    PowerBehaviour powerScaleCheck;
+    const float INFLATED_POWER_SCALE = 1.5f;
+    float startingScaleX, startingScaleY, startingScaleZ;
+    float inflatedScaleX, inflatedScaleY, inflatedScaleZ;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +48,14 @@ public class Enemy : MonoBehaviour
         attackSpeed = attackTime;
         pauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
         progressionController = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+        powerScaleCheck = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         i = GetComponent<Rigidbody>();
+        startingScaleX = transform.localScale.x;
+        startingScaleY = transform.localScale.y;
+        startingScaleZ = transform.localScale.z;
+        inflatedScaleX = startingScaleX * INFLATED_POWER_SCALE;
+        inflatedScaleY = startingScaleY * INFLATED_POWER_SCALE;
+        inflatedScaleZ = startingScaleZ * INFLATED_POWER_SCALE;
     }
 
     // Update is called once per frame
@@ -78,6 +88,18 @@ public class Enemy : MonoBehaviour
             }
             else
             {
+                if (transform.localScale.z != inflatedScaleZ && powerScaleCheck.powerHandler[7].PowerActive == true)
+                {
+                    transform.localScale = new Vector3(inflatedScaleX, inflatedScaleY, inflatedScaleZ);
+
+                }
+                else
+                {
+                    if (powerScaleCheck.powerHandler[7].PowerActive == false)
+                    {
+                        transform.localScale = new Vector3(startingScaleX, startingScaleY, startingScaleZ);
+                    }
+                }
                 enemyAnimations.enabled = true;
             }
         }

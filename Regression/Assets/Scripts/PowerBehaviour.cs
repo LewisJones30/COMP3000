@@ -389,8 +389,8 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         //Power slot 8
         Power slot8 = new Power();
         slot8.ID = 7;
-        slot8.PowerName = "Skilled Archer";
-        slot8.PowerDescription = "Arrow based weapons reload faster.";
+        slot8.PowerName = "Inflation";
+        slot8.PowerDescription = "A curse has been placed on enemies. They are now 50% bigger, making them easier to kill. This does not work on certain enemies.";
         slot8.PowerAvailable = true;
         slot8.PowerActive = false;
         slot8.PowerStartedActive = false;

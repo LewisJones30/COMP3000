@@ -1480,7 +1480,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         losePower1 = p.ID;
         PowerDrain1.GetComponent<Image>().sprite = sprites[losePower1];
         powerName1.GetComponent<Text>().text = p.PowerName;
-        powerDesc1.GetComponent<Text>().text = p.PowerDescription;
+        powerDesc1.GetComponent<Text>().text = FormatPowerDescription(losePower1);
         p = powerController.RandomAvailablePower();
         losePower2 = p.ID;
         while (losePower1 == losePower2)
@@ -1489,7 +1489,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             losePower2 = p.ID;
         }
         PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
-        powerDesc2.GetComponent<Text>().text = p.PowerDescription;
+        powerDesc2.GetComponent<Text>().text = FormatPowerDescription(losePower2);
         powerName2.GetComponent<Text>().text = p.PowerName;
 
     }
@@ -1513,14 +1513,102 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         PowerBehaviour.Power p = powerController.getSpecificPower(power1ToDrain);
         PowerDrain1.GetComponent<Image>().sprite = sprites[power1ToDrain];
         powerName1.GetComponent<Text>().text = p.PowerName;
-        powerDesc1.GetComponent<Text>().text = p.PowerDescription;
+        powerDesc1.GetComponent<Text>().text = FormatPowerDescription(losePower1);
         p = powerController.getSpecificPower(power2ToDrain);
         losePower2 = p.ID;
         PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
-        powerDesc2.GetComponent<Text>().text = p.PowerDescription;
+        powerDesc2.GetComponent<Text>().text = FormatPowerDescription(losePower2);
         powerName2.GetComponent<Text>().text = p.PowerName;
 
     }
+
+    string FormatPowerDescription(int powerID)
+    {
+        string formattedString = "";
+
+        switch (powerID)
+        {
+            case 0:
+                {
+                    formattedString = "You are unable to die!";
+                    return formattedString;
+                }
+            case 1:
+                {
+                    formattedString = "All damage dealt \nis doubled against enemies.";
+                    return formattedString;
+                }
+            case 2:
+                {
+                    formattedString = "Your health is doubled.";
+                    return formattedString;
+                }
+            case 3:
+                {
+                    formattedString = "Your health regenerates\nat a rate of 2.5% per second.";
+                    return formattedString;
+                }
+            case 4:
+                {
+                    formattedString = "As you lose health,\nyou will deal an increasing amount\nof damage proportional to health lost.";
+                    return formattedString;
+                }
+            case 5:
+                {
+                    formattedString = "You will not be damaged by fire.";
+                    return formattedString;
+                }
+            case 6:
+                {
+                    formattedString = "Magical weapons attack faster.";
+                    return formattedString;
+                }
+            case 7:
+                {
+                    formattedString = "Your enemies have been cursed.\nThey are now 50% bigger.\nA certain enemy is not affected by this power.";
+                    return formattedString;
+                }
+            case 8:
+                {
+                    formattedString = "Swords deal more damage.";
+                    return formattedString;
+                }
+            case 9:
+                {
+                    formattedString = "You take 50% less damage.";
+                    return formattedString;
+                }
+            case 10:
+                {
+                    formattedString = "A certain weapon can now \nextinguish fires temporarily.";
+                    return formattedString;
+                }
+            case 11:
+                {
+                    formattedString = "???";
+                    return formattedString;
+                }
+            case 12:
+                {
+                    formattedString = "You have a small chance of all fires\nbeing temporarily extinguished\nfor 45 seconds.";
+                    return formattedString;
+                }
+            case 13:
+                {
+                    formattedString = "Occasionally, projectiles will fall\nfrom the sky and damage\n all enemies.";
+                    return formattedString;
+                }
+            default:
+                {
+                    formattedString = "";
+                    Debug.LogError("An error has occurred loading power description.");
+                    return formattedString;
+                }
+        }
+
+    }
+
+
     //Called by ButtonCaller
     public void returnToMainGame()
     {
