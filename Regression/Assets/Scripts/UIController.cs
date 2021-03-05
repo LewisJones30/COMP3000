@@ -49,6 +49,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     Text firstPlace, secondPlace, thirdPlace, fourthPlace, fifthPlace, titleText;
     [SerializeField]
     GameObject leaderboardObj, leaderboardTextObj;
+    [SerializeField]
+    GameObject UIStunnedMessage;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +61,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             expertDrainPowerNameText.SetActive(false);
             expertDrainPowerNameText2.SetActive(false);
         }
-
+        if (UIStunnedMessage != null)
+        {
+            UIStunnedMessage.SetActive(false);
+        }
         if (SceneManager.GetActiveScene().name == "Game")
         {
             WeaponSelection();
@@ -68,6 +73,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             loadLeaderboardEasy();
         }
+
 
     }
     void GetGameObjectsGame()
@@ -107,11 +113,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             leaderboardObj.SetActive(false);
         }
-
+        if (UIStunnedMessage != null)
+        {
+            UIStunnedMessage.SetActive(false);
+        }
 
 
         //Enable/Disable section
-
 
         //Modify values section
         //ShowAllPowersInGame();
@@ -1628,7 +1636,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         ShowAllPowersInGame();
 
     }
-
     public void ResumeButton()
     {
         if (TutorialStage > 0)
@@ -1718,7 +1725,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
     }
 
-
+    public void EnableStunWarning()
+    {
+        UIStunnedMessage.SetActive(true);
+    }
+    public void DisableStunWarning()
+    {
+        UIStunnedMessage.SetActive(false);
+    }
 
 
 

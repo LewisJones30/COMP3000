@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        if (Physics.SphereCast(transform.position, 0.25f, forward, out hit, 1))
+        if (Physics.SphereCast(transform.position, 0.25f, forward, out hit, 1.5f))
         {
             if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy" || hit.collider.gameObject.tag == "FinalBoss")
             {

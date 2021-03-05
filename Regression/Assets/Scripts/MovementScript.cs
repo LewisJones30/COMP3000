@@ -9,6 +9,7 @@ public class MovementScript : MonoBehaviour
     public float movementSpeed = 15; //Multiplier for movement speed
     public float rotationSpeed = 10; //Multiplier for rotation speed
     public Rigidbody rb;
+    const int DISTANCE_FROM_ENEMY_STOP_PLAYER = 4;
     UIController ui;
     RaycastHit hit;
     bool playerStunned = false;
@@ -48,7 +49,7 @@ public class MovementScript : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         Vector3 back = transform.TransformDirection(Vector3.back);
         Vector3 left = transform.TransformDirection(Vector3.left);
-        if (Physics.Raycast(transform.position, forward, out hit, 3))
+        if (Physics.Raycast(transform.position, forward, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
             if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
@@ -61,7 +62,7 @@ public class MovementScript : MonoBehaviour
                 }
             }
         }
-        if (Physics.Raycast(transform.position, left, out hit, 3))
+        if (Physics.Raycast(transform.position, left, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
             if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
@@ -74,7 +75,7 @@ public class MovementScript : MonoBehaviour
                 }
             }
         }
-        if (Physics.Raycast(transform.position, right, out hit, 3))
+        if (Physics.Raycast(transform.position, right, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
             if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
@@ -87,7 +88,7 @@ public class MovementScript : MonoBehaviour
                 }
             }
         }
-        if (Physics.Raycast(transform.position, back, out hit, 5))
+        if (Physics.Raycast(transform.position, back, out hit, 5)) //different to constant to prevent player reversing into a wall and having a dodgy camera angle.
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
             if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")

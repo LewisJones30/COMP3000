@@ -26,6 +26,7 @@ public class FireCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.name == "Player")
         {
             playerScript.playerOnFire = 1;

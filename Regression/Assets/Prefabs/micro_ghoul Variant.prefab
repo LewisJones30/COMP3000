@@ -27,8 +27,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4387255, y: 1.9718077, z: 2.7909634}
-  m_Center: {x: -0.052479763, y: 0.4859042, z: 0.40026826}
+  m_Size: {x: 3.96565, y: 2.8547926, z: 2.7909634}
+  m_Center: {x: -0.25631297, y: 0.4457112, z: 0.40026817}
 --- !u!114 &1405459767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,13 +41,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991359406b94f7041b84dfa6587e0bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 70
   ExpertOnlyDamageReduction: 0.1
   enemyProjectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
   attackSpeed: 5
   pointsWhenKilled: 100
   raycastLength: 10
   enemyMovementSpeed: 1
+  FinalBossMinion: 0
+  i: {fileID: 0}
 --- !u!1001 &3887765649138286511
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -94,7 +94,7 @@ public class MagicWeapon : MonoBehaviour
                 else
                 {
                     text.enabled = true;
-                    text.text = Convert.ToString(shootingCooldown);
+                    text.text = "Weapon Recharging...";
 
                 }
 

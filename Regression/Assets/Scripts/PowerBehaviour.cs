@@ -175,22 +175,22 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     public void StartGameEasy()
     {
         difficultyLevel = 1;
-        StartPower(19); //Start with all available powers.
+        StartPower(13); //Start with all available powers.
     }
     public void StartGameNormal()
     {
         difficultyLevel = 2;
-        StartPower(19); //Start with all available powers.
+        StartPower(13); //Start with all available powers.
     }
     public void StartGameHard()
     {
         difficultyLevel = 3;
-        StartPower(11); //Start with all available powers.
+        StartPower(12); //Start with 1 less power.
     }
     public void StartGameExpert()
     {
         difficultyLevel = 4;
-        StartPower(10); //Start with 5 less powers.
+        StartPower(11); //Start with 2 less powers - Final boss player will have 1 power.
     }
     public void StartGameSatanic()
     {
