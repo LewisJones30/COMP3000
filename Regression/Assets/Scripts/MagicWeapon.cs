@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class MagicWeapon : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("Default time between shots.\nNote that some difficulties and powers will change this.")]
-    double shootingCooldown = 2f;
+    double shootingCooldown = 1.5f;
     UIController isPauseCheck; //Check if paused.
     [SerializeField]
     GameObject projectile;
@@ -38,13 +39,27 @@ public class MagicWeapon : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
+        if (PowerBehaviour.powerHandler[6].PowerActive == true && powerModified == false)
+        {
+            //Reduce the cooldown of shooting by half with power 6.
+            shootingCooldown = shootingCooldown / 2f;
+            dupeCD = shootingCooldown;
+            powerModified = true;
+        }
         if (isPauseCheck.isPaused == false) //Game is active.
         {
             shootingCooldown = shootingCooldown - Time.deltaTime;
+        }
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        checkPower();
+        if (isPauseCheck.isPaused == false) //Game is active.
+        {
             if (shootingCooldown <= 0)
             {
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
@@ -79,7 +94,8 @@ public class MagicWeapon : MonoBehaviour
                 else
                 {
                     text.enabled = true;
-                    text.text = "Weapon recharging...";
+                    text.text = Convert.ToString(shootingCooldown);
+
                 }
 
             }
@@ -91,10 +107,10 @@ public class MagicWeapon : MonoBehaviour
     }
     void checkPower()
     {
-        if (PowerBehaviour.powerHandler[6].PowerAvailable == false && powerModified == true)
+        if (PowerBehaviour.powerHandler[6].PowerActive == false && PowerBehaviour.powerHandler[6].PowerStartedActive == true && powerModified == true)
         {
             //Reset the effect.
-            dupeCD = dupeCD * 1.5f;
+            dupeCD = dupeCD * 2f;
             shootingCooldown = dupeCD;
             powerModified = false; //Power is no longer in effect!
         }

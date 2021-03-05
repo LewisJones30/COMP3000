@@ -14520,7 +14520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2e3f8f99645c249bb5cec3a96c4e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingCooldown: 2
+  shootingCooldown: 1.5
   projectile: {fileID: 1746672929845058, guid: 066d7c4cdca7a744fb9457e7b49580db, type: 3}
   UITempWeaponText: {fileID: 956068484}
   Powerhandler: {fileID: 314711455}
