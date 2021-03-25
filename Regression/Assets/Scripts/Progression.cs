@@ -21,6 +21,7 @@ public class Progression : MonoBehaviour
     public float[] EnemySpawnTime; //Control the time it takes to defeat each enemy here.
     [HideInInspector]
     public int numberEnemiesKilled = 0; //Used to track how many enemies have been killed per wave.
+    bool waveComplete = false;
 
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
@@ -207,6 +208,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave1Enemies = waveArrays[0].wave;
                 if (numberEnemiesKilled == wave1Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     //Reset enemies killed/spawned.
                     numberEnemiesKilled = 0;
@@ -225,6 +227,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave2Enemies = waveArrays[1].wave;
                 if (numberEnemiesKilled == wave2Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -240,6 +243,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave3Enemies = waveArrays[2].wave;
                 if (numberEnemiesKilled == wave3Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -255,6 +259,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave4Enemies = waveArrays[3].wave;
                 if (numberEnemiesKilled == wave4Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -269,6 +274,7 @@ public class Progression : MonoBehaviour
             case 5:
                 GameObject[] wave5Enemies = waveArrays[4].wave;
                 if (numberEnemiesKilled == wave5Enemies.Length)
+                    waveComplete = true;
                 {
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
@@ -285,6 +291,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave6Enemies = waveArrays[5].wave;
                 if (numberEnemiesKilled == wave6Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -300,6 +307,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave7Enemies = waveArrays[6].wave;
                 if (numberEnemiesKilled == wave7Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -315,6 +323,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave8Enemies = waveArrays[7].wave;
                 if (numberEnemiesKilled == wave8Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -330,6 +339,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave9Enemies = waveArrays[8].wave;
                 if (numberEnemiesKilled == wave9Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -345,6 +355,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave10Enemies = waveArrays[9].wave;
                 if (numberEnemiesKilled == wave10Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -360,6 +371,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave11Enemies = waveArrays[10].wave;
                 if (numberEnemiesKilled == wave11Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -375,6 +387,7 @@ public class Progression : MonoBehaviour
                 GameObject[] wave12Enemies = waveArrays[11].wave;
                 if (numberEnemiesKilled == wave12Enemies.Length)
                 {
+                    waveComplete = true;
                     currentWave = currentWave + 1;
                     numberEnemiesKilled = 0;
                     numberEnemiesSpawned = 0;
@@ -405,7 +418,7 @@ public class Progression : MonoBehaviour
     }
 
 
-    //Getters for current wave and maximum waves
+    //Getters
     public int GetCurrentWave()
     {
         return currentWave;
@@ -414,8 +427,21 @@ public class Progression : MonoBehaviour
     {
         return maximumWave;
     }
+    public float GetProgression()
+    {
+        if (waveComplete)
+        {
+            return (float)1.0f;
+        }
+        return (float)numberEnemiesKilled / waveArrays[GetCurrentWave()].wave.Length;
+    }
 
+    //Setters
 
+    public void SetWaveComplete(bool value)
+    {
+        waveComplete = value;
+    }
     void FixedUpdate() //Control the enemy spawns here!
     {
         if (ui.getTutorialStage() > 0)
@@ -439,6 +465,7 @@ public class Progression : MonoBehaviour
                     EnemySpawnTime[0] = EnemySpawnTime[0] - Time.deltaTime;
                     if (EnemySpawnTime[0] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[0] = EnemySpawnTimeDupe[0]; //Reset timer.
@@ -471,6 +498,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[2] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[2] = EnemySpawnTimeDupe[2]; //Reset timer.
@@ -487,6 +515,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[3] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[3] = EnemySpawnTimeDupe[3]; //Reset timer.
@@ -503,6 +532,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[4] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[4] = EnemySpawnTimeDupe[4]; //Reset timer.
@@ -520,6 +550,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[5] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[5] = EnemySpawnTimeDupe[5]; //Reset timer.
@@ -536,6 +567,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[6] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[6] = EnemySpawnTimeDupe[6]; //Reset timer.
@@ -552,6 +584,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[7] <= 0)
                     {
+                        ;
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[7] = EnemySpawnTimeDupe[7]; //Reset timer.
@@ -568,6 +601,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[8] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[8] = EnemySpawnTimeDupe[8]; //Reset timer.
@@ -584,6 +618,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[4] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[9] = EnemySpawnTimeDupe[9]; //Reset timer.
@@ -600,6 +635,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[4] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[10] = EnemySpawnTimeDupe[10]; //Reset timer.
@@ -616,6 +652,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[4] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[11] = EnemySpawnTimeDupe[11]; //Reset timer.
@@ -632,6 +669,7 @@ public class Progression : MonoBehaviour
                     }
                     if (EnemySpawnTime[4] <= 0)
                     {
+                        
                         Spawn();
                         numberEnemiesSpawned = numberEnemiesSpawned + 1;
                         EnemySpawnTime[12] = EnemySpawnTimeDupe[12]; //Reset timer.

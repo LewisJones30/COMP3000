@@ -53,6 +53,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     GameObject UIStunnedMessage;
     [SerializeField]
     Text bonusPoints1, bonusPoints2;
+    [SerializeField]
+    Image progressBar;
+    Progression p;
     // Start is called before the first frame update
     void Start()
     {
@@ -107,7 +110,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         player = GameObject.Find("Player").GetComponent<Player>();
         UIWaveComplete = GameObject.Find("WaveCompleteText");
-
+        p = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
 
         //Get component section
 
@@ -218,6 +221,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public void LostPowerMessage(int PowerDrainedID)
     {
         StartCoroutine("ShowMessage", PowerDrainedID);
+        p.SetWaveComplete(false);
 
     }
     IEnumerator ShowMessage(int PowerDrainedID)
@@ -232,6 +236,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
         expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].PowerName;
         expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
+        
         Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
         Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
         Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
@@ -2152,7 +2157,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         return 0;
     }
 
+    void ProgressUpdate()
+    {
+        if (progressBar != null)
+        {
+            progressBar.fillAmount = p.GetProgression();
+        }
 
+    }
 
     // Update is called once per frame
     void Update()
@@ -2284,6 +2296,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             if (health != null)
             {
                 getUpdatePlayerHP();
+                ProgressUpdate();
             }
 
         }

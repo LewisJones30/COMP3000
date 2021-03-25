@@ -85,6 +85,7 @@ public class ButtonCaller : MonoBehaviour
         ui.returnToMainGame();
         Cursor.lockState = CursorLockMode.None;
         ui.WeaponSelection();
+        progressionCheck.SetWaveComplete(false);
     }
     public void LosePower2()
     {
@@ -121,6 +122,7 @@ public class ButtonCaller : MonoBehaviour
         ui.returnToMainGame();
         Cursor.lockState = CursorLockMode.None;
         ui.WeaponSelection();
+        progressionCheck.SetWaveComplete(false);
     }
     public void MainMenu()
     {
