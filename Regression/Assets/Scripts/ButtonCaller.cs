@@ -54,7 +54,29 @@ public class ButtonCaller : MonoBehaviour
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+        Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         powers.loseSpecificPower(ui.losePower1);
+        switch(powers.powerHandler[ui.losePower1].PowerStrength)
+        {
+            case 3:
+                {
+                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
+                    break;
+                }
+            case 2:
+                {
+                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
+                    break;
+                }
+            case 1:
+                {
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
         ui.setLockPauseMenu(false);
         if (ui.getTutorialStage() > 0)
         {
@@ -69,6 +91,28 @@ public class ButtonCaller : MonoBehaviour
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         powers.loseSpecificPower(ui.losePower2);
+        Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+        switch (powers.powerHandler[ui.losePower1].PowerStrength)
+        {
+            case 3:
+                {
+                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
+                    break;
+                }
+            case 2:
+                {
+                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
+                    break;
+                }
+            case 1:
+                {
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
         ui.setLockPauseMenu(false);
         if (ui.getTutorialStage() > 0)
         {

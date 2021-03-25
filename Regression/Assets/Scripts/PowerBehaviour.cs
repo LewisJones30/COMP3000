@@ -332,6 +332,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot1.PowerAvailable = false; //ONLY ENABLED WITH THE TUTORIAL, OTHERWISE THIS MUST BE LEFT FALSE.
         slot1.PowerActive = false;
         slot1.PowerStartedActive = false;
+        slot1.PowerStrength = 0;
         //Power slot 2
         Power slot2 = new Power();
         slot2.ID = 1;
@@ -340,6 +341,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot2.PowerAvailable = true;
         slot2.PowerActive = false;
         slot2.PowerStartedActive = false;
+        slot2.PowerStrength = 3;
 
         //Power slot 3
         Power slot3 = new Power();
@@ -349,6 +351,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot3.PowerAvailable = true;
         slot3.PowerActive = false;
         slot3.PowerStartedActive = false;
+        slot3.PowerStrength = 2;
 
         //Power slot 4
         Power slot4 = new Power();
@@ -358,6 +361,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot4.PowerAvailable = true;
         slot4.PowerActive = false;
         slot4.PowerStartedActive = false;
+        slot4.PowerStrength = 2;
 
         //Power slot 5
         Power slot5 = new Power();
@@ -367,6 +371,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot5.PowerAvailable = true;
         slot5.PowerActive = false;
         slot5.PowerStartedActive = false;
+        slot5.PowerStrength = 3;
 
         //Power slot 6
         Power slot6 = new Power();
@@ -376,6 +381,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot6.PowerAvailable = true;
         slot6.PowerActive = false;
         slot6.PowerStartedActive = false;
+        slot6.PowerStrength = 2;
 
         //Power slot 7
         Power slot7 = new Power();
@@ -385,6 +391,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot7.PowerAvailable = true;
         slot7.PowerActive = false;
         slot7.PowerStartedActive = false;
+        slot7.PowerStrength = 2;
 
         //Power slot 8
         Power slot8 = new Power();
@@ -394,6 +401,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot8.PowerAvailable = true;
         slot8.PowerActive = false;
         slot8.PowerStartedActive = false;
+        slot8.PowerStrength = 1;
 
         //Power slot 9
         Power slot9 = new Power();
@@ -403,6 +411,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot9.PowerAvailable = true;
         slot9.PowerActive = false;
         slot9.PowerStartedActive = false;
+        slot9.PowerStrength = 2;
 
         //Power slot 10
         Power slot10 = new Power();
@@ -412,6 +421,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot10.PowerAvailable = true;
         slot10.PowerActive = false;
         slot10.PowerStartedActive = false;
+        slot10.PowerStrength = 3;
 
         //Power slot 11
         Power slot11 = new Power();
@@ -421,6 +431,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot11.PowerAvailable = true;
         slot11.PowerActive = false;
         slot11.PowerStartedActive = false;
+        slot11.PowerStrength = 2;
 
         //Power slot 12
         Power slot12 = new Power();
@@ -430,6 +441,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot12.PowerAvailable = true;
         slot12.PowerActive = false;
         slot12.PowerStartedActive = false;
+        slot12.PowerStrength = 1;
 
         //Power slot 13
         Power slot13 = new Power();
@@ -439,6 +451,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot13.PowerAvailable = true;
         slot13.PowerActive = false;
         slot13.PowerStartedActive = false;
+        slot13.PowerStrength = 2;
 
         //Power slot 14
         Power slot14 = new Power();
@@ -448,6 +461,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot14.PowerAvailable = true;
         slot14.PowerActive = false;
         slot14.PowerStartedActive = false;
+        slot14.PowerStrength = 2;
 
         //Power slot 15
         Power slot15 = new Power();
@@ -541,6 +555,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         public bool PowerActive { get; set; } //Whether the power is active or not. This will start as default of all false.
         public bool PowerStartedActive { get; set; } //This is a check to see if the boolean was active at the start of the game. Whenever a power is drained, it is a check to ensure the player has the correct stats.
         public bool PowerAvailable { get; set; } //Modifier to show if this power is actually ready to be used. E.G tutorial will be false outside of tutorial. 
-                                                 //This also applies to any empty slots with default/null values.
+                                                 //This also applies to any empty slots with default/null values
+        public int PowerStrength { get; set; } //0 - N/A,  1 - Weak, 2 - Medium, 3 - Powerful.
     }
 }

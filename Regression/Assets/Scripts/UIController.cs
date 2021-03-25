@@ -51,6 +51,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     GameObject leaderboardObj, leaderboardTextObj;
     [SerializeField]
     GameObject UIStunnedMessage;
+    [SerializeField]
+    Text bonusPoints1, bonusPoints2;
     // Start is called before the first frame update
     void Start()
     {
@@ -1193,13 +1195,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
         WelcomeText.GetComponent<Text>().text = "In this game, you start with buffs known as powers.\n" +
-            "You will be fighting hordes of monsters from the depths of hell.\n" +
+            "You will be fighting hordes of monsters from the depths of hell.\n\n" +
             "As you progress, Hell's influence over you will increase, and you will\n" +
-            "be forced to channel this into your powers, losing their effect.\n" +
+            "be forced to channel this into your powers, losing their effect.\n\n" +
             "In this tutorial, you will be able to understand the basic premise\n" +
             "of this game.\n" +
             "Please press left click to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-566, 333, 0);
+        WelcomeText.transform.localPosition = new Vector3(-700, 250, 0);
         animText["TextAppear"].wrapMode = WrapMode.Once;
         animText.Play("TextAppear");
         TutorialStage = 4;
@@ -1219,7 +1221,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         ResumeButton();
         WelcomeImage.transform.localScale = new Vector3(17.72895f, 1.921767f, 2.03252f);
         WelcomeImage.transform.localPosition = new Vector3(-18, -210, 0);
-        WelcomeText.transform.localPosition = new Vector3(-412, -162, 0);
+        WelcomeText.transform.localPosition = new Vector3(-350, -162, 0);
+        WelcomeText.GetComponent<Text>().fontSize = 50; 
         WelcomeText.GetComponent<Text>().text = "This is your health bar. Make sure it doesn't reach 0!";
         anim["ShowTB1"].wrapMode = WrapMode.Once;
         anim.Play("ShowTB1");
@@ -1239,7 +1242,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         yield return new WaitForSeconds(0.5f);
         JumpingArrow.transform.localPosition = new Vector3(-481, -8, 0);
         JumpingArrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -90));
-        WelcomeText.transform.localPosition = new Vector3(-318, 42, 0);
+        WelcomeText.transform.localPosition = new Vector3(-318, 0, 0);
         animText.GetComponent<Text>().text = "These are your powers. You can see more in the pause menu ingame!";
         animText.Play("TextAppear");
         animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
@@ -1260,7 +1263,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         yield return new WaitForSeconds(0.5f);
         JumpingArrow.transform.localPosition = new Vector3(267, 459, 0);
         WelcomeText.transform.localPosition = new Vector3(460, 504, 0);
-        WelcomeText.GetComponent<Text>().text = "This is your pointers counter.\nThe higher the difficulty,\n the more points you'll get!";
+        WelcomeText.GetComponent<Text>().text = "This is your point counter.\nThe higher the difficulty,\n the more points you'll get!";
         animText.Play("TextAppear");
         animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
         animArrow.Play("jumping arrow appear");
@@ -1470,6 +1473,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     public void PowerDrainScreen() //Will be called by the Progression handler when the player completes a wave.
     {
+        Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         Cursor.lockState = CursorLockMode.None;
         lockPauseMenu = true;
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -1489,6 +1493,29 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         PowerDrain1.GetComponent<Image>().sprite = sprites[losePower1];
         powerName1.GetComponent<Text>().text = p.PowerName;
         powerDesc1.GetComponent<Text>().text = FormatPowerDescription(losePower1);
+        switch (p.PowerStrength)
+        {
+            case 3:
+                {
+                    bonusPoints1.text = "Bonus points on offer: " + ((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
+                    break;
+                }
+            case 2:
+                {
+                    bonusPoints1.text = "Bonus points on offer: " + ((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
+                    break;
+                }
+            case 1:
+                {
+                    bonusPoints1.text = "No bonus points available.";
+                    break;
+                }
+            default:
+                {
+                    bonusPoints1.text = "";
+                    break;
+                }
+        }
         p = powerController.RandomAvailablePower();
         losePower2 = p.ID;
         while (losePower1 == losePower2)
@@ -1499,6 +1526,29 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
         powerDesc2.GetComponent<Text>().text = FormatPowerDescription(losePower2);
         powerName2.GetComponent<Text>().text = p.PowerName;
+        switch (p.PowerStrength)
+        {
+            case 3:
+                {
+                    bonusPoints2.text = "Bonus points on offer: " + ((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
+                    break;
+                }
+            case 2:
+                {
+                    bonusPoints2.text = "Bonus points on offer: " + ((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
+                    break;
+                }
+            case 1:
+                {
+                    bonusPoints2.text = "No bonus points available.";
+                    break;
+                }
+            default:
+                {
+                    bonusPoints2.text = "";
+                    break;
+                }
+        }
 
     }
 
