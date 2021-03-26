@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public double health = 100; //current health is controlled here. Public to allow UI access.
     [SerializeField]
     double maximumHealth = 100; //Base maximum hp.
+    const float SWORD_DAMAGE_REDUCTION_MODIFIER = 0.75f;
     [Header("Easy")]
     [SerializeField]
     [Range(0.1f, 2f)]
@@ -230,7 +231,11 @@ public class Player : MonoBehaviour
     //Damage/healing effects
     public void takeDamage(double damageDealt)
     {
-        health = health - (damageTaken * damageDealt); //Take away health based on the damage dealt. Iron maiden ability reduces this by 50%. Difficulties may also change this.
+        if (GameObject.Find("SwordWeapon"))
+        {
+            damageDealt = damageDealt * SWORD_DAMAGE_REDUCTION_MODIFIER; //Permanent damage reduction, on top of all other powers.
+        }
+        health = health - (damageTaken * damageDealt); //Take away health based on the damage dealt. Iron maiden power reduces this by 50%. Difficulties may also change this.
         isPausedCheck.getUpdatePlayerHP();
         if (health < 1)
         {
@@ -257,9 +262,9 @@ public class Player : MonoBehaviour
     }
     IEnumerator DamagePlayerFlash()
     {
-        GameObject.Find("In Game UI").transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("In Game UI").transform.GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         yield return new WaitForSeconds(0.15f);
-        GameObject.Find("In Game UI").transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        GameObject.Find("In Game UI").transform.GetChild(1).gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
     }
     void heal(double healAmount)
     {
@@ -349,7 +354,15 @@ public class Player : MonoBehaviour
                 weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, transform.rotation, this.gameObject.transform);
                 weaponStaff.transform.localRotation = Quaternion.Euler(new Vector3(-34f, 150f, 49.454f));
                 weaponStaff.transform.localPosition = (new Vector3(-0.892f, -0.91f, 0.135f));
-                GameObject.Find("ProjectileSpawner").SetActive(true);
+
+                foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+                {
+                    if (obj.name == "ProjectileSpawner")
+                    {
+                        obj.SetActive(true);
+                        break;
+                    }
+                }
                 weaponStaff.name = "StaffWeapon";
                 break;
         }

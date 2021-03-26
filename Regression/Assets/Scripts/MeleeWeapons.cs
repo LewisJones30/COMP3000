@@ -43,23 +43,20 @@ public class MeleeWeapons : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                    {
-                        return;
-                    }
                     //Melee Attack
                     StartCoroutine("animCode");
+
                     cooldown = duplicateCD;
                     if (Physics.Raycast(transform.parent.position, transform.forward, out hit, SWORD_ATTACK_DISTANCE))
                     {
-                        Debug.Log("Sword hit " + hit.collider.gameObject.name);
+                        Debug.Log("RNG rolled!");
                         if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy" || hit.collider.gameObject.tag == "FinalBoss")
                         {
                             GameObject obj = hit.collider.gameObject;
                             Enemy enemyScript = hit.collider.gameObject.GetComponent<Enemy>();
                             PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
                             var rand = new System.Random();
-                            int RNGRoll = rand.Next(0, 999);
+                            int RNGRoll = rand.Next(0, 9999);
                             if (RNGRoll > RAIN_POWER_CHANCE && RNGRoll < RAIN_POWER_CHANCE * 2)
                             {
                                 if (powers.powerHandler[11].PowerActive == true)
@@ -75,7 +72,7 @@ public class MeleeWeapons : MonoBehaviour
                                     powers.DisableAllFires();
                                 }
                             }
-                            RNGRoll = rand.Next(0, 999); //Roll another number between 0 and 999.
+                            RNGRoll = rand.Next(0, 9999); //Roll another number between 0 and 999.
                             if (RNGRoll > JUSTICE_POWER_CHANCE && RNGRoll < JUSTICE_POWER_CHANCE * 2)
                             {
                                 if (powers.powerHandler[11].PowerActive == true)
@@ -110,11 +107,6 @@ public class MeleeWeapons : MonoBehaviour
                                         }
                                     }
                                 }
-                            }
-                            RNGRoll = rand.Next(0, 999);
-                            if (RNGRoll < 10)
-                            {
-                                //All powers are temporarily re-enabled!
                             }
                             double damageCalc;
                             double bonusDamagePower;

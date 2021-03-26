@@ -351,7 +351,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot3.PowerAvailable = true;
         slot3.PowerActive = false;
         slot3.PowerStartedActive = false;
-        slot3.PowerStrength = 2;
+        slot3.PowerStrength = 3;
 
         //Power slot 4
         Power slot4 = new Power();
@@ -361,7 +361,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         slot4.PowerAvailable = true;
         slot4.PowerActive = false;
         slot4.PowerStartedActive = false;
-        slot4.PowerStrength = 2;
+        slot4.PowerStrength = 3;
 
         //Power slot 5
         Power slot5 = new Power();
