@@ -35,11 +35,11 @@ public class MovementScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            movementSpeed = 600;
+            movementSpeed = 900;
         }
         else
         {
-            movementSpeed = 400;
+            movementSpeed = 600;
         }
         float X = Input.GetAxisRaw("Horizontal");
         float Z = Input.GetAxisRaw("Vertical");
