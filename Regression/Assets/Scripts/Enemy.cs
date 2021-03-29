@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
     const float INFLATED_POWER_SCALE = 1.5f;
     float startingScaleX, startingScaleY, startingScaleZ;
     float inflatedScaleX, inflatedScaleY, inflatedScaleZ;
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +57,7 @@ public class Enemy : MonoBehaviour
         inflatedScaleX = startingScaleX * INFLATED_POWER_SCALE;
         inflatedScaleY = startingScaleY * INFLATED_POWER_SCALE;
         inflatedScaleZ = startingScaleZ * INFLATED_POWER_SCALE;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -157,14 +159,21 @@ public class Enemy : MonoBehaviour
         StartCoroutine("flashDamaged");
         if (health <= 0)
         {
-            if (pauseCheck.getTutorialStage() > 0)
-            {
-                pauseCheck.TutorialEnemyKilled();
-            }
-            pauseCheck.AddPoints(pointsWhenKilled);
-            progressionController.enemyKilled(FinalBossMinion);
-            Destroy(this.gameObject); //Kill enemy
+            StartCoroutine("EnemyKilled");
         }
+    }
+    IEnumerator EnemyKilled()
+    {
+        animator.SetBool("isDead", true);
+        pauseCheck.AddPoints(pointsWhenKilled);
+        yield return new WaitForSeconds(1f);
+        if (pauseCheck.getTutorialStage() > 0)
+        {
+            pauseCheck.TutorialEnemyKilled();
+        }
+
+        progressionController.enemyKilled(FinalBossMinion);
+        Destroy(this.gameObject); //Kill enemy
     }
     IEnumerator flashDamaged()
     {
