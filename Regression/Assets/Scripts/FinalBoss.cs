@@ -40,7 +40,7 @@ public class FinalBoss : MonoBehaviour
     GameObject UI;
     bool enragedState = false;
     // Update is called once per frame
-
+    Animator animator;
 
 
 
@@ -63,6 +63,10 @@ public class FinalBoss : MonoBehaviour
                 BossHPBar.SetActive(true);
                 BossHPBorder.SetActive(true);
                 BossName.SetActive(true);
+            }
+            if (Input.GetKeyDown(KeyCode.F7))
+            {
+                StartCoroutine("GolemDeath");
             }
         }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -118,19 +122,19 @@ public class FinalBoss : MonoBehaviour
             {
                 case 1:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 2:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 3:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
@@ -138,10 +142,11 @@ public class FinalBoss : MonoBehaviour
                     {
                         if (enragedState)
                         {
-                            Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                            StartCoroutine("GolemThrowProjectile");
                         }
                         else
                         {
+                            StartCoroutine("GolemRoar");
                             MinionSpawn();
                         }                        
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
@@ -149,19 +154,19 @@ public class FinalBoss : MonoBehaviour
                     }
                 case 5:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 6:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 7:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
@@ -173,31 +178,31 @@ public class FinalBoss : MonoBehaviour
                     }
                 case 9:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 10:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 11:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 12:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 13:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
@@ -205,24 +210,25 @@ public class FinalBoss : MonoBehaviour
                     {
                         //Spawn a mega minion
                         MinionSpawn();
+                        StartCoroutine("GolemRoar");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 15:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 16:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 17:
                     {
-                        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+                        StartCoroutine("GolemThrowProjectile");
                         attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         CURRENT_ATTACK_CYCLE = 0; //Reset cycle
                         return;
@@ -267,6 +273,7 @@ public class FinalBoss : MonoBehaviour
     }
     void Start()
     {
+        animator = GetComponent<Animator>();
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.name == "BossHPBar")
@@ -325,19 +332,51 @@ public class FinalBoss : MonoBehaviour
         Debug.Log("The golem is preparing to charge!");
         GolemChargeText.SetActive(true);
         attackTimerPause = true;
+        animator.SetBool("roaring", true);
         yield return new WaitForSecondsRealtime(3);
+        animator.SetBool("roaring", false);
         lookAtPlayer = false;
         yield return new WaitForSecondsRealtime(1);
         GolemChargeText.SetActive(false);
         golemCharging = true;
-        i.velocity = transform.forward * 50;
+        animator.SetBool("isCharging", true);
+        i.velocity = transform.forward * 150;
         yield return new WaitForSecondsRealtime(4.5f);
+        animator.SetBool("isCharging", false);
         golemCharging = false;
         i.velocity = Vector3.zero;
         i.angularVelocity = Vector3.zero;
         lookAtPlayer = true;
         attackTimerPause = false;
         
+    }
+    IEnumerator GolemThrowProjectile()
+    {
+        while (ui.isPaused)
+        {
+
+        }
+        animator.SetBool("attacking", true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        animator.SetBool("attacking", false);
+        Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
+
+    }
+    IEnumerator GolemRoar()
+    {
+        animator.SetBool("roaring", true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        animator.SetBool("roaring", false);
+    }
+    IEnumerator GolemDeath()
+    {
+        animator.SetBool("isDead", true);
+        yield return new WaitForSecondsRealtime(3f);
+        Progression i = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+        i.enemyKilled(false);
+        GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints(5000); //5000 point bonus for killing the final boss! (before multipliers, max of 10,000 in expert)
+        Destroy(this.gameObject);
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -375,14 +414,12 @@ public class FinalBoss : MonoBehaviour
             enragedState = true;
             BossName.GetComponent<Text>().text = "The golem is ENRAGED!";
             DEFAULT_ATTACK_SPEED = DEFAULT_ATTACK_SPEED / 2f;
+            StartCoroutine("GolemRoar");
             Invoke("GolemTextEnraged", 3f);
         }
         if (currentHP <= 0)
         {
-            Progression i = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-            i.enemyKilled(false);
-            GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints(5000); //5000 point bonus for killing the final boss! (before multipliers, max of 10,000 in expert)
-            Destroy(this.gameObject);
+            StartCoroutine("GolemDeath");
         }
     }
     void GolemTextEnraged()
