@@ -21,10 +21,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 579, y: 471}
-  m_MaxSize: {x: 14001, y: 14021}
+  m_MinSize: {x: 579, y: 342}
+  m_MaxSize: {x: 12004, y: 8042}
   vertical: 0
-  controlID: 14581
+  controlID: 7385
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -45,10 +45,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 411
+    x: 295
     y: 19
-    width: 979
-    height: 650
+    width: 1095
+    height: 655
   m_ViewDataDictionary: {fileID: 0}
   m_SerializedViewNames: []
   m_SerializedViewValues: []
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 979, y: 551}
+  m_TargetSize: {x: 1095, y: 616}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -71,10 +71,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -489.5
-    m_HBaseRangeMax: 489.5
-    m_VBaseRangeMin: -275.5
-    m_VBaseRangeMax: 275.5
+    m_HBaseRangeMin: -547.5
+    m_HBaseRangeMax: 547.5
+    m_VBaseRangeMin: -308
+    m_VBaseRangeMax: 308
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -92,23 +92,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 979
-      height: 629
+      width: 1095
+      height: 634
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 489.5, y: 314.5}
+    m_Translation: {x: 547.5, y: 317}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -489.5
-      y: -314.5
-      width: 979
-      height: 629
+      x: -547.5
+      y: -317
+      width: 1095
+      height: 634
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 979, y: 650}
+  m_LastWindowPixelSize: {x: 1095, y: 655}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -135,10 +135,10 @@ MonoBehaviour:
     y: 0
     width: 1391
     height: 947
-  m_MinSize: {x: 303, y: 471}
-  m_MaxSize: {x: 10000, y: 14021}
+  m_MinSize: {x: 303, y: 342}
+  m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 14582
+  controlID: 7386
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -159,11 +159,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1391
-    height: 671
+    height: 676
   m_MinSize: {x: 303, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 14583
+  controlID: 7348
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -181,8 +181,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 410
-    height: 671
+    width: 294
+    height: 676
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 6}
@@ -210,17 +210,17 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -1920
-    y: 63
-    width: 409
-    height: 650
+    x: 0
+    y: 73
+    width: 293
+    height: 655
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
+      scrollPos: {x: 0, y: 1510}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 8acbffff60fbffff903c0000
+      m_ExpandedIDs: 5cdaffff62e0ffffcaf9ffff8cfaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -259,10 +259,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 410
+    x: 294
     y: 0
-    width: 981
-    height: 671
+    width: 1097
+    height: 676
   m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 2}
@@ -508,10 +508,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -1510
-    y: 63
-    width: 979
-    height: 650
+    x: 294
+    y: 73
+    width: 1095
+    height: 655
   m_ViewDataDictionary: {fileID: 0}
   m_ShowContextualTools: 0
   m_WindowGUID: 334e80e1726eba64babb019f3913b204
@@ -524,9 +524,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.730259, y: -9.690161, z: 21.416613}
+    m_Target: {x: -65.13108, y: -11.817791, z: -10.697848}
     speed: 2
-    m_Value: {x: 6.730259, y: -9.690161, z: 21.416613}
+    m_Value: {x: -65.13108, y: -11.817791, z: -10.697848}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -573,13 +573,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.016012311, y: -0.30520383, z: 0.005116174, w: 0.9521676}
+    m_Target: {x: -0.17760299, y: -0.6834899, z: 0.1770738, w: -0.68552953}
     speed: 2
-    m_Value: {x: 0.016011871, y: -0.30519545, z: 0.005116034, w: 0.95214146}
+    m_Value: {x: -0.17760235, y: -0.6834875, z: 0.17707318, w: -0.6855271}
   m_Size:
-    m_Target: 30.40194
+    m_Target: 41.24539
     speed: 2
-    m_Value: 30.40194
+    m_Value: 41.24539
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -614,23 +614,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 671
+    y: 676
     width: 1391
-    height: 276
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
-  m_ActualView: {fileID: 14}
+    height: 271
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
   - {fileID: 14}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -651,10 +651,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -1920
-    y: 734
+    x: 0
+    y: 749
     width: 1390
-    height: 255
+    height: 250
   m_ViewDataDictionary: {fileID: 0}
 --- !u!114 &14
 MonoBehaviour:
@@ -676,10 +676,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -1920
-    y: 734
+    x: 0
+    y: 749
     width: 1390
-    height: 255
+    height: 250
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
     m_NameFilter: 
@@ -705,10 +705,10 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 137}
-    m_SelectedIDs: 2e4d0000
-    m_LastClickedID: 19758
-    m_ExpandedIDs: 000000001c4d00001e4d0000204d0000224d0000244d0000264d0000284d00002a4d00002c4d00002e4d0000304d0000324d0000344d0000364d0000384d00003a4d00003c4d00003e4d000000ca9a3b
+    scrollPos: {x: 0, y: 158}
+    m_SelectedIDs: 64400000
+    m_LastClickedID: 16484
+    m_ExpandedIDs: 00000000524000005440000056400000584000005a4000005c4000005e40000060400000624000006440000066400000684000006a4000006c4000006e40000070400000724000007440000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -736,7 +736,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001c4d00001e4d0000204d0000224d0000244d0000264d0000284d00002a4d00002c4d00002e4d0000304d0000324d0000344d0000364d0000384d00003a4d00003c4d00003e4d000000ca9a3b
+    m_ExpandedIDs: 00000000524000005440000056400000584000005a4000005c4000005e40000060400000624000006440000066400000684000006a4000006c4000006e40000070400000724000007440000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -761,8 +761,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d04dffff
-    m_LastClickedInstanceID: -45616
+    m_SelectedInstanceIDs: 64f8ffff
+    m_LastClickedInstanceID: -1948
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300000480000080550000885500008a550000565f0000626000003a6000002a6000005e600000ac3c0000084c0000b4500000fc4c000030b0000000000000
     m_RenameOverlay:
@@ -838,8 +838,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -529
-    y: 63
+    x: 1391
+    y: 73
     width: 528
     height: 926
   m_ViewDataDictionary: {fileID: 0}
@@ -849,7 +849,7 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -45616
+  m_LastInspectedObjectInstanceID: -1948
   m_LastVerticalScrollValue: 0
   m_AssetGUID: 
   m_InstanceID: 0
