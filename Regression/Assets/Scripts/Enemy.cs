@@ -90,14 +90,14 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                if (transform.localScale.z != inflatedScaleZ && powerScaleCheck.powerHandler[7].PowerActive == true)
+                if (transform.localScale.z != inflatedScaleZ && powerScaleCheck.powerHandler[7].GetPowerActive() == true)
                 {
                     transform.localScale = new Vector3(inflatedScaleX, inflatedScaleY, inflatedScaleZ);
 
                 }
                 else
                 {
-                    if (powerScaleCheck.powerHandler[7].PowerActive == false)
+                    if (powerScaleCheck.powerHandler[7].GetPowerActive() == false)
                     {
                         transform.localScale = new Vector3(startingScaleX, startingScaleY, startingScaleZ);
                     }

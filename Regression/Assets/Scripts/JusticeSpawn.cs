@@ -35,7 +35,7 @@ public class JusticeSpawn : MonoBehaviour
 
     public void FirePowerEffect()
     {
-        if (powerCheck.powerHandler[13].PowerActive == true)
+        if (powerCheck.powerHandler[13].GetPowerActive())
         {
             StartCoroutine("CometDamage");
         }

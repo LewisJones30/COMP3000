@@ -59,14 +59,14 @@ public class MeleeWeapons : MonoBehaviour
                             int RNGRoll = rand.Next(0, 9999);
                             if (RNGRoll > RAIN_POWER_CHANCE && RNGRoll < RAIN_POWER_CHANCE * 2)
                             {
-                                if (powers.powerHandler[11].PowerActive == true)
+                                if (powers.powerHandler[11].GetPowerActive() == true)
                                 {
                                     RNGRoll = 1;
                                 }
                             }
                             if (RNGRoll < RAIN_POWER_CHANCE)
                             {
-                                if (powers.powerHandler[12].PowerActive == true)
+                                if (powers.powerHandler[12].GetPowerActive() == true)
                                 {
                                     isPausedCheck.ShowPowerActivatedMessage(1);
                                     powers.DisableAllFires();
@@ -75,7 +75,7 @@ public class MeleeWeapons : MonoBehaviour
                             RNGRoll = rand.Next(0, 9999); //Roll another number between 0 and 999.
                             if (RNGRoll > JUSTICE_POWER_CHANCE && RNGRoll < JUSTICE_POWER_CHANCE * 2)
                             {
-                                if (powers.powerHandler[11].PowerActive == true)
+                                if (powers.powerHandler[11].GetPowerActive() == true)
                                 {
                                     RNGRoll = 1;
                                 }
@@ -84,7 +84,7 @@ public class MeleeWeapons : MonoBehaviour
                             {
                                 //Justice rains from above. 2.5% chance of occuring when damage is dealt.
 
-                                if (powers.powerHandler[13].PowerActive == true)
+                                if (powers.powerHandler[13].GetPowerActive() == true)
                                 {
                                     GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
                                     GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
@@ -110,7 +110,7 @@ public class MeleeWeapons : MonoBehaviour
                             }
                             double damageCalc;
                             double bonusDamagePower;
-                            if (power.powerHandler[8].PowerAvailable == true)
+                            if (power.powerHandler[8].GetPowerAvailable() == true)
                             {
                                 bonusDamagePower = 1.5f;
                             }
@@ -133,12 +133,12 @@ public class MeleeWeapons : MonoBehaviour
 
     void checkPower()
     {
-        if (power.powerHandler[5].PowerActive == true && powerModifierApplied == false)
+        if (power.powerHandler[5].GetPowerActive() == true && powerModifierApplied == false)
         {
             powerModifierApplied = true;
             damageDealt = damageDealt * 1.25f;
         }
-        if (power.powerHandler[5].PowerActive == false && powerModifierApplied == true)
+        if (power.powerHandler[5].GetPowerActive() == false && powerModifierApplied == true)
         {
             powerModifierApplied = false;
             damageDealt = damageDealt / 1.25f;

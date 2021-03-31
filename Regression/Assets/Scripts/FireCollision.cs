@@ -29,7 +29,7 @@ public class FireCollision : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (other.gameObject.name == "Player")
         {
-            playerScript.playerOnFire = 1;
+            playerScript.SetPlayerOnFire(1);
             Debug.Log("Fire!" + other.gameObject.name);
         }
 
@@ -38,7 +38,7 @@ public class FireCollision : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            playerScript.playerOnFire = 2; 
+            playerScript.SetPlayerOnFire(2); 
             Debug.Log("No longer on fire! " + other.gameObject.name);
         }
 

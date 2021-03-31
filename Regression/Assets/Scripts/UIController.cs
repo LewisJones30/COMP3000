@@ -164,7 +164,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 health = 0;
             }
-            HPBarMethod(health, player.getMaxHP());
+            HPBarMethod(health, player.GetMaxHP());
             string returnValue = "HP: " + Convert.ToString(health);
             return returnValue;
         }
@@ -234,7 +234,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         expertDrainPowerNameText.SetActive(true);
         expertDrainPowerNameText2.SetActive(true);
         expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
-        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].PowerName;
+        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].GetPowerName();
         expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
         
         Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
@@ -253,7 +253,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             case 1:
                 {
-                    if (player.getEasyWeaponChoice() == false)
+                    if (player.GetEasyWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
                         if (i == 1)
@@ -290,7 +290,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 2:
                 {
-                    if (player.getNormalWeaponChoice() == false)
+                    if (player.GetNormalWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
                         if (i == 0)
@@ -327,7 +327,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 3:
                 {
-                    if (player.getHardWeaponChoice() == false)
+                    if (player.GetHardWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
                         if (i == 0)
@@ -366,7 +366,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 4:
                 {
-                    if (player.getExpertWeaponChoice() == false)
+                    if (player.GetExpertWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
                         if (i == 0)
@@ -459,7 +459,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
         Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
         expertDrainPowerImage.GetComponent<Image>().sprite = sprites[ID + 11];
-        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[ID+11].PowerName;
+        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[ID+11].GetPowerName();
         expertDrainPowerNameText2.GetComponent<Text>().text = "Activated";
         imageAnim.Play("ExpertImageAppear");
         text1Anim.Play("ExpertText1Anim");
@@ -780,7 +780,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             case 1:
                 {
-                    if (player.getEasyPowerDrain() == true)
+                    if (player.GetEasyPowerDrain() == true)
                     {
                         PowerDrainScreen();
                         break;
@@ -794,7 +794,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 2:
                 {
-                    if (player.getNormalPowerDrain() == true)
+                    if (player.GetNormalPowerDrain() == true)
                     {
                         PowerDrainScreen();
                         break;
@@ -807,7 +807,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 3:
                 {
-                    if (player.getHardPowerDrain() == true)
+                    if (player.GetHardPowerDrain() == true)
                     {
                         PowerDrainScreen();
                         break;
@@ -820,7 +820,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 4:
                 {
-                    if (player.getExpertPowerDrain() == true)
+                    if (player.GetExpertPowerDrain() == true)
                     {
                         PowerDrainScreen();
                         break;
@@ -881,7 +881,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Image j;
         for (int i = 0; i < 14; i++)
         {
-            if (powerController.powerHandler[i].PowerActive == false)
+            if (powerController.powerHandler[i].GetPowerActive() == false)
             {
                 float opacityValue = 0.25f;
                 switch (i)
@@ -1145,8 +1145,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (TutorialStage == 1)
         {
-            powerController.powerHandler[0].PowerAvailable = true;
-            powerController.powerHandler[0].PowerActive = true;
+            powerController.powerHandler[0].SetPowerAvailable(true);
+            powerController.powerHandler[0].SetPowerActive(true);
             isPaused = true;
             TutorialStage = 2;
             WelcomeImage.SetActive(true);
@@ -1494,9 +1494,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         isPaused = true;
         PowerBehaviour.Power p = powerController.RandomAvailablePower();
-        losePower1 = p.ID;
+        losePower1 = p.GetID();
         PowerDrain1.GetComponent<Image>().sprite = sprites[losePower1];
-        powerName1.GetComponent<Text>().text = p.PowerName;
+        powerName1.GetComponent<Text>().text = p.GetPowerName();
         powerDesc1.GetComponent<Text>().text = FormatPowerDescription(losePower1);
         switch (p.PowerStrength)
         {
@@ -1522,15 +1522,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
         }
         p = powerController.RandomAvailablePower();
-        losePower2 = p.ID;
+        losePower2 = p.GetID();
         while (losePower1 == losePower2)
         {
             p = powerController.RandomAvailablePower();
-            losePower2 = p.ID;
+            losePower2 = p.GetID();
         }
         PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
         powerDesc2.GetComponent<Text>().text = FormatPowerDescription(losePower2);
-        powerName2.GetComponent<Text>().text = p.PowerName;
+        powerName2.GetComponent<Text>().text = p.GetPowerName();
         switch (p.PowerStrength)
         {
             case 3:
@@ -1575,13 +1575,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         isPaused = true;
         PowerBehaviour.Power p = powerController.getSpecificPower(power1ToDrain);
         PowerDrain1.GetComponent<Image>().sprite = sprites[power1ToDrain];
-        powerName1.GetComponent<Text>().text = p.PowerName;
+        powerName1.GetComponent<Text>().text = p.GetPowerName();
         powerDesc1.GetComponent<Text>().text = FormatPowerDescription(losePower1);
         p = powerController.getSpecificPower(power2ToDrain);
-        losePower2 = p.ID;
+        losePower2 = p.GetID();
         PowerDrain2.GetComponent<Image>().sprite = sprites[losePower2];
         powerDesc2.GetComponent<Text>().text = FormatPowerDescription(losePower2);
-        powerName2.GetComponent<Text>().text = p.PowerName;
+        powerName2.GetComponent<Text>().text = p.GetPowerName();
 
     }
 
@@ -1771,7 +1771,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         for (int i = 0; i < powerController.powerHandler.Length; i++)
         {
-            if (powerController.powerHandler[i].PowerActive == true)
+            if (powerController.powerHandler[i].GetPowerActive())
             {
                 spriteUIElements[ObjsFilled].GetComponent<Image>().sprite = sprites[i];
                 spriteUIElements[ObjsFilled].GetComponent<Image>().enabled = true;
@@ -1827,7 +1827,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     //Points modifiers======================================
     public void AddPoints(float pointsToAdd)
     {
-        pointsToAdd = pointsToAdd * player.pointsModifier;
+        pointsToAdd = pointsToAdd * player.GetPointsModifier();
         pointsGained = pointsGained + pointsToAdd;
         if (currentScore != null)
         {

@@ -9,10 +9,11 @@ public class Player : MonoBehaviour
 {
     //Easy difficulty controls
     [HideInInspector]
-    public double health = 100; //current health is controlled here. Public to allow UI access.
+    public double health = 100; //Player's current health. Access outside of script with GetCurrentHealth.
     [SerializeField]
     double maximumHealth = 100; //Base maximum hp.
     const float SWORD_DAMAGE_REDUCTION_MODIFIER = 0.75f;
+
     [Header("Easy")]
     [SerializeField]
     [Range(0.1f, 2f)]
@@ -101,20 +102,24 @@ public class Player : MonoBehaviour
     bool ExpertPlayerChoosesWeapon = true;
     [Space(10)]
 
+    //Player modifier values. Accessed outside of script using getters.
+
+    //Access with GetWeaponPower()
+    double weaponPower = 1.0f; //Base weapon power
+    //Access with GetBaseWeaponPower()
+    double baseWeaponPower = 1.0f;
+    //Access with GetDamageTaken()
+    double damageTaken = 1.0f; //Player takes 1x damage. Modified by difficulty.
+    //Access with GetPointsModifier()
+    float pointsModifier = 1.0f; //Points gained.
+    //Access with GetPlayerOnFire()
+    int playerOnFire = 0; //Boolean accessed by firecollision to damage the player. 0 = not on fire, 1 = on fire, 2 = exited fire, disable fire effect.
+
+
     //Public variables
     public GameObject deadtextObj;
-    [HideInInspector]
-    public double weaponPower = 1.0f; //Base weapon power, modified by difficulty.
-    [HideInInspector]
-    public double baseWeaponPower = 1.0f; //Used for power 5.
-    [HideInInspector]
-    public double damageTaken = 1.0f; //Player takes 1x damage. Modified by difficulty.
-    [HideInInspector]
-    public float pointsModifier = 1.0f; //Points gained.
-    [HideInInspector]
     public double time = 0;
     [HideInInspector]
-    public int playerOnFire = 0; //Boolean accessed by firecollision to damage the player. 0 = not on fire, 1 = on fire, 2 = exited fire, disable fire effect.
     bool isDead = false; //Player starts alive.
     bool[] powersLost = new bool[20];
     float FireDamageTime = 0f;
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour
         {
             playerdiedScript();
         }
-        else if (powerController.powerHandler[3].PowerActive == true) //Starts time from when the player recieves the power.
+        else if (powerController.powerHandler[3].GetPowerActive() == true) //Starts time from when the player recieves the power.
         {
             time = time + Time.deltaTime;
             if (time >= 1)
@@ -167,7 +172,7 @@ public class Player : MonoBehaviour
         if (playerOnFire == 1)
         {
             isPausedCheck.EnableFireWarning();
-           if (powerController.powerHandler[5].PowerActive == true)
+           if (powerController.powerHandler[5].GetPowerActive() == true)
             {
                 //Change UI to warn player in fire, but imbued with fire means they take no damage.
                 return; //Player does NOT take damage. 
@@ -188,44 +193,72 @@ public class Player : MonoBehaviour
 
 
 
-    //Setters & Getters go here...
+    //Getters
 
-    public bool getEasyPowerDrain()
+    public bool GetEasyPowerDrain()
     {
         return EasyPlayerChoosesPowerDrain;
     }
-    public bool getNormalPowerDrain()
+    public bool GetNormalPowerDrain()
     {
         return NormalPlayerChoosesPowerDrain;
     }
-    public bool getHardPowerDrain()
+    public bool GetHardPowerDrain()
     {
         return HardPlayerChoosesDrain;
     }
-    public bool getExpertPowerDrain()
+    public bool GetExpertPowerDrain()
     {
         return ExpertPlayerChoosesDrain;
     }
 
-    public bool getEasyWeaponChoice()
+    public bool GetEasyWeaponChoice()
     {
         return EasyPlayerChoosesWeapon;
     }
-    public bool getNormalWeaponChoice()
+    public bool GetNormalWeaponChoice()
     {
         return NormalPlayerChoosesWeapon;
     }
-    public bool getHardWeaponChoice()
+    public bool GetHardWeaponChoice()
     {
         return HardPlayerChoosesWeapon;
     }
-    public bool getExpertWeaponChoice()
+    public bool GetExpertWeaponChoice()
     {
         return ExpertPlayerChoosesWeapon;
     }
-    public double getMaxHP()
+    public double GetMaxHP()
     {
         return maximumHealth;
+    }
+    public double GetWeaponPower()
+    {
+        return weaponPower;
+    }
+    public double GetBaseWeaponPower()
+    {
+        return baseWeaponPower;
+    }
+    public double GetDamageTaken()
+    {
+        return damageTaken;
+    }
+    public float GetPointsModifier()
+    {
+        return pointsModifier;
+    }
+    public int GetPlayerOnFire()
+    {
+        return playerOnFire;
+    }
+
+
+    //Setters
+
+    public void SetPlayerOnFire(int value)
+    {
+        playerOnFire = value;
     }
 
     //Damage/healing effects
@@ -253,7 +286,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (powerController.powerHandler[4].PowerActive == true)
+            if (powerController.powerHandler[4].GetPowerActive() == true)
             {
                 DharoksEffect(); //Recalculate the player's damage.
             }
@@ -322,15 +355,16 @@ public class Player : MonoBehaviour
     {
         switch (weaponID)
         {
-            case 0: //Melee Sword
-                if (GameObject.Find("StaffWeapon") != null)
-                {
-                    Destroy(GameObject.Find("StaffWeapon"));
-                }
-                if (GameObject.Find("SwordWeapon") != null)
+            case 0: //Melee 
+                if (GameObject.Find("SwordWeapon") != null) //First check if sword is already present
                 {
                     return;
                 }
+                if (GameObject.Find("StaffWeapon") != null) //Check if staff is present, destroy it and then spawn the sword.
+                {
+                    Destroy(GameObject.Find("StaffWeapon"));
+                }
+
                 GameObject weaponSword;
                 weaponSword = (GameObject)Instantiate(Resources.Load("Mace1"), transform.position, transform.rotation, this.gameObject.transform);
                 weaponSword.transform.GetChild(0).transform.localRotation = Quaternion.Euler(new Vector3(-1.489f, 208.301f, -323.38f));
@@ -421,7 +455,7 @@ public class Player : MonoBehaviour
         //Check powers.
         //Slot 2 & 3 effect the player immediately.
         //Increase player's HP by 2x.
-        if (powerController.powerHandler[1].PowerActive == true)
+        if (powerController.powerHandler[1].GetPowerActive() == true)
         {
             Debug.Log("Power 1 in effect!");
             weaponPower = weaponPower * 2f; //Weapons are twice as effective in terms of damage dealt.
@@ -431,14 +465,14 @@ public class Player : MonoBehaviour
             }    
         }
         //Power 3 check. Double maximum HP.
-        if (powerController.powerHandler[2].PowerActive == true)
+        if (powerController.powerHandler[2].GetPowerActive() == true)
         {
             Debug.Log("Power 2 in effect!");
             maximumHealth = maximumHealth * 2f; //Health is doubled with this modifier
             health = maximumHealth;
         }
         //Power 10 check
-        if (powerController.powerHandler[9].PowerActive == true)
+        if (powerController.powerHandler[9].GetPowerActive() == true)
         {
             damageTaken = damageTaken * 0.5f; //Damage taken is 50% lower.
 
@@ -453,7 +487,7 @@ public class Player : MonoBehaviour
          * powersLost[1] is a boolean array equivalent to the length of the powers array.
          * When a power effect has been drained, this is set to true. This means that the power effect is not taken multiple times.
          */
-        if (powerController.powerHandler[1].PowerActive == false && powerController.powerHandler[1].PowerStartedActive == true)
+        if (powerController.powerHandler[1].GetPowerActive() == false && powerController.powerHandler[1].GetPowerStartedActive())
         {
             if (powersLost[1] == false)
             {
@@ -461,7 +495,7 @@ public class Player : MonoBehaviour
                 powersLost[1] = true;
             }
         }
-        if (powerController.powerHandler[2].PowerActive == false && powerController.powerHandler[2].PowerStartedActive == true)
+        if (powerController.powerHandler[2].GetPowerActive() == false && powerController.powerHandler[2].GetPowerStartedActive())
         {
             if (powersLost[2] == false)
             {
@@ -478,7 +512,7 @@ public class Player : MonoBehaviour
             }
         }
         //Power slot 3 does not need checking here.
-        if (powerController.powerHandler[4].PowerActive == false && powerController.powerHandler[4].PowerStartedActive == true)
+        if (powerController.powerHandler[4].GetPowerActive() == false && powerController.powerHandler[4].GetPowerStartedActive())
         {
             if (powersLost[4] == false)
             {
@@ -487,7 +521,7 @@ public class Player : MonoBehaviour
             }
         }
         //Power slot 5,6,7,8,9 do not need checking here.
-        if (powerController.powerHandler[10].PowerActive == false && powerController.powerHandler[10].PowerStartedActive == true)
+        if (powerController.powerHandler[10].GetPowerActive() == false && powerController.powerHandler[10].GetPowerStartedActive())
         {
             if (powersLost[10] == false)
             {

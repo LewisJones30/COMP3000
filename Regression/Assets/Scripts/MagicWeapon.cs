@@ -29,7 +29,7 @@ public class MagicWeapon : MonoBehaviour
         //Obtain any powers that modify.
         text = UITempWeaponText.GetComponent<Text>();
         PowerBehaviour = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-        if (PowerBehaviour.powerHandler[6].PowerActive == true)
+        if (PowerBehaviour.powerHandler[6].GetPowerActive() == true)
         {
             //Reduce the cooldown of shooting by 50% with power 6.
             shootingCooldown = shootingCooldown / 2f;
@@ -41,7 +41,7 @@ public class MagicWeapon : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PowerBehaviour.powerHandler[6].PowerActive == true && powerModified == false)
+        if (PowerBehaviour.powerHandler[6].GetPowerActive() == true && powerModified == false)
         {
             //Reduce the cooldown of shooting by half with power 6.
             shootingCooldown = shootingCooldown / 2f;
@@ -107,7 +107,7 @@ public class MagicWeapon : MonoBehaviour
     }
     void checkPower()
     {
-        if (PowerBehaviour.powerHandler[6].PowerActive == false && PowerBehaviour.powerHandler[6].PowerStartedActive == true && powerModified == true)
+        if (PowerBehaviour.powerHandler[6].GetPowerActive() == false && PowerBehaviour.powerHandler[6].GetPowerStartedActive() == true && powerModified == true)
         {
             //Reset the effect.
             dupeCD = dupeCD * 2f;

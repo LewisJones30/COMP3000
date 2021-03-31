@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
 
                 if (RNGRoll > RAIN_INT_CHANCE && RNGRoll < RAIN_INT_CHANCE * 2) //Mysterious power doubles the chance of the environmental effects occuring.
                 {
-                    if (GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].PowerActive == true)
+                    if (GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].GetPowerActive() == true)
                     {
                         RNGRoll = 1; //change RNG to pass.
                     }
@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
                     UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
 
                     PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-                    if (powers.powerHandler[12].PowerActive == true)
+                    if (powers.powerHandler[12].GetPowerActive() == true)
                     {
                         ui.ShowPowerActivatedMessage(1);
                         powers.DisableAllFires();
@@ -61,7 +61,7 @@ public class Projectile : MonoBehaviour
 
                 if (RNGRoll > JUSTICE_INT_CHANCE && RNGRoll < JUSTICE_INT_CHANCE * 2)
                 {
-                    if (GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].PowerActive == true)
+                    if (GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].GetPowerActive() == true)
                     {
                         RNGRoll = 1; //change RNG to pass.
                     }
@@ -70,7 +70,7 @@ public class Projectile : MonoBehaviour
                 {
                     //Justice rains from above. 2.5% chance of occuring when damage is dealt.
                     PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-                    if (powers.powerHandler[13].PowerActive == true)
+                    if (powers.powerHandler[13].GetPowerActive() == true)
                     {
                         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
 
@@ -99,7 +99,7 @@ public class Projectile : MonoBehaviour
                 double damageCalc;
                 Player player = GameObject.Find("Player").GetComponent<Player>();
                 Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
-                damageCalc = player.weaponPower * damagePower; //Needs modification to check difficulty.
+                damageCalc = player.GetWeaponPower() * damagePower; //Needs modification to check difficulty.
                 Debug.Log("Enemy Damaged!");
                 if (hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
@@ -130,7 +130,7 @@ public class Projectile : MonoBehaviour
                     Destroy(this.gameObject);
                     PowerBehaviour power = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
                     //When the trident model is integrated, check if the weapon is the trident, and NOT the other staff.
-                    if (power.powerHandler[10].PowerActive == true) //Check if the power is active
+                    if (power.powerHandler[10].GetPowerActive() == true) //Check if the power is active
                     {
                         hit.collider.gameObject.GetComponent<FireCollision>().temporarilyDisableFire();
                     }
