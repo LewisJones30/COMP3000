@@ -44,6 +44,8 @@ public class FinalBoss : MonoBehaviour
 
 
 
+
+
     void FixedUpdate()
     {
         if (UI == null)
@@ -274,6 +276,9 @@ public class FinalBoss : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        GameObject audioController;
+        audioController = GameObject.FindGameObjectWithTag("MusicHandler");
+        audioController.GetComponent<AudioController>().PlayFinalBossMusic();
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.name == "BossHPBar")

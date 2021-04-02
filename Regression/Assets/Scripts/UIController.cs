@@ -56,6 +56,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     [SerializeField]
     Image progressBar;
     Progression p;
+    GameObject audioController;
+    [SerializeField]
+    AudioClip losePowerMusic, finalBossMusic; 
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +88,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (SceneManager.GetActiveScene().name == "Leaderboards")
         {
+            audioController.GetComponent<AudioSource>().Stop();
             return;
         }
         //Firstly, get the gameobjects.
@@ -104,8 +108,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 currentScore = obj.GetComponent<Text>();
             }
+            else if (obj.tag == "MusicHandler")
+            {
+
+            }
         }
         //Find GameObject section.
+
+
 
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -1481,6 +1491,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         Cursor.lockState = CursorLockMode.None;
         lockPauseMenu = true;
+        if (audioController == null)
+        {
+            audioController = GameObject.FindGameObjectWithTag("MusicHandler");
+        }
+        audioController.GetComponent<AudioController>().PlayLosePowerMusic();
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -1561,6 +1576,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         Cursor.lockState = CursorLockMode.None;
         lockPauseMenu = true;
+        if (audioController == null)
+        {
+            audioController = GameObject.FindGameObjectWithTag("MusicHandler");
+        }
+        audioController.GetComponent<AudioController>().PlayLosePowerMusic();
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")

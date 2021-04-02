@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DontDestroyOnLoad : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         
 
-        GameObject[] instances = GameObject.FindGameObjectsWithTag("Handlers");
+        GameObject[] instances = GameObject.FindGameObjectsWithTag("MusicHandler");
         if (instances.Length > 1)
         {
             Destroy(this.gameObject);
@@ -22,5 +23,12 @@ public class DontDestroyOnLoad : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         
+    }
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
