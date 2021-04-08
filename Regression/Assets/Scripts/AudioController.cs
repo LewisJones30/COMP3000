@@ -6,7 +6,7 @@ public class AudioController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    AudioClip LosePowerMusic, FinalBossMusic, IngameMusic;
+    AudioClip LosePowerMusic, FinalBossMusic, IngameMusic, MagicAttack;
     AudioSource audioController;
     void Start()
     {
@@ -51,5 +51,13 @@ public class AudioController : MonoBehaviour
     public void Stop()
     {
         audioController.Stop();
+    }
+    public void PlayMagicAttack()
+    {
+        if (audioController == null)
+        {
+            audioController = GetComponent<AudioSource>();
+        }
+        audioController.PlayOneShot(MagicAttack, 0.5f);
     }
 }

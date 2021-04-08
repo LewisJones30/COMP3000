@@ -19201,6 +19201,7 @@ MonoBehaviour:
   LosePowerMusic: {fileID: 8300000, guid: b1b8f9da381e8114e9a1c8f95f27ca93, type: 3}
   FinalBossMusic: {fileID: 8300000, guid: 761a261882387e64f8eb5b8355654e95, type: 3}
   IngameMusic: {fileID: 8300000, guid: 656b8be919d11e346b0e91a895326334, type: 3}
+  MagicAttack: {fileID: 8300000, guid: 5155816d01a6efc4fb43f1535b10631a, type: 3}
 --- !u!1001 &1084551368
 PrefabInstance:
   m_ObjectHideFlags: 0
