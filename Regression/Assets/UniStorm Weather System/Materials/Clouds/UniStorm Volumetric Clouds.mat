@@ -65,20 +65,20 @@ Material:
     - _FogGradientHeight: 0.472
     - _MaskMoon: 1
     - _MoonControl: 0
-    - _MoonIntensity: -0.009234696
+    - _MoonIntensity: -0.009678579
     - _S: 3
     - _Seed: -5257
     - _SnowStrength: 0
     - _SunAlpha: 9.4
     - _SunBeta: 0.5
-    - _SunControl: 1.0000149
-    - _SunIntensity: 0.32351345
+    - _SunControl: 1.0013422
+    - _SunIntensity: 0.32082048
     - _UseHighConvergenceSpeed: 0
     - _UseUniStormFog: 1
     - _VisibleDistance: -39.6
     - _WetnessStrength: 0
     - _WorldPosGlobal: 0
-    - _uAttenuation: 1.5001056
+    - _uAttenuation: 1.5017197
     - _uCloudAlpha: 1
     - _uCloudHeight: 1
     - _uCloudsBackwardScatteringG: -0.2
@@ -86,7 +86,7 @@ Material:
     - _uCloudsBaseScale: 1.72
     - _uCloudsBottom: 500
     - _uCloudsBottomSoftness: 0.4
-    - _uCloudsCoverage: 0.52
+    - _uCloudsCoverage: 0.527
     - _uCloudsCoverageBias: 0.082
     - _uCloudsDensity: 1
     - _uCloudsDetailScale: 1000
@@ -124,12 +124,12 @@ Material:
     - _FogColor: {r: 0.5161116, g: 0.5278935, b: 0.5441177, a: 1}
     - _HorizonColor: {r: 0, g: 0, b: 0, a: 1}
     - _MoonColor: {r: 0.33023313, g: 0.36793935, b: 0.38679242, a: 1}
-    - _MoonVector: {r: -0.57357645, g: -0.8021399, b: -0.16607703, a: 0}
+    - _MoonVector: {r: -0.5735764, g: -0.7159878, b: -0.39795917, a: 0}
     - _PlayerPosition: {r: 0, g: 0, b: 0, a: 0}
     - _SkyColor: {r: 0.5513084, g: 0.62561595, b: 0.72794116, a: 1}
     - _SunColor: {r: 0.6603774, g: 0.63595825, b: 0.6011926, a: 1}
     - _SunDir: {r: 0.2784009, g: 0.9581905, b: 0.0660601, a: 0}
-    - _SunVector: {r: 0.3420202, g: 0.9201773, b: 0.1905157, a: 0}
+    - _SunVector: {r: 0.3420202, g: 0.82134765, b: 0.45652008, a: 0}
     - _uCloudColor: {r: 1, g: 1, b: 1, a: 1}
     - _uCloudsAmbientColorBottom: {r: 0.53475434, g: 0.5510413, b: 0.5754717, a: 1}
     - _uCloudsAmbientColorTop: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
@@ -139,7 +139,7 @@ Material:
     - _uHorizonColor: {r: 1, g: 1, b: 1, a: 1}
     - _uLightningColor: {r: 0.63256925, g: 0.65693235, b: 0.66176474, a: 1}
     - _uMoonColor: {r: 0.33023313, g: 0.36793935, b: 0.38679242, a: 1}
-    - _uMoonDir: {r: 0.57357645, g: 0.80214226, b: 0.1660659, a: 0}
+    - _uMoonDir: {r: 0.57357645, g: 0.71599334, b: 0.39794922, a: 0}
     - _uSunColor: {r: 0.6603774, g: 0.63595825, b: 0.6011926, a: 1}
-    - _uSunDir: {r: -0.34202015, g: -0.9201799, b: -0.19050275, a: 0}
+    - _uSunDir: {r: -0.3420202, g: -0.821354, b: -0.45650867, a: 0}
   m_BuildTextureStacks: []
