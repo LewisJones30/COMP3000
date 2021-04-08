@@ -386,8 +386,8 @@ public class Player : MonoBehaviour
                 }
                 GameObject weaponStaff;
                 weaponStaff = (GameObject)Instantiate(Resources.Load("Staff"), transform.position, transform.rotation, this.gameObject.transform);
-                weaponStaff.transform.localRotation = Quaternion.Euler(new Vector3(-34f, 150f, 49.454f));
-                weaponStaff.transform.localPosition = (new Vector3(-0.892f, -0.91f, 0.135f));
+                weaponStaff.transform.localRotation = Quaternion.Euler(new Vector3(8.927f, 10.7f, 0.249f));
+                weaponStaff.transform.localPosition = (new Vector3(-0.9f, -1.073f, 0.726f));
 
                 foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
                 {

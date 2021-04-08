@@ -6,7 +6,7 @@ public class AudioController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    AudioClip losePowerMusic, finalBossMusic;
+    AudioClip LosePowerMusic, FinalBossMusic, IngameMusic;
     AudioSource audioController;
     void Start()
     {
@@ -22,8 +22,9 @@ public class AudioController : MonoBehaviour
             audioController = GetComponent<AudioSource>();
         }
         audioController.Stop();
+        audioController.volume = 1.0f;
         audioController.loop = true;
-        audioController.PlayOneShot(losePowerMusic);
+        audioController.PlayOneShot(LosePowerMusic);
     }
     public void PlayFinalBossMusic()
     {
@@ -32,11 +33,23 @@ public class AudioController : MonoBehaviour
             audioController = GetComponent<AudioSource>();
         }
         audioController.Stop();
+        audioController.volume = 1.0f;
         audioController.loop = true;
-        audioController.PlayOneShot(finalBossMusic);
+        audioController.PlayOneShot(FinalBossMusic);
+    }
+    public void PlayInGameMusic()
+    {
+        if (audioController == null)
+        {
+            audioController = GetComponent<AudioSource>();
+        }
+        audioController.Stop();
+        audioController.volume = 0.3f;
+        audioController.loop = true;
+        audioController.PlayOneShot(IngameMusic);
     }
     public void Stop()
     {
-
+        audioController.Stop();
     }
 }

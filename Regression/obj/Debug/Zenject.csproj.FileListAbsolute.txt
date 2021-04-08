@@ -3,7 +3,6 @@ S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\Zenject.pdb
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\Microsoft.Win32.Primitives.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\mscorlib.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\netstandard.dll
-S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\System.AppContext.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\System.Collections.Concurrent.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\System.Collections.dll
@@ -193,7 +192,6 @@ S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\Unity.Cecil.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\Unity.SerializationLogic.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\ExCSS.Unity.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
-S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\Unity.CecilTools.dll
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\UnityEngine.xml
 S:\Final Year Project\COMP3000\Regression\Temp\bin\Debug\UnityEditor.xml

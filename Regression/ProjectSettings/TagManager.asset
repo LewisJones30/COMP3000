@@ -26,6 +26,7 @@ TagManager:
   - BossHP
   - Fire
   - MusicHandler
+  - StaffOBJ
   layers:
   - Default
   - TransparentFX

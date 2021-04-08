@@ -77,9 +77,7 @@ public class MagicWeapon : MonoBehaviour
                     }
                     else
                     {
-                        GameObject projectileShot;
-                        projectileShot = Instantiate(projectile, transform.position, transform.rotation);
-                        projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
+                        StartCoroutine("ShootProjectile");
                         shootingCooldown = dupeCD;
                         //Shoot magic blast projectile.
                     }
@@ -104,6 +102,18 @@ public class MagicWeapon : MonoBehaviour
         {
             
         }
+    }
+
+    IEnumerator ShootProjectile()
+    {
+       
+        GameObject.FindGameObjectWithTag("StaffOBJ").GetComponent<Animator>().SetBool("isAttacking", true);
+        yield return new WaitForSeconds(0.33f);
+        GameObject projectileShot;
+        projectileShot = Instantiate(projectile, transform.position, transform.rotation);
+        projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
+        yield return new WaitForSeconds(0.67f);
+        GameObject.FindGameObjectWithTag("StaffOBJ").GetComponent<Animator>().SetBool("isAttacking", false);
     }
     void checkPower()
     {
