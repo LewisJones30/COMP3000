@@ -41,6 +41,8 @@ public class Enemy : MonoBehaviour
     float startingScaleX, startingScaleY, startingScaleZ;
     float inflatedScaleX, inflatedScaleY, inflatedScaleZ;
     Animator animator;
+    [SerializeField]
+    AudioClip DeathSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -164,6 +166,7 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator EnemyKilled()
     {
+        GetComponent<AudioSource>().PlayOneShot(DeathSound);   
         animator.SetBool("isDead", true);
         pauseCheck.AddPoints(pointsWhenKilled);
         yield return new WaitForSeconds(1f);

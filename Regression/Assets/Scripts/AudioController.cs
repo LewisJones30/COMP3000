@@ -6,7 +6,7 @@ public class AudioController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    AudioClip LosePowerMusic, FinalBossMusic, IngameMusic, MagicAttack, MeleeAttack;
+    AudioClip LosePowerMusic, FinalBossMusic, IngameMusic, MagicAttack, MeleeAttack, GolemAttack, GolemDeath, MeleeMagicAttack, MeleeMagicDeath, MegaTrollAttack, MegaTrollDeath;
     AudioSource audioController;
     void Start()
     {
@@ -70,5 +70,50 @@ public class AudioController : MonoBehaviour
             audioController = GetComponent<AudioSource>();
         }
         audioController.PlayOneShot(MeleeAttack, 0.5f);
+    }
+    public void PlaySoundEffect(int SoundEffectID)
+    {
+        if (audioController == null)
+        {
+            audioController = GetComponent<AudioSource>();
+        }
+        switch (SoundEffectID)
+        {
+            case 0: //Melee Orc & Magic Ghoul attack sound
+                {
+                    audioController.PlayOneShot(MeleeMagicAttack);
+                    break;
+                }
+            case 1: //Melee Orc & Magic Ghoul Death sound
+                {
+                    audioController.PlayOneShot(MeleeMagicDeath);
+                    break;
+                }
+            case 2: //Mega Troll attack sound
+                {
+                    audioController.PlayOneShot(MegaTrollAttack);
+                    break;
+                }
+            case 3: //Mega troll death sound
+                {
+                    audioController.PlayOneShot(MegaTrollDeath);
+                    break;
+                }
+            case 4: //Golem attack sound
+                {
+                    audioController.PlayOneShot(GolemAttack);
+                    break;
+                }
+            case 5: //Golem death sound.
+                {
+                    audioController.PlayOneShot(GolemDeath);
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+           
     }
 }

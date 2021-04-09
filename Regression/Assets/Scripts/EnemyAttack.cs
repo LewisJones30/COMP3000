@@ -18,6 +18,8 @@ public class EnemyAttack : MonoBehaviour
    int MeleeRaycastLength = 2;
     [SerializeField]
     RaycastHit hit;
+    [SerializeField]
+    AudioClip MagicAttack, MeleeAttack;
     void Start()
     {
         ispauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
@@ -41,6 +43,14 @@ public class EnemyAttack : MonoBehaviour
                 //Attack player
                 if (this.tag == "ProjectileEnemy")
                 {
+                    float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+                    float volume;
+                    volume = 1 - (dist / 70);
+                    if (volume < 0)
+                    {
+                        volume = 0;
+                    }
+                    GetComponent<AudioSource>().PlayOneShot(MagicAttack, volume);
                     attackSpeed = storedAS + 1.2f;
                     //StartCoroutine("attackAnim");
                     isEnemy.SetTrigger("Attack");
@@ -60,6 +70,7 @@ public class EnemyAttack : MonoBehaviour
     }
     void spawnProjectile()
     {
+
         GameObject projectileShot;
         projectileShot = Instantiate(projectile, transform.position, transform.rotation);
         projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
@@ -75,7 +86,17 @@ public class EnemyAttack : MonoBehaviour
         {
             if (hit.transform.gameObject.name == "Player")
             {
-
+                float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+                float volume;
+                if (dist > 10)
+                {
+                    volume = 0;
+                }
+                else
+                {
+                    volume = 1 - (dist / 10);
+                }
+                GetComponent<AudioSource>().PlayOneShot(MagicAttack, volume);
                 //isEnemy.Rebind();
                 isEnemy.SetTrigger("Attack");
                 hit.transform.gameObject.GetComponent<Player>().takeDamage(25);
