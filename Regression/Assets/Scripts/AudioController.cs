@@ -46,7 +46,7 @@ public class AudioController : MonoBehaviour
             audioController = GetComponent<AudioSource>();
         }
         audioController.Stop();
-        audioController.volume = 0.3f;
+        audioController.volume = 1.0f;
         audioController.loop = true;
         audioController.clip = IngameMusic;
         audioController.Play();

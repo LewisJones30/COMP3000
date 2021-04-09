@@ -161,12 +161,20 @@ public class Enemy : MonoBehaviour
         StartCoroutine("flashDamaged");
         if (health <= 0)
         {
+            float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+            float volume;
+            volume = 1 - (dist / 70);
+            if (volume < 0)
+            {
+                volume = 0;
+            }
+            GetComponent<AudioSource>().PlayOneShot(DeathSound, volume);
             StartCoroutine("EnemyKilled");
         }
     }
     IEnumerator EnemyKilled()
-    {
-        GetComponent<AudioSource>().PlayOneShot(DeathSound);   
+    { 
+
         animator.SetBool("isDead", true);
         pauseCheck.AddPoints(pointsWhenKilled);
         yield return new WaitForSeconds(1f);

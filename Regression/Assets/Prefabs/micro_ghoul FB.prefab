@@ -50,7 +50,7 @@ MonoBehaviour:
   enemyMovementSpeed: 1
   FinalBossMinion: 1
   i: {fileID: 0}
-  DeathSound: {fileID: 0}
+  DeathSound: {fileID: 8300000, guid: f8a88699183c6474998283211a043308, type: 3}
 --- !u!1001 &3887765649138286511
 PrefabInstance:
   m_ObjectHideFlags: 0

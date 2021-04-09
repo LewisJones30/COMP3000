@@ -196,224 +196,26 @@ public class Progression : MonoBehaviour
 
     public void enemyKilled(bool finalBossMinion)
     {
-        //This section will need reprogramming with the wave system.
+
         if (finalBossMinion)
         {
             return;
         }
         numberEnemiesKilled = numberEnemiesKilled + 1;
-        switch (currentWave)
+        GameObject[] waveEnemies = waveArrays[currentWave - 1].wave;
+        if (numberEnemiesKilled == waveEnemies.Length)
         {
-            case 1:
-                GameObject[] wave1Enemies = waveArrays[0].wave;
-                if (numberEnemiesKilled == wave1Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    //Reset enemies killed/spawned.
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                        {
-                            ui.GameCompleteText();
-                            break;
-                        }
-                    //Wave complete!
-                    ui.WaveComplete();
-
-                }
-                break;
-            case 2:
-                GameObject[] wave2Enemies = waveArrays[1].wave;
-                if (numberEnemiesKilled == wave2Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 3:
-                GameObject[] wave3Enemies = waveArrays[2].wave;
-                if (numberEnemiesKilled == wave3Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 4:
-                GameObject[] wave4Enemies = waveArrays[3].wave;
-                if (numberEnemiesKilled == wave4Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 5:
-                GameObject[] wave5Enemies = waveArrays[4].wave;
-                if (numberEnemiesKilled == wave5Enemies.Length)
-                    waveComplete = true;
-                {
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 6:
-                GameObject[] wave6Enemies = waveArrays[5].wave;
-                if (numberEnemiesKilled == wave6Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 7:
-                GameObject[] wave7Enemies = waveArrays[6].wave;
-                if (numberEnemiesKilled == wave7Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 8:
-                GameObject[] wave8Enemies = waveArrays[7].wave;
-                if (numberEnemiesKilled == wave8Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 9:
-                GameObject[] wave9Enemies = waveArrays[8].wave;
-                if (numberEnemiesKilled == wave9Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 10:
-                GameObject[] wave10Enemies = waveArrays[9].wave;
-                if (numberEnemiesKilled == wave10Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 11:
-                GameObject[] wave11Enemies = waveArrays[10].wave;
-                if (numberEnemiesKilled == wave11Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 12:
-                GameObject[] wave12Enemies = waveArrays[11].wave;
-                if (numberEnemiesKilled == wave12Enemies.Length)
-                {
-                    waveComplete = true;
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
-            case 13:
-                GameObject[] wave13Enemies = waveArrays[12].wave;
-                if (numberEnemiesKilled == wave13Enemies.Length)
-                {
-                    currentWave = currentWave + 1;
-                    numberEnemiesKilled = 0;
-                    numberEnemiesSpawned = 0;
-                    if (currentWave > maximumWave)
-                    {
-                        ui.GameCompleteText();
-                        break;
-                    }
-                    ui.WaveComplete();
-                }
-                break;
+            waveComplete = true;
+            currentWave = currentWave + 1;
+            //Reset enemies killed/spawned.
+            numberEnemiesKilled = 0;
+            numberEnemiesSpawned = 0;
+            if (currentWave > maximumWave)
+            {
+                ui.GameCompleteText();
+            }
+            //Wave complete!
+            ui.WaveComplete();
         }
     }
 
@@ -433,7 +235,7 @@ public class Progression : MonoBehaviour
         {
             return (float)1.0f;
         }
-        return (float)numberEnemiesKilled / waveArrays[GetCurrentWave()].wave.Length;
+        return (float)numberEnemiesKilled / waveArrays[GetCurrentWave() - 1].wave.Length;
     }
 
     //Setters

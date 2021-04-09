@@ -41,6 +41,8 @@ public class FinalBoss : MonoBehaviour
     bool enragedState = false;
     // Update is called once per frame
     Animator animator;
+    [SerializeField]
+    AudioClip EnragedRoar, GolemAttack;
 
 
 
@@ -416,6 +418,14 @@ public class FinalBoss : MonoBehaviour
         GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints(damageDealt);
         if (currentHP <= MAX_HP / 2 && enragedState == false)
         {
+            float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+            float volume;
+            volume = 1 - (dist / 100);
+            if (volume < 0)
+            {
+                volume = 0;
+            }
+            GetComponent<AudioSource>().PlayOneShot(EnragedRoar);
             enragedState = true;
             BossName.GetComponent<Text>().text = "The golem is ENRAGED!";
             DEFAULT_ATTACK_SPEED = DEFAULT_ATTACK_SPEED / 2f;
