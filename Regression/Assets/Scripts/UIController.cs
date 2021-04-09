@@ -2226,8 +2226,24 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
                 if (isPaused == false || inPauseMenu == false)
                 {
+
                     inPauseMenu = true;
                     isPaused = true;
+                    AudioSource[] objs = FindObjectsOfType<AudioSource>();
+                    foreach (AudioSource obj in objs)
+                    {
+                        if (obj.tag == "MusicHandler")
+                        {
+
+                        }
+                        else
+                        {
+                            if (obj.clip != null)
+                            {
+                                obj.Pause();
+                            }
+                        }
+                    }
                     Debug.Log("Escape pressed, game paused!");
                     GamePausedFunction();
                     Cursor.lockState = CursorLockMode.None;
@@ -2236,6 +2252,18 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 {
                     inPauseMenu = false;
                     isPaused = false;
+                    AudioSource[] objs = FindObjectsOfType<AudioSource>();
+                    foreach (AudioSource obj in objs)
+                    {
+                        if (obj.tag == "MusicHandler")
+                        {
+
+                        }
+                        else
+                        {
+                            obj.UnPause();
+                        }
+                    }
                     Debug.Log("Game resumed!");
                     GameUnpausedFunction();
                     Cursor.lockState = CursorLockMode.Locked;
