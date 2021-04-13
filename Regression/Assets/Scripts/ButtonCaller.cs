@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonCaller : MonoBehaviour
 {
@@ -139,27 +140,34 @@ public class ButtonCaller : MonoBehaviour
         PlayerPrefs.SetInt("TutorialCompleteStatus", 0);
     }
     public void startGameEasy()
-    {
+    { 
+        GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 1);
         SceneManager.LoadScene("Game");
+
     }
     public void startGameNormal()
     {
+        GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 2);
         SceneManager.LoadScene("Game");
+
     }
     public void startGameHard()
     {
+        GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 3);
         SceneManager.LoadScene("Game");
     }
     public void startGameExpert()
     {
+        GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 4);
         SceneManager.LoadScene("Game");
     }
     public void startGameSatanic()
     {
+        GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 5);
         SceneManager.LoadScene("Game");
     }

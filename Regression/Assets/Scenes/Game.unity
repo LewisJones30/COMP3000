@@ -9847,7 +9847,7 @@ PrefabInstance:
       objectReference: {fileID: 1792243631}
     - target: {fileID: 7888746551809037514, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: UIHandler
       objectReference: {fileID: 0}
     - target: {fileID: 7888746551985291571, guid: e59c0ca30ca213e44b41771a9f1f0c66, type: 3}
       propertyPath: m_TagString
@@ -18466,7 +18466,7 @@ PrefabInstance:
       objectReference: {fileID: 3887765649138383191, guid: e11b336e1130fef4c9539ec598229542, type: 3}
     - target: {fileID: 1479739460637907824, guid: 3ab994a84dae8ac42a70e189879b63ce, type: 3}
       propertyPath: EnemySpawnTime.Array.data[0]
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1479739460637907824, guid: 3ab994a84dae8ac42a70e189879b63ce, type: 3}
       propertyPath: EnemySpawnTime.Array.data[1]

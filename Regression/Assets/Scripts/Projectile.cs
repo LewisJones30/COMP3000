@@ -15,15 +15,26 @@ public class Projectile : MonoBehaviour
     Animator ifEnemy;
     const int JUSTICE_INT_CHANCE = 125; //1.25% chance of triggering.
     const int RAIN_INT_CHANCE = 100; //1% chance of triggering.
+    const float TIME_TO_DESTROY = 3.5f;
+    float timer = 0.0f;
+    UIController isPaused;
     // Start is called before the first frame update
     void Start()
     {
-
+        isPaused = GameObject.FindGameObjectWithTag("UIHandler").GetComponent<UIController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isPaused.isPaused) //Only increment timer if the game is not paused!
+        {
+            timer = timer + Time.deltaTime;
+            if (timer > TIME_TO_DESTROY)
+            {
+                Destroy(gameObject);
+            }
+        }    
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.SphereCast(transform.position, 0.25f, forward, out hit, 1.5f))
         {

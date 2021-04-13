@@ -487,6 +487,7 @@ public class Progression : MonoBehaviour
         currentWave = 1;
         maximumWave = waveArrays.Length; //Dynamically find the maximum waves.
         EnemySpawnTimeDupe = (float[])EnemySpawnTime.Clone(); //Create a clone.
+        EnemySpawnTime[0] = 0.5f;
     }
 }
 [System.Serializable]
