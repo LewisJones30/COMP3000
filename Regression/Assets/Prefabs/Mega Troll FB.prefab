@@ -46,6 +46,8 @@ MonoBehaviour:
   projectile: {fileID: 1707102027251842, guid: dfb85277a4a133d45bc2d5f31d82309c, type: 3}
   attackSpeed: 2
   MeleeRaycastLength: 2
+  MagicAttack: {fileID: 0}
+  MeleeAttack: {fileID: 0}
 --- !u!1 &362878990
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +94,8 @@ MonoBehaviour:
   projectile: {fileID: 1707102027251842, guid: dfb85277a4a133d45bc2d5f31d82309c, type: 3}
   attackSpeed: 2
   MeleeRaycastLength: 2
+  MagicAttack: {fileID: 0}
+  MeleeAttack: {fileID: 0}
 --- !u!1 &989767349
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +142,8 @@ MonoBehaviour:
   projectile: {fileID: 1707102027251842, guid: dfb85277a4a133d45bc2d5f31d82309c, type: 3}
   attackSpeed: 2
   MeleeRaycastLength: 2
+  MagicAttack: {fileID: 0}
+  MeleeAttack: {fileID: 0}
 --- !u!1 &2422556316679904920
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2422556316679904920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0028500904}
+  m_LocalPosition: {x: 0, y: 9, z: 0.0028500904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8381831235650030283}
@@ -181,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9252433a8500f8345b1bb1d353e8c15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagingProjectile: {fileID: 6129304379766499898, guid: 1859be86f2eecf24a835ca3e29e43f94, type: 3}
+  DamagingProjectile: {fileID: 1846563170864394, guid: 3bbebb6123d7fdd4fa718a9ea192c837, type: 3}
 --- !u!54 &999107157
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -232,6 +238,7 @@ MonoBehaviour:
   enemyMovementSpeed: 0.25
   FinalBossMinion: 1
   i: {fileID: 0}
+  DeathSound: {fileID: 0}
 --- !u!1001 &8381831235650424935
 PrefabInstance:
   m_ObjectHideFlags: 0

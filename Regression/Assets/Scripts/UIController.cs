@@ -2215,9 +2215,47 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             }
             if (Input.GetKeyDown(KeyCode.F12))
             {
-                PowerDrainScreen();//Testing.
-            }
+                UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
 
+                GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
+                GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                GameObject FB = GameObject.FindGameObjectWithTag("FinalBoss");
+                if (FB != null)
+                {
+                    JusticeSpawn projectiles = FB.GetComponentInChildren<JusticeSpawn>();
+                    if (projectiles != null)
+                    {
+                        ui.ShowPowerActivatedMessage(2);
+                        projectiles.FirePowerEffect();
+                    }
+                }
+                foreach (GameObject obj in projectileEnemies)
+                {
+                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                    if (projectiles != null)
+                    {
+                        ui.ShowPowerActivatedMessage(2);
+                        projectiles.FirePowerEffect();
+                    }
+
+                }
+                foreach (GameObject obj in swordEnemies)
+                {
+                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                    if (projectiles != null)
+                    {
+                        projectiles.FirePowerEffect();
+                    }
+                }
+            }
+            if (isPaused == true)
+            {
+                Time.timeScale = 0.0f;
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+            }
             if (Input.GetKeyDown(KeyCode.Escape) == true)
             {
                 if (lockPauseMenu == true)
@@ -2322,7 +2360,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     Cursor.lockState = CursorLockMode.Locked;
                     isPaused = false;
 
-               }
+                }
             }
             if (isPaused == false)
             {

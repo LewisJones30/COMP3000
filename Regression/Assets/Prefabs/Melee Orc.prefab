@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7171732585099910035}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 19.67, z: 0}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8329651772365927077}
@@ -73,28 +73,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.293583, y: 1.6276364, z: 1.0814991}
   m_Center: {x: 0.25981903, y: 0.89560294, z: 0.06549358}
---- !u!114 &944629469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8329651772366089861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991359406b94f7041b84dfa6587e0bcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  ExpertOnlyDamageReduction: 0.1
-  enemyProjectile: {fileID: 0}
-  attackSpeed: 3.5
-  pointsWhenKilled: 100
-  raycastLength: 2.5
-  enemyMovementSpeed: 2
-  FinalBossMinion: 0
-  i: {fileID: 0}
-  DeathSound: {fileID: 8300000, guid: f8a88699183c6474998283211a043308, type: 3}
 --- !u!82 &3361500727869073082
 AudioSource:
   m_ObjectHideFlags: 0
@@ -191,6 +169,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &944629469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8329651772366089861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991359406b94f7041b84dfa6587e0bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  ExpertOnlyDamageReduction: 0.1
+  enemyProjectile: {fileID: 0}
+  attackSpeed: 3.5
+  pointsWhenKilled: 100
+  raycastLength: 2.5
+  enemyMovementSpeed: 2
+  FinalBossMinion: 0
+  i: {fileID: 0}
+  DeathSound: {fileID: 8300000, guid: f8a88699183c6474998283211a043308, type: 3}
 --- !u!1 &8686653994155996691
 GameObject:
   m_ObjectHideFlags: 0

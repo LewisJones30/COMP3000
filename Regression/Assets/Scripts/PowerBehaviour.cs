@@ -151,6 +151,8 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             }
         }
         Debug.Log("All fires disabled!");
+        float timer = 0.0f;
+        UIController ui = GameObject.FindGameObjectWithTag("UIHandler").GetComponent<UIController>();
         yield return new WaitForSeconds(45);
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {

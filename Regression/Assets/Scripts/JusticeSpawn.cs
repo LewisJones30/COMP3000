@@ -45,12 +45,18 @@ public class JusticeSpawn : MonoBehaviour
 
         GameObject projectile;
         projectile = Instantiate(DamagingProjectile, transform.position + new Vector3(1, 0, 0), transform.rotation);
-        Enemy enemy = GetComponentInParent<Enemy>();
-        //Disable movement
+        if (gameObject.tag == "FinalBoss")
+        {
+            FinalBoss fb = transform.parent.GetComponent<FinalBoss>();
+            yield return new WaitForSeconds(0.75f);
+            fb.DealDamage(25);
+        }
+        else
+        {
+            Enemy enemyScript = transform.parent.GetComponent<Enemy>();
+            yield return new WaitForSeconds(0.75f);
+            enemyScript.takeDamage(25);
+        }
 
-        yield return new WaitForSeconds(0.75f);
-        //Enable movement
-        Enemy enemyScript = transform.parent.GetComponent<Enemy>();
-        enemyScript.takeDamage(25);
     }
 }

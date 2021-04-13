@@ -87,6 +87,16 @@ public class Projectile : MonoBehaviour
 
                         GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
                         GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                        GameObject FB = GameObject.FindGameObjectWithTag("FinalBoss");
+                        if (FB != null)
+                        {
+                            JusticeSpawn projectiles = FB .GetComponentInChildren<JusticeSpawn>();
+                            if (projectiles != null)
+                            {
+                                ui.ShowPowerActivatedMessage(2);
+                                projectiles.FirePowerEffect();
+                            }
+                        }
                         foreach (GameObject obj in projectileEnemies)
                         {
                             JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
