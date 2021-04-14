@@ -18780,6 +18780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProgressionHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 7931286485462833133, guid: 3ab994a84dae8ac42a70e189879b63ce, type: 3}
+      propertyPath: m_TagString
+      value: ProgressionHandler
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ab994a84dae8ac42a70e189879b63ce, type: 3}
 --- !u!1001 &1052639346
@@ -27562,15 +27566,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1568763694}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: LosePower1
-        m_Mode: 1
+        m_MethodName: LosePower
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1568763692
 MonoBehaviour:
@@ -30068,8 +30072,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1847988618}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: LosePower2
-        m_Mode: 1
+        m_MethodName: LosePower
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -31231,8 +31235,8 @@ MonoBehaviour:
   EasyWeaponPowerModifier: 1
   EasyDamageTakenModifier: 1
   EasyPointsModifier: 0.25
-  EasyPlayerChoosesPowerDrain: 1
-  EasyPlayerChoosesWeapon: 1
+  EasyPlayerChoosesPowerDrain: 0
+  EasyPlayerChoosesWeapon: 0
   NormalMaxHealthModifier: 1
   NormalWeaponPowerModifier: 1
   NormalDamageTakenModifier: 1

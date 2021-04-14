@@ -178,7 +178,7 @@ public class Enemy : MonoBehaviour
         animator.SetBool("isDead", true);
         pauseCheck.AddPoints(pointsWhenKilled);
         yield return new WaitForSeconds(1f);
-        if (pauseCheck.getTutorialStage() > 0)
+        if (pauseCheck.GetTutorialStage() > 0)
         {
             pauseCheck.TutorialEnemyKilled();
         }

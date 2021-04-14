@@ -63,34 +63,28 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        if (expertDrainPowerImage != null)
+
+        if (SceneManager.GetActiveScene().name == "Game") //Check if the scene is "GetActiveScene". If it is, run below.
         {
-            expertDrainPowerImage.SetActive(false);
-            expertDrainPowerNameText.SetActive(false);
-            expertDrainPowerNameText2.SetActive(false);
-        }
-        if (UIStunnedMessage != null)
-        {
-            UIStunnedMessage.SetActive(false);
-        }
-        if (SceneManager.GetActiveScene().name == "Game")
-        {
+            if (expertDrainPowerImage != null) //Set these to false. The reason they are true beforehand is to ensure that Unity can link to them properly.
+            {
+                expertDrainPowerImage.SetActive(false);
+                expertDrainPowerNameText.SetActive(false);
+                expertDrainPowerNameText2.SetActive(false);
+            }
+            if (UIStunnedMessage != null) //Same reason as above.
+            {
+                UIStunnedMessage.SetActive(false);
+            }
             WeaponSelection();
         }
         if (SceneManager.GetActiveScene().name == "Leaderboards")
         {
-            loadLeaderboardEasy();
+            LoadLeaderboard(1);
         }
-
-
     }
-    void GetGameObjectsGame()
+    void GetGameObjectsGame() 
     {
-        if (SceneManager.GetActiveScene().name == "Leaderboards")
-        {
-            audioController.GetComponent<AudioSource>().Stop();
-            return;
-        }
         //Firstly, get the gameobjects.
         foreach(GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
@@ -108,15 +102,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 currentScore = obj.GetComponent<Text>();
             }
-            else if (obj.tag == "MusicHandler")
-            {
-
-            }
         }
         //Find GameObject section.
-
-
-
         powerController = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         player = GameObject.Find("Player").GetComponent<Player>();
         UIWaveComplete = GameObject.Find("WaveCompleteText");
@@ -147,8 +134,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         isPaused = true;
         //Game is paused here.
         
+
+
         
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[]) //This is used to search all inactive objects.
         {
             if (obj.tag == "RemoveWhenPaused")
             {
@@ -199,41 +188,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         lockPauseMenu = setting;
     }
-    //Methods to trigger start of the game
-    public void startGameEasy()
-    {
-        powerController.StartGameEasy();
-        
-    }
-    public void startGameMedium()
-    {
-        powerController.StartGameNormal();
-    }
-    public void startGameHard()
-    {
-        powerController.StartGameHard();
-    }
-    public void startGameExpert()
-    {
-        powerController.StartGameExpert();
-    }
-    //Satanic difficulty is currently planned as an MAP and may not be added. The trigger will be added, however.
-    public void startGameSatanic()
-    {
-        powerController.StartGameSatanic();
-    }
-    void startTutorial()
-    {
-        powerController.StartGameTutorial();
-    }
     //Methods called by PowerBehaviour to draw certain UI elements and redraw others
-
     public void LostPowerMessage(int PowerDrainedID)
     {
         StartCoroutine("ShowMessage", PowerDrainedID);
         p.SetWaveComplete(false);
 
     }
+    //This method is called by LostPowerMessage. 
     IEnumerator ShowMessage(int PowerDrainedID)
     {
         if (expertDrainPowerImage.activeInHierarchy == true || expertDrainPowerNameText.activeInHierarchy == true || expertDrainPowerNameText2.activeInHierarchy == true)
@@ -253,12 +215,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         imageAnim.Play("ExpertImageAppear");
         text1Anim.Play("ExpertText1Anim");
         text2Anim.Play("ExpertTextAnim2");
-        ShowAllPowersInGame();
+        ShowAllPowersInGame(); //Redraw powers for the user on the UI. Removes the redundant power.
+
         yield return new WaitForSeconds(4);
         imageAnim.Play("ExpertImageDisappear");
         text1Anim.Play("ExpertText1Disappear");
         text2Anim.Play("ExpertText2Anim");
         yield return new WaitForSeconds(1f);
+        //Check if the player's GetWeaponChoice is true or false.
+        //If true, run progression handler.
         switch (PlayerPrefs.GetInt("DifficultyChosen"))
         {
             case 1:
@@ -289,12 +254,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
-                        text1Anim.Play("ExpertText1Anim");
-                        yield return new WaitForSeconds(3f);
-                        text1Anim.Play("ExpertText1Disappear");
-                        WeaponSelection();
                     }
                     break;
                 }
@@ -326,12 +285,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
-                        text1Anim.Play("ExpertText1Anim");
-                        yield return new WaitForSeconds(3f);
-                        text1Anim.Play("ExpertText1Disappear");
-                        WeaponSelection();
                     }
                     break;
                 }
@@ -363,14 +316,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
-                        text1Anim.Play("ExpertText1Anim");
-                        yield return new WaitForSeconds(3f);
-                        text1Anim.Play("ExpertText1Disappear");
-                        yield return new WaitForSeconds(1f);
-                        Cursor.lockState = CursorLockMode.None;
-                        WeaponSelection();
                     }
                     break;
                 }
@@ -402,12 +347,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        Progression p1 = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-                        expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p1.GetCurrentWave();
-                        text1Anim.Play("ExpertText1Anim");
-                        yield return new WaitForSeconds(3f);
-                        text1Anim.Play("ExpertText1Disappear");
-                        WeaponSelection();
+                        break;
                     }
                     break;
                 }
@@ -416,7 +356,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     break;
                 }
         }
-        Progression p = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
+        Progression p = GameObject.FindGameObjectWithTag("ProgressionHandler").GetComponent<Progression>();
         expertDrainPowerNameText.GetComponent<Text>().text = "Wave " + p.GetCurrentWave();
         text1Anim.Play("ExpertText1Anim");
         yield return new WaitForSeconds(3f);
@@ -425,31 +365,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     }
 
-    public void callLeaderboards(int difficulty)
+    public void CallLeaderboards(int difficulty)
     {
-        switch (difficulty)
-        {
-            case 1:
-                {
-                    loadLeaderboardEasy();
-                    break;
-                }
-            case 2:
-                {
-                    loadLeaderboardNormal();
-                    break;
-                }
-            case 3:
-                {
-                    loadLeaderboardHard();
-                    break;
-                }
-            case 4:
-                {
-                    loadLeaderboardExpert();
-                    break;
-                }
-        }
+        LoadLeaderboard(difficulty);
     }
 
     public void ShowPowerActivatedMessage(int ID)
@@ -497,273 +415,276 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
      * Note there is no name filtering system in place at this time.
      * 
      */
-    void loadLeaderboardEasy()
-    {
-        int firstPoints, secondPoints, thirdPoints, fourthPoints, fifthPoints;
-        titleText.text = "Easy";
-        firstPoints = PlayerPrefs.GetInt("EasyFirstPlaceScore", 0);
-        secondPoints = PlayerPrefs.GetInt("EasySecondPlaceScore", 0);
-        thirdPoints = PlayerPrefs.GetInt("EasyThirdPlaceScore", 0);
-        fourthPoints = PlayerPrefs.GetInt("EasyFourthPlaceScore", 0);
-        fifthPoints = PlayerPrefs.GetInt("EasyFifthPlaceScore", 0);
-        if (firstPoints > 0)
-        {
-            firstPlace.text = "First Place: " + PlayerPrefs.GetString("EasyFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
-        }
-        else
-        {
-            firstPlace.text = "No score";
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return; //Finished loading.
-        }
-        if (secondPoints > 0)
-        {
-            secondPlace.text = "Second Place: " + PlayerPrefs.GetString("EasySecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
-        }
-        else
-        {
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (thirdPoints > 0)
-        {
-            thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("EasyThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
-        }
-        else 
-        {
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fourthPoints > 0)
-        {
-            fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("EasyFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
-        }
-        else
-        {
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fifthPoints > 0)
-        {
-            fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("EasyFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
-        }
-        else
-        {
-            fifthPlace.text = "No score";
-            return;
-        }
-    }
-    void loadLeaderboardNormal()
-    {
-        int firstPoints, secondPoints, thirdPoints, fourthPoints, fifthPoints;
-        titleText.text = "Normal";
-        firstPoints = PlayerPrefs.GetInt("NormalFirstPlaceScore", 0);
-        secondPoints = PlayerPrefs.GetInt("NormalSecondPlaceScore", 0);
-        thirdPoints = PlayerPrefs.GetInt("NormalThirdPlaceScore", 0);
-        fourthPoints = PlayerPrefs.GetInt("NormalFourthPlaceScore", 0);
-        fifthPoints = PlayerPrefs.GetInt("NormalFifthPlaceScore", 0);
-        if (firstPoints > 0)
-        {
-            firstPlace.text = "First Place: " + PlayerPrefs.GetString("NormalFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
-        }
-        else
-        {
-            firstPlace.text = "No score";
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return; //Finished loading.
-        }
-        if (secondPoints > 0)
-        {
-            secondPlace.text = "Second Place: " + PlayerPrefs.GetString("NormalSecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
-        }
-        else
-        {
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (thirdPoints > 0)
-        {
-            thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("NormalThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
-        }
-        else
-        {
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fourthPoints > 0)
-        {
-            fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("NormalFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
-        }
-        else
-        {
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fifthPoints > 0)
-        {
-            fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("NormalFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
-        }
-        else
-        {
-            fifthPlace.text = "No score";
-            return;
-        }
-    }
-    void loadLeaderboardHard()
-    {
-        int firstPoints, secondPoints, thirdPoints, fourthPoints, fifthPoints;
-        titleText.text = "Hard";
-        firstPoints = PlayerPrefs.GetInt("HardFirstPlaceScore", 0);
-        secondPoints = PlayerPrefs.GetInt("HardSecondPlaceScore", 0);
-        thirdPoints = PlayerPrefs.GetInt("HardThirdPlaceScore", 0);
-        fourthPoints = PlayerPrefs.GetInt("HardFourthPlaceScore", 0);
-        fifthPoints = PlayerPrefs.GetInt("HardFifthPlaceScore", 0);
-        if (firstPoints > 0)
-        {
-            firstPlace.text = "First Place: " + PlayerPrefs.GetString("HardFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
-        }
-        else
-        {
-            firstPlace.text = "No score";
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return; //Finished loading.
-        }
-        if (secondPoints > 0)
-        {
-            secondPlace.text = "Second Place: " + PlayerPrefs.GetString("HardSecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
-        }
-        else
-        {
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (thirdPoints > 0)
-        {
-            thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("HardThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
-        }
-        else
-        {
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fourthPoints > 0)
-        {
-            fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("HardFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
-        }
-        else
-        {
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fifthPoints > 0)
-        {
-            fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("HardFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
-        }
-        else
-        {
-            fifthPlace.text = "No score";
-            return;
-        }
-    }
-    void loadLeaderboardExpert()
-    {
-        int firstPoints, secondPoints, thirdPoints, fourthPoints, fifthPoints;
-        titleText.text = "Expert";
-        firstPoints = PlayerPrefs.GetInt("ExpertFirstPlaceScore", 0);
-        secondPoints = PlayerPrefs.GetInt("ExpertSecondPlaceScore", 0);
-        thirdPoints = PlayerPrefs.GetInt("ExpertThirdPlaceScore", 0);
-        fourthPoints = PlayerPrefs.GetInt("ExpertFourthPlaceScore", 0);
-        fifthPoints = PlayerPrefs.GetInt("ExpertFifthPlaceScore", 0);
-        if (firstPoints > 0)
-        {
-            firstPlace.text = "First Place: " + PlayerPrefs.GetString("ExpertFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
-        }
-        else
-        {
-            firstPlace.text = "No score";
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return; //Finished loading.
-        }
-        if (secondPoints > 0)
-        {
-            secondPlace.text = "Second Place: " + PlayerPrefs.GetString("ExpertSecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
-        }
-        else
-        {
-            secondPlace.text = "No score";
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (thirdPoints > 0)
-        {
-            thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("ExpertThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
-        }
-        else
-        {
-            thirdPlace.text = "No score";
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fourthPoints > 0)
-        {
-            fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("ExpertFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
-        }
-        else
-        {
-            fourthPlace.text = "No score";
-            fifthPlace.text = "No score";
-            return;
-        }
-        if (fifthPoints > 0)
-        {
-            fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("ExpertFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
-        }
-        else
-        {
-            fifthPlace.text = "No score";
-            return;
-        }
-    }
-    void loadLeaderboardSatanic()
-    {
 
-    }
-    void loadMainMenu()
+    void LoadLeaderboard(int DifficultyID)
     {
-
+        int firstPoints, secondPoints, thirdPoints, fourthPoints, fifthPoints;
+        switch (DifficultyID)
+        {
+            case 1: //EASY
+                {
+                    firstPoints = PlayerPrefs.GetInt("EasyFirstPlaceScore", 0);
+                    secondPoints = PlayerPrefs.GetInt("EasySecondPlaceScore", 0);
+                    thirdPoints = PlayerPrefs.GetInt("EasyThirdPlaceScore", 0);
+                    fourthPoints = PlayerPrefs.GetInt("EasyFourthPlaceScore", 0);
+                    fifthPoints = PlayerPrefs.GetInt("EasyFifthPlaceScore", 0);
+                    if (firstPoints > 0)
+                    {
+                        firstPlace.text = "First Place: " + PlayerPrefs.GetString("EasyFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
+                    }
+                    else
+                    {
+                        firstPlace.text = "No score";
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return; //Finished loading.
+                    }
+                    if (secondPoints > 0)
+                    {
+                        secondPlace.text = "Second Place: " + PlayerPrefs.GetString("EasySecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
+                    }
+                    else
+                    {
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (thirdPoints > 0)
+                    {
+                        thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("EasyThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
+                    }
+                    else
+                    {
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fourthPoints > 0)
+                    {
+                        fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("EasyFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
+                    }
+                    else
+                    {
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fifthPoints > 0)
+                    {
+                        fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("EasyFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
+                    }
+                    else
+                    {
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                }
+                break;
+            case 2: //NORMAL.
+                {
+                    titleText.text = "Normal";
+                    firstPoints = PlayerPrefs.GetInt("NormalFirstPlaceScore", 0);
+                    secondPoints = PlayerPrefs.GetInt("NormalSecondPlaceScore", 0);
+                    thirdPoints = PlayerPrefs.GetInt("NormalThirdPlaceScore", 0);
+                    fourthPoints = PlayerPrefs.GetInt("NormalFourthPlaceScore", 0);
+                    fifthPoints = PlayerPrefs.GetInt("NormalFifthPlaceScore", 0);
+                    if (firstPoints > 0)
+                    {
+                        firstPlace.text = "First Place: " + PlayerPrefs.GetString("NormalFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
+                    }
+                    else
+                    {
+                        firstPlace.text = "No score";
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return; //Finished loading.
+                    }
+                    if (secondPoints > 0)
+                    {
+                        secondPlace.text = "Second Place: " + PlayerPrefs.GetString("NormalSecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
+                    }
+                    else
+                    {
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (thirdPoints > 0)
+                    {
+                        thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("NormalThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
+                    }
+                    else
+                    {
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fourthPoints > 0)
+                    {
+                        fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("NormalFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
+                    }
+                    else
+                    {
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fifthPoints > 0)
+                    {
+                        fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("NormalFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
+                    }
+                    else
+                    {
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                }
+                break;
+            case 3: //HARD
+                {
+                    titleText.text = "Hard";
+                    firstPoints = PlayerPrefs.GetInt("HardFirstPlaceScore", 0);
+                    secondPoints = PlayerPrefs.GetInt("HardSecondPlaceScore", 0);
+                    thirdPoints = PlayerPrefs.GetInt("HardThirdPlaceScore", 0);
+                    fourthPoints = PlayerPrefs.GetInt("HardFourthPlaceScore", 0);
+                    fifthPoints = PlayerPrefs.GetInt("HardFifthPlaceScore", 0);
+                    if (firstPoints > 0)
+                    {
+                        firstPlace.text = "First Place: " + PlayerPrefs.GetString("HardFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
+                    }
+                    else
+                    {
+                        firstPlace.text = "No score";
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return; //Finished loading.
+                    }
+                    if (secondPoints > 0)
+                    {
+                        secondPlace.text = "Second Place: " + PlayerPrefs.GetString("HardSecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
+                    }
+                    else
+                    {
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (thirdPoints > 0)
+                    {
+                        thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("HardThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
+                    }
+                    else
+                    {
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fourthPoints > 0)
+                    {
+                        fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("HardFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
+                    }
+                    else
+                    {
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fifthPoints > 0)
+                    {
+                        fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("HardFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
+                    }
+                    else
+                    {
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    break;
+                }
+            case 4: //EXPERT.
+                {
+                    titleText.text = "Expert";
+                    firstPoints = PlayerPrefs.GetInt("ExpertFirstPlaceScore", 0);
+                    secondPoints = PlayerPrefs.GetInt("ExpertSecondPlaceScore", 0);
+                    thirdPoints = PlayerPrefs.GetInt("ExpertThirdPlaceScore", 0);
+                    fourthPoints = PlayerPrefs.GetInt("ExpertFourthPlaceScore", 0);
+                    fifthPoints = PlayerPrefs.GetInt("ExpertFifthPlaceScore", 0);
+                    if (firstPoints > 0)
+                    {
+                        firstPlace.text = "First Place: " + PlayerPrefs.GetString("ExpertFirstPlaceScoreName", "Anonymous") + " - " + firstPoints;
+                    }
+                    else
+                    {
+                        firstPlace.text = "No score";
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return; //Finished loading.
+                    }
+                    if (secondPoints > 0)
+                    {
+                        secondPlace.text = "Second Place: " + PlayerPrefs.GetString("ExpertSecondPlaceScoreName", "Anonymous") + " - " + secondPoints;
+                    }
+                    else
+                    {
+                        secondPlace.text = "No score";
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (thirdPoints > 0)
+                    {
+                        thirdPlace.text = "Third Place: " + PlayerPrefs.GetString("ExpertThirdPlaceScoreName", "Anonymous") + " - " + thirdPoints;
+                    }
+                    else
+                    {
+                        thirdPlace.text = "No score";
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fourthPoints > 0)
+                    {
+                        fourthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("ExpertFourthPlaceScoreName", "Anonymous") + " - " + fourthPoints;
+                    }
+                    else
+                    {
+                        fourthPlace.text = "No score";
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    if (fifthPoints > 0)
+                    {
+                        fifthPlace.text = "Fourth Place: " + PlayerPrefs.GetString("ExpertFourthPlaceScoreName", "Anonymous") + " - " + fifthPoints;
+                    }
+                    else
+                    {
+                        fifthPlace.text = "No score";
+                        return;
+                    }
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
     }
     public void WaveComplete()
     {
@@ -781,9 +702,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             }
         }
         yield return new WaitForSeconds(2f);
-        isPaused = true;
         waveCompletePause = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         GameObject.Find("BackgroundPowerDrain").SetActive(false);
         //Switch depending on which difficulty they are on.
         switch (PlayerPrefs.GetInt("DifficultyChosen"))
@@ -848,6 +768,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     break;
                 }
         }
+        isPaused = true;
     }
     public void GameCompleteText()
     {
@@ -874,7 +795,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
-            if (obj.tag == "RemoveWhenResumed")
+            if (obj.CompareTag("RemoveWhenResumed"))
             {
                obj.SetActive(true);
             } 
@@ -888,10 +809,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     //The HoverOverScript.cs controls the information on the UI screen.
     {
         //Check through all powers 1-14 and update the opacity if they are FALSE.
+        PowerBehaviour p = powerController.GetComponent<PowerBehaviour>();
         Image j;
         for (int i = 0; i < 14; i++)
         {
-            if (powerController.powerHandler[i].GetPowerActive() == false)
+            if (!p.powerHandler[i].GetPowerActive()) //Check if the power is false.
             {
                 float opacityValue = 0.25f;
                 switch (i)
@@ -1037,7 +959,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     private void PausedSummaryScreen()
     {
-        if (getTutorialStage() > 0)
+        if (GetTutorialStage() > 0)
         {
             summaryDifficulty.GetComponent<Text>().text = "You are currently in the tutorial.";
             summaryWave.GetComponent<Text>().text = "";
@@ -1125,7 +1047,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     /// </summary>
 
 
-    public int getTutorialStage() //Get the current tutorial stage.
+    public int GetTutorialStage() //Get the current tutorial stage.
     {
         return TutorialStage;
     }

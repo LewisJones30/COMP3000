@@ -51,7 +51,8 @@ public class ButtonCaller : MonoBehaviour
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         ui.ResumeButton();
     }
-    public void LosePower1()
+    //Power1 is true if it is the LEFT power chosen. Otherwise, it is false (RIGHT power).
+    public void LosePower(bool Power1) 
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
         PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
@@ -59,30 +60,58 @@ public class ButtonCaller : MonoBehaviour
         GameObject audioController;
         audioController = GameObject.FindGameObjectWithTag("MusicHandler");
         audioController.GetComponent<AudioController>().PlayMusic(0);
-        powers.loseSpecificPower(ui.losePower1);
-        switch(powers.powerHandler[ui.losePower1].PowerStrength)
+        if (Power1)
         {
-            case 3:
-                {
-                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
-                    break;
-                }
-            case 2:
-                {
-                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
-                    break;
-                }
-            case 1:
-                {
-                    break;
-                }
-            default:
-                {
-                    break;
-                }
+            powers.loseSpecificPower(ui.losePower1);
+            switch (powers.powerHandler[ui.losePower1].PowerStrength)
+            {
+                case 3:
+                    {
+                        ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
+                        break;
+                    }
+                case 2:
+                    {
+                        ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
+                        break;
+                    }
+                case 1:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+        else
+        {
+            powers.loseSpecificPower(ui.losePower2);
+            switch (powers.powerHandler[ui.losePower2].PowerStrength)
+            {
+                case 3:
+                    {
+                        ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
+                        break;
+                    }
+                case 2:
+                    {
+                        ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
+                        break;
+                    }
+                case 1:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
         }
         ui.setLockPauseMenu(false);
-        if (ui.getTutorialStage() > 0)
+        if (ui.GetTutorialStage() > 0)
         {
             ui.TutorialEnemyKilled();
         }
@@ -91,46 +120,7 @@ public class ButtonCaller : MonoBehaviour
         ui.WeaponSelection();
         progressionCheck.SetWaveComplete(false);
     }
-    public void LosePower2()
-    {
-        UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-        powers.loseSpecificPower(ui.losePower2);
-        GameObject audioController;
-        audioController = GameObject.FindGameObjectWithTag("MusicHandler");
-        audioController.GetComponent<AudioController>().PlayMusic(0);
-        Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-        switch (powers.powerHandler[ui.losePower1].PowerStrength)
-        {
-            case 3:
-                {
-                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 500);
-                    break;
-                }
-            case 2:
-                {
-                    ui.AddPoints((progressionCheck.GetMaximumWaves() - progressionCheck.GetCurrentWave()) * 250);
-                    break;
-                }
-            case 1:
-                {
-                    break;
-                }
-            default:
-                {
-                    break;
-                }
-        }
-        ui.setLockPauseMenu(false);
-        if (ui.getTutorialStage() > 0)
-        {
-            ui.TutorialEnemyKilled();
-        }
-        ui.returnToMainGame();
-        Cursor.lockState = CursorLockMode.None;
-        ui.WeaponSelection();
-        progressionCheck.SetWaveComplete(false);
-    }
+   
     public void MainMenu()
     {
         SceneManager.LoadScene("UI Scale Testing");
@@ -171,27 +161,27 @@ public class ButtonCaller : MonoBehaviour
         PlayerPrefs.SetInt("DifficultyChosen", 5);
         SceneManager.LoadScene("Game");
     }
-    public void callLeaderboardEasy()
+    public void CallLeaderboardEasy()
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ui.callLeaderboards(1);
+        ui.CallLeaderboards(1);
     }
-    public void callLeaderboardNormal()
+    public void CallLeaderboardNormal()
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ui.callLeaderboards(2);
+        ui.CallLeaderboards(2);
     }
-    public void callLeaderboardHard()
+    public void CallLeaderboardHard()
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ui.callLeaderboards(3);
+        ui.CallLeaderboards(3);
     }
-    public void callLeaderboardExpert()
+    public void CallLeaderboardExpert()
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-        ui.callLeaderboards(4);
+        ui.CallLeaderboards(4);
     }
-    public void goToLeaderboards()
+    public void GoToLeaderboards()
     {
         SceneManager.LoadScene("Leaderboards");
     }

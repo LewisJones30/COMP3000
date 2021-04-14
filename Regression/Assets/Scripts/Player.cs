@@ -272,7 +272,7 @@ public class Player : MonoBehaviour
         isPausedCheck.getUpdatePlayerHP();
         if (health < 1)
         {
-            if (isPausedCheck.getTutorialStage() > 0) //Check if player is in tutorial
+            if (isPausedCheck.GetTutorialStage() > 0) //Check if player is in tutorial
             {
                 health = 1; //Health cannot go below 1 in tutorial.
             }

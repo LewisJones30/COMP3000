@@ -246,7 +246,7 @@ public class Progression : MonoBehaviour
     }
     void FixedUpdate() //Control the enemy spawns here!
     {
-        if (ui.getTutorialStage() > 0)
+        if (ui.GetTutorialStage() > 0)
         {
             return;
         }
