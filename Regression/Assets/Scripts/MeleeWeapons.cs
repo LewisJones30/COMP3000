@@ -45,7 +45,7 @@ public class MeleeWeapons : MonoBehaviour
                 {
                     //Melee Attack
                     StartCoroutine("animCode");
-                    GameObject.FindGameObjectWithTag("MusicHandler").GetComponent<AudioController>().PlayMeleeAttack();
+                    GameObject.FindGameObjectWithTag("MusicHandler").GetComponent<AudioController>().PlaySoundEffect(7); //Case 7 is Melee Attack.
                     cooldown = duplicateCD;
                     if (Physics.Raycast(transform.parent.position, transform.forward, out hit, SWORD_ATTACK_DISTANCE))
                     {

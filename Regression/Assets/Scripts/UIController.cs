@@ -1495,7 +1495,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             audioController = GameObject.FindGameObjectWithTag("MusicHandler");
         }
-        audioController.GetComponent<AudioController>().PlayLosePowerMusic();
+        audioController.GetComponent<AudioController>().PlayMusic(1);
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -1580,7 +1580,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             audioController = GameObject.FindGameObjectWithTag("MusicHandler");
         }
-        audioController.GetComponent<AudioController>().PlayLosePowerMusic();
+        audioController.GetComponent<AudioController>().PlayMusic(1);
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.tag == "RemoveWhenPaused")

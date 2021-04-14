@@ -280,7 +280,7 @@ public class FinalBoss : MonoBehaviour
         animator = GetComponent<Animator>();
         GameObject audioController;
         audioController = GameObject.FindGameObjectWithTag("MusicHandler");
-        audioController.GetComponent<AudioController>().PlayFinalBossMusic();
+        audioController.GetComponent<AudioController>().PlayMusic(2);
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             if (obj.name == "BossHPBar")

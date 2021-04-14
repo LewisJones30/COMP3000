@@ -106,7 +106,7 @@ public class MagicWeapon : MonoBehaviour
 
     IEnumerator ShootProjectile()
     {
-        GameObject.FindGameObjectWithTag("MusicHandler").GetComponent<AudioController>().PlayMagicAttack();
+        GameObject.FindGameObjectWithTag("MusicHandler").GetComponent<AudioController>().PlaySoundEffect(0);
         GameObject.FindGameObjectWithTag("StaffOBJ").GetComponent<Animator>().SetBool("isAttacking", true);
         yield return new WaitForSeconds(0.33f);
         GameObject projectileShot;

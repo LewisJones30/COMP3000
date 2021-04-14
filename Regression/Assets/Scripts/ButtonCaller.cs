@@ -58,7 +58,7 @@ public class ButtonCaller : MonoBehaviour
         Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         GameObject audioController;
         audioController = GameObject.FindGameObjectWithTag("MusicHandler");
-        audioController.GetComponent<AudioController>().PlayInGameMusic();
+        audioController.GetComponent<AudioController>().PlayMusic(0);
         powers.loseSpecificPower(ui.losePower1);
         switch(powers.powerHandler[ui.losePower1].PowerStrength)
         {
@@ -98,7 +98,7 @@ public class ButtonCaller : MonoBehaviour
         powers.loseSpecificPower(ui.losePower2);
         GameObject audioController;
         audioController = GameObject.FindGameObjectWithTag("MusicHandler");
-        audioController.GetComponent<AudioController>().PlayInGameMusic();
+        audioController.GetComponent<AudioController>().PlayMusic(0);
         Progression progressionCheck = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         switch (powers.powerHandler[ui.losePower1].PowerStrength)
         {

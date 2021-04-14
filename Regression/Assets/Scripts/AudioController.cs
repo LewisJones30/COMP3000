@@ -8,14 +8,9 @@ public class AudioController : MonoBehaviour
     [SerializeField]
     AudioClip LosePowerMusic, FinalBossMusic, IngameMusic, MagicAttack, MeleeAttack, GolemAttack, GolemDeath, MeleeMagicAttack, MeleeMagicDeath, MegaTrollAttack, MegaTrollDeath;
     AudioSource audioController;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
 
-    public void PlayLosePowerMusic()
+    public void PlayMusic(int MusicID)
     {
         if (audioController == null)
         {
@@ -24,53 +19,33 @@ public class AudioController : MonoBehaviour
         audioController.Stop();
         audioController.volume = 1.0f;
         audioController.loop = true;
-        audioController.clip = LosePowerMusic;
-        audioController.Play();
-    }
-    public void PlayFinalBossMusic()
-    {
-        if (audioController == null)
+        //Music ID's start from zero.
+        switch (MusicID)
         {
-            audioController = GetComponent<AudioSource>();
+            case 0:
+                {
+                    audioController.clip = IngameMusic;
+                    break;
+                }
+            case 1:
+                {
+                    audioController.clip = LosePowerMusic;
+                    break;
+                }
+            case 2:
+                {
+                    audioController.clip = FinalBossMusic;
+                    break;
+                }
+
         }
-        audioController.Stop();
-        audioController.volume = 1.0f;
-        audioController.loop = true;
-        audioController.clip = FinalBossMusic;
-        audioController.Play();
-    }
-    public void PlayInGameMusic()
-    {
-        if (audioController == null)
-        {
-            audioController = GetComponent<AudioSource>();
-        }
-        audioController.Stop();
-        audioController.volume = 1.0f;
-        audioController.loop = true;
-        audioController.clip = IngameMusic;
         audioController.Play();
     }
     public void Stop()
     {
         audioController.Stop();
     }
-    public void PlayMagicAttack()
-    {
-        if (audioController == null)
-        {
-            audioController = GetComponent<AudioSource>();
-        }
-        audioController.PlayOneShot(MagicAttack, 0.5f);
-    }
-    public void PlayMeleeAttack()
-    {
-        if (audioController == null)
-        {
-            audioController = GetComponent<AudioSource>();
-        }
-        audioController.PlayOneShot(MeleeAttack, 0.5f);
-    }
+
     public void PlaySoundEffect(int SoundEffectID)
     {
         if (audioController == null)
@@ -79,6 +54,7 @@ public class AudioController : MonoBehaviour
         }
         switch (SoundEffectID)
         {
+            
             case 0: //Melee Orc & Magic Ghoul attack sound
                 {
                     audioController.PlayOneShot(MeleeMagicAttack);
@@ -107,6 +83,16 @@ public class AudioController : MonoBehaviour
             case 5: //Golem death sound.
                 {
                     audioController.PlayOneShot(GolemDeath);
+                    break;
+                }
+            case 6: //Magic projectile sound
+                {
+                    audioController.PlayOneShot(MagicAttack);
+                    break;
+                }
+            case 7: //Melee projectile sound.
+                {
+                    audioController.PlayOneShot(MeleeAttack);
                     break;
                 }
             default:
