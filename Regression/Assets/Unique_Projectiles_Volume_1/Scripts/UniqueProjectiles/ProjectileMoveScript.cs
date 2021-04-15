@@ -66,11 +66,11 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 	void FixedUpdate () {	
 
-		if (isPauseCheck.isPaused == true)
+		if (isPauseCheck.GetIsPaused())
         {
 			speed = 0;
         }
-		if (isPauseCheck.isPaused == false)
+		if (!isPauseCheck.GetIsPaused())
         {
 			speed = speedDup;
 			if (speed != 0 && rb != null)

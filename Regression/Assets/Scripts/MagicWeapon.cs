@@ -48,7 +48,7 @@ public class MagicWeapon : MonoBehaviour
             dupeCD = shootingCooldown;
             powerModified = true;
         }
-        if (isPauseCheck.isPaused == false) //Game is active.
+        if (!isPauseCheck.GetIsPaused()) //Game is active.
         {
             shootingCooldown = shootingCooldown - Time.deltaTime;
         }
@@ -58,7 +58,7 @@ public class MagicWeapon : MonoBehaviour
     void Update()
     {
         checkPower();
-        if (isPauseCheck.isPaused == false) //Game is active.
+        if (!isPauseCheck.GetIsPaused())
         {
             if (shootingCooldown <= 0)
             {

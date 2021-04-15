@@ -56,7 +56,7 @@ public class FinalBoss : MonoBehaviour
         }
         if (UI != null)
         {
-            if (ui.isPaused)
+            if (ui.GetIsPaused())
             {
                 BossHPBar.SetActive(false);
                 BossHPBorder.SetActive(false); 
@@ -98,7 +98,7 @@ public class FinalBoss : MonoBehaviour
         {
             transform.LookAt(playerLook.transform);
         }
-        if (ui.isPaused == true)
+        if (ui.GetIsPaused())
         {
             return;
         }
@@ -359,7 +359,7 @@ public class FinalBoss : MonoBehaviour
     }
     IEnumerator GolemThrowProjectile()
     {
-        while (ui.isPaused)
+        while (ui.GetIsPaused())
         {
 
         }

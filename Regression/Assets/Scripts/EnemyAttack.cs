@@ -35,7 +35,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ispauseCheck.isPaused == false)
+        if (!ispauseCheck.GetIsPaused())
         {
             attackSpeed = attackSpeed - Time.deltaTime;
             if (attackSpeed <= 0)

@@ -36,7 +36,7 @@ public class MeleeWeapons : MonoBehaviour
     void Update()
     {
         checkPower();
-        if (isPausedCheck.isPaused == false)
+        if (!isPausedCheck.GetIsPaused())
         {
             cooldown = cooldown - Time.deltaTime;
             if (cooldown <= 0)

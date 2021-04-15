@@ -17,7 +17,7 @@ public class RangedWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPauseCheck.isPaused == false) //Game is active.
+        if (!isPauseCheck.GetIsPaused()) //Game is active.
         {
             shootingCooldown = shootingCooldown - Time.deltaTime;
             if (shootingCooldown <= 0)

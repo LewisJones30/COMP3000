@@ -21,7 +21,7 @@ public class MovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (ui.isPaused == true) //Check if playerStunned is false.
+        if (ui.GetIsPaused()) //Check if playerStunned is false.
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

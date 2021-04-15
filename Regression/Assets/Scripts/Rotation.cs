@@ -22,7 +22,7 @@ public class Rotation : MonoBehaviour
     void Update()
     {
 
-        if (isPauseCheck.isPaused == false)
+        if (!isPauseCheck.GetIsPaused())
         {
             rotationx += Input.GetAxis("Mouse X") * sensitivityX;
             rotationy += Input.GetAxis("Mouse Y") * sensitivityY;

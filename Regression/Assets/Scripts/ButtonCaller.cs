@@ -60,6 +60,11 @@ public class ButtonCaller : MonoBehaviour
         GameObject audioController;
         audioController = GameObject.FindGameObjectWithTag("MusicHandler");
         audioController.GetComponent<AudioController>().PlayMusic(0);
+        TutorialHandler TutStatus = GameObject.FindWithTag("TutorialHandler").GetComponent<TutorialHandler>();
+        if (TutStatus.GetTutorialStage() > 0)
+        {
+            TutStatus.PowerDrained();
+        }
         if (Power1)
         {
             powers.loseSpecificPower(ui.losePower1);
@@ -111,10 +116,6 @@ public class ButtonCaller : MonoBehaviour
             }
         }
         ui.setLockPauseMenu(false);
-        if (ui.GetTutorialStage() > 0)
-        {
-            ui.TutorialEnemyKilled();
-        }
         ui.returnToMainGame();
         Cursor.lockState = CursorLockMode.None;
         ui.WeaponSelection();

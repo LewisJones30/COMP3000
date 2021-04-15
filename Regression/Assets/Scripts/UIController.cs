@@ -9,10 +9,13 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
-    public bool isPaused = false;
+    //Public 
+
     bool buttonpressed = false;
     public PowerBehaviour powerController;
     public GameObject activePowers, healthObj, UIWaveComplete;
+
+
     [Tooltip("This array should be the same length as the number of powers.")]
     [SerializeField]
     Sprite[] sprites;
@@ -22,43 +25,48 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     GameObject PowerDrain1, PowerDrain2, powerName1, powerName2, powerDesc1, powerDesc2;
     [SerializeField]
     GameObject summaryDifficulty, summaryPoints, summaryWave;
-    Text health, activepowers, powerdrainedtext, UIPauseText, UIWaveCompText, UITempWaveText;
-    Player player;
-    bool waveCompletePause = false;
+    Text health;
     float pointsGained;
     [SerializeField]
     Text easyScore, normalScore, hardScore, expertScore, satanicScore, currentScore;
-    float escapePushCooldown = 0.5f;
-    public int losePower1, losePower2; //Storage for losing powers
     [SerializeField]
     GameObject postObj, postWave, postDifficulty, postFinal, postPowersRemaining, postPowersDrained, HPBar;
     double currentHPercentage;
     [Space(10)]
-    //UI Controller tracking stages.
-    [SerializeField]
-    GameObject WelcomeImage, WelcomeText, JumpingArrow, Enemy1, Enemy2;//Part 1 of tutorial.
-    int TutorialStage = 0; //Track state of the tutorial
-    bool inPauseMenu = false;
-    bool lockPauseMenu = false; //Used while certain windows are open to ensure pause menu will NOT load.
     [SerializeField]
     GameObject fireWarning;
     [SerializeField]
     GameObject expertDrainPowerImage, expertDrainPowerNameText, expertDrainPowerNameText2; //Expert difficulty drain
     [Space(5)]
     [SerializeField]
-    Text firstPlace, secondPlace, thirdPlace, fourthPlace, fifthPlace, titleText;
+    Text firstPlace, secondPlace, thirdPlace, fourthPlace, fifthPlace, titleText; 
     [SerializeField]
     GameObject leaderboardObj, leaderboardTextObj;
+    [Space(5)]
     [SerializeField]
     GameObject UIStunnedMessage;
     [SerializeField]
     Text bonusPoints1, bonusPoints2;
     [SerializeField]
     Image progressBar;
+    [SerializeField]
+    AudioClip losePowerMusic, finalBossMusic;
+    TutorialHandler TutorialStatus;
+
+
+    //Non-SerializeField variables.
+    bool isPaused = false;
+    Player player;
+    bool waveCompletePause = false;
+    float escapePushCooldown = 0.5f;
+    public int losePower1, losePower2; //Storage for losing powers
+    //UI Controller tracking stages.
+    bool inPauseMenu = false;
+    bool lockPauseMenu = false; //Used while certain windows are open to ensure pause menu will NOT load.
     Progression p;
     GameObject audioController;
-    [SerializeField]
-    AudioClip losePowerMusic, finalBossMusic; 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,11 +101,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 GameObject healthText = obj;
                 health = healthText.GetComponent<Text>();
             }
-            else if (obj.name == "PowerDrainedMessage")
-            {
-                GameObject PowerDrainedMessage = obj;
-                powerdrainedtext = PowerDrainedMessage.GetComponent<Text>();
-            }
             else if (obj.name == "PointsText")
             {
                 currentScore = obj.GetComponent<Text>();
@@ -108,7 +111,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         player = GameObject.Find("Player").GetComponent<Player>();
         UIWaveComplete = GameObject.Find("WaveCompleteText");
         p = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
-
+        TutorialStatus = GameObject.FindWithTag("TutorialHandler").GetComponent<TutorialHandler>();
         //Get component section
 
         if (leaderboardObj != null)
@@ -959,7 +962,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     private void PausedSummaryScreen()
     {
-        if (GetTutorialStage() > 0)
+        if (TutorialStatus.GetTutorialStage() > 0)
         {
             summaryDifficulty.GetComponent<Text>().text = "You are currently in the tutorial.";
             summaryWave.GetComponent<Text>().text = "";
@@ -1016,289 +1019,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
 
 
-    }
-
-    //Tutorial code
-
-
-    /// <summary>
-    /// This is the code where the tutorial is programmed. TutorialStage is used to track the current position, and run specific code involved in the flow of the tutorial.
-    /// Depending on the current TutorialStage depends on how far through the user is. 
-    /// The stages are listed below:
-    /// 
-    /// 
-    /// 0 - Player not in tutorial. A check is determined as to whether the player has been in the tutorial before.
-    /// 1 - Player has not done tutorial before. Tutorial code is therefore run when the player loads into the game. This greets the player with the welcome screen.
-    /// 2 - Awaiting user to press left click to continue. Advanced in update loop.
-    /// 3 - Playing animation for next section.
-    /// 4 - Awaiting user to press left click to continue.
-    /// 5 - Health bar introduction.
-    /// 6 - Awaiting user to press left click to continue.
-    /// 7 - Powers information.
-    /// 8 - Awaiting user to press left click to continue.
-    /// 9 - Points information.
-    /// 10 - Awaiting user to press left click to continue.
-    /// 11 - Unlock movement, show the controls in the top left.
-    /// 12 - Await user killing enemy.
-    /// 13 - Enemy killed, showing the drain power screen.
-    /// 14 - Awaiting user draining power.
-    /// 15 - Enemy(s) spawned. Final part of tutorial.
-    /// 16 - Enemy killed. Show final message, and then the tutorial is completed. Pause game, transfer user to main menu in 5-10 seconds.
-    /// </summary>
-
-
-    public int GetTutorialStage() //Get the current tutorial stage.
-    {
-        return TutorialStage;
-    }
-    private void DisableUIForTutorial()
-    {
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-        {
-            if (obj.tag == "In-GameUI")
-            {
-                obj.SetActive(false);
-                return;
-            }
-        }
-    }
-    private void DisableTutorialUI()
-    {
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-        {
-            if (obj.tag == "In-GameUI")
-            {
-                obj.SetActive(false);
-                return;
-            }
-        }
-    }
-    private void Tutorial()
-    {
-        if (TutorialStage == 1)
-        {
-            powerController.powerHandler[0].SetPowerAvailable(true);
-            powerController.powerHandler[0].SetPowerActive(true);
-            isPaused = true;
-            TutorialStage = 2;
-            WelcomeImage.SetActive(true);
-            WelcomeText.SetActive(true);
-            WelcomeText.GetComponent<Text>().text = "Welcome to Regression!\nPlease press left click to continue.";
-            WelcomeText.transform.localPosition = new Vector3(-244, 108, 0);
-
-        }
-        if (TutorialStage == 3)
-        {
-            StartCoroutine("TutState2");
-        }
-        if (TutorialStage == 5)
-        {
-
-            StartCoroutine("TutState5");
-        }
-        if (TutorialStage == 7)
-        {
-            StartCoroutine("TutState7");
-        }
-        if (TutorialStage == 9)
-        {
-            StartCoroutine("TutState9");
-        }
-        if (TutorialStage == 11)
-        {
-            StartCoroutine("TutState11");
-            ResumeButton();
-        }
-        if (TutorialStage == 13)
-        {
-            StartCoroutine("TutState13");
-        }
-        if (TutorialStage == 15)
-        {
-            StartCoroutine("TutState15");
-        }
-        if (TutorialStage == 17)
-        {
-            StartCoroutine("TutState17");
-        }
-    }
-    IEnumerator TutState2()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        anim["ExpandTB1"].wrapMode = WrapMode.Once;
-        anim.Play("ExpandTB1");
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        animText["TextDisappear"].wrapMode = WrapMode.Once;
-        animText.Play("TextDisappear");
-        yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "In this game, you start with buffs known as powers.\n" +
-            "You will be fighting hordes of monsters from the depths of hell.\n\n" +
-            "As you progress, Hell's influence over you will increase, and you will\n" +
-            "be forced to channel this into your powers, losing their effect.\n\n" +
-            "In this tutorial, you will be able to understand the basic premise\n" +
-            "of this game.\n" +
-            "Please press left click to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-700, 250, 0);
-        animText["TextAppear"].wrapMode = WrapMode.Once;
-        animText.Play("TextAppear");
-        TutorialStage = 4;
-    }
-    IEnumerator TutState5()
-    {
-
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        anim["FadeTB1"].wrapMode = WrapMode.Once;
-        anim.Play("FadeTB1");
-        animText.Play("TextDisappear");
-        WelcomeImage.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
-        Player player = GameObject.Find("Player").GetComponent<Player>();
-        player.SpawnSpecificWeapon(1); //Staff is ID 1.
-        ResumeButton();
-        WelcomeImage.transform.localScale = new Vector3(17.72895f, 1.921767f, 2.03252f);
-        WelcomeImage.transform.localPosition = new Vector3(-18, -210, 0);
-        WelcomeText.transform.localPosition = new Vector3(-350, -162, 0);
-        WelcomeText.GetComponent<Text>().fontSize = 50; 
-        WelcomeText.GetComponent<Text>().text = "This is your health bar. Make sure it doesn't reach 0!";
-        anim["ShowTB1"].wrapMode = WrapMode.Once;
-        anim.Play("ShowTB1");
-        animText.Play("TextAppear");
-        JumpingArrow.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        TutorialStage = 6;
-    }
-    IEnumerator TutState7()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        Animation animArrow = JumpingArrow.GetComponent<Animation>();
-        animText.Play("TextDisappear");
-        animArrow.Stop();
-        animArrow.Play("jumping arrow disappear");
-        yield return new WaitForSeconds(0.5f);
-        JumpingArrow.transform.localPosition = new Vector3(-481, -8, 0);
-        JumpingArrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -90));
-        WelcomeText.transform.localPosition = new Vector3(-318, 0, 0);
-        animText.GetComponent<Text>().text = "These are your powers. You can see more in the pause menu ingame!";
-        animText.Play("TextAppear");
-        animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
-        animArrow.Play("jumping arrow appear");
-        yield return new WaitForSeconds(0.5f);
-        animArrow.Play("Jumping arrow left");
-        TutorialStage = 8;
-
-    }
-    IEnumerator TutState9()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        Animation animArrow = JumpingArrow.GetComponent<Animation>();
-        animText.Play("TextDisappear");
-        animArrow.Stop();
-        animArrow.Play("jumping arrow disappear");
-        yield return new WaitForSeconds(0.5f);
-        JumpingArrow.transform.localPosition = new Vector3(267, 459, 0);
-        WelcomeText.transform.localPosition = new Vector3(460, 504, 0);
-        WelcomeText.GetComponent<Text>().text = "This is your point counter.\nThe higher the difficulty,\n the more points you'll get!";
-        animText.Play("TextAppear");
-        animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
-        animArrow.Play("jumping arrow appear");
-        yield return new WaitForSeconds(0.5f);
-        animArrow.Play("jumping arrow left points");
-        TutorialStage = 10;
-    }
-    IEnumerator TutState11()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        Animation animArrow = JumpingArrow.GetComponent<Animation>();
-        animText.Play("TextDisappear");
-        animArrow.Stop();
-        animArrow.Play("jumping arrow disappear");
-        yield return new WaitForSeconds(0.5f);
-        Enemy1.transform.position = new Vector3(19.90631f, 1.021423f, -7.240521f);
-        WelcomeText.GetComponent<Text>().text = "To attack, press left click. You will fire a magical bullet at the enemy.\nKill this enemy to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-483, 140, 0);
-        Enemy1.SetActive(true);
-        animText.Play("TextAppear");
-        Cursor.lockState = CursorLockMode.Locked;
-        TutorialStage = 12;
-    }
-    IEnumerator TutState13()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        Animation animArrow = JumpingArrow.GetComponent<Animation>();
-        lockPauseMenu = true;
-        animText.Play("TextDisappear");
-        yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "Well done! Wave complete!";
-        animText.Play("TextAppear");
-        yield return new WaitForSeconds(2f);
-        animText.Play("TextDisappear");
-        yield return new WaitForSeconds(2f);
-        animText.Play("TextAppear");
-        WelcomeText.transform.localPosition = new Vector3(-233,238, 0);
-        WelcomeText.GetComponent<Text>().fontSize = 45;
-        animText.GetComponent<Text>().text = "As the game progresses, you must\nchannel corruption to your powers.\n\nThis means you will lose them.\nYou usually have a choice between two.\nTo continue, please drain the \nImmune to Death power.";
-        isPaused = true;
-        PowerDrainScreen(0, 0);
-
-        TutorialStage = 14;
-
-    }
-    IEnumerator TutState15()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        Animation animArrow = JumpingArrow.GetComponent<Animation>();
-        animText.Play("TextDisappear");
-        yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "Kill the final enemy to finish the tutorial.";
-        WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
-        WelcomeText.GetComponent<Text>().fontSize = 60;
-        animText.Play("TextAppear");
-        Enemy2.SetActive(true);
-        TutorialStage = 16;
-
-    }
-    IEnumerator TutState17()
-    {
-        Animation anim = WelcomeImage.GetComponent<Animation>();
-        Animation animText = WelcomeText.GetComponent<Animation>();
-        Animation animArrow = JumpingArrow.GetComponent<Animation>();
-        animText.Play("TextDisappear");
-        lockPauseMenu = true;
-        yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "Congratulations! Tutorial complete.\nReturning to the main menu in 10 seconds.";
-        WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
-        WelcomeText.GetComponent<Text>().fontSize = 60;
-        animText.Play("TextAppear");
-        isPaused = true;
-        Cursor.lockState = CursorLockMode.None;
-        yield return new WaitForSeconds(10f);
-        SceneManager.LoadScene("UI Scale Testing");
-        PlayerPrefs.SetInt("TutorialCompleteStatus", 1);
-    }
-    public void TutorialEnemyKilled()
-    {
-        if (TutorialStage == 12)
-        {
-            TutorialStage = 13;
-            Tutorial();
-        }
-        if (TutorialStage == 14)
-        {
-            TutorialStage = 15;
-            Tutorial();
-        }
-        if (TutorialStage == 16)
-        {
-            TutorialStage = 17;
-            Tutorial();
-        }
-    }
+   }
 
     public void GameSummaryScreen(bool playerDied)
     {
@@ -1635,14 +1356,18 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     public void ResumeButton()
     {
-        if (TutorialStage > 0)
+        if (TutorialStatus == null)
+        {
+            TutorialStatus = GameObject.FindWithTag("TutorialHandler").GetComponent<TutorialHandler>();
+        }
+        if (TutorialStatus.GetTutorialStage() > 0)
         {
             GetGameObjectsGame();
             GameUnpausedFunction();
             currentScore.text = "Points: " + pointsGained;
             ShowAllPowersInGame();
             inPauseMenu = false;
-            if (TutorialStage > 11)
+            if (TutorialStatus.GetTutorialStage() > 11)
             {
                 isPaused = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -2127,191 +1852,179 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 #endif
                 Application.Quit();
             }
-            LoadHighscores();
         }
-        if (SceneManager.GetActiveScene().name == "Game") //Ensure player is in main game when checking for pause
+        else
         {
-            if (PlayerPrefs.GetInt("TutorialCompleteStatus") != 1 && TutorialStage == 0)
+            LoadHighscores();
             {
-                TutorialStage = 1;
-            }
-            if (Input.GetKeyDown(KeyCode.F12))
-            {
-                UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
+                if (Input.GetKeyDown(KeyCode.F12))
+                {
+                    UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
 
-                GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
-                GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
-                GameObject FB = GameObject.FindGameObjectWithTag("FinalBoss");
-                if (FB != null)
-                {
-                    JusticeSpawn projectiles = FB.GetComponentInChildren<JusticeSpawn>();
-                    if (projectiles != null)
+                    GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
+                    GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
+                    GameObject FB = GameObject.FindGameObjectWithTag("FinalBoss");
+                    if (FB != null)
                     {
-                        ui.ShowPowerActivatedMessage(2);
-                        projectiles.FirePowerEffect();
-                    }
-                }
-                foreach (GameObject obj in projectileEnemies)
-                {
-                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                    if (projectiles != null)
-                    {
-                        ui.ShowPowerActivatedMessage(2);
-                        projectiles.FirePowerEffect();
-                    }
-
-                }
-                foreach (GameObject obj in swordEnemies)
-                {
-                    JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                    if (projectiles != null)
-                    {
-                        projectiles.FirePowerEffect();
-                    }
-                }
-            }
-            if (isPaused == true)
-            {
-                Time.timeScale = 0.0f;
-            }
-            else
-            {
-                Time.timeScale = 1.0f;
-            }
-            if (Input.GetKeyDown(KeyCode.Escape) == true)
-            {
-                if (lockPauseMenu == true)
-                {
-                    return;
-                }
-                if (isPaused == false || inPauseMenu == false)
-                {
-
-                    inPauseMenu = true;
-                    isPaused = true;
-                    AudioSource[] objs = FindObjectsOfType<AudioSource>();
-                    foreach (AudioSource obj in objs)
-                    {
-                        if (obj.tag == "MusicHandler")
+                        JusticeSpawn projectiles = FB.GetComponentInChildren<JusticeSpawn>();
+                        if (projectiles != null)
                         {
-
+                            ui.ShowPowerActivatedMessage(2);
+                            projectiles.FirePowerEffect();
                         }
-                        else
+                    }
+                    foreach (GameObject obj in projectileEnemies)
+                    {
+                        JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                        if (projectiles != null)
                         {
-                            if (obj.clip != null)
+                            ui.ShowPowerActivatedMessage(2);
+                            projectiles.FirePowerEffect();
+                        }
+
+                    }
+                    foreach (GameObject obj in swordEnemies)
+                    {
+                        JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
+                        if (projectiles != null)
+                        {
+                            projectiles.FirePowerEffect();
+                        }
+                    }
+                }
+                if (isPaused == true)
+                {
+                    if (TutorialStatus.GetTutorialStage() > 0 && TutorialStatus != null)
+                    {
+                        Time.timeScale = 1.0f;
+                    }
+                    else
+                    {
+                        Time.timeScale = 0.0f;
+                    }
+                }
+                else
+                {
+                    Time.timeScale = 1.0f;
+                }
+                if (Input.GetKeyDown(KeyCode.Escape) == true)
+                {
+                    if (lockPauseMenu == true)
+                    {
+                        return;
+                    }
+                    if (isPaused == false || inPauseMenu == false)
+                    {
+
+                        inPauseMenu = true;
+                        isPaused = true;
+                        AudioSource[] objs = FindObjectsOfType<AudioSource>();
+                        foreach (AudioSource obj in objs)
+                        {
+                            if (obj.tag == "MusicHandler")
                             {
-                                obj.Pause();
+
+                            }
+                            else
+                            {
+                                if (obj.clip != null)
+                                {
+                                    obj.Pause();
+                                }
                             }
                         }
+                        Debug.Log("Escape pressed, game paused!");
+                        GamePausedFunction();
+                        Cursor.lockState = CursorLockMode.None;
                     }
-                    Debug.Log("Escape pressed, game paused!");
-                    GamePausedFunction();
-                    Cursor.lockState = CursorLockMode.None;
-                }
-                else
-                {
-                    inPauseMenu = false;
-                    isPaused = false;
-                    AudioSource[] objs = FindObjectsOfType<AudioSource>();
-                    foreach (AudioSource obj in objs)
+                    else
                     {
-                        if (obj.tag == "MusicHandler")
+                        inPauseMenu = false;
+                        isPaused = false;
+                        AudioSource[] objs = FindObjectsOfType<AudioSource>();
+                        foreach (AudioSource obj in objs)
                         {
+                            if (obj.tag == "MusicHandler")
+                            {
 
+                            }
+                            else
+                            {
+                                obj.UnPause();
+                            }
                         }
-                        else
-                        {
-                            obj.UnPause();
-                        }
+                        Debug.Log("Game resumed!");
+                        GameUnpausedFunction();
+                        Cursor.lockState = CursorLockMode.Locked;
+                        return;
+
                     }
-                    Debug.Log("Game resumed!");
-                    GameUnpausedFunction();
-                    Cursor.lockState = CursorLockMode.Locked;
-                    return;
+                }
 
-                }
-            }
-            if (TutorialStage > 0)
-            {
-                if (TutorialStage == 1)
+                if (Input.GetKeyDown(KeyCode.Escape) == true)
                 {
-                    DisableUIForTutorial();
-                    Tutorial();
-                }
-                if (TutorialStage == 2 && Input.GetMouseButton(0) && inPauseMenu == false)
-                {
-                    TutorialStage = 3;
-                    Tutorial();
-                }
-                if (TutorialStage == 4 && Input.GetMouseButton(0) && inPauseMenu == false)
-                {
-                    TutorialStage = 5;
-                    Tutorial();
-                }
-                if (TutorialStage == 6 && Input.GetMouseButton(0) && inPauseMenu == false)
-                {
-                    TutorialStage = 7;
-                    Tutorial();
-                }
-                if (TutorialStage == 8 && Input.GetMouseButton(0) && inPauseMenu == false)
-                {
-                    TutorialStage = 9;
-                    Tutorial();
-                }
-                if (TutorialStage == 10 && Input.GetMouseButton(0) && inPauseMenu == false)
-                {
-                    TutorialStage = 11;
-                    Tutorial();
-                    isPaused = false;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Escape) == true)
-            {
-               if (isPaused == false)
-               {
-                   escapePushCooldown = 0;
-                   isPaused = true;
-                   Debug.Log("Escape pressed, game paused!");
-                   GamePausedFunction();
-                   Cursor.lockState = CursorLockMode.None;
-               }
-               else if (escapePushCooldown > 0.5f)
-               {
-                    Debug.Log("Game resumed!");
-                    GameUnpausedFunction();
-                    Cursor.lockState = CursorLockMode.Locked;
-                    isPaused = false;
+                    if (isPaused == false)
+                    {
+                        escapePushCooldown = 0;
+                        isPaused = true;
+                        Debug.Log("Escape pressed, game paused!");
+                        GamePausedFunction();
+                        Cursor.lockState = CursorLockMode.None;
+                    }
+                    else if (escapePushCooldown > 0.5f)
+                    {
+                        Debug.Log("Game resumed!");
+                        GameUnpausedFunction();
+                        Cursor.lockState = CursorLockMode.Locked;
+                        isPaused = false;
 
+                    }
                 }
-            }
-            if (isPaused == false)
-            {
-                ShowAllPowersInGame();
-            }
-            else
-            {
-                
-                if (Input.GetKeyDown(KeyCode.R) == true && buttonpressed == false)
+                if (isPaused == false)
                 {
-                    
-                    buttonpressed = true;
+                    ShowAllPowersInGame();
                 }
                 else
                 {
-                    buttonpressed = false;
+
+                    if (Input.GetKeyDown(KeyCode.R) == true && buttonpressed == false)
+                    {
+
+                        buttonpressed = true;
+                    }
+                    else
+                    {
+                        buttonpressed = false;
+                    }
+                }
+                if (health != null)
+                {
+                    getUpdatePlayerHP();
+                    ProgressUpdate();
                 }
             }
-            if (health != null)
-            {
-                getUpdatePlayerHP();
-                ProgressUpdate();
-            }
-
         }
-
-
-
-
-
+       
     }
+            
+
+  
+
+    public void SetPauseMenuLock(bool value)
+    {
+        lockPauseMenu = value;
+    }
+    public bool GetInPauseMenu()
+    {
+        return inPauseMenu;
+    }
+    public bool GetIsPaused()
+    {
+        return isPaused;
+    }
+    public void SetIsPaused(bool value)
+    {
+        isPaused = value;
+    }
+
 }

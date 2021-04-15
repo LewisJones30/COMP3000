@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     [SerializeField]
     AudioClip DeathSound;
+    TutorialHandler TutorialStatus;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +61,8 @@ public class Enemy : MonoBehaviour
         inflatedScaleY = startingScaleY * INFLATED_POWER_SCALE;
         inflatedScaleZ = startingScaleZ * INFLATED_POWER_SCALE;
         animator = GetComponent<Animator>();
+        TutorialStatus = GameObject.FindWithTag("TutorialHandler").GetComponent<TutorialHandler>();
+
     }
 
     // Update is called once per frame
@@ -84,7 +87,7 @@ public class Enemy : MonoBehaviour
         }
         if (pauseCheck != null)
         {
-            if (pauseCheck.isPaused == true)
+            if (pauseCheck.GetIsPaused())
             {
                 stopMoving = true;
                 enemyAnimations.enabled = false;
@@ -178,9 +181,9 @@ public class Enemy : MonoBehaviour
         animator.SetBool("isDead", true);
         pauseCheck.AddPoints(pointsWhenKilled);
         yield return new WaitForSeconds(1f);
-        if (pauseCheck.GetTutorialStage() > 0)
+        if (TutorialStatus.GetTutorialStage() > 0)
         {
-            pauseCheck.TutorialEnemyKilled();
+            TutorialStatus.TutorialEnemyKilled();
         }
 
         progressionController.enemyKilled(FinalBossMinion);

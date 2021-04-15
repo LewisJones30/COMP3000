@@ -22,7 +22,7 @@ public class Progression : MonoBehaviour
     [HideInInspector]
     public int numberEnemiesKilled = 0; //Used to track how many enemies have been killed per wave.
     bool waveComplete = false;
-
+    TutorialHandler TutorialStatus;
     /*
      * Wave arrays. Each wave is stored in memory, with an array of enemies that will be spawned randomly.
      * IMPORTANT - REMEMBER TO UPDATE CURRENT PROGRESSION PERCENTAGE ENEMY COUNT IF ADDING/REMOVING ENEMIES.
@@ -246,7 +246,15 @@ public class Progression : MonoBehaviour
     }
     void FixedUpdate() //Control the enemy spawns here!
     {
-        if (ui.GetTutorialStage() > 0)
+        if (SceneManager.GetActiveScene().name == "UI Scale Testing")
+        {
+            return;
+        }
+        if (TutorialStatus == null) //Cannot always find the object at the start, since it may not be initialised.
+        {
+            TutorialStatus = GameObject.FindWithTag("TutorialHandler").GetComponent<TutorialHandler>();
+        }
+        if (TutorialStatus.GetTutorialStage() > 0)
         {
             return;
         }
@@ -254,7 +262,7 @@ public class Progression : MonoBehaviour
         {
             return;
         }
-        if (ui.isPaused != true) //Only run timers if the game is not paused. Paused state will also be used for round transitions.
+        if (ui.GetIsPaused() != true) //Only run timers if the game is not paused. Paused state will also be used for round transitions.
             switch (currentWave)
             {
                 case 1:

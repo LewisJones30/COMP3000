@@ -27,6 +27,7 @@ TagManager:
   - Fire
   - MusicHandler
   - StaffOBJ
+  - TutorialHandler
   layers:
   - Default
   - TransparentFX

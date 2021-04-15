@@ -2143,7 +2143,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 998908126}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: goToLeaderboards
+        m_MethodName: GoToLeaderboards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2967,7 +2967,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1330609520}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: goToLeaderboards
+        m_MethodName: GoToLeaderboards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4246,9 +4246,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1623377615}
+      - m_Target: {fileID: 998908126}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: goToLeaderboards
+        m_MethodName: GoToLeaderboards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5179,9 +5179,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1786610667}
+      - m_Target: {fileID: 998908126}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: goToLeaderboards
+        m_MethodName: GoToLeaderboards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5572,9 +5572,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876153885}
+      - m_Target: {fileID: 998908126}
         m_TargetAssemblyTypeName: ButtonCaller, Assembly-CSharp
-        m_MethodName: goToLeaderboards
+        m_MethodName: GoToLeaderboards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6800,3 +6800,5 @@ MonoBehaviour:
   bonusPoints1: {fileID: 0}
   bonusPoints2: {fileID: 0}
   progressBar: {fileID: 0}
+  losePowerMusic: {fileID: 0}
+  finalBossMusic: {fileID: 0}

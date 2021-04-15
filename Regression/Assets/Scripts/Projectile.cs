@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isPaused.isPaused) //Only increment timer if the game is not paused!
+        if (!isPaused.GetIsPaused()) //Only increment timer if the game is not paused!
         {
             timer = timer + Time.deltaTime;
             if (timer > TIME_TO_DESTROY)

@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPausedCheck.isPaused == true)
+        if (!isPausedCheck.GetIsPaused())
         {
             //Code to pause the entire game.
             if (isDead == true)
@@ -272,16 +272,9 @@ public class Player : MonoBehaviour
         isPausedCheck.getUpdatePlayerHP();
         if (health < 1)
         {
-            if (isPausedCheck.GetTutorialStage() > 0) //Check if player is in tutorial
-            {
-                health = 1; //Health cannot go below 1 in tutorial.
-            }
-            else
-            {
                 isDead = true; //Set player as dead.
                 health = 0;
                 playerdiedScript(); //Invoke the player died script.
-            }
 
         }
         else
@@ -320,7 +313,7 @@ public class Player : MonoBehaviour
     {
         isPausedCheck.setLockPauseMenu(true);
         deadtext.enabled = true;
-        isPausedCheck.isPaused = true;
+        isPausedCheck.SetIsPaused(true);
         blackout.SetActive(true);
         deadtextObj.SetActive(true);
         yield return new WaitForSeconds(5f);
