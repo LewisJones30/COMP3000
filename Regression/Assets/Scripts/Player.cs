@@ -7,6 +7,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
+
+    //Public variables
+    public GameObject deadtextObj;
+    public double time = 0;
+    [HideInInspector]
+    bool isDead = false; //Player starts alive.
+    bool[] powersLost = new bool[20];
+    float FireDamageTime = 0f;
+    [SerializeField]
+    GameObject blackout;
+    //SerializeField variables
     //Easy difficulty controls
     [HideInInspector]
     public double health = 100; //Player's current health. Access outside of script with GetCurrentHealth.
@@ -102,8 +114,7 @@ public class Player : MonoBehaviour
     bool ExpertPlayerChoosesWeapon = true;
     [Space(10)]
 
-    //Player modifier values. Accessed outside of script using getters.
-
+    //Private variables
     //Access with GetWeaponPower()
     double weaponPower = 1.0f; //Base weapon power
     //Access with GetBaseWeaponPower()
@@ -113,21 +124,7 @@ public class Player : MonoBehaviour
     //Access with GetPointsModifier()
     float pointsModifier = 1.0f; //Points gained.
     //Access with GetPlayerOnFire()
-    int playerOnFire = 0; //Boolean accessed by firecollision to damage the player. 0 = not on fire, 1 = on fire, 2 = exited fire, disable fire effect.
-
-
-    //Public variables
-    public GameObject deadtextObj;
-    public double time = 0;
-    [HideInInspector]
-    bool isDead = false; //Player starts alive.
-    bool[] powersLost = new bool[20];
-    float FireDamageTime = 0f;
-    [SerializeField]
-    GameObject blackout;
-
-
-
+    int playerOnFire = 0; //Boolean accessed by firecollision to damage the player. 0 = not on fire, 1 = on fire, 2 = exited fire, disable fire effect
     UIController isPausedCheck;
     PowerBehaviour powerController;
     Text deadtext;
@@ -160,7 +157,7 @@ public class Player : MonoBehaviour
         {
             playerdiedScript();
         }
-        else if (powerController.powerHandler[3].GetPowerActive() == true) //Starts time from when the player recieves the power.
+        else if (powerController.powerHandler[3].GetPowerActive()) //Starts time from when the player recieves the power.
         {
             time = time + Time.deltaTime;
             if (time >= 1)
@@ -172,7 +169,7 @@ public class Player : MonoBehaviour
         if (playerOnFire == 1)
         {
             isPausedCheck.EnableFireWarning();
-           if (powerController.powerHandler[5].GetPowerActive() == true)
+           if (powerController.powerHandler[5].GetPowerActive())
             {
                 //Change UI to warn player in fire, but imbued with fire means they take no damage.
                 return; //Player does NOT take damage. 
@@ -279,7 +276,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (powerController.powerHandler[4].GetPowerActive() == true)
+            if (powerController.powerHandler[4].GetPowerActive())
             {
                 DharoksEffect(); //Recalculate the player's damage.
             }
@@ -448,7 +445,7 @@ public class Player : MonoBehaviour
         //Check powers.
         //Slot 2 & 3 effect the player immediately.
         //Increase player's HP by 2x.
-        if (powerController.powerHandler[1].GetPowerActive() == true)
+        if (powerController.powerHandler[1].GetPowerActive())
         {
             Debug.Log("Power 1 in effect!");
             weaponPower = weaponPower * 2f; //Weapons are twice as effective in terms of damage dealt.
@@ -458,14 +455,14 @@ public class Player : MonoBehaviour
             }    
         }
         //Power 3 check. Double maximum HP.
-        if (powerController.powerHandler[2].GetPowerActive() == true)
+        if (powerController.powerHandler[2].GetPowerActive())
         {
             Debug.Log("Power 2 in effect!");
             maximumHealth = maximumHealth * 2f; //Health is doubled with this modifier
             health = maximumHealth;
         }
         //Power 10 check
-        if (powerController.powerHandler[9].GetPowerActive() == true)
+        if (powerController.powerHandler[9].GetPowerActive())
         {
             damageTaken = damageTaken * 0.5f; //Damage taken is 50% lower.
 

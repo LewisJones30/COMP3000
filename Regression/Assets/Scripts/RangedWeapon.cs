@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RangedWeapon : MonoBehaviour
 {
+    //Public variables
+    //SerializeField variables
+    //Private variables
     double shootingCooldown = 1.5f;
     UIController isPauseCheck; //Check if paused.
     // Start is called before the first frame update

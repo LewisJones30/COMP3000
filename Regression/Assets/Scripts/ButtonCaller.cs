@@ -67,7 +67,7 @@ public class ButtonCaller : MonoBehaviour
         }
         if (Power1)
         {
-            powers.loseSpecificPower(ui.losePower1);
+            powers.LoseSpecificPower(ui.losePower1);
             switch (powers.powerHandler[ui.losePower1].PowerStrength)
             {
                 case 3:
@@ -92,7 +92,7 @@ public class ButtonCaller : MonoBehaviour
         }
         else
         {
-            powers.loseSpecificPower(ui.losePower2);
+            powers.LoseSpecificPower(ui.losePower2);
             switch (powers.powerHandler[ui.losePower2].PowerStrength)
             {
                 case 3:

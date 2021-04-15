@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS ATTACHED TO IS CREATED WHEN THE GAME IS LOADED, AND IS ALWAYS KEPT BETWEEN SCENES.
 {
-
+    //Public variables
     public int difficultyLevel;
     public Power[] powerHandler = new Power[20];
+    public bool gameStarted = false;
+
+    //Private variables
     UIController redrawCurrentPowers;
     Player player;
-    public bool gameStarted = false;
     bool AllFiresActive = true; //Used to ensure allfiresactive is not triggered multiple times.
     int powersDrainedCount = 0;
-    // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -23,12 +24,9 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         {
             difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
             LoadDifficulty();
-            player = GameObject.Find("Player").GetComponent<Player>();
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-            redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
-
-            
-
+            redrawCurrentPowers = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
         }
 
 
@@ -71,7 +69,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         if (player == null)
         {
-            player = GameObject.Find("Player").GetComponent<Player>();
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();
         }
         if (player != null)
         {
@@ -81,12 +79,12 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     }
     public void FindObjects()
     {
-        redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+        redrawCurrentPowers = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
         player = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Player>();
     }
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        redrawCurrentPowers = GameObject.Find("UIHandler").GetComponent<UIController>();
+        redrawCurrentPowers = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
         player = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Player>();
        
     }
@@ -103,7 +101,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             while (enabled == false)
             {
                 Power chosenPower = RandomPower();
-                if (chosenPower.GetPowerAvailable() && chosenPower.GetPowerActive() == false)
+                if (chosenPower.GetPowerAvailable() && !chosenPower.GetPowerActive())
                 {
                     chosenPower.SetPowerActive(true);
                     chosenPower.SetPowerStartedActive(true);
@@ -118,7 +116,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         else
         {
-            player = GameObject.Find("Player").GetComponent<Player>();
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();
             player.ModifyPlayer();
         }
 
@@ -143,24 +141,12 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
             obj.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
         GameObject rainEffect;
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-        {
-            if (obj.name == "RainEffect")
-            {
-                obj.SetActive(true);
-            }
-        }
+        SetRainEffect(true);
         Debug.Log("All fires disabled!");
         float timer = 0.0f;
         UIController ui = GameObject.FindGameObjectWithTag("UIHandler").GetComponent<UIController>();
         yield return new WaitForSeconds(45);
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-        {
-            if (obj.name == "RainEffect")
-            {
-                obj.SetActive(false);
-            }
-        }
+        SetRainEffect(false);
         foreach (GameObject obj in allFireobjs)
         {
             var emission = obj.gameObject.GetComponent<ParticleSystem>().emission;
@@ -169,6 +155,17 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         AllFiresActive = true;
         Debug.Log("All fires enabled!");
+    }
+
+    void SetRainEffect(bool value)
+    {
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            if (obj.name == "RainEffect")
+            {
+                obj.SetActive(value);
+            }
+        }
     }
     //====================================This section is the difficulty controller. This is executed when the player presses what difficulty they wish to run. ==================================
     //Still requires a trigger to change the scene. Needs to keep this object persistent in the next scene as well.
@@ -273,7 +270,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
     }
 
     //Called by Buttons
-    public void loseSpecificPower(int powerID)
+    public void LoseSpecificPower(int powerID)
     {
         //Set GetPowerActive() to false.
         powerHandler[powerID].SetPowerActive(false);
@@ -282,7 +279,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
 
 
     //In hard and higher, the game will choose a power to disable immediately for you.
-    public void losePowerHard() //Returns which power was drained for use in UI.
+    public void LosePowerHard() //Returns which power was drained for use in UI.
     {
         bool powerDrained = false;
         int drainedPowerID = 255;
@@ -308,13 +305,13 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         powersDrainedCount = powersDrainedCount + 1;
     }
 
-    public void loseAllPowers() //Temporary method. Used for first build.
+    public void LoseAllPowers() //Temporary method. Used for first build.
     {
         for (int i = 0; i < powerHandler.Length; i++)
         {
             powerHandler[i].SetPowerActive(false);
         }
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         player.PowerLost();
         redrawCurrentPowers.ShowAllPowersInGame();
         

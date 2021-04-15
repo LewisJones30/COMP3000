@@ -5,21 +5,27 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //Public variables
+
+    //SerializeField variables
     [SerializeField]
     GameObject projectile;
     [SerializeField]
     public double attackSpeed = 5f;
-    double storedAS;
-    GameObject enemyParent;
-    UIController ispauseCheck;
-    Animator isEnemy;
     [SerializeField]
-   int MeleeRaycastLength = 2;
+    int MeleeRaycastLength = 2;
     [SerializeField]
     RaycastHit hit;
     [SerializeField]
     AudioClip MagicAttack, MeleeAttack;
+
+
+
+    //Non-Serializefield private variables
+    double storedAS;
+    GameObject enemyParent;
+    UIController ispauseCheck;
+    Animator isEnemy;
     void Start()
     {
         ispauseCheck = GameObject.Find("UIHandler").GetComponent<UIController>();
@@ -52,9 +58,8 @@ public class EnemyAttack : MonoBehaviour
                     }
                     GetComponent<AudioSource>().PlayOneShot(MagicAttack, volume);
                     attackSpeed = storedAS + 1.2f;
-                    //StartCoroutine("attackAnim");
                     isEnemy.SetTrigger("Attack");
-                    Invoke("spawnProjectile", 1.25f);
+                    Invoke("SpawnProjectile", 1.25f);
                   
 
                 }
@@ -62,13 +67,13 @@ public class EnemyAttack : MonoBehaviour
                 {
                     
                     attackSpeed = storedAS;
-                    meleeSwipe();
+                    MeleeSwipe();
 
                 }
             }
         }
     }
-    void spawnProjectile()
+    void SpawnProjectile()
     {
 
         GameObject projectileShot;
@@ -78,7 +83,7 @@ public class EnemyAttack : MonoBehaviour
         Debug.Log("Anim triggered!");
         isEnemy.SetTrigger("StopAttack");
     }
-    void meleeSwipe()
+    void MeleeSwipe()
     {
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -105,24 +110,5 @@ public class EnemyAttack : MonoBehaviour
         }
         isEnemy.SetTrigger("StopAttack");
 
-    }
-    IEnumerator attackAnim()
-    {
-        isEnemy.SetTrigger("Attack");
-        yield return new WaitForSeconds(1.25f);
-        GameObject projectileShot;
-        bool projectileMade = false;
-        while (projectileMade == false)
-        {
-            projectileMade = true;
-            projectileShot = Instantiate(projectile, transform.position, transform.rotation);
-            projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);
-            projectileShot.transform.rotation = enemyParent.transform.rotation;
-
-        }
-
-        attackSpeed = storedAS;
-        Debug.Log("Anim triggered!");
-        isEnemy.SetTrigger("StopAttack");
     }
 }

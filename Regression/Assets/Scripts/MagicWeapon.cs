@@ -7,18 +7,23 @@ using Zenject.Asteroids;
 
 public class MagicWeapon : MonoBehaviour
 {
+    //Public variables
+
+    //SerializeField variables
     [SerializeField]
     [Tooltip("Default time between shots.\nNote that some difficulties and powers will change this.")]
     double shootingCooldown = 1.5f;
-    UIController isPauseCheck; //Check if paused.
     [SerializeField]
     GameObject projectile;
-    private double dupeCD; //Original cooldown, so shooting cooldown can return to that value.
-    [SerializeField]
-    GameObject UITempWeaponText;
-    Text text;
     [SerializeField]
     GameObject Powerhandler;
+    [SerializeField]
+    GameObject UITempWeaponText;
+
+    //Private variables
+    UIController isPauseCheck; //Check if paused.
+    private double dupeCD; //Original cooldown, so shooting cooldown can return to that value.
+    Text text;
     PowerBehaviour PowerBehaviour;
     bool powerModified = false; //Boolean so that the power is not endlessly applied.
     // Start is called before the first frame update
@@ -41,7 +46,7 @@ public class MagicWeapon : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PowerBehaviour.powerHandler[6].GetPowerActive() == true && powerModified == false)
+        if (PowerBehaviour.powerHandler[6].GetPowerActive()  && !powerModified)
         {
             //Reduce the cooldown of shooting by half with power 6.
             shootingCooldown = shootingCooldown / 2f;
@@ -57,7 +62,7 @@ public class MagicWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkPower();
+        CheckPower();
         if (!isPauseCheck.GetIsPaused())
         {
             if (shootingCooldown <= 0)
@@ -115,7 +120,7 @@ public class MagicWeapon : MonoBehaviour
         yield return new WaitForSeconds(0.67f);
         GameObject.FindGameObjectWithTag("StaffOBJ").GetComponent<Animator>().SetBool("isAttacking", false);
     }
-    void checkPower()
+    void CheckPower()
     {
         if (PowerBehaviour.powerHandler[6].GetPowerActive() == false && PowerBehaviour.powerHandler[6].GetPowerStartedActive() == true && powerModified == true)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //Enemy variables
+    //SerializeField variables
     [SerializeField]
     double health = 100f; //Can be modified for each enemy prefab in the prefab creation.
     [SerializeField]
@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     [Tooltip("This is the amount of time between this enemy's attacks.")]
     double attackSpeed = 5f; //Set the enemy's attack speed.
-    float storedAS; //Used for resetting the attack speed timer.
     [SerializeField]
     int pointsWhenKilled = 100;
     [SerializeField]
@@ -28,22 +27,26 @@ public class Enemy : MonoBehaviour
     float enemyMovementSpeed = 1f;
     [SerializeField]
     bool FinalBossMinion = false;
+    [SerializeField]
+    AudioClip DeathSound;
+
+
+    //Non-Serialize private variables
+    Rigidbody i;
+    Animator animator;
+    float storedAS; //Used for resetting the attack speed timer.
     RaycastHit hit;
     double attackTime;
     bool stopMoving = false;
     Animator enemyAnimations;
     UIController pauseCheck;
     Progression progressionController;
-    [SerializeField]
-    Rigidbody i;
     PowerBehaviour powerScaleCheck;
     const float INFLATED_POWER_SCALE = 1.5f;
     float startingScaleX, startingScaleY, startingScaleZ;
     float inflatedScaleX, inflatedScaleY, inflatedScaleZ;
-    Animator animator;
-    [SerializeField]
-    AudioClip DeathSound;
     TutorialHandler TutorialStatus;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,7 +80,7 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (stopMoving == false)
+        if (!stopMoving)
         {
             enemyAnimations.SetBool("isWalking", true);
         }
@@ -160,12 +163,13 @@ public class Enemy : MonoBehaviour
     }
     public void takeDamage(double damageToTake)
     {
-        health = health - damageToTake;
+        health -= damageToTake;
         StartCoroutine("flashDamaged");
         if (health <= 0)
         {
             float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
             float volume;
+            //Determine the distance away from the player for the volume
             volume = 1 - (dist / 70);
             if (volume < 0)
             {
@@ -181,11 +185,11 @@ public class Enemy : MonoBehaviour
         animator.SetBool("isDead", true);
         pauseCheck.AddPoints(pointsWhenKilled);
         yield return new WaitForSeconds(1f);
-        if (TutorialStatus.GetTutorialStage() > 0)
+        if (TutorialStatus.GetTutorialStage() > 0) //If the tutorial is active, trigger "TutorialEnemyKilled".
         {
             TutorialStatus.TutorialEnemyKilled();
+            Destroy(this.gameObject);
         }
-
         progressionController.enemyKilled(FinalBossMinion);
         Destroy(this.gameObject); //Kill enemy
     }

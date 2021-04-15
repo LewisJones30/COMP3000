@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class FireCollision : MonoBehaviour
 {
+    //Public variables
+
+    //SerializeField variables
+
+    //Non-SerializeField variables
     GameObject player;
     Player playerScript;
-    bool AllFiresActive = true;
     // Start is called before the first frame update
     void Start()
     {

@@ -720,7 +720,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        powerController.losePowerHard();
+                        powerController.LosePowerHard();
                         break;
                     }
                    
@@ -734,7 +734,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        powerController.losePowerHard();
+                        powerController.LosePowerHard();
                         break;
                     }
                 }
@@ -747,7 +747,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        powerController.losePowerHard();
+                        powerController.LosePowerHard();
                         break;
                     }
                 }
@@ -760,7 +760,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        powerController.losePowerHard();
+                        powerController.LosePowerHard();
                         break;
                     }
                 }

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class FBProjectile : MonoBehaviour
 {
-    Rigidbody i;
+    //Public variables
+
+
+    //SerializeField variables
     [SerializeField]
     const int DAMAGE_DEALT_TO_PLAYER_DEFAULT = 25;
+    //Non-SerializeField variables
+    Rigidbody i;
     RaycastHit hit;
 
     void Start()
@@ -31,7 +36,6 @@ public class FBProjectile : MonoBehaviour
                 MovementScript stunned = player.GetComponent<MovementScript>();
                 stunned.StunPlayer(1.5f);
                 player.takeDamage(DAMAGE_DEALT_TO_PLAYER_DEFAULT);
-
             }
         }
     }

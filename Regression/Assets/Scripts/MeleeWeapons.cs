@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class MeleeWeapons : MonoBehaviour
 {
+
+
+
+    //Public Variables
+
+    //SerializeField variables
     [SerializeField]
     double cooldown = 1f;
-    double duplicateCD;
     [SerializeField]
     [Tooltip("The amount of damage this weapon deals, before modifiers are applied.")]
     double damageDealt;
+    [SerializeField]
+    GameObject collisionDetection;
+
+    //Private variables
+    double duplicateCD;
     UIController isPausedCheck;
     Animator anim;
     RaycastHit hit;
-    [SerializeField]
-    GameObject collisionDetection;
     Vector3 forward;
     Player playerScript;
     const float SWORD_ATTACK_DISTANCE = 12.5f;
@@ -22,6 +30,7 @@ public class MeleeWeapons : MonoBehaviour
     const int RAIN_POWER_CHANCE = 100;
     PowerBehaviour power;
     bool powerModifierApplied = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,11 +59,11 @@ public class MeleeWeapons : MonoBehaviour
                     if (Physics.Raycast(transform.parent.position, transform.forward, out hit, SWORD_ATTACK_DISTANCE))
                     {
                         Debug.Log("RNG rolled!");
-                        if (hit.collider.gameObject.tag == "ProjectileEnemy" || hit.collider.gameObject.tag == "SwordEnemy" || hit.collider.gameObject.tag == "FinalBoss")
+                        if (hit.collider.gameObject.CompareTag("ProjectileEnemy") || hit.collider.gameObject.CompareTag("SwordEnemy") || hit.collider.gameObject.CompareTag("FinalBoss"))
                         {
                             GameObject obj = hit.collider.gameObject;
                             Enemy enemyScript = hit.collider.gameObject.GetComponent<Enemy>();
-                            PowerBehaviour powers = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
+                            PowerBehaviour powers = GameObject.FindWithTag("PowerHandler").GetComponent<PowerBehaviour>();
                             var rand = new System.Random();
                             int RNGRoll = rand.Next(0, 9999);
                             if (RNGRoll > RAIN_POWER_CHANCE && RNGRoll < RAIN_POWER_CHANCE * 2)

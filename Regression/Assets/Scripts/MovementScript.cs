@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
+    //Public variables
 
+    //SerializeField variables
+
+    //Private variables
     Rigidbody player;
     public float movementSpeed = 15; //Multiplier for movement speed
     public float rotationSpeed = 10; //Multiplier for rotation speed
@@ -13,6 +17,7 @@ public class MovementScript : MonoBehaviour
     UIController ui;
     RaycastHit hit;
     bool playerStunned = false;
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -27,7 +32,7 @@ public class MovementScript : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             return;
         }
-        if (playerStunned == true) //Check if playerStunned is true.
+        if (playerStunned) //Check if playerStunned is true.
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
@@ -52,7 +57,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, forward, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
+            if (hit.transform.gameObject.CompareTag("SwordEnemy") || hit.transform.gameObject.CompareTag("ProjectileEnemy") || hit.transform.gameObject.CompareTag("Terrain") || hit.transform.gameObject.CompareTag("FinalBoss"))
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
@@ -65,7 +70,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, left, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
+            if (hit.transform.gameObject.CompareTag("SwordEnemy") || hit.transform.gameObject.CompareTag("ProjectileEnemy") || hit.transform.gameObject.CompareTag("Terrain") || hit.transform.gameObject.CompareTag("FinalBoss"))
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
@@ -78,7 +83,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, right, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
+            if (hit.transform.gameObject.CompareTag("SwordEnemy") || hit.transform.gameObject.CompareTag("ProjectileEnemy") || hit.transform.gameObject.CompareTag("Terrain") || hit.transform.gameObject.CompareTag("FinalBoss"))
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;
@@ -91,7 +96,7 @@ public class MovementScript : MonoBehaviour
         if (Physics.Raycast(transform.position, back, out hit, 5)) //different to constant to prevent player reversing into a wall and having a dodgy camera angle.
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
-            if (hit.transform.gameObject.tag == "SwordEnemy" || hit.transform.gameObject.tag == "ProjectileEnemy" || hit.transform.gameObject.tag == "Terrain" || hit.transform.gameObject.tag == "FinalBoss")
+            if (hit.transform.gameObject.CompareTag("SwordEnemy") || hit.transform.gameObject.CompareTag("ProjectileEnemy") || hit.transform.gameObject.CompareTag("Terrain") || hit.transform.gameObject.CompareTag("FinalBoss"))
             {
                 rb.angularVelocity = Vector3.zero;
                 rb.velocity = Vector3.zero;

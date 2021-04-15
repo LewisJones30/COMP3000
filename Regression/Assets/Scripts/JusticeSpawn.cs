@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class JusticeSpawn : MonoBehaviour
 {
+    //Public variables
+    //SerializeField variables
     [SerializeField]
     GameObject DamagingProjectile;
+    //Private variables
     PowerBehaviour powerCheck;
-    // Start is called before the first frame update
+
 
     //Script notes
     //This should be applied to a child object for every enemy.
-    //The specified height for this object is 19.67 in the Y direction, 0 for X/Z. 
+    //The specified height for this object is 19.67 in the Y direction, 0 for X/Z.
+    //The height is different for the final boss due to the size!
     void Start()
     {
         powerCheck = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
-        //if (transform.parent.tag == "SwordEnemy")
-        //{
-        //    transform.rotation *= Quaternion.Euler(0, 180f, 0); //Ensure comet always right direction.
-        //}
-        //if (transform.parent.tag == "ProjectileEnemy")
-        //{
-        //    transform.rotation *= Quaternion.Euler(0, 90f, 0);
-        //}
     }
 
     // Update is called once per frame
