@@ -230,4 +230,25 @@ public class ButtonCaller : MonoBehaviour
         PlayerPrefs.SetString("ExpertFourthPlaceScoreName", "");
         PlayerPrefs.SetString("ExpertFifthPlaceScoreName", "");
     }
+
+    public void MovetoLeaderboards()
+    {
+        Animation leaderboardObj = GameObject.FindWithTag("LeaderboardsMovementObj").GetComponent<Animation>();
+        Animation difficultyObj = GameObject.FindWithTag("DifficultyMovementObj").GetComponent<Animation>();
+        GameObject.FindWithTag("UIHandler").GetComponent<UIController>().CallLeaderboards(1);
+        leaderboardObj["LeaderboardMoveAnim"].wrapMode = WrapMode.Once;
+        leaderboardObj.Play("LeaderboardMoveAnim");
+        difficultyObj["ChooseDifficultyMovement"].wrapMode = WrapMode.Once;
+        difficultyObj.Play("ChooseDifficultyMovement");
+        
+    }
+    public void MoveBackToMainMenu()
+    {
+        Animation leaderboardObj = GameObject.FindWithTag("LeaderboardsMovementObj").GetComponent<Animation>();
+        Animation difficultyObj = GameObject.FindWithTag("DifficultyMovementObj").GetComponent<Animation>();
+        leaderboardObj["MainMenuMovementLeaderboards"].wrapMode = WrapMode.Once;
+        leaderboardObj.Play("MainMenuMovementLeaderboards");
+        difficultyObj["MainMenuMovementChooseDifficulty"].wrapMode = WrapMode.Once;
+        difficultyObj.Play("MainMenuMovementChooseDifficulty");
+    }
 }

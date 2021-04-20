@@ -117,8 +117,8 @@ public class Enemy : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(transform.position, forward, out hit, raycastLength))
         {
-            Debug.Log("Enemy raycast player check: " + hit.transform.gameObject.name);
-            if (hit.collider.gameObject.name == "Player" || hit.collider.gameObject.tag == "SwordEnemy")
+            Debug.Log("Enemy raycast player check: " + hit.transform.gameObject.tag + gameObject.tag);
+            if (hit.collider.gameObject.CompareTag("MainCamera") || hit.collider.gameObject.CompareTag("SwordEnemy"))
             {
                 stopMoving = true;
                 return;

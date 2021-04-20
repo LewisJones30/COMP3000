@@ -138,7 +138,7 @@ public class Projectile : MonoBehaviour
 
 
             }
-            else if (hit.collider.gameObject.CompareTag("Player"))
+            else if (hit.collider.gameObject.CompareTag("MainCamera"))
             {
                 Destroy(this.gameObject);
                 Player player = hit.collider.gameObject.GetComponent<Player>();

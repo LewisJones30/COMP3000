@@ -144,7 +144,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isPausedCheck.GetIsPaused())
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            playerdiedScript();
+        }
+        if (isPausedCheck.GetIsPaused())
         {
             //Code to pause the entire game.
             if (isDead == true)
@@ -310,12 +314,10 @@ public class Player : MonoBehaviour
     {
         isPausedCheck.setLockPauseMenu(true);
         deadtext.enabled = true;
-        isPausedCheck.SetIsPaused(true);
         blackout.SetActive(true);
-        deadtextObj.SetActive(true);
+        deadtextObj.SetActive(true); 
+        isPausedCheck.SetIsPaused(true, true);
         yield return new WaitForSeconds(5f);
-        deadtextObj.SetActive(false);
-
         if (GameObject.Find("PlayerHPBorder") != null)
         {
             GameObject.Find("PlayerHPBorder").SetActive(false);
@@ -327,6 +329,7 @@ public class Player : MonoBehaviour
         PlayerPrefs.SetInt("LastLeaderboardPosition", isPausedCheck.storeHighscores(powerController.difficultyLevel)); //Obtain the difficulty level from the powers controller.
         
         isPausedCheck.GameSummaryScreen(true);
+        isPausedCheck.SetIsPaused(true, false);
     }
     void FadeBlackout(Image image)
     {

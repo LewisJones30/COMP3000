@@ -52,7 +52,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     [SerializeField]
     AudioClip losePowerMusic, finalBossMusic;
     TutorialHandler TutorialStatus;
-
+   
 
     //Non-SerializeField variables.
     bool isPaused = false;
@@ -63,6 +63,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     //UI Controller tracking stages.
     bool inPauseMenu = false;
     bool lockPauseMenu = false; //Used while certain windows are open to ensure pause menu will NOT load.
+    bool playerDead = false; //Used in an overload to override the timescale when the player dies.
     Progression p;
     GameObject audioController;
 
@@ -85,10 +86,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 UIStunnedMessage.SetActive(false);
             }
             WeaponSelection();
-        }
-        if (SceneManager.GetActiveScene().name == "Leaderboards")
-        {
-            LoadLeaderboard(1);
         }
     }
     void GetGameObjectsGame() 
@@ -426,6 +423,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             case 1: //EASY
                 {
+                    titleText.text = "Easy";
                     firstPoints = PlayerPrefs.GetInt("EasyFirstPlaceScore", 0);
                     secondPoints = PlayerPrefs.GetInt("EasySecondPlaceScore", 0);
                     thirdPoints = PlayerPrefs.GetInt("EasyThirdPlaceScore", 0);
@@ -1486,6 +1484,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (scene.name == "UI Scale Testing")
         {
             LoadHighscores();
+            LoadLeaderboard(1);
         }
 
 
@@ -1859,42 +1858,11 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             {
                 if (Input.GetKeyDown(KeyCode.F12))
                 {
-                    UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
-
-                    GameObject[] projectileEnemies = GameObject.FindGameObjectsWithTag("ProjectileEnemy");
-                    GameObject[] swordEnemies = GameObject.FindGameObjectsWithTag("SwordEnemy");
-                    GameObject FB = GameObject.FindGameObjectWithTag("FinalBoss");
-                    if (FB != null)
-                    {
-                        JusticeSpawn projectiles = FB.GetComponentInChildren<JusticeSpawn>();
-                        if (projectiles != null)
-                        {
-                            ui.ShowPowerActivatedMessage(2);
-                            projectiles.FirePowerEffect();
-                        }
-                    }
-                    foreach (GameObject obj in projectileEnemies)
-                    {
-                        JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                        if (projectiles != null)
-                        {
-                            ui.ShowPowerActivatedMessage(2);
-                            projectiles.FirePowerEffect();
-                        }
-
-                    }
-                    foreach (GameObject obj in swordEnemies)
-                    {
-                        JusticeSpawn projectiles = obj.GetComponentInChildren<JusticeSpawn>();
-                        if (projectiles != null)
-                        {
-                            projectiles.FirePowerEffect();
-                        }
-                    }
+                    
                 }
                 if (isPaused == true)
                 {
-                    if (TutorialStatus.GetTutorialStage() > 0 && TutorialStatus != null)
+                    if ((TutorialStatus != null && TutorialStatus.GetTutorialStage() > 0) || playerDead)
                     {
                         Time.timeScale = 1.0f;
                     }
@@ -2013,6 +1981,12 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public void SetPauseMenuLock(bool value)
     {
         lockPauseMenu = value;
+    }
+    //OVERRIDE, USED BY PLAYER SCRIPT. USE SETISPAUSED(bool value) INSTEAD.
+    public void SetIsPaused(bool value, bool playerDeadVal) 
+    {
+        isPaused = value;
+        playerDead = playerDeadVal;
     }
     public bool GetInPauseMenu()
     {

@@ -24,7 +24,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         {
             difficultyLevel = PlayerPrefs.GetInt("DifficultyChosen");
             LoadDifficulty();
-            player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            player = GameObject.FindWithTag("MainCamera").GetComponent<Player>();
 
             redrawCurrentPowers = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
         }
@@ -69,7 +69,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         if (player == null)
         {
-            player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            player = GameObject.FindWithTag("MainCamera").GetComponent<Player>();
         }
         if (player != null)
         {
@@ -116,7 +116,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         }
         else
         {
-            player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            player = GameObject.FindWithTag("MainCamera").GetComponent<Player>();
             player.ModifyPlayer();
         }
 

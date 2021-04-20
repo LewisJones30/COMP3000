@@ -28,6 +28,8 @@ TagManager:
   - MusicHandler
   - StaffOBJ
   - TutorialHandler
+  - DifficultyMovementObj
+  - LeaderboardsMovementObj
   layers:
   - Default
   - TransparentFX
