@@ -87,6 +87,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             }
             WeaponSelection();
         }
+        else if (SceneManager.GetActiveScene().name == "UI Scale Testing")
+        {
+            LoadHighscores();
+        }
     }
     void GetGameObjectsGame() 
     {
@@ -1027,6 +1031,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //Get current wave ID.
         GameObject progression = GameObject.Find("ProgressionHandler");
         Progression progObj = progression.GetComponent<Progression>();
+        GameObject.FindWithTag("MusicHandler").GetComponent<AudioController>().PlayMusic(1);
         if (playerDied)
         {
             postWave.GetComponent<Text>().text = "Died on wave: " + progObj.GetCurrentWave();
@@ -1484,7 +1489,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         if (scene.name == "UI Scale Testing")
         {
             LoadHighscores();
-            LoadLeaderboard(1);
+            //LoadLeaderboard(1);
         }
 
 
@@ -1837,6 +1842,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (SceneManager.GetActiveScene().name == "UI Scale Testing")
         {
+            Time.timeScale = 1.0f; //Set timescale to 1.
             if (PlayerPrefs.GetInt("TutorialCompleteStatus") != 1)
             {
                 SceneManager.LoadScene("Game");

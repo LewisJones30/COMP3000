@@ -30,6 +30,7 @@ TagManager:
   - TutorialHandler
   - DifficultyMovementObj
   - LeaderboardsMovementObj
+  - SplashScreenObj
   layers:
   - Default
   - TransparentFX

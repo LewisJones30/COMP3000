@@ -124,6 +124,7 @@ public class ButtonCaller : MonoBehaviour
    
     public void MainMenu()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("UI Scale Testing");
     }
     public void ResetTutorial()
@@ -250,5 +251,21 @@ public class ButtonCaller : MonoBehaviour
         leaderboardObj.Play("MainMenuMovementLeaderboards");
         difficultyObj["MainMenuMovementChooseDifficulty"].wrapMode = WrapMode.Once;
         difficultyObj.Play("MainMenuMovementChooseDifficulty");
+    }
+
+    public void MoveToMainMenu() //This is the animation called when moving from splash screen to front screen.
+    {
+        transform.GetComponentInChildren<Button>().enabled = false;
+        Animation splashObj = GameObject.FindWithTag("SplashScreenObj").GetComponent<Animation>();
+        Animation difficultyObj = GameObject.FindWithTag("DifficultyMovementObj").GetComponent<Animation>();
+        splashObj["MovementFrontSplashScreenUp"].wrapMode = WrapMode.Once;
+        splashObj.Play("MovementFrontSplashScreenUp");
+        difficultyObj["MainMenuMovementChooseDifficulty"].wrapMode = WrapMode.Once;
+        difficultyObj.Play("MainMenuMovementChooseDifficulty");
+        Invoke("DisableSplash", 0.5f);
+    }
+    public void DisableSplash()
+    {
+        GameObject.FindWithTag("SplashScreenObj").SetActive(false);
     }
 }
