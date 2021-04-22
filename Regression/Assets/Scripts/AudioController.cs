@@ -7,6 +7,8 @@ public class AudioController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     AudioClip LosePowerMusic, FinalBossMusic, IngameMusic, MagicAttack, MeleeAttack, GolemAttack, GolemDeath, MeleeMagicAttack, MeleeMagicDeath, MegaTrollAttack, MegaTrollDeath;
+    [SerializeField]
+    AudioClip FinalBossAttack, FinalBossEnraged;
     AudioSource audioController;
 
 
@@ -93,6 +95,11 @@ public class AudioController : MonoBehaviour
             case 7: //Melee projectile sound.
                 {
                     audioController.PlayOneShot(MeleeAttack);
+                    break;
+                }
+            case 8: //Final boss attack sound
+                {
+                    audioController.PlayOneShot(FinalBossEnraged);
                     break;
                 }
             default:

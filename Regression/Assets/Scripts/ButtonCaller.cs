@@ -131,38 +131,33 @@ public class ButtonCaller : MonoBehaviour
     {
         PlayerPrefs.SetInt("TutorialCompleteStatus", 0);
     }
-    public void startGameEasy()
+     void startGameEasy()
     { 
         GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 1);
         SceneManager.LoadScene("Game");
 
     }
-    public void startGameNormal()
+     void startGameNormal()
     {
         GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 2);
         SceneManager.LoadScene("Game");
 
     }
-    public void startGameHard()
+     void startGameHard()
     {
         GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 3);
         SceneManager.LoadScene("Game");
     }
-    public void startGameExpert()
+     void startGameExpert()
     {
         GetComponentInChildren<Text>().text = "Loading";
         PlayerPrefs.SetInt("DifficultyChosen", 4);
         SceneManager.LoadScene("Game");
     }
-    public void startGameSatanic()
-    {
-        GetComponentInChildren<Text>().text = "Loading";
-        PlayerPrefs.SetInt("DifficultyChosen", 5);
-        SceneManager.LoadScene("Game");
-    }
+
     public void CallLeaderboardEasy()
     {
         UIController ui = GameObject.Find("UIHandler").GetComponent<UIController>();
@@ -187,6 +182,59 @@ public class ButtonCaller : MonoBehaviour
     {
         SceneManager.LoadScene("Leaderboards");
     }
+
+    public void LoadEasyDescription()
+    {
+        UIController ui = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
+        ui.ChosenDifficulty(1);
+    }
+    public void LoadNormalDescription()
+    {
+        UIController ui = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
+        ui.ChosenDifficulty(2);
+    }
+    public void LoadHardDescription()
+    {
+        UIController ui = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
+        ui.ChosenDifficulty(3);
+    }
+    public void LoadExpertDescription()
+    {
+        UIController ui = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
+        ui.ChosenDifficulty(4);
+    }
+    public void StartGame()
+    {
+        UIController ui = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
+        switch (ui.intChosenDifficulty)
+        {
+            case 1:
+                {
+                    startGameEasy();
+                    return;
+                }
+            case 2:
+                {
+                    startGameNormal();
+                    return;
+                }
+            case 3:
+                {
+                    startGameHard();
+                    return;
+                }
+            case 4:
+                {
+                    startGameExpert();
+                    return;
+                }
+            default:
+                {
+                    return;
+                }
+        }
+    }
+
     public void ResetLeaderboards()
     {
         PlayerPrefs.SetInt("EasyFirstPlaceScore", 0);

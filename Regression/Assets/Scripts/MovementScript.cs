@@ -120,6 +120,7 @@ public class MovementScript : MonoBehaviour
     public void StunPlayer(float stunDuration)
     {
         playerStunned = true;
+        GameObject.FindWithTag("UIHandler").GetComponent<UIController>().EnableStunWarning();
         Invoke("EndStun", stunDuration);
         
     }
@@ -128,6 +129,7 @@ public class MovementScript : MonoBehaviour
         if (playerStunned == true)
         {
             playerStunned = false;
+            GameObject.FindWithTag("UIHandler").GetComponent<UIController>().DisableStunWarning();
         }
     }
 }

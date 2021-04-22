@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     bool buttonpressed = false;
     public PowerBehaviour powerController;
     public GameObject activePowers, healthObj, UIWaveComplete;
-
+    public int intChosenDifficulty = 0; //Used for the start button. Not using getter/setter as it is a basic int that doesn't require special protection.
 
     [Tooltip("This array should be the same length as the number of powers.")]
     [SerializeField]
@@ -52,7 +52,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     [SerializeField]
     AudioClip losePowerMusic, finalBossMusic;
     TutorialHandler TutorialStatus;
-   
+    [SerializeField]
+    Text chooseDifficultyDescriptions, chosenDifficulty;
 
     //Non-SerializeField variables.
     bool isPaused = false;
@@ -66,7 +67,15 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     bool playerDead = false; //Used in an overload to override the timescale when the player dies.
     Progression p;
     GameObject audioController;
-
+    const string EasyDescription = "You will start with all powers.\nYou start with double health.\nYou deal 1.25x more damage.\nYou take 0.75x damage.\n" +
+        "You are able to choose between two powers to lose each round.\nYou are able to choose between the staff and sword between each round.\nOverall, you will recieve 0.25x points.";
+    const string NormalDescription = "You will start with all powers.\nYou start with regular health.\nYou deal normal damage.\nYou take normal damage.\n" +
+        "You are able to choose between two powers to lose each round.\nYou are able to choose between the staff and sword between each round.\nOverall, you will recieve 1x points.";
+    const string HardDescription = "You will start with one less power.\nYou start with 0.75x health.\nYou deal 0.75x damage.\nYou take 1.25x more damage.\n" +
+        "You are unable to choose a power to lose each round. It is chosen automatically.\nYou are able to choose between the staff and sword between each round.\nOverall, you will recieve 1.5x points.";
+    const string ExpertDescription = "You will start with two less powers.\nYou start with 0.5x health.\nYou deal 0.5x damage.\nYou take 1.5x damage.\n" +
+        "You are unable to choose a power to lose each round. It is chosen automatically.\nYour weapon is chosen automatically each round.\nOverall, you will recieve 2.5x points.";
+   
 
     // Start is called before the first frame update
     void Start()
@@ -209,6 +218,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         expertDrainPowerImage.SetActive(true);
         expertDrainPowerNameText.SetActive(true);
         expertDrainPowerNameText2.SetActive(true);
+        expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+        expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+        expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
         expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
         expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].GetPowerName();
         expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
@@ -245,7 +257,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
                         }
-                        if (i == 0)
+                        else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
@@ -266,7 +278,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (player.GetNormalWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
-                        if (i == 0)
+                        if (i == 1)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
@@ -276,7 +288,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
                         }
-                        if (i == 1)
+                        else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
@@ -297,7 +309,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (player.GetHardWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
-                        if (i == 0)
+                        if (i == 1)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
@@ -307,7 +319,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
                         }
-                        if (i == 1)
+                        else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
@@ -328,7 +340,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     if (player.GetExpertWeaponChoice() == false)
                     {
                         int i = player.SpawnRandomWeapon();
-                        if (i == 0)
+                        if (i == 1)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
@@ -338,7 +350,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
                         }
-                        if (i == 1)
+                        else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
@@ -365,6 +377,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         text1Anim.Play("ExpertText1Anim");
         yield return new WaitForSeconds(3f);
         text1Anim.Play("ExpertText1Disappear");
+        yield return new WaitForSeconds(1f);
+        expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+        expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+        expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
         returnToMainGame();
 
     }
@@ -382,7 +398,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (expertDrainPowerImage.activeInHierarchy == true || expertDrainPowerNameText.activeInHierarchy == true || expertDrainPowerNameText2.activeInHierarchy == true)
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(1.5f);
         }
         expertDrainPowerImage.SetActive(true);
         expertDrainPowerNameText.SetActive(true);
@@ -722,6 +738,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
+
                         powerController.LosePowerHard();
                         break;
                     }
@@ -736,6 +753,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
+                        waveCompletePause = false;
                         powerController.LosePowerHard();
                         break;
                     }
@@ -749,6 +767,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
+                        waveCompletePause = false;
                         powerController.LosePowerHard();
                         break;
                     }
@@ -762,6 +781,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
+                        waveCompletePause = false;
                         powerController.LosePowerHard();
                         break;
                     }
@@ -1837,6 +1857,43 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     }
 
+    //Called by the button caller when a difficulty is chosen.
+    public void ChosenDifficulty(int chosenDifficultyInt)
+    {
+        switch (chosenDifficultyInt)
+        {
+            case 1:
+                {
+                    chooseDifficultyDescriptions.text = EasyDescription;
+                    chosenDifficulty.text = "Selected Difficulty: Easy";
+                    intChosenDifficulty = 1;
+                    return;
+                }
+            case 2:
+                {
+                    chooseDifficultyDescriptions.text = NormalDescription;
+                    chosenDifficulty.text = "Selected Difficulty: Normal";
+                    intChosenDifficulty = 2;
+                    return;
+                }
+            case 3:
+                {
+                    chooseDifficultyDescriptions.text = HardDescription;
+                    chosenDifficulty.text = "Selected Difficulty: Hard";
+                    intChosenDifficulty = 3;
+                    return;
+                }
+            case 4:
+                {
+                    chooseDifficultyDescriptions.text = ExpertDescription;
+                    chosenDifficulty.text = "Selected Difficulty: Expert";
+                    intChosenDifficulty = 4;
+                    return;
+                }
+        }
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -1868,7 +1925,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
                 if (isPaused == true)
                 {
-                    if ((TutorialStatus != null && TutorialStatus.GetTutorialStage() > 0) || playerDead)
+                    if ((TutorialStatus != null && TutorialStatus.GetTutorialStage() > 0) || playerDead || waveCompletePause)
                     {
                         Time.timeScale = 1.0f;
                     }

@@ -43,7 +43,7 @@ public class FinalBoss : MonoBehaviour
     Animator animator;
     [SerializeField]
     AudioClip EnragedRoar, GolemAttack;
-
+    bool chargeVelocity;
 
 
 
@@ -73,6 +73,10 @@ public class FinalBoss : MonoBehaviour
                 StartCoroutine("GolemDeath");
             }
         }
+        if (chargeVelocity) //When charging, constantly reapply the same velocity.
+        {
+            i.velocity = transform.forward * 25;
+        }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position + (Vector3.up * 3), forward * 5, Color.white);
         if (Physics.SphereCast(transform.position + (Vector3.up * 3), 1.5f, forward, out hit, 10))
@@ -85,6 +89,8 @@ public class FinalBoss : MonoBehaviour
                     //Damage
                     Player player = hit.collider.gameObject.GetComponent<Player>();
                     MovementScript stunned = player.GetComponent<MovementScript>();
+                    animator.SetBool("isCharging", false);
+                    chargeVelocity = false;
                     stunned.StunPlayer(3f);
                     Invoke("DamagePlayerCharge", 3f);
                     i.velocity = Vector3.zero;
@@ -126,8 +132,9 @@ public class FinalBoss : MonoBehaviour
             {
                 case 1:
                     {
-                        StartCoroutine("GolemThrowProjectile");
-                        attackSpeedTimer = DEFAULT_ATTACK_SPEED;
+                        //StartCoroutine("GolemThrowProjectile");
+                        //attackSpeedTimer = DEFAULT_ATTACK_SPEED;
+                        ChargeAtPlayer();
                         return;
                     }
                 case 2:
@@ -340,15 +347,19 @@ public class FinalBoss : MonoBehaviour
         GolemChargeText.SetActive(true);
         attackTimerPause = true;
         animator.SetBool("roaring", true);
-        yield return new WaitForSecondsRealtime(3);
+        GetComponent<AudioSource>().clip = EnragedRoar;
+        GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(3); 
+        GetComponent<AudioSource>().Stop();
         animator.SetBool("roaring", false);
         lookAtPlayer = false;
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSeconds(1);
         GolemChargeText.SetActive(false);
         golemCharging = true;
         animator.SetBool("isCharging", true);
-        i.velocity = transform.forward * 150;
-        yield return new WaitForSecondsRealtime(4.5f);
+        chargeVelocity = true;
+        yield return new WaitForSeconds(4.5f);
+        chargeVelocity = false;
         animator.SetBool("isCharging", false);
         golemCharging = false;
         i.velocity = Vector3.zero;
@@ -364,6 +375,7 @@ public class FinalBoss : MonoBehaviour
 
         }
         animator.SetBool("attacking", true);
+        GetComponent<AudioSource>().PlayOneShot(GolemAttack, 0.7f);
         yield return new WaitForSecondsRealtime(0.5f);
         animator.SetBool("attacking", false);
         Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
@@ -378,6 +390,7 @@ public class FinalBoss : MonoBehaviour
     IEnumerator GolemDeath()
     {
         animator.SetBool("isDead", true);
+        GetComponent<AudioSource>().PlayOneShot(EnragedRoar);
         yield return new WaitForSecondsRealtime(3f);
         Progression i = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         i.enemyKilled(false);
@@ -448,8 +461,11 @@ public class FinalBoss : MonoBehaviour
     void DamagePlayerCharge()
    
     {
-        Player player = hit.collider.gameObject.GetComponent<Player>();
-        player.takeDamage(50f);
+        if (hit.collider.gameObject.CompareTag("MainCamera"))
+        {
+            hit.collider.gameObject.GetComponent<Player>().takeDamage(50f);
+        }
+
     }
 
     public void DealDamage(float damageToDeal) //External call to deal damage to final boss
