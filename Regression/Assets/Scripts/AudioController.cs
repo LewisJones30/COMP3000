@@ -64,7 +64,7 @@ public class AudioController : MonoBehaviour
                 }
             case 1: //Melee Orc & Magic Ghoul Death sound
                 {
-                    audioController.PlayOneShot(MeleeMagicDeath);
+                    audioController.PlayOneShot(MeleeMagicDeath, 0.5f);
                     break;
                 }
             case 2: //Mega Troll attack sound
@@ -89,7 +89,7 @@ public class AudioController : MonoBehaviour
                 }
             case 6: //Magic projectile sound
                 {
-                    audioController.PlayOneShot(MagicAttack, 0.3f);
+                    audioController.PlayOneShot(MagicAttack, 0.5f);
                     break;
                 }
             case 7: //Melee projectile sound.
