@@ -6438,7 +6438,7 @@ Rigidbody:
   m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
@@ -18819,7 +18819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &956068485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18836,7 +18836,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -89, y: 255}
+  m_AnchoredPosition: {x: 17, y: -304}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &956068486
@@ -18853,7 +18853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -18866,7 +18866,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 50
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -26240,7 +26240,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 19edce3d50590b44682b55aa698488b3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -31582,8 +31582,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.3080442, z: 0.80838585}
-  m_Center: {x: 0, y: 1.7817256, z: -0.09581078}
+  m_Size: {x: 0.40599012, y: 0.3080442, z: 0.7498234}
+  m_Center: {x: -0.011280778, y: 1.7817256, z: -0.12509255}
 --- !u!4 &1398838383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 25653d00fafb9ee4bac279fef1d8b4ef, type: 3}
@@ -42907,8 +42907,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.80756867, y: 1.3075926, z: 0.47244146}
-  m_Center: {x: -0.23791157, y: 1.4236977, z: -0.007513889}
+  m_Size: {x: 0.80756867, y: 1.1104895, z: 0.47244146}
+  m_Center: {x: -0.23791155, y: 1.3251488, z: -0.007513895}
 --- !u!4 &1899844904
 Transform:
   m_ObjectHideFlags: 0
@@ -43476,8 +43476,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.3080442, z: 0.80838585}
-  m_Center: {x: 0, y: 1.7817256, z: -0.09581078}
+  m_Size: {x: 0.3288013, y: 0.3080442, z: 0.69818336}
+  m_Center: {x: 0.029848687, y: 1.7817256, z: -0.150916}
 --- !u!1 &1933972412
 GameObject:
   m_ObjectHideFlags: 0
@@ -48065,8 +48065,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.5432082, y: 0.68318594, z: 0.77641875}
+  m_Center: {x: -0.0026128534, y: 0.158407, z: -0.11179045}
 --- !u!1 &2130035991 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 57106337881ed8a47add1b9b4c2551d2, type: 3}
@@ -48950,8 +48950,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.80756867, y: 1.3075926, z: 0.47244146}
-  m_Center: {x: -0.23791157, y: 1.4236977, z: -0.007513889}
+  m_Size: {x: 0.80756944, y: 1.1208544, z: 0.47244146}
+  m_Center: {x: -0.23791195, y: 1.3303292, z: -0.007513889}
 --- !u!1 &1616671101222200435
 GameObject:
   m_ObjectHideFlags: 0
@@ -51182,8 +51182,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.57277346, y: 0.293128, z: 1.9705944}
-  m_Center: {x: 0.030814143, y: -0.8516618, z: 0.3777608}
+  m_Size: {x: 0.57277346, y: 0.293128, z: 1.823497}
+  m_Center: {x: 0.030814143, y: -0.85166645, z: 0.30421305}
 --- !u!1 &8436697625633373907
 GameObject:
   m_ObjectHideFlags: 0

@@ -128,6 +128,13 @@ public class Player : MonoBehaviour
     UIController isPausedCheck;
     PowerBehaviour powerController;
     Text deadtext;
+    float justiceCD = 20.0f; //20 second cooldown on rain effect.
+    //Access with GetJusticeAvailable() - Returns true/false.
+    bool justiceAvailable = true; //Flips to false as soon as triggered, which starts the timer.
+    //Access with GetRainEffectCD();
+    float rainEffectCD = 60.0f; //60 second cooldown on rain effect.
+    //Access with GetRainAvailable() - Returns true/false.
+    bool rainAvailable = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -157,6 +164,24 @@ public class Player : MonoBehaviour
                 FadeBlackout(image);
             }
         }    
+        if (!isPausedCheck.GetIsPaused() && !justiceAvailable)
+        {
+            justiceCD -= Time.deltaTime;
+            if (justiceCD <= 0)
+            {
+                justiceAvailable = true;
+                justiceCD = 60.0f;
+            }
+        }
+        if (!isPausedCheck.GetIsPaused() && !rainAvailable)
+        {
+            rainEffectCD -= Time.deltaTime;
+            if (rainEffectCD <= 0)
+            {
+                rainAvailable = true;
+                rainEffectCD = 30.0f;
+            }
+        }
         else if (Input.GetKeyDown(KeyCode.F9))
         {
             playerdiedScript();
@@ -253,10 +278,31 @@ public class Player : MonoBehaviour
     {
         return playerOnFire;
     }
-
-
+    public bool GetJusticeAvailable()
+    {
+        return justiceAvailable;
+    }
+    public bool GetRainAvailable()
+    {
+        return rainAvailable;
+    }
     //Setters
-
+    public void SetJusticeAvailable(bool value)
+    {
+        if (justiceAvailable == value)
+        {
+            return;
+        }
+        justiceAvailable = value;
+    }
+    public void SetRainAvailable(bool value)
+    {
+        if (rainAvailable == value)
+        {
+            return;
+        }
+        rainAvailable = value;
+    }
     public void SetPlayerOnFire(int value)
     {
         playerOnFire = value;

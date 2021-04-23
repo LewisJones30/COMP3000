@@ -89,12 +89,12 @@ public class AudioController : MonoBehaviour
                 }
             case 6: //Magic projectile sound
                 {
-                    audioController.PlayOneShot(MagicAttack);
+                    audioController.PlayOneShot(MagicAttack, 0.3f);
                     break;
                 }
             case 7: //Melee projectile sound.
                 {
-                    audioController.PlayOneShot(MeleeAttack);
+                    audioController.PlayOneShot(MeleeAttack, 0.5f);
                     break;
                 }
             case 8: //Final boss attack sound

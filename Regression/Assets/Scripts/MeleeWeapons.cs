@@ -65,8 +65,9 @@ public class MeleeWeapons : MonoBehaviour
                             Enemy enemyScript = hit.collider.gameObject.GetComponent<Enemy>();
                             PowerBehaviour powers = GameObject.FindWithTag("PowerHandler").GetComponent<PowerBehaviour>();
                             var rand = new System.Random();
+                            Player player = GameObject.FindWithTag("MainCamera").GetComponent<Player>();
                             int RNGRoll = rand.Next(0, 9999);
-                            if (RNGRoll > RAIN_POWER_CHANCE && RNGRoll < RAIN_POWER_CHANCE * 2)
+                            if (RNGRoll > RAIN_POWER_CHANCE && RNGRoll < RAIN_POWER_CHANCE * 2 && player.GetRainAvailable())
                             {
                                 if (powers.powerHandler[11].GetPowerActive() == true)
                                 {
@@ -79,17 +80,18 @@ public class MeleeWeapons : MonoBehaviour
                                 {
                                     isPausedCheck.ShowPowerActivatedMessage(1);
                                     powers.DisableAllFires();
+                                    player.SetRainAvailable(false);
                                 }
                             }
                             RNGRoll = rand.Next(0, 9999); //Roll another number between 0 and 999.
-                            if (RNGRoll > JUSTICE_POWER_CHANCE && RNGRoll < JUSTICE_POWER_CHANCE * 2)
+                            if (RNGRoll > JUSTICE_POWER_CHANCE && RNGRoll < JUSTICE_POWER_CHANCE * 2 && player.GetJusticeAvailable())
                             {
                                 if (powers.powerHandler[11].GetPowerActive() == true)
                                 {
                                     RNGRoll = 1;
                                 }
                             }
-                            if (RNGRoll < JUSTICE_POWER_CHANCE)
+                            if (RNGRoll < JUSTICE_POWER_CHANCE && player.GetJusticeAvailable())
                             {
                                 //Justice rains from above. 2.5% chance of occuring when damage is dealt.
 
@@ -104,6 +106,7 @@ public class MeleeWeapons : MonoBehaviour
                                         {
                                             isPausedCheck.ShowPowerActivatedMessage(2);
                                             projectiles.FirePowerEffect();
+                                            player.SetJusticeAvailable(false);
                                         }
 
                                     }
@@ -113,6 +116,7 @@ public class MeleeWeapons : MonoBehaviour
                                         if (projectiles != null)
                                         {
                                             projectiles.FirePowerEffect();
+                                            player.SetJusticeAvailable(false);
                                         }
                                     }
                                 }

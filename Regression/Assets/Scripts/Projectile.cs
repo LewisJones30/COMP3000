@@ -15,7 +15,6 @@ public class Projectile : MonoBehaviour
     double damagePower = 5f;
     //Private variables
     RaycastHit hit;
-    GameObject player;
     Animator ifEnemy;
     const int JUSTICE_INT_CHANCE = 125; //1.25% chance of triggering.
     const int RAIN_INT_CHANCE = 100; //1% chance of triggering.
@@ -26,6 +25,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         isPaused = GameObject.FindGameObjectWithTag("UIHandler").GetComponent<UIController>();
+
     }
 
     // Update is called once per frame
@@ -48,11 +48,12 @@ public class Projectile : MonoBehaviour
                 {
                     return;
                 }
+                
                 var rand = new System.Random();
                 int RNGRoll = rand.Next(0, 9999); //Roll a number between 0 and 999.
 
-
-                if (RNGRoll > RAIN_INT_CHANCE && RNGRoll < RAIN_INT_CHANCE * 2) //Mysterious power doubles the chance of the environmental effects occuring.
+                Player player  = GameObject.FindWithTag("MainCamera").GetComponent<Player>();
+                if (RNGRoll > RAIN_INT_CHANCE && RNGRoll < RAIN_INT_CHANCE * 2 && player.GetRainAvailable()) //Mysterious power doubles the chance of the environmental effects occuring.
                 {
                     if (GameObject.FindWithTag("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].GetPowerActive() == true)
                     {
@@ -60,7 +61,7 @@ public class Projectile : MonoBehaviour
                     }
                 }
 
-                if (RNGRoll < RAIN_INT_CHANCE) //0 to 24 gives a 2.5% chance when damaging.
+                if (RNGRoll < RAIN_INT_CHANCE && player.GetRainAvailable()) //0 to 24 gives a 2.5% chance when damaging.
                 {
                     UIController ui = GameObject.FindWithTag("UIHandler").GetComponent<UIController>();
 
@@ -69,19 +70,20 @@ public class Projectile : MonoBehaviour
                     {
                         ui.ShowPowerActivatedMessage(1);
                         powers.DisableAllFires();
+                        player.SetRainAvailable(false); //Start the cooldown.
                     }
                 }
 
                 RNGRoll = rand.Next(0, 9999); //Roll 10,000 numbers. Chance is a constant.
 
-                if (RNGRoll > JUSTICE_INT_CHANCE && RNGRoll < JUSTICE_INT_CHANCE * 2)
+                if (RNGRoll > JUSTICE_INT_CHANCE && RNGRoll < JUSTICE_INT_CHANCE * 2 && player.GetJusticeAvailable())
                 {
                     if (GameObject.FindWithTag("PowerHandler").GetComponent<PowerBehaviour>().powerHandler[11].GetPowerActive() == true)
                     {
                         RNGRoll = 1; //change RNG to pass.
                     }
                 }
-                if (RNGRoll < JUSTICE_INT_CHANCE)
+                if (RNGRoll < JUSTICE_INT_CHANCE && player.GetJusticeAvailable())
                 {
                     //Justice rains from above. 2.5% chance of occuring when damage is dealt.
                     PowerBehaviour powers = GameObject.FindWithTag("PowerHandler").GetComponent<PowerBehaviour>();
@@ -94,11 +96,12 @@ public class Projectile : MonoBehaviour
                         GameObject FB = GameObject.FindGameObjectWithTag("FinalBoss");
                         if (FB != null)
                         {
-                            JusticeSpawn projectiles = FB .GetComponentInChildren<JusticeSpawn>();
+                            JusticeSpawn projectiles = FB.GetComponentInChildren<JusticeSpawn>();
                             if (projectiles != null)
                             {
                                 ui.ShowPowerActivatedMessage(2);
                                 projectiles.FirePowerEffect();
+                                player.SetJusticeAvailable(false);
                             }
                         }
                         foreach (GameObject obj in projectileEnemies)
@@ -108,6 +111,7 @@ public class Projectile : MonoBehaviour
                             {
                                 ui.ShowPowerActivatedMessage(2);
                                 projectiles.FirePowerEffect();
+                                player.SetJusticeAvailable(false);
                             }
 
                         }
@@ -117,12 +121,12 @@ public class Projectile : MonoBehaviour
                             if (projectiles != null)
                             {
                                 projectiles.FirePowerEffect();
+                                player.SetJusticeAvailable(false);
                             }
                         }
                     }
                 }
                 double damageCalc;
-                Player player = GameObject.Find("Player").GetComponent<Player>();
                 Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
                 damageCalc = player.GetWeaponPower() * damagePower; //Needs modification to check difficulty.
                 Debug.Log("Enemy Damaged!");

@@ -47,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
             if (attackSpeed <= 0)
             {
                 //Attack player
-                if (this.tag == "ProjectileEnemy")
+                if (this.tag == "ProjectileEnemy" && !transform.parent.name.Contains("Mega Troll"))
                 {
                     float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
                     float volume;
@@ -63,6 +63,12 @@ public class EnemyAttack : MonoBehaviour
                   
 
                 }
+                else if (this.tag == "ProjectileEnemy")
+                {
+                    attackSpeed = storedAS + 1.2f;
+                    isEnemy.SetTrigger("Attack");
+                    Invoke("SpawnProjectile", 1.25f);
+                }
                 else if (this.tag == "SwordEnemy")
                 {
                     
@@ -75,7 +81,17 @@ public class EnemyAttack : MonoBehaviour
     }
     void SpawnProjectile()
     {
-
+        if (transform.parent.name.Contains("Mega Troll"))
+        {
+            float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+            float volume;
+            volume = 1 - (dist / 70);
+            if (volume < 0)
+            {
+                volume = 0;
+            }
+            GetComponent<AudioSource>().PlayOneShot(MagicAttack, volume);
+        }
         GameObject projectileShot;
         projectileShot = Instantiate(projectile, transform.position, transform.rotation);
         projectileShot.transform.position = new Vector3(projectileShot.transform.position.x, projectileShot.transform.position.y, projectileShot.transform.position.z);

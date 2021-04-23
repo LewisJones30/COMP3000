@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +45,7 @@ public class FinalBoss : MonoBehaviour
     [SerializeField]
     AudioClip EnragedRoar, GolemAttack;
     bool chargeVelocity;
-
+    bool playerHit = false; //Used in damage check.
 
 
 
@@ -76,6 +77,11 @@ public class FinalBoss : MonoBehaviour
         if (chargeVelocity) //When charging, constantly reapply the same velocity.
         {
             i.velocity = transform.forward * 25;
+            i.constraints = RigidbodyConstraints.FreezePositionY;
+        }
+        else
+        {
+            i.constraints &=  ~RigidbodyConstraints.FreezePositionY; //Remove the constraint on position, to ensure golem is firmly on the ground!
         }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position + (Vector3.up * 3), forward * 5, Color.white);
@@ -87,6 +93,7 @@ public class FinalBoss : MonoBehaviour
                 if (golemCharging == true)
                 {
                     //Damage
+                    playerHit = true;
                     Player player = hit.collider.gameObject.GetComponent<Player>();
                     MovementScript stunned = player.GetComponent<MovementScript>();
                     animator.SetBool("isCharging", false);
@@ -98,11 +105,20 @@ public class FinalBoss : MonoBehaviour
                     golemCharging = false;
                 }
             }
+            if (hit.collider.gameObject.layer != 12) //This prevents cancelling charge with a projectile.
+            {
+                golemCharging = false;
+                i.velocity = Vector3.zero;
+                i.angularVelocity = Vector3.zero;
+                chargeVelocity = false;
+                animator.SetBool("isCharging", false);
+            }
 
         }
         if (lookAtPlayer == true)
         {
-            transform.LookAt(playerLook.transform);
+            var playerRotation = Quaternion.LookRotation(GameObject.FindWithTag("MainCamera").transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, 2.5f * Time.deltaTime);
         }
         if (ui.GetIsPaused())
         {
@@ -111,6 +127,10 @@ public class FinalBoss : MonoBehaviour
         if (attackTimerPause == true)
         {
             return;
+        }
+        if (transform.position.y < 0)
+        {
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         }
 
         attackSpeedTimer = attackSpeedTimer - Time.deltaTime;
@@ -132,9 +152,8 @@ public class FinalBoss : MonoBehaviour
             {
                 case 1:
                     {
-                        //StartCoroutine("GolemThrowProjectile");
-                        //attackSpeedTimer = DEFAULT_ATTACK_SPEED;
-                        ChargeAtPlayer();
+                        StartCoroutine("GolemThrowProjectile");
+                        attackSpeedTimer = DEFAULT_ATTACK_SPEED;
                         return;
                     }
                 case 2:
@@ -338,6 +357,18 @@ public class FinalBoss : MonoBehaviour
         //If the player takes damage in the 2 seconds, stop charging immediately, golem will stop attacking for an extra 10 seconds
         //Damage the player for 45 damage, stun them for 5 seconds too.
     }
+
+    float CalculateVol()
+    {
+        float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+        float volume;
+        volume = 1 - (dist / 150);
+        if (volume < 0)
+        {
+            volume = 0;
+        }
+        return volume;
+    }
     IEnumerator GolemCharge()
     {
 
@@ -347,13 +378,17 @@ public class FinalBoss : MonoBehaviour
         GolemChargeText.SetActive(true);
         attackTimerPause = true;
         animator.SetBool("roaring", true);
+
+        //Determine the distance away from the player for the volume
+
         GetComponent<AudioSource>().clip = EnragedRoar;
+        GetComponent<AudioSource>().volume = CalculateVol();
         GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(3); 
-        GetComponent<AudioSource>().Stop();
+        yield return new WaitForSeconds(3.3f); 
         animator.SetBool("roaring", false);
         lookAtPlayer = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
+        GetComponent<AudioSource>().Stop();
         GolemChargeText.SetActive(false);
         golemCharging = true;
         animator.SetBool("isCharging", true);
@@ -375,7 +410,7 @@ public class FinalBoss : MonoBehaviour
 
         }
         animator.SetBool("attacking", true);
-        GetComponent<AudioSource>().PlayOneShot(GolemAttack, 0.7f);
+        GetComponent<AudioSource>().PlayOneShot(GolemAttack, CalculateVol());
         yield return new WaitForSecondsRealtime(0.5f);
         animator.SetBool("attacking", false);
         Instantiate(projectile1, transform.Find("RockSpawner").position, transform.rotation);
@@ -390,7 +425,7 @@ public class FinalBoss : MonoBehaviour
     IEnumerator GolemDeath()
     {
         animator.SetBool("isDead", true);
-        GetComponent<AudioSource>().PlayOneShot(EnragedRoar);
+        GetComponent<AudioSource>().PlayOneShot(EnragedRoar, CalculateVol());
         yield return new WaitForSecondsRealtime(3f);
         Progression i = GameObject.Find("ProgressionHandler").GetComponent<Progression>();
         i.enemyKilled(false);
@@ -428,7 +463,7 @@ public class FinalBoss : MonoBehaviour
     {
         currentHP = currentHP - damageDealt;
         StartCoroutine("DamageFlash");
-        GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints(damageDealt);
+        GameObject.Find("UIHandler").GetComponent<UIController>().AddPoints((float)Math.Round(damageDealt, 0));
         if (currentHP <= MAX_HP / 2 && enragedState == false)
         {
             float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
@@ -438,7 +473,7 @@ public class FinalBoss : MonoBehaviour
             {
                 volume = 0;
             }
-            GetComponent<AudioSource>().PlayOneShot(EnragedRoar);
+            GetComponent<AudioSource>().PlayOneShot(EnragedRoar, CalculateVol());
             enragedState = true;
             BossName.GetComponent<Text>().text = "The golem is ENRAGED!";
             DEFAULT_ATTACK_SPEED = DEFAULT_ATTACK_SPEED / 2f;
@@ -461,11 +496,10 @@ public class FinalBoss : MonoBehaviour
     void DamagePlayerCharge()
    
     {
-        if (hit.collider.gameObject.CompareTag("MainCamera"))
+        if (playerHit)
         {
-            hit.collider.gameObject.GetComponent<Player>().takeDamage(50f);
+            GameObject.FindWithTag("MainCamera").GetComponent<Player>().takeDamage(50f);
         }
-
     }
 
     public void DealDamage(float damageToDeal) //External call to deal damage to final boss

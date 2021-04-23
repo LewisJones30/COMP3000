@@ -1917,7 +1917,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         }
         else
         {
-            LoadHighscores();
             {
                 if (Input.GetKeyDown(KeyCode.F12))
                 {

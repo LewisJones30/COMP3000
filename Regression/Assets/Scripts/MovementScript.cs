@@ -54,7 +54,7 @@ public class MovementScript : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         Vector3 back = transform.TransformDirection(Vector3.back);
         Vector3 left = transform.TransformDirection(Vector3.left);
-        if (Physics.Raycast(transform.position, forward, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
+        if (Physics.Raycast(transform.position + new Vector3(0, -1.0f, 0), forward, out hit, DISTANCE_FROM_ENEMY_STOP_PLAYER))
         {
             Debug.Log("Player Forward hit: " + hit.transform.gameObject.tag);
             if (hit.transform.gameObject.CompareTag("SwordEnemy") || hit.transform.gameObject.CompareTag("ProjectileEnemy") || hit.transform.gameObject.CompareTag("Terrain") || hit.transform.gameObject.CompareTag("FinalBoss"))
