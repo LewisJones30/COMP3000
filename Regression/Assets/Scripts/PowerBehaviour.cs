@@ -287,10 +287,9 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         System.Random r = new System.Random();
         while (powerDrained == false)
         {
-            if (cycledAttempts > 1000)
+            if (cycledAttempts > 1000) //The chance of not finding 1 in 10 powers being available after 1,000 attempts is extremely low, so this will never occur unless all powers are drained!
             {
-                Debug.Log("ERROR: NO POWERS LEFT TO DRAIN.");
-                break;
+                redrawCurrentPowers.LostPowerMessage(drainedPowerID);
             }
             int powerNumber = r.Next(0, 19);
             if (powerHandler[powerNumber].GetPowerActive() == true)

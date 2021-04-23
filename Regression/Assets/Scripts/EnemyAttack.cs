@@ -39,7 +39,7 @@ public class EnemyAttack : MonoBehaviour
 
     // Update is called once per frame
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!ispauseCheck.GetIsPaused())
         {
@@ -60,7 +60,7 @@ public class EnemyAttack : MonoBehaviour
                     attackSpeed = storedAS + 1.2f;
                     isEnemy.SetTrigger("Attack");
                     Invoke("SpawnProjectile", 1.25f);
-                  
+                    return;
 
                 }
                 else if (this.tag == "ProjectileEnemy")

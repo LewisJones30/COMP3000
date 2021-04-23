@@ -12,7 +12,7 @@ public class MagicWeapon : MonoBehaviour
     //SerializeField variables
     [SerializeField]
     [Tooltip("Default time between shots.\nNote that some difficulties and powers will change this.")]
-    double shootingCooldown = 1.5f;
+    double shootingCooldown = 1f;
     [SerializeField]
     GameObject projectile;
     [SerializeField]
@@ -36,8 +36,8 @@ public class MagicWeapon : MonoBehaviour
         PowerBehaviour = GameObject.Find("PowerHandler").GetComponent<PowerBehaviour>();
         if (PowerBehaviour.powerHandler[6].GetPowerActive() == true)
         {
-            //Reduce the cooldown of shooting by 50% with power 6.
-            shootingCooldown = shootingCooldown / 2f;
+            //Reduce the cooldown of shooting by 1/3 with power 6.
+            shootingCooldown = shootingCooldown / 1.5f;
             dupeCD = shootingCooldown;
             powerModified = true;
         }

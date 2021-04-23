@@ -146,10 +146,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //If the difficulty is hard, or expert, then the game will automatically skip this check and spawn a random weapon for the player.
         isPaused = true;
         //Game is paused here.
-        
 
+        Cursor.lockState = CursorLockMode.None;
 
-        
         foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[]) //This is used to search all inactive objects.
         {
             if (obj.tag == "RemoveWhenPaused")
@@ -205,7 +204,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     public void LostPowerMessage(int PowerDrainedID)
     {
         StartCoroutine("ShowMessage", PowerDrainedID);
-        p.SetWaveComplete(false);
+
 
     }
     //This method is called by LostPowerMessage. 
@@ -213,7 +212,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     {
         if (expertDrainPowerImage.activeInHierarchy == true || expertDrainPowerNameText.activeInHierarchy == true || expertDrainPowerNameText2.activeInHierarchy == true)
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(1.5f);
         }
         expertDrainPowerImage.SetActive(true);
         expertDrainPowerNameText.SetActive(true);
@@ -221,23 +220,38 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
         expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
         expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
-        expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
-        expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].GetPowerName();
-        expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
-        
         Animation imageAnim = expertDrainPowerImage.GetComponent<Animation>();
         Animation text1Anim = expertDrainPowerNameText.GetComponent<Animation>();
         Animation text2Anim = expertDrainPowerNameText2.GetComponent<Animation>();
-        imageAnim.Play("ExpertImageAppear");
-        text1Anim.Play("ExpertText1Anim");
-        text2Anim.Play("ExpertTextAnim2");
-        ShowAllPowersInGame(); //Redraw powers for the user on the UI. Removes the redundant power.
+        if (PowerDrainedID == 255)
+        {
+            expertDrainPowerNameText.GetComponent<Text>().text = "All powers drained!";
+            text1Anim.Play("ExpertText1Anim");
+            yield return new WaitForSeconds(4);
+            text1Anim.Play("ExpertText1Disappear");
+        }
+        else
+        {
+            expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
+            expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].GetPowerName();
+            expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
+            imageAnim.Play("ExpertImageAppear");
+            text1Anim.Play("ExpertText1Anim");
+            text2Anim.Play("ExpertTextAnim2");
+            ShowAllPowersInGame(); //Redraw powers for the user on the UI. Removes the redundant power.
 
-        yield return new WaitForSeconds(4);
-        imageAnim.Play("ExpertImageDisappear");
-        text1Anim.Play("ExpertText1Disappear");
-        text2Anim.Play("ExpertText2Anim");
-        yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(4);
+            imageAnim.Play("ExpertImageDisappear");
+            text1Anim.Play("ExpertText1Disappear");
+            text2Anim.Play("ExpertText2Anim");
+            yield return new WaitForSeconds(1f);
+            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
+        }
+        
+
+
         //Check if the player's GetWeaponChoice is true or false.
         //If true, run progression handler.
         switch (PlayerPrefs.GetInt("DifficultyChosen"))
@@ -251,25 +265,41 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                         else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                     }
                     else
                     {
+                        WeaponSelection();
+                        yield break;
                     }
                     break;
                 }
@@ -282,25 +312,41 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                         else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                     }
                     else
                     {
+                        WeaponSelection();
+                        yield break;
                     }
                     break;
                 }
@@ -313,25 +359,41 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                         else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                     }
                     else
                     {
+                        WeaponSelection();
+                        yield break;
                     }
                     break;
                 }
@@ -344,26 +406,42 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[6];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the staff!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                         else if (i == 0)
                         {
                             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[8];
                             expertDrainPowerNameText.GetComponent<Text>().text = "You are now using the sword!";
+                            expertDrainPowerImage.transform.localPosition = new Vector3(0f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(0f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(0f, -194f, 0f);
                             imageAnim.Play("ExpertImageAppear");
                             text1Anim.Play("ExpertText1Anim");
                             yield return new WaitForSeconds(2f);
                             imageAnim.Play("ExpertImageDisappear");
                             text1Anim.Play("ExpertText1Disappear");
+                            yield return new WaitForSeconds(2f);
+                            expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
+                            expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
+                            expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
                         }
                     }
                     else
                     {
-                        break;
+                        WeaponSelection();
+                        yield break;
+
                     }
                     break;
                 }
@@ -381,6 +459,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         expertDrainPowerImage.transform.localPosition = new Vector3(556.9971f, 0f, 0f);
         expertDrainPowerNameText.transform.localPosition = new Vector3(560.9915f, -114f, 0f);
         expertDrainPowerNameText2.transform.localPosition = new Vector3(556f, -194f, 0f);
+        p.SetWaveComplete(false);
         returnToMainGame();
 
     }
@@ -722,9 +801,8 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 break;
             }
         }
-        yield return new WaitForSeconds(2f);
         waveCompletePause = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         GameObject.Find("BackgroundPowerDrain").SetActive(false);
         //Switch depending on which difficulty they are on.
         switch (PlayerPrefs.GetInt("DifficultyChosen"))
@@ -753,7 +831,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        waveCompletePause = false;
                         powerController.LosePowerHard();
                         break;
                     }
@@ -767,7 +844,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        waveCompletePause = false;
                         powerController.LosePowerHard();
                         break;
                     }
@@ -781,7 +857,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                     }
                     else
                     {
-                        waveCompletePause = false;
                         powerController.LosePowerHard();
                         break;
                     }
@@ -2030,8 +2105,9 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 if (health != null)
                 {
                     getUpdatePlayerHP();
-                    ProgressUpdate();
+
                 }
+                ProgressUpdate();
             }
         }
        
