@@ -51,9 +51,14 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     Image progressBar;
     [SerializeField]
     AudioClip losePowerMusic, finalBossMusic;
+    [SerializeField]
     TutorialHandler TutorialStatus;
     [SerializeField]
     Text chooseDifficultyDescriptions, chosenDifficulty;
+    [SerializeField]
+    Image blackoutImage;
+    [SerializeField]
+    Text deathOrCompletionText;
 
     //Non-SerializeField variables.
     bool isPaused = false;
@@ -75,6 +80,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         "You are unable to choose a power to lose each round. It is chosen automatically.\nYou are able to choose between the staff and sword between each round.\nOverall, you will recieve 1.5x points.";
     const string ExpertDescription = "You will start with two less powers.\nYou start with 0.5x health.\nYou deal 0.5x damage.\nYou take 1.5x damage.\n" +
         "You are unable to choose a power to lose each round. It is chosen automatically.\nYour weapon is chosen automatically each round.\nOverall, you will recieve 2.5x points.";
+    bool blackout = false;
    
 
     // Start is called before the first frame update
@@ -93,6 +99,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
             if (UIStunnedMessage != null) //Same reason as above.
             {
                 UIStunnedMessage.SetActive(false);
+            }
+            if (deathOrCompletionText != null)
+            {
+                deathOrCompletionText.gameObject.SetActive(false);
             }
             WeaponSelection();
         }
@@ -132,7 +142,6 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             UIStunnedMessage.SetActive(false);
         }
-
 
         //Enable/Disable section
 
@@ -207,6 +216,76 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
 
     }
+
+    string formatLostPowerMessage(int PowerDrainedID)
+    {
+        //This method returns a formatted string used when a power is drained at the end of a wave.
+        switch (PowerDrainedID)
+        {
+            case 0:
+                {
+                    return "You are vulnerable to death!";
+                }
+            case 1:
+                {
+                    return "You no longer deal double damage to enemies.";
+                }
+            case 2:
+                {
+                    return "Your maximum health has been halved.";
+                }
+            case 3:
+                {
+                    return "Your health no longer regenerates!";
+                }
+            case 4:
+                {
+                    return "You no longer deal more damage the lower your health.";
+                }
+            case 5:
+                {
+                    return "You will now be damaged by fire.";
+                }
+            case 6:
+                {
+                    return "Your staff will now attack at a reduced rate.";
+                }
+            case 7:
+                {
+                    return "The curse has lifted from enemies.\n" +
+                        "They are now their original size.";
+                }
+            case 8:
+                {
+                    return "The mace no longer deals 50% more damage."; 
+                }
+            case 9:
+                {
+                    return "You no longer take 50% less damage.";
+                }
+            case 10:
+                {
+                    return "Your staff no longer extinguishes fires.";
+                }
+            case 11:
+                {
+                    return "The mysterious effect drains away...";
+                }
+            case 12:
+                {
+                    return "The rain dance will no longer occur...";
+                }
+            case 13:
+                {
+                    return "Projectiles will no longer fall from the sky.";
+                }
+            default:
+                {
+                    return "An error has occurred.";
+                }
+        }
+    }
+
     //This method is called by LostPowerMessage. 
     IEnumerator ShowMessage(int PowerDrainedID)
     {
@@ -234,7 +313,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         {
             expertDrainPowerImage.GetComponent<Image>().sprite = sprites[PowerDrainedID];
             expertDrainPowerNameText.GetComponent<Text>().text = powerController.powerHandler[PowerDrainedID].GetPowerName();
-            expertDrainPowerNameText2.GetComponent<Text>().text = "Removed";
+            expertDrainPowerNameText2.GetComponent<Text>().text = formatLostPowerMessage(PowerDrainedID);
             imageAnim.Play("ExpertImageAppear");
             text1Anim.Play("ExpertText1Anim");
             text2Anim.Play("ExpertTextAnim2");
@@ -254,6 +333,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
         //Check if the player's GetWeaponChoice is true or false.
         //If true, run progression handler.
+
         switch (PlayerPrefs.GetInt("DifficultyChosen"))
         {
             case 1:
@@ -510,6 +590,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
      * Score is stored in EasyFirstPlaceScore (GetInt)
      * Name is stored in EasyFirstPlaceName (GetString)
      * If there is no first place, default is "No score".
+     * If there is no name, default is "Anonymous".
      * If there is no name, default is "Anonymous".
      * Note there is no name filtering system in place at this time.
      * 
@@ -876,13 +957,24 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
     }
     IEnumerator GameCompleteRoutine()
     {
-
+        blackout = true;
+        yield return new WaitForSeconds(2.5f);
         isPaused = true;
         storeHighscores(powerController.difficultyLevel);
         GameSummaryScreen(false);
         Cursor.lockState = CursorLockMode.None;
-        isPaused = false;
         yield return new WaitForEndOfFrame();
+    }
+    void FadeBlackout(Image image)
+    {
+        if (image.color.a >= 1)
+        {
+            return;
+        }
+        float alphaValue = image.color.a;
+        alphaValue = alphaValue + Time.deltaTime;
+        image.color = new Color(1, 1, 1, alphaValue);
+
     }
 
     //=========================================================Pause functionality=========================================================
@@ -1126,14 +1218,18 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         //Get current wave ID.
         GameObject progression = GameObject.Find("ProgressionHandler");
         Progression progObj = progression.GetComponent<Progression>();
-        GameObject.FindWithTag("MusicHandler").GetComponent<AudioController>().PlayMusic(1);
+        deathOrCompletionText.gameObject.SetActive(true);
         if (playerDied)
         {
+            GameObject.FindWithTag("MusicHandler").GetComponent<AudioController>().PlayMusic(1);
             postWave.GetComponent<Text>().text = "Died on wave: " + progObj.GetCurrentWave();
+            deathOrCompletionText.text = "You have perished to the devil's forces...";
+
         }
         else
         {
             postWave.GetComponent<Text>().text = "All waves successfully completed!";
+            deathOrCompletionText.text = "You have successfully defended aginst the devil's forces!";
         }
         //Get the number of powers drained
         postPowersDrained.GetComponent<Text>().text = "Powers drained: " + powerController.GetPowersDrainedCount();
@@ -1384,7 +1480,7 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
                 }
             case 6:
                 {
-                    formattedString = "Magical weapons attack faster.";
+                    formattedString = "Magical weapons attack 33% faster.";
                     return formattedString;
                 }
             case 7:
@@ -1925,10 +2021,10 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
 
     void ProgressUpdate()
     {
-        if (progressBar != null)
-        {
-            progressBar.fillAmount = p.GetProgression();
-        }
+        //if (progressBar != null && progressBar.enabled)
+        //{
+        //    progressBar.fillAmount = p.GetProgression();
+        //}
 
     }
 
@@ -1993,9 +2089,13 @@ public class UIController : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS A
         else
         {
             {
+                if (blackout)
+                {
+                    FadeBlackout(blackoutImage);
+                }
                 if (Input.GetKeyDown(KeyCode.F12))
                 {
-                    
+                    GameCompleteText();
                 }
                 if (isPaused == true)
                 {

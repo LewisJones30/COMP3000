@@ -132,7 +132,15 @@ public class MeleeWeapons : MonoBehaviour
                                 bonusDamagePower = 1f;
                             }
                             damageCalc = damageDealt * bonusDamagePower; //Additional calculation here if in Expert difficulty, to reduce damage.
-                            enemyScript.takeDamage(damageCalc);
+                            if (hit.collider.gameObject.CompareTag("FinalBoss"))
+                            {
+                                FinalBoss fbScript = hit.collider.gameObject.GetComponent<FinalBoss>();
+                                fbScript.DealDamage((float)damageCalc);
+                            }
+                            if (enemyScript != null)
+                            {
+                                enemyScript.takeDamage(damageCalc);
+                            }
                         }
                     }
                     }

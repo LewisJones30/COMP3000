@@ -177,14 +177,13 @@ public class TutorialHandler : MonoBehaviour
         animText["TextDisappear"].wrapMode = WrapMode.Once;
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "In this game, you start with buffs known as powers.\n" +
-            "You will be fighting hordes of monsters from the depths of hell.\n\n" +
-            "As you progress, Hell's influence over you will increase, and you will\n" +
-            "be forced to channel this into your powers, losing their effect.\n\n" +
-            "In this tutorial, you will be able to understand the basic premise\n" +
-            "of this game.\n" +
-            "Please press left click to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-700, 250, 0);
+        WelcomeText.GetComponent<Text>().text = "You have been cursed by the Devil himself.\n" +
+            "He plans to invade through the various portals here.\n" +
+            "As you progress through the hordes of enemies, the curse's corruption increases\n" +
+            "forcing you to channel this corruption into your powers, disabling their ability.\n" +
+            "In this tutorial, you will be able to understand this unique mechanic." +
+            "\nPlease press left click to continue!";
+        WelcomeText.transform.localPosition = new Vector3(-700, 300, 0);
         animText["TextAppear"].wrapMode = WrapMode.Once;
         animText.Play("TextAppear");
         TutorialStage = 4;
@@ -225,8 +224,8 @@ public class TutorialHandler : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         JumpingArrow.transform.localPosition = new Vector3(-481, -8, 0);
         JumpingArrow.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -90));
-        WelcomeText.transform.localPosition = new Vector3(-318, 0, 0);
-        animText.GetComponent<Text>().text = "These are your powers. You can see more in the pause menu ingame!";
+        WelcomeText.transform.localPosition = new Vector3(-318, 25, 0);
+        animText.GetComponent<Text>().text = "These are your powers. You can see the effects in the pause menu!";
         animText.Play("TextAppear");
         animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
         animArrow.Play("jumping arrow appear");
@@ -245,7 +244,7 @@ public class TutorialHandler : MonoBehaviour
         animArrow.Play("jumping arrow disappear");
         yield return new WaitForSeconds(0.5f);
         JumpingArrow.transform.localPosition = new Vector3(267, 459, 0);
-        WelcomeText.transform.localPosition = new Vector3(460, 504, 0);
+        WelcomeText.transform.localPosition = new Vector3(460, 575, 0);
         WelcomeText.GetComponent<Text>().text = "This is your point counter.\nThe higher the difficulty,\n the more points you'll get!";
         animText.Play("TextAppear");
         animArrow["jumping arrow appear"].wrapMode = WrapMode.Once;
@@ -264,8 +263,10 @@ public class TutorialHandler : MonoBehaviour
         animArrow.Play("jumping arrow disappear");
         yield return new WaitForSeconds(0.5f);
         Enemy1.transform.position = new Vector3(19.90631f, 1.021423f, -7.240521f);
-        WelcomeText.GetComponent<Text>().text = "To attack, press left click. You will fire a magical bullet at the enemy.\nKill this enemy to continue.";
-        WelcomeText.transform.localPosition = new Vector3(-483, 140, 0);
+        WelcomeText.GetComponent<Text>().text = "To attack, press left click. You will fire a magical bullet at the enemy.\nKill this enemy to continue.\n" +
+            "You can move by using WASD.\n" +
+            "To pause the game, simply press escape during the game.";
+        WelcomeText.transform.localPosition = new Vector3(-483, -20, 0);
         Enemy1.SetActive(true);
         animText.Play("TextAppear");
         Cursor.lockState = CursorLockMode.Locked;
@@ -279,7 +280,7 @@ public class TutorialHandler : MonoBehaviour
         UIControl.setLockPauseMenu(true);
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "Well done! Wave complete!";
+        WelcomeText.GetComponent<Text>().text = "Well done! Wave complete!\n The corruption inside you starts to grow...";
         animText.Play("TextAppear");
         yield return new WaitForSeconds(2f);
         animText.Play("TextDisappear");
@@ -287,7 +288,7 @@ public class TutorialHandler : MonoBehaviour
         animText.Play("TextAppear");
         WelcomeText.transform.localPosition = new Vector3(-233, 238, 0);
         WelcomeText.GetComponent<Text>().fontSize = 45;
-        animText.GetComponent<Text>().text = "As the game progresses, you must\nchannel corruption to your powers.\n\nThis means you will lose them.\nYou usually have a choice between two.\nTo continue, please drain the \nImmune to Death power.";
+        animText.GetComponent<Text>().text = "Choose a power to drain...";
         UIControl.SetIsPaused(true);
         UIControl.PowerDrainScreen(0, 0);
         TutorialStage = 14;
@@ -300,7 +301,8 @@ public class TutorialHandler : MonoBehaviour
         Animation animArrow = JumpingArrow.GetComponent<Animation>();
         animText.Play("TextDisappear");
         yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "Kill the final enemy to finish the tutorial.";
+        WelcomeText.GetComponent<Text>().text = "You are no longer immune to death!" +
+            "\nPlease kill the final enemy to complete the tutorial!";
         WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
         WelcomeText.GetComponent<Text>().fontSize = 60;
         animText.Play("TextAppear");
@@ -316,7 +318,9 @@ public class TutorialHandler : MonoBehaviour
         animText.Play("TextDisappear");
         UIControl.setLockPauseMenu(true);
         yield return new WaitForSeconds(0.5f);
-        WelcomeText.GetComponent<Text>().text = "Congratulations! Tutorial complete.\nReturning to the main menu in 10 seconds.";
+        WelcomeText.GetComponent<Text>().text = "Congratulations! Tutorial complete.\nNow you understand the basic mechanics of Regression!\n" +
+            "Good luck in slaying the devil's forces!\n" +
+            "Returning to the main menu in 10 seconds.";
         WelcomeText.transform.localPosition = new Vector3(-547, 271, 0);
         WelcomeText.GetComponent<Text>().fontSize = 60;
         animText.Play("TextAppear");

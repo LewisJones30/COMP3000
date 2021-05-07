@@ -616,7 +616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991359406b94f7041b84dfa6587e0bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 350
+  health: 300
   ExpertOnlyDamageReduction: 0.1
   enemyProjectile: {fileID: 0}
   attackSpeed: 2

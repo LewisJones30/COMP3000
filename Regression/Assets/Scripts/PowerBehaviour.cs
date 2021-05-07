@@ -385,7 +385,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         Power slot7 = new Power();
         slot7.SetID(6);
         slot7.SetPowerName("Wizard's Words");
-        slot7.SetPowerDescription("Magical weapons attack faster.");
+        slot7.SetPowerDescription("Magical weapons attack 33% faster.");
         slot7.SetPowerAvailable(true);
         slot7.SetPowerActive(false);
         slot7.SetPowerStartedActive(false);
@@ -405,7 +405,7 @@ public class PowerBehaviour : MonoBehaviour //THE GAMEOBJECT THAT THIS SCRIPT IS
         Power slot9 = new Power();
         slot9.SetID(8);
         slot9.SetPowerName("Warrior Spirit");
-        slot9.SetPowerDescription("Swords deal more damage and penetrate armour better.");
+        slot9.SetPowerDescription("Swords deal 50% damage to all enemies.");
         slot9.SetPowerAvailable(true);
         slot9.SetPowerActive(false);
         slot9.SetPowerStartedActive(false);

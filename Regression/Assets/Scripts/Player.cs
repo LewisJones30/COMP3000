@@ -153,7 +153,6 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F12))
         {
-            playerdiedScript();
         }
         if (isPausedCheck.GetIsPaused())
         {
@@ -181,10 +180,6 @@ public class Player : MonoBehaviour
                 rainAvailable = true;
                 rainEffectCD = 30.0f;
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.F9))
-        {
-            playerdiedScript();
         }
         else if (powerController.powerHandler[3].GetPowerActive()) //Starts time from when the player recieves the power.
         {

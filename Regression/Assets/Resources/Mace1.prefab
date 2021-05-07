@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 1.5
-  damageDealt: 40
+  damageDealt: 60
   collisionDetection: {fileID: 0}
 --- !u!1001 &5252315612256292415
 PrefabInstance:

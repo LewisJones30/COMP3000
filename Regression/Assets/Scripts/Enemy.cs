@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
     float startingScaleX, startingScaleY, startingScaleZ;
     float inflatedScaleX, inflatedScaleY, inflatedScaleZ;
     TutorialHandler TutorialStatus;
+    bool enemyIsDead = false; //Prevent multiple point additions!
 
     // Start is called before the first frame update
     void Start()
@@ -163,10 +164,18 @@ public class Enemy : MonoBehaviour
     }
     public void takeDamage(double damageToTake)
     {
+        if (enemyIsDead)
+        {
+            return;
+        }
         health -= damageToTake;
         StartCoroutine("flashDamaged");
         if (health <= 0)
         {
+            if (!enemyIsDead)
+            {
+                enemyIsDead = true;
+            }
             float dist = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
             float volume;
             //Determine the distance away from the player for the volume
@@ -183,14 +192,18 @@ public class Enemy : MonoBehaviour
     { 
 
         animator.SetBool("isDead", true);
-        pauseCheck.AddPoints(pointsWhenKilled);
+
         yield return new WaitForSeconds(1f);
         if (TutorialStatus.GetTutorialStage() > 0) //If the tutorial is active, trigger "TutorialEnemyKilled".
         {
             TutorialStatus.TutorialEnemyKilled();
             Destroy(this.gameObject);
         }
-        progressionController.enemyKilled(FinalBossMinion);
+        if (enemyIsDead)
+        {
+            pauseCheck.AddPoints(pointsWhenKilled);
+            progressionController.enemyKilled(FinalBossMinion);
+        }
         Destroy(this.gameObject); //Kill enemy
     }
     IEnumerator flashDamaged()

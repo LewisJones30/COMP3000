@@ -118,6 +118,12 @@ public class ButtonCaller : MonoBehaviour
         ui.setLockPauseMenu(false);
         ui.returnToMainGame();
         Cursor.lockState = CursorLockMode.None;
+        if (TutStatus.GetTutorialStage() > 0) //Skip weapon selection.
+        {
+            progressionCheck.SetWaveComplete(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            return;
+        }
         ui.WeaponSelection();
         progressionCheck.SetWaveComplete(false);
     }
