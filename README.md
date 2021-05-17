@@ -13,7 +13,7 @@ Regression is a first person 3D game, where you fight hordes of enemies from the
     
 -   Four unique enemy types will test your skills. These enemies are weak, but appear far more powerful in later rounds.
     
--   Two different weapons - Will you use the staff which allows you to damage enemies from far away, making it easier to dodge enemies, or use the mace which gives you a damage reduction and deals far more damage than the staff, but in exchange for having to get much closer to the enemies.
+-   Two different weapons - Will you use the staff which allows you to damage enemies from far away, making it easier to dodge enemies, or use the mace which gives you a damage reduction and deals far more damage than the staff, but in exchange for having to get much closer to the enemies?
 
 ## Screenshots
 ![Screenshot 1](https://i.gyazo.com/b561bc60b6a024fa6c015e704e2a9e91.jpg)
